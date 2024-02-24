@@ -8,36 +8,36 @@ import { createReducerManager } from './reducerManager';
 import { StateSchema, ThunkExtraArg } from './StateSchema';
 
 export function createReduxStore(
-    initialState?: StateSchema,
-    asyncReducers?: ReducersMapObject<StateSchema>,
-    navigate?: (to: To, options?: NavigateOptions) => void,
+  initialState?: StateSchema,
+  asyncReducers?: ReducersMapObject<StateSchema>,
+  navigate?: (to: To, options?: NavigateOptions) => void,
 ) {
-    const rootReducers: ReducersMapObject<StateSchema> = {
-        ...asyncReducers,
-        user: userReducer,
-    };
+  const rootReducers: ReducersMapObject<StateSchema> = {
+    ...asyncReducers,
+    user: userReducer,
+  };
 
-    const reducerManager = createReducerManager(rootReducers);
+  const reducerManager = createReducerManager(rootReducers);
 
-    const extraArg: ThunkExtraArg = {
-        navigate,
-    };
+  const extraArg: ThunkExtraArg = {
+    navigate,
+  };
 
-    const store = configureStore({
-        reducer: reducerManager.reduce as Reducer<CombinedState<StateSchema>>,
-        devTools: __IS_DEV__,
-        preloadedState: initialState,
-        middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-            thunk: {
-                extraArgument: extraArg,
-            },
-        }),
-    });
+  const store = configureStore({
+    reducer: reducerManager.reduce as Reducer<CombinedState<StateSchema>>,
+    devTools: __IS_DEV__,
+    preloadedState: initialState,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+      thunk: {
+        extraArgument: extraArg,
+      },
+    }),
+  });
 
-    // @ts-ignore
-    store.reducerManager = reducerManager;
+  // @ts-ignore
+  store.reducerManager = reducerManager;
 
-    return store;
+  return store;
 }
 
 export type Store = ReturnType<typeof createReduxStore>

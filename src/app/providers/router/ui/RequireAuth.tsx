@@ -4,12 +4,12 @@ import { Navigate, useLocation } from 'react-router-dom';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 
 export function RequireAuth({ children }: { children: JSX.Element }) {
-    const auth = useSelector(getUserAuthData);
-    const location = useLocation();
+  const auth = useSelector(getUserAuthData);
+  const location = useLocation();
 
-    if (!auth) {
-        return <Navigate to={RoutePath.Main} state={{ from: location }} replace />;
-    }
+  if (!auth) {
+    return <Navigate to={RoutePath.Main} state={{ from: location }} replace />;
+  }
 
-    return children;
+  return children;
 }

@@ -8,25 +8,25 @@ import { addSecretBeforeRequest } from './addSecretBeforeRequest/addSecretBefore
 import { SecretRefreshResult, refreshSecret } from './refreshSecret/refreshSecret';
 
 export const setupInterceptors = (store: Store) => {
-    const getSecret = async (): Promise<string | null> => {
-        const secret = await UserSecretStorageService.get();
-        return secret ?? null;
-    };
+  const getSecret = async (): Promise<string | null> => {
+    const secret = await UserSecretStorageService.get();
+    return secret ?? null;
+  };
 
-    http.interceptors.request.use((config) => addSecretBeforeRequest(config, getSecret));
+  http.interceptors.request.use((config) => addSecretBeforeRequest(config, getSecret));
 
-    const handleSecretRefresh = async (error: AxiosError): SecretRefreshResult => {
-        const secret = await UserSecretStorageService.get();
+  const handleSecretRefresh = async (error: AxiosError): SecretRefreshResult => {
+    const secret = await UserSecretStorageService.get();
 
-        if (error.response?.status === 401) {
-            // TODO: настроить рефрешь
-        }
+    if (error.response?.status === 401) {
+      // TODO: настроить рефрешь
+    }
 
-        throw error;
-    };
+    throw error;
+  };
 
-    http.interceptors.response.use(
-        (config) => config,
-        (error) => refreshSecret(error, () => handleSecretRefresh(error)),
-    );
+  http.interceptors.response.use(
+    (config) => config,
+    (error) => refreshSecret(error, () => handleSecretRefresh(error)),
+  );
 };
