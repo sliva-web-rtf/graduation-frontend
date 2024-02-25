@@ -1,9 +1,14 @@
 :root {
-    --font-family-main: serif;
-
     // Размеры
+    --space-s: 8px;
+    --space-m: calc(var(--space-s) * 2);
+    --space-l: calc(var(--space-s) * 3);
+    --space-xl: calc(var(--space-s) * 4);
 
     // z - Индексы
 
     // Цвета
+    --bg-color: #F4F9FD;
+    --primary-color: #408DFF;
+    --light-primary-color: #A6C8FF;
 }
