@@ -1,11 +1,13 @@
-import { Button } from '@mui/material';
+import { Box, TextField } from '@mui/material';
 import { BaseButton } from 'shared/ui/Button/Button';
+import { BaseField } from 'shared/ui/Field/Field';
 
 const MainPage = () => (
-  <div>
-    <BaseButton>123</BaseButton>
+  <Box sx={{ padding: '8px' }}>
+    <BaseField multiline />
+    <BaseButton variant="shadowed">123</BaseButton>
     Main
-  </div>
+  </Box>
 );
 
 export default MainPage;

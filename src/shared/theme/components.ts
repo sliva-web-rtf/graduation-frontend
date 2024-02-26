@@ -1,6 +1,5 @@
 import { Components, Theme } from '@mui/material';
-import { blue, red } from '@mui/material/colors';
-import shadows from '@mui/material/styles/shadows';
+import { shadows } from './shadows';
 
 declare module '@mui/material/Button' {
   interface ButtonPropsVariantOverrides {
@@ -14,10 +13,9 @@ export const components: Components<Omit<Theme, 'components'>> | undefined = {
       {
         props: { variant: 'shadowed' },
         style: {
-          boxShadow: shadows['4'],
+          boxShadow: shadows['1'],
         },
       },
-
     ],
   },
 };
