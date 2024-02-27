@@ -1,13 +1,15 @@
 import { AxiosError } from 'axios';
 
-import { Store } from 'app/providers/StoreProvider/config/store';
-import { http } from 'shared/api/api';
 import { UserSecretStorageService } from 'shared/lib/helpers/userSecretStorage';
+import { http } from 'shared/api/api';
+import { addSecretBeforeRequest } from 'app/interceptors/addSecretBeforeRequest/addSecretBeforeRequest';
+import { SecretRefreshResult, refreshSecret } from 'app/interceptors/refreshSecret/refreshSecret';
 
-import { addSecretBeforeRequest } from './addSecretBeforeRequest/addSecretBeforeRequest';
-import { SecretRefreshResult, refreshSecret } from './refreshSecret/refreshSecret';
+import { useAppDispatch } from '../useAppDispatch/useAppDispatch';
 
-export const setupInterceptors = (store: Store) => {
+const useAxios = () => {
+  const dispatch = useAppDispatch();
+
   const getSecret = async (): Promise<string | null> => {
     const secret = await UserSecretStorageService.get();
     return secret ?? null;
@@ -16,9 +18,8 @@ export const setupInterceptors = (store: Store) => {
   http.interceptors.request.use((config) => addSecretBeforeRequest(config, getSecret));
 
   const handleSecretRefresh = async (error: AxiosError): SecretRefreshResult => {
-    const secret = await UserSecretStorageService.get();
-
     if (error.response?.status === 401) {
+      // dispatch(refreshSecret())
       // TODO: настроить рефрешь
     }
 
@@ -30,3 +31,5 @@ export const setupInterceptors = (store: Store) => {
     (error) => refreshSecret(error, () => handleSecretRefresh(error)),
   );
 };
+
+export default useAxios;

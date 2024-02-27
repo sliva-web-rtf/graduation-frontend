@@ -4,6 +4,7 @@ import { To } from 'history';
 import { NavigateOptions } from 'react-router';
 import { CombinedState, Reducer } from 'redux';
 
+import { http } from 'shared/api/api';
 import { createReducerManager } from './reducerManager';
 import { StateSchema, ThunkExtraArg } from './StateSchema';
 
@@ -20,7 +21,7 @@ export function createReduxStore(
   const reducerManager = createReducerManager(rootReducers);
 
   const extraArg: ThunkExtraArg = {
-    navigate,
+    api: http,
   };
 
   const store = configureStore({
