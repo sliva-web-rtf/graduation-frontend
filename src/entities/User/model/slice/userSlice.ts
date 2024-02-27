@@ -1,9 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { UserSecretStorageService } from 'shared/lib/helpers/userSecretStorage';
-import { UserSchema } from '../types/user';
+import { User, UserSchema } from '../types/user';
 
 const initialState: UserSchema = {
-  _isInited: true,
+  _isInited: false,
 };
 
 export const userSlice = createSlice({
@@ -13,6 +13,10 @@ export const userSlice = createSlice({
     logout: (state) => {
       state.authData = undefined;
       UserSecretStorageService.clear();
+    },
+    setAuthData: (state, action: PayloadAction<User>) => {
+      state.authData = action.payload;
+      state._isInited = true;
     },
   },
 });
