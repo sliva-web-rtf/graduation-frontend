@@ -1,7 +1,17 @@
 @import "reset";
 @import "variables/global";
 @import "fonts";
+@import "catalog";
 
 body {
-  background-color: var(--bg-color);
+  padding: 16px 40px;
 }
+
+.page-wrapper {
+  width: 1440px;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  column-gap: 40px;
+  margin: 0 auto;
+}
+

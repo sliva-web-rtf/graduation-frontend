@@ -1,9 +1,10 @@
 import { FC } from 'react';
 import { theme } from 'shared/theme';
-import { ThemeProvider as Theme } from '@mui/material';
+import { GlobalStyles, ThemeProvider as Theme } from '@mui/material';
 
 const ThemeProvider: FC = ({ children }) => (
   <Theme theme={theme}>
+    <GlobalStyles styles={{ body: { backgroundColor: 'var(--bg-color)' } }} />
     {children}
   </Theme>
 );

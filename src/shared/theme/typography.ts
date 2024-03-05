@@ -37,6 +37,12 @@ export const typography: TypographyOptions | ((palette: Palette) => TypographyOp
     lineHeight: '110%',
     letterSpacing: '0',
   },
+  subtitle2: {
+    fontSize: '14px',
+    fontWeight: '500',
+    lineHeight: '110%',
+    letterSpacing: '0',
+  },
   body2: {
     fontSize: '18px',
     fontWeight: '400',
