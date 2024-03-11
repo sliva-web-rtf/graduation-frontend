@@ -1,10 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { User, userActions } from 'entities/User';
 import { ThunkConfig } from 'app/providers/StoreProvider';
-import { UserSecretStorageService } from 'shared/lib/helpers/userSecretStorage';
+import { User, userActions } from 'entities/User';
 
-export const loginByEmail = createAsyncThunk<
+export const getUser = createAsyncThunk<
     User,
     void,
     ThunkConfig<string>
@@ -20,12 +19,14 @@ export const loginByEmail = createAsyncThunk<
         throw new Error();
       }
 
-      UserSecretStorageService.save(JSON.stringify(response.data));
       dispatch(userActions.setAuthData(response.data));
       return response.data;
     } catch (e) {
-      // TODO: сделать нормальный catching errors.
-      return rejectWithValue('error');
+      dispatch(userActions.setInitValue(true));
+      if (e instanceof Error) {
+        return rejectWithValue(e.message);
+      }
+      return rejectWithValue('неизвестная ошибка');
     }
   },
 );

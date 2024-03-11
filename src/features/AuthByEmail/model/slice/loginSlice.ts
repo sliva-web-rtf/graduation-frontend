@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { loginByEmail } from '../services/loginByEmail';
 import { LoginSchema } from '../types/loginSchema';
-import { loginByEmail } from '../services/loginByUsername';
 
 const initialState: LoginSchema = {
   isLoading: false,
@@ -12,7 +12,7 @@ export const loginSlice = createSlice({
   name: 'login',
   initialState,
   reducers: {
-    setUsername: (state, action: PayloadAction<LoginSchema['email']>) => {
+    setEmail: (state, action: PayloadAction<LoginSchema['email']>) => {
       state.email = action.payload;
     },
     setPassword: (state, action: PayloadAction<LoginSchema['password']>) => {

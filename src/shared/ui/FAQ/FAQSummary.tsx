@@ -1,9 +1,9 @@
-import { ReactNode, useState } from 'react';
+import AddRoundedIcon from '@mui/icons-material/AddRounded';
+import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
 import {
   AccordionSummary, AccordionSummaryProps, styled, Typography,
 } from '@mui/material';
-import AddRoundedIcon from '@mui/icons-material/AddRounded';
-import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
+import { ReactNode, useState } from 'react';
 
 export const FAQSummary = styled((props: AccordionSummaryProps & { children: ReactNode }) => {
   const [expanded, setExpanded] = useState(false);

@@ -1,8 +1,12 @@
-import { FC } from 'react';
-import { theme } from 'shared/theme';
 import { ThemeProvider as Theme } from '@mui/material';
+import { FC, ReactNode } from 'react';
+import { theme } from 'shared/theme';
 
-const ThemeProvider: FC = ({ children }) => (
+interface ThemeProviderProps {
+  children?: ReactNode
+}
+
+const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => (
   <Theme theme={theme}>
     {children}
   </Theme>

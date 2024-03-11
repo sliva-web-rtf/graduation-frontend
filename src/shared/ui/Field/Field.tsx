@@ -1,7 +1,7 @@
 import { TextField, styled, TextFieldProps } from '@mui/material';
 
 export const BaseField = styled(TextField)<TextFieldProps>(({ theme }) => ({
-  '&': {
+  '& .MuiInputBase-root': {
     borderRadius: '16px',
     boxShadow: theme.shadows['1'],
   },
@@ -12,7 +12,11 @@ export const BaseField = styled(TextField)<TextFieldProps>(({ theme }) => ({
   '& .Mui-focused .MuiOutlinedInput-notchedOutline': {
     border: `2px solid ${theme.palette.primary.main}`,
   },
-  '& .Mui-error .MuiOutlinedInput-notchedOutline': {
+  '& .MuiInputBase-root.Mui-error': {
+    boxShadow: theme.shadows['0'],
     border: `2px solid ${theme.palette.error.main}`,
+  },
+  '& .Mui-error.Mui-focused .MuiOutlinedInput-notchedOutline': {
+    border: 'none',
   },
 }));

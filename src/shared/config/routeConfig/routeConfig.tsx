@@ -1,4 +1,5 @@
 import { RouteProps } from 'react-router-dom';
+import { LoginPage } from 'pages/LoginPage';
 import { MainPage } from 'pages/MainPage';
 
 export type AppRoutesProps = RouteProps & {
@@ -11,7 +12,7 @@ export enum AppRoutes {
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
-  [AppRoutes.Main]: '/',
+  [AppRoutes.Main]: '/main',
   [AppRoutes.Login]: '/login',
 };
 
@@ -19,9 +20,11 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.Main]: {
     path: RoutePath.Main,
     element: <MainPage />,
+    authOnly: true,
   },
   [AppRoutes.Login]: {
-    path: `${RoutePath.Login}`,
-    element: <div>123</div>,
+    path: RoutePath.Login,
+    element: <LoginPage />,
+    authOnly: false,
   },
 };

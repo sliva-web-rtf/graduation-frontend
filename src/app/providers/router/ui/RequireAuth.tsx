@@ -1,15 +1,30 @@
 import { useSelector } from 'react-redux';
-import { getUserAuthData } from 'entities/User';
 import { Navigate, useLocation } from 'react-router-dom';
-import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 
-export function RequireAuth({ children }: { children: JSX.Element }) {
+import { getUserAuthData } from 'entities/User';
+import { RoutePath } from 'shared/config/routeConfig/routeConfig';
+import { ReactNode, FC } from 'react';
+
+interface RequireAuthProps {
+  children: ReactNode,
+  isAuth: boolean,
+}
+
+export const RequireAuth: FC<RequireAuthProps> = ({ children, isAuth }) => {
   const auth = useSelector(getUserAuthData);
   const location = useLocation();
 
-  if (!auth) {
-    return <Navigate to={RoutePath.Main} state={{ from: location }} replace />;
+  if (!auth && isAuth) {
+    return <Navigate to={RoutePath.Login} state={{ from: location }} replace />;
   }
 
-  return children;
-}
+  if (auth && !isAuth) {
+    return <Navigate to={RoutePath.Main} replace />;
+  }
+
+  return (
+    <>
+      { children }
+    </>
+  );
+};

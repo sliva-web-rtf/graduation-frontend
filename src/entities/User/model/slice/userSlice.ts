@@ -14,6 +14,9 @@ export const userSlice = createSlice({
       state.authData = undefined;
       UserSecretStorageService.clear();
     },
+    setInitValue: (state, action: PayloadAction<boolean>) => {
+      state._isInited = action.payload;
+    },
     setAuthData: (state, action: PayloadAction<User>) => {
       state.authData = action.payload;
       state._isInited = true;

@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { ThunkConfig } from 'app/providers/StoreProvider';
 import { UserSecretStorageService } from 'shared/lib/helpers/userSecretStorage';
-import { TokenDto } from 'features/AuthByEmail/model/types/dto/token.dto';
+import { Token } from '../types/token';
 
 export const refreshToken = createAsyncThunk<
     void,
@@ -14,18 +14,22 @@ export const refreshToken = createAsyncThunk<
     const { extra, rejectWithValue } = thunkApi;
 
     try {
-      const response = await extra.api.put<TokenDto>('/api/auth');
+      const token = await UserSecretStorageService.get();
+      const response = await extra.api.put<Token>('/api/auth', {
+        token,
+      });
 
       if (!response.data) {
         throw new Error();
       }
       UserSecretStorageService.save(response.data.token);
 
-      return;
+      return undefined;
     } catch (e) {
-      // TODO: сделать нормальный catching errors.
-      // eslint-disable-next-line consistent-return
-      return rejectWithValue('error');
+      if (e instanceof Error) {
+        return rejectWithValue(e.message);
+      }
+      return rejectWithValue('неизвестная ошибка');
     }
   },
 );

@@ -1,9 +1,10 @@
 import { AxiosError } from 'axios';
 
-import { UserSecretStorageService } from 'shared/lib/helpers/userSecretStorage';
-import { http } from 'shared/api/api';
 import { addSecretBeforeRequest } from 'app/interceptors/addSecretBeforeRequest/addSecretBeforeRequest';
 import { SecretRefreshResult, refreshSecret } from 'app/interceptors/refreshSecret/refreshSecret';
+import { refreshToken } from 'entities/User/model/services/refreshToken';
+import { http } from 'shared/api/api';
+import { UserSecretStorageService } from 'shared/lib/helpers/userSecretStorage';
 
 import { useAppDispatch } from '../useAppDispatch/useAppDispatch';
 
@@ -19,8 +20,8 @@ const useAxios = () => {
 
   const handleSecretRefresh = async (error: AxiosError): SecretRefreshResult => {
     if (error.response?.status === 401) {
-      // dispatch(refreshSecret())
-      // TODO: настроить рефрешь
+      /** TODO: пересмотреть решение на инвалидирование react query */
+      dispatch(refreshToken());
     }
 
     throw error;

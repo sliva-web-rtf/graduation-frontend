@@ -1,7 +1,7 @@
-import { ReactNode } from 'react';
 import {
   AccordionDetails, AccordionDetailsProps, styled, Typography,
 } from '@mui/material';
+import { ReactNode } from 'react';
 
 export const FAQDetails = styled((props: AccordionDetailsProps & { children: ReactNode }) => (
   <AccordionDetails {...props}>

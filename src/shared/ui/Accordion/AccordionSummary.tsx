@@ -1,8 +1,8 @@
-import { ReactNode } from 'react';
+import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 import {
   AccordionSummary, AccordionSummaryProps, styled, Typography,
 } from '@mui/material';
-import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
+import { ReactNode } from 'react';
 
 export const BaseAccordionSummary = styled((props: AccordionSummaryProps & { children: ReactNode }) => (
   <AccordionSummary expandIcon={<KeyboardArrowDownRoundedIcon />} {...props}>

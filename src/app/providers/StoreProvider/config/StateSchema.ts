@@ -1,14 +1,17 @@
-import { UserSchema } from 'entities/User';
 import {
   AnyAction, EnhancedStore, Reducer, ReducersMapObject,
 } from '@reduxjs/toolkit';
-import { CombinedState } from 'redux';
 import { AxiosInstance } from 'axios';
+import { CombinedState } from 'redux';
+
+import { LoginSchema } from 'features/AuthByEmail/model/types/loginSchema';
+import { UserSchema } from 'entities/User';
 
 export interface StateSchema {
     user: UserSchema;
 
     // Асинхронные редюсеры
+    loginForm?: LoginSchema
 }
 
 export type StateSchemaKey = keyof StateSchema;
