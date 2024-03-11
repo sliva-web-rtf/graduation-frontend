@@ -1,0 +1,5 @@
+.catalogList {
+  display: grid;
+  gap: var(--space-l);
+  margin: var(--space-xl) 0 calc(2 * var(--space-l));
+}

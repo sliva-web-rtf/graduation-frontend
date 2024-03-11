@@ -1,14 +1,18 @@
 import { NavLink, useLocation } from 'react-router-dom';
 import { BaseTabs, BaseTab, TabLabel } from 'shared/ui/Tabs/Tabs';
-import { TABS } from 'features/NavigationMenu/model/const';
+import { memo } from 'react';
+import { TabsProps } from '@mui/material';
+import { TABS } from '../model/const';
 
-const NavigationMenu = () => {
+export const NavigationMenu = memo((props: TabsProps) => {
   const location = useLocation();
+
   return (
     <BaseTabs
       orientation="vertical"
       indicatorColor="primary"
       value={location.pathname}
+      {...props}
     >
       {TABS.map((item) => (
         <BaseTab
@@ -17,11 +21,8 @@ const NavigationMenu = () => {
           value={item.path}
           component={NavLink}
           to={item.path}
-          startIcon={item.startIcon}
         />
       ))}
     </BaseTabs>
   );
-};
-
-export default NavigationMenu;
+});

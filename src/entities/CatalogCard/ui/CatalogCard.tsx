@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { memo } from 'react';
 import { Box, Typography } from '@mui/material';
 import { BaseChip } from 'shared/ui/Chip/Chip';
 import { BaseButton } from 'shared/ui/Button/Button';
@@ -7,7 +7,7 @@ import { ICatalogCard } from 'entities/CatalogCard/model/types/ICatalogCard';
 import { BaseList } from 'shared/ui/List/List';
 import styles from './CatalogCard.module.scss';
 
-const CatalogCard: FC<ICatalogCard> = (props) => {
+export const CatalogCard = memo((props: ICatalogCard) => {
   const {
     title, chips, subtitle, status, image, limit,
   } = props;
@@ -53,6 +53,4 @@ const CatalogCard: FC<ICatalogCard> = (props) => {
       </Box>
     </Box>
   );
-};
-
-export default CatalogCard;
+});

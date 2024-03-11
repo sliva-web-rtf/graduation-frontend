@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { memo } from 'react';
 import {
+  AppBarProps,
   Avatar, Badge, Box, IconButton, Toolbar,
 } from '@mui/material';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import WorkspacePremiumOutlinedIcon from '@mui/icons-material/WorkspacePremiumOutlined';
 import NotificationsNoneRoundedIcon from '@mui/icons-material/NotificationsNoneRounded';
 import { BaseAppBar } from 'shared/ui/AppBar/AppBar';
-import { theme } from 'shared/theme';
 
-const MenuBar = () => (
-  <Box sx={{ padding: `0 ${theme.spacing(1)}` }}>
-    <BaseAppBar position="static">
+interface MenuBarProps extends AppBarProps {
+}
+
+export const MenuBar = memo(({ sx, ...props }: MenuBarProps) => (
+  <Box sx={sx}>
+    <BaseAppBar position="static" {...props}>
       <Toolbar>
         <Avatar sx={{ width: 48, height: 48 }}>A</Avatar>
         <IconButton color="primary"><SettingsOutlinedIcon /></IconButton>
@@ -21,6 +24,4 @@ const MenuBar = () => (
       </Toolbar>
     </BaseAppBar>
   </Box>
-);
-
-export default MenuBar;
+));

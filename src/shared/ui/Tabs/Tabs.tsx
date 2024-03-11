@@ -9,7 +9,6 @@ interface BaseTabsProps extends TabsProps {
 
 interface BaseTabProps extends TabProps {
   to: string;
-  startIcon: ReactNode;
 }
 
 interface TabLabelProps {
@@ -17,13 +16,7 @@ interface TabLabelProps {
   startIcon: ReactNode;
 }
 
-const BaseTabs = styled(Tabs)<BaseTabsProps>(({ theme }) => ({
-  '&': {
-    paddingLeft: theme.spacing(1),
-  },
-  '& .MuiTabs-flexContainer': {
-    marginTop: theme.spacing(2),
-  },
+const BaseTabs = styled(Tabs)<BaseTabsProps>(() => ({
   '& .MuiTabs-indicator': {
     width: '4px',
   },

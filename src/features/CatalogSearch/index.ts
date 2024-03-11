@@ -1,5 +1,3 @@
-import CatalogSearch from './ui/CatalogSearch';
-
 export {
   CatalogSearch,
-};
+} from './ui/CatalogSearch';

@@ -1,8 +1,9 @@
 import { Box, Typography } from '@mui/material';
-import Catalog from 'widgets/Catalog/ui/Catalog';
+import { Catalog } from 'widgets/Catalog';
+import styles from './CatalogPage.module.scss';
 
 const CatalogPage = () => (
-  <Box className="catalog">
+  <Box className={styles.catalog}>
     <Typography variant="h1">Каталог</Typography>
     <Catalog />
   </Box>

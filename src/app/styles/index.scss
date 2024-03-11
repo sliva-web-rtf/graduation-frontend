@@ -1,17 +1,13 @@
 @import "reset";
 @import "variables/global";
 @import "fonts";
-@import "catalog";
-
-body {
-  padding: 16px 40px;
-}
 
 .page-wrapper {
-  width: 1440px;
+  width: var(--page-width);
   display: grid;
-  grid-template-columns: 240px 1fr;
-  column-gap: 40px;
+  grid-template-columns: var(--sidebar-width) 1fr;
+  column-gap: var(--space-xl);
+  padding: var(--space-m) 0;
   margin: 0 auto;
 }
 

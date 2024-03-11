@@ -1,15 +1,22 @@
-import React, { FC } from 'react';
+import { memo, useCallback } from 'react';
 import { ICatalogCard } from 'entities/CatalogCard/model/types/ICatalogCard';
 import { BaseList } from 'shared/ui/List/List';
+import { CatalogCard } from 'entities/CatalogCard';
 import { ICatalogList } from '../model/types/ICatalogList';
-import CatalogCard from '../../../entities/CatalogCard/ui/CatalogCard';
+import styles from './CatalogList.module.scss';
 
-const CatalogList: FC<ICatalogList> = ({ items }) => (
-  <BaseList
-    className="catalog__list"
-    items={items}
-    render={(item: ICatalogCard) => <CatalogCard key={item.title} {...item} />}
-  />
-);
+export const CatalogList = memo((props: ICatalogList) => {
+  const { items } = props;
+  const render = useCallback(
+    (item: ICatalogCard) => <CatalogCard key={item.title} {...item} />,
+    [],
+  );
 
-export default CatalogList;
+  return (
+    <BaseList
+      className={styles.catalogList}
+      items={items}
+      render={render}
+    />
+  );
+});

@@ -3,7 +3,8 @@ import { grey } from '@mui/material/colors';
 
 export const BaseButton = styled(Button)<ButtonProps>(() => ({
   '&': {
-    borderRadius: '16px',
+    borderRadius: 'var(--border-radius)',
+    textTransform: 'none',
   },
   '&.MuiButton-outlined': {
     borderColor: grey['500'],

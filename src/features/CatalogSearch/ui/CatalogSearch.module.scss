@@ -1,0 +1,6 @@
+.catalogSearch {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  column-gap: var(--space-m);
+  margin: var(--space-xl) 0;
+}

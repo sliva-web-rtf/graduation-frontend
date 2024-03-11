@@ -41,9 +41,6 @@ export const StyledPagination = styled((props: PaginationProps) => (
     {...props}
   />
 ))(({ theme }) => ({
-  '&': {
-    marginTop: theme.spacing(6),
-  },
   '& .MuiPaginationItem-page, .MuiPaginationItem-previousNext': {
     color: theme.palette.primary.light,
     fontWeight: 600,

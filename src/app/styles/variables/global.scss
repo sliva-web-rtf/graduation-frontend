@@ -1,15 +1,19 @@
 :root {
-    // Размеры
-    --space-s: 8px;
-    --space-m: calc(var(--space-s) * 2);
-    --space-l: calc(var(--space-s) * 3);
-    --space-xl: calc(var(--space-s) * 4);
-    --border-radius: 16px;
+  // Размеры
+  --space-s: 8px;
+  --space-m: calc(var(--space-s) * 2);
+  --space-l: calc(var(--space-s) * 3);
+  --space-xl: calc(var(--space-s) * 4);
+  --border-radius: 16px;
+  --page-width: 1440px;
+  --sidebar-width: 240px;
+  --sidebar-height: 700px;
+  --catalog-card-height: 144px;
 
-    // z - Индексы
+  // z - Индексы
 
-    // Цвета
-    --bg-color: #F4F9FD;
-    --primary-color: #408DFF;
-    --light-primary-color: #A6C8FF;
+  // Цвета
+  --bg-color: #F4F9FD;
+  --primary-color: #408DFF;
+  --light-primary-color: #A6C8FF;
 }

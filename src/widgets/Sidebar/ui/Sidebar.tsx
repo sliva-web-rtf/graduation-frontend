@@ -1,20 +1,26 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import Logo from 'shared/ui/Logo/Logo';
-import { MenuBar } from 'features/MenuBar';
-import { NavigationMenu } from 'features/NavigationMenu';
 import { BaseButton } from 'shared/ui/Button/Button';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
+import { MenuBar } from 'widgets/MenuBar';
+import { NavigationMenu } from 'widgets/NavigationMenu';
 import styles from './Sidebar.module.scss';
 
-const Sidebar = () => (
-  <Box sx={{ background: (theme) => theme.palette.background.default }} className={styles.wrapper}>
+export const Sidebar = () => (
+  <Box
+    sx={{ backgroundColor: (theme) => theme.palette.background.default }}
+    className={styles.wrapper}
+  >
     <Logo />
-    <MenuBar />
-    <NavigationMenu />
+    <MenuBar sx={{
+      marginTop: (theme) => theme.spacing(2),
+      paddingRight: (theme) => theme.spacing(1),
+    }}
+    />
+    <NavigationMenu sx={{ marginTop: (theme) => theme.spacing(2) }} />
     <BaseButton
       sx={{
-        padding: (theme) => `${theme.spacing(1)} 12px`,
         marginLeft: (theme) => theme.spacing(1),
         marginTop: 'auto',
         alignSelf: 'flex-start',
@@ -26,5 +32,3 @@ const Sidebar = () => (
     </BaseButton>
   </Box>
 );
-
-export default Sidebar;
