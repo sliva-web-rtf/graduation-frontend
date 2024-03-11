@@ -1,4 +1,3 @@
-import { Suspense } from 'react';
 import { useSelector } from 'react-redux';
 import { getUserInited } from 'entities/User';
 
@@ -9,9 +8,7 @@ function App() {
 
   return (
     <div>
-      <Suspense fallback="">
-        {inited && <AppRouter />}
-      </Suspense>
+      {inited && <AppRouter />}
     </div>
   );
 }

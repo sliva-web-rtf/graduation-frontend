@@ -1,22 +1,20 @@
 import { createTheme } from '@mui/material';
+import { blue, red } from '@mui/material/colors';
+
+import { shadows } from './shadows';
+import { typography } from './typography';
+import { components } from './components';
 
 export const theme = createTheme({
   palette: {
     primary: {
-      main: '#408DFF',
+      main: blue['600'],
     },
     error: {
-      main: '#FF0000',
-    },
-    warning: {
-      main: '#FFC000',
+      main: red['500'],
     },
   },
-  typography: {
-    fontFamily: [
-      'Manrope',
-      'Geologica',
-      'sans-serif',
-    ].join(','),
-  },
+  shadows,
+  typography,
+  components,
 });

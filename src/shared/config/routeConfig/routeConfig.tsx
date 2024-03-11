@@ -22,7 +22,6 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   },
   [AppRoutes.Login]: {
     path: `${RoutePath.Login}`,
-    element: <div />,
-    authOnly: true,
+    element: <div>123</div>,
   },
 };

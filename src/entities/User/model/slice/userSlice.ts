@@ -3,7 +3,7 @@ import { UserSecretStorageService } from 'shared/lib/helpers/userSecretStorage';
 import { UserSchema } from '../types/user';
 
 const initialState: UserSchema = {
-  _isInited: false,
+  _isInited: true,
 };
 
 export const userSlice = createSlice({

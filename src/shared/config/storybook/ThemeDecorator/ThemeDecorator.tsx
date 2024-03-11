@@ -1,14 +1,13 @@
-import { CssBaseline } from '@mui/material';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 import { Story } from '@storybook/react';
 
-import ThemeProvider from 'app/providers/ThemeProvider/ui/ThemeProvider';
+import { theme } from 'shared/theme';
 
-export const ThemeDecorator = () => (StoryComponent: Story) => (
+export const ThemeDecorator = (story: () => Story) => (
   <div>
     <CssBaseline />
-    <ThemeProvider>
-      <StoryComponent />
+    <ThemeProvider theme={theme}>
+      {story()}
     </ThemeProvider>
   </div>
-
 );
