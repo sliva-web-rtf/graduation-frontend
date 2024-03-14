@@ -1,0 +1,30 @@
+.backdrop {
+  background-color: #C5DAF4BF;
+}
+
+.modal {
+  position: absolute;
+  top: var(--space-m);
+  right: 0;
+  width: var(--modal-width);
+  min-height: var(--sidebar-height);
+  display: flex;
+  align-items: flex-start;
+  column-gap: var(--space-l);
+}
+
+.content {
+  padding: var(--space-xl);
+  border-radius: var(--border-radius);
+  height: 100%;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form {
+  row-gap: var(--space-m);
+  margin-top: var(--space-xl);
+}

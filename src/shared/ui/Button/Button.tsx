@@ -5,6 +5,7 @@ export const BaseButton = styled(Button)<ButtonProps>(() => ({
   '&': {
     borderRadius: 'var(--border-radius)',
     textTransform: 'none',
+    minWidth: 0,
   },
   '&.MuiButton-outlined': {
     borderColor: grey['500'],
@@ -13,4 +14,5 @@ export const BaseButton = styled(Button)<ButtonProps>(() => ({
   '&.MuiButton-contained,Mui-disabled': {
     color: grey['100'],
   },
+  '&.MuiButton-root:hover': {},
 }));

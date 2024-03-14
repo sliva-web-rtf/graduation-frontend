@@ -4,3 +4,10 @@
   column-gap: var(--space-m);
   margin: var(--space-xl) 0;
 }
+
+.buttonsWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+

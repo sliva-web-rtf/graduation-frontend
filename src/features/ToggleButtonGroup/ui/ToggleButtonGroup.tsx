@@ -1,10 +1,12 @@
 import {
   styled, ToggleButton, ToggleButtonGroup, ToggleButtonGroupProps, ToggleButtonProps,
 } from '@mui/material';
-import { useState, MouseEvent, FC } from 'react';
+import { MouseEvent, FC } from 'react';
+import { ToggleOptions } from 'features/CatalogSearch';
 
 interface BaseToggleButtonGroupProps extends ToggleButtonGroupProps {
-  options: string[],
+  readonly options: ToggleOptions[],
+  readonly setAlignment: (newAlignment: ToggleOptions) => void;
 }
 
 const StyledToggleButtonGroup = styled(ToggleButtonGroup)<ToggleButtonGroupProps>(({ theme }) => ({
@@ -34,9 +36,10 @@ const StyledToggleButton = styled(ToggleButton)<ToggleButtonProps>(({ theme }) =
   },
 }));
 
-export const BaseToggleButtonGroup: FC<BaseToggleButtonGroupProps> = ({ options, ...props }) => {
-  const [alignment, setAlignment] = useState<string>(options[0]);
-  const handleChange = (event: MouseEvent<HTMLElement>, newAlignment: string) => {
+export const BaseToggleButtonGroup: FC<BaseToggleButtonGroupProps> = (props) => {
+  const { options, setAlignment, ...otherProps } = props;
+
+  const handleChange = (event: MouseEvent<HTMLElement>, newAlignment: ToggleOptions) => {
     if (newAlignment) {
       setAlignment(newAlignment);
     }
@@ -45,12 +48,15 @@ export const BaseToggleButtonGroup: FC<BaseToggleButtonGroupProps> = ({ options,
   return (
     <StyledToggleButtonGroup
       color="primary"
-      value={alignment}
       exclusive
       onChange={handleChange}
-      {...props}
+      {...otherProps}
     >
-      {options.map((option) => <StyledToggleButton key={option} value={option}>{option}</StyledToggleButton>)}
+      {options.map((option) => (
+        <StyledToggleButton key={option} value={option}>
+          {option}
+        </StyledToggleButton>
+      ))}
     </StyledToggleButtonGroup>
   );
 };
