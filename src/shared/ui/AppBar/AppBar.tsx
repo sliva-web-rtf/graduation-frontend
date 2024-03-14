@@ -8,6 +8,6 @@ export const BaseAppBar = styled(AppBar)<AppBarProps>(({ theme }) => ({
   },
   '& .MuiToolbar-root': {
     justifyContent: 'space-between',
-    padding: `${theme.spacing(1)} ${theme.spacing(2)}`,
+    padding: [theme.spacing(1), theme.spacing(2)].join(' '),
   },
 }));

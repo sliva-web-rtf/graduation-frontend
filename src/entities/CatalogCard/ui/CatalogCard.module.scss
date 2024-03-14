@@ -7,24 +7,6 @@
   padding: var(--border-radius);
 }
 
-.image {
-  width: 100%;
-  height: 100%;
-  border-radius: var(--space-l);
-}
-
-.content {
-  display: grid;
-  grid-template-columns: auto;
-  column-gap: var(--space-l);
-}
-
-.header {
-  display: flex;
-  flex-direction: column;
-  row-gap: var(--space-s);
-}
-
 .chips {
   display: flex;
   flex-wrap: wrap;
@@ -33,17 +15,4 @@
   row-gap: calc(0.5 * var(--space-s));
   margin-top: var(--space-l);
   max-height: 68px;
-}
-
-.actions {
-  display: flex;
-  flex-direction: column;
-  row-gap: var(--space-s);
-}
-
-.limit {
-  display: flex;
-  justify-content: flex-end;
-  column-gap: var(--space-s);
-  margin-bottom: var(--space-l);
 }

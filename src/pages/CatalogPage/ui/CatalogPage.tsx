@@ -1,12 +1,11 @@
-import { Box, Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { Catalog } from 'widgets/Catalog';
-import styles from './CatalogPage.module.scss';
 
 const CatalogPage = () => (
-  <Box className={styles.catalog}>
+  <Stack spacing={4}>
     <Typography variant="h1">Каталог</Typography>
     <Catalog />
-  </Box>
+  </Stack>
 );
 
 export default CatalogPage;

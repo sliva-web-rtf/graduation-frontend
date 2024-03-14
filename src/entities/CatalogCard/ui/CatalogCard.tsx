@@ -1,10 +1,13 @@
 import { memo } from 'react';
-import { Box, Typography } from '@mui/material';
+import {
+  Avatar, Paper, Stack, Typography,
+} from '@mui/material';
 import { BaseChip } from 'shared/ui/Chip/Chip';
 import { BaseButton } from 'shared/ui/Button/Button';
 import StarOutlineRoundedIcon from '@mui/icons-material/StarOutlineRounded';
 import { ICatalogCard } from 'entities/CatalogCard/model/types/ICatalogCard';
 import { BaseList } from 'shared/ui/List/List';
+import { LimitInfo } from 'shared/ui/LimitInfo/LimitInfo';
 import styles from './CatalogCard.module.scss';
 
 export const CatalogCard = memo((props: ICatalogCard) => {
@@ -13,44 +16,24 @@ export const CatalogCard = memo((props: ICatalogCard) => {
   } = props;
 
   return (
-    <Box sx={{ background: (theme) => theme.palette.background.default }} className={styles.card}>
-      <img className={styles.image} src="/placeholder.svg" alt="" />
-      <Box className={styles.content}>
-        <Box className={styles.header}>
-          <Typography
-            variant="subtitle1"
-            color={(theme) => theme.palette.secondary.main}
-          >
-            {subtitle}
-          </Typography>
+    <Paper className={styles.card}>
+      <Avatar src={image} alt={title} sx={{ width: 1, height: 1, borderRadius: 3 }} />
+      <Stack spacing={3}>
+        <Stack spacing={1}>
+          <Typography variant="subtitle1" color="secondary">{subtitle}</Typography>
           <Typography variant="h3">{title}</Typography>
-        </Box>
+        </Stack>
         <BaseList
           className={styles.chips}
           items={chips}
           render={(item: string) => <BaseChip key={item} variant="outlined" label={item} />}
         />
-      </Box>
-      <Box className={styles.actions}>
-        {limit
-              && (
-                <Box className={styles.limit}>
-                  <Typography
-                    variant="body2"
-                    color={(theme) => theme.palette.secondary.main}
-                  >
-                    Лимит
-                  </Typography>
-                  <Typography variant="body2">
-                    {limit?.current}
-                    /
-                    {limit?.max}
-                  </Typography>
-                </Box>
-              )}
+      </Stack>
+      <Stack spacing={1}>
+        {limit && <LimitInfo {...limit} />}
         <BaseButton variant="contained">Отправить запрос</BaseButton>
         <BaseButton variant="text" startIcon={<StarOutlineRoundedIcon />}>Добавить в избранное</BaseButton>
-      </Box>
-    </Box>
+      </Stack>
+    </Paper>
   );
 });

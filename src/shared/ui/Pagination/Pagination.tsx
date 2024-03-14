@@ -1,7 +1,7 @@
 import {
   styled,
   Pagination,
-  PaginationProps, Box, PaginationItem,
+  PaginationProps, Stack, PaginationItem,
 } from '@mui/material';
 import NavigateBeforeRoundedIcon from '@mui/icons-material/NavigateBeforeRounded';
 import NavigateNextRoundedIcon from '@mui/icons-material/NavigateNextRounded';
@@ -12,7 +12,7 @@ interface NavigationButtonProps {
 }
 
 const NavigationButton = ({ children }: NavigationButtonProps) => (
-  <Box sx={{ display: 'flex', columnGap: '9px' }}>{children}</Box>
+  <Stack direction="row" spacing={1}>{children}</Stack>
 );
 
 const PrevSlot = () => (
@@ -54,5 +54,5 @@ export const StyledPagination = styled((props: PaginationProps) => (
 }));
 
 export const BasePagination = (props: PaginationProps) => (
-  <Box sx={{ display: 'flex', justifyContent: 'center' }}><StyledPagination {...props} /></Box>
+  <Stack direction="row" justifyContent="center"><StyledPagination {...props} /></Stack>
 );

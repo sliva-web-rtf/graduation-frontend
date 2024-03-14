@@ -6,7 +6,7 @@ import { Sidebar } from 'widgets/Sidebar';
 const Layout: FC = () => (
   <Box className="page-wrapper">
     <Sidebar />
-    <main className="page-main"><Outlet /></main>
+    <Box component="main" py={6}><Outlet /></Box>
   </Box>
 );
 

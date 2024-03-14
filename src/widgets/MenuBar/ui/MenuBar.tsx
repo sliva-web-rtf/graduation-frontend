@@ -1,7 +1,6 @@
 import React, { memo } from 'react';
 import {
-  AppBarProps,
-  Avatar, Badge, Box, IconButton, Toolbar,
+  AppBarProps, Avatar, Badge, Box, IconButton, Toolbar,
 } from '@mui/material';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import WorkspacePremiumOutlinedIcon from '@mui/icons-material/WorkspacePremiumOutlined';
@@ -15,7 +14,7 @@ export const MenuBar = memo(({ sx, ...props }: MenuBarProps) => (
   <Box sx={sx}>
     <BaseAppBar position="static" {...props}>
       <Toolbar>
-        <Avatar sx={{ width: 48, height: 48 }}>A</Avatar>
+        <Avatar sx={{ width: 48, height: 48 }} />
         <IconButton color="primary"><SettingsOutlinedIcon /></IconButton>
         <IconButton color="primary"><WorkspacePremiumOutlinedIcon /></IconButton>
         <IconButton color="primary">

@@ -1,5 +1,5 @@
 import React, { memo, useState } from 'react';
-import { Box } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import { BaseSearch } from 'shared/ui/Search/Search';
 import { BaseToggleButtonGroup } from 'features/ToggleButtonGroup';
 import { ThemesActions } from 'features/ThemesActions';
@@ -10,19 +10,19 @@ export const CatalogSearch = memo(() => {
   const [selectedOption, setSelectedOption] = useState<ToggleOptions>(ToggleOptions.Supervisors);
 
   return (
-    <>
-      <Box className={styles.catalogSearch}>
+    <Stack spacing={4}>
+      <Box className={styles.inputs}>
         <BaseSearch placeholder="Поиск по ключевым словам" />
         <BaseSearch placeholder="Область науки и технологий" />
       </Box>
-      <Box className={styles.buttonsWrapper}>
+      <Stack direction="row" justifyContent="space-between" alignItems="center">
         <BaseToggleButtonGroup
           value={selectedOption}
           setAlignment={setSelectedOption}
           options={Object.values(ToggleOptions)}
         />
         {selectedOption === ToggleOptions.Themes && <ThemesActions />}
-      </Box>
-    </>
+      </Stack>
+    </Stack>
   );
 });
