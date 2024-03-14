@@ -1,4 +1,4 @@
-import { ICatalogCard } from 'entities/CatalogCard/model/types/ICatalogCard';
+import { ICatalogCard } from 'widgets/CatalogCard/model/types/ICatalogCard';
 
 const chips = [
   'Машинное обучение',

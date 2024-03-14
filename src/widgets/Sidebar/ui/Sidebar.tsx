@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Paper, Stack } from '@mui/material';
 import Logo from 'shared/ui/Logo/Logo';
 import { BaseButton } from 'shared/ui/Button/Button';
@@ -7,7 +7,7 @@ import { MenuBar } from 'widgets/MenuBar';
 import { NavigationMenu } from 'widgets/NavigationMenu';
 import styles from './Sidebar.module.scss';
 
-export const Sidebar = () => (
+export const Sidebar = memo(() => (
   <Stack
     component={Paper}
     className={styles.wrapper}
@@ -27,4 +27,4 @@ export const Sidebar = () => (
       Выйти
     </BaseButton>
   </Stack>
-);
+));
