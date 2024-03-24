@@ -2,10 +2,13 @@ import { RouteProps } from 'react-router-dom';
 import { LoginPage } from 'pages/LoginPage';
 import { CatalogPage } from 'pages/CatalogPage';
 import { NotFoundPage } from 'pages/NotFoundPage';
+import { ForbiddenPage } from 'pages/ForbiddenPage';
+import { Role } from 'entities/User/model/types/roles';
 
 export type AppRoutesProps = RouteProps & {
   authOnly?: boolean;
   hasLayout?: boolean;
+  roles?: Role[],
 }
 
 export enum AppRoutes {
@@ -14,6 +17,7 @@ export enum AppRoutes {
   About = 'About',
   Tasks = 'Tasks',
   NotFound = 'NotFound',
+  Fobidden = 'Forbidden',
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
@@ -21,6 +25,7 @@ export const RoutePath: Record<AppRoutes, string> = {
   [AppRoutes.Catalog]: '/catalog',
   [AppRoutes.About]: '/about',
   [AppRoutes.Tasks]: '/tasks',
+  [AppRoutes.Fobidden]: '/forbidden',
   [AppRoutes.NotFound]: '*',
 };
 
@@ -45,6 +50,12 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.Tasks]: {
     path: `${RoutePath.Tasks}`,
     element: <div>123</div>,
+    hasLayout: true,
+    authOnly: true,
+  },
+  [AppRoutes.Fobidden]: {
+    path: `${RoutePath.Forbidden}`,
+    element: <ForbiddenPage />,
     hasLayout: true,
     authOnly: true,
   },
