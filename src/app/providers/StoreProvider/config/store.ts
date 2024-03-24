@@ -3,6 +3,7 @@ import { CombinedState, Reducer } from 'redux';
 import { userReducer } from 'entities/User';
 
 import { http } from 'shared/api/api';
+import { catalogReducer } from 'widgets/Catalog/model/slice/catalogSlice';
 import { createReducerManager } from './reducerManager';
 import { StateSchema, ThunkExtraArg } from './StateSchema';
 
@@ -13,6 +14,7 @@ export function createReduxStore(
   const rootReducers: ReducersMapObject<StateSchema> = {
     ...asyncReducers,
     user: userReducer,
+    catalog: catalogReducer,
   };
 
   const reducerManager = createReducerManager(rootReducers);

@@ -2,6 +2,12 @@
 @import "variables/global";
 @import "fonts";
 
-body {
-  background-color: var(--bg-color);
+.page-wrapper {
+  width: var(--page-width);
+  display: grid;
+  grid-template-columns: var(--sidebar-width) 1fr;
+  column-gap: var(--space-xl);
+  padding: var(--space-m) 0;
+  margin: 0 auto;
 }
+

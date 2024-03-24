@@ -13,6 +13,7 @@ export const components: Components<Omit<Theme, 'components'>> | undefined = {
       {
         props: { variant: 'shadowed' },
         style: {
+          backgroundColor: 'white',
           boxShadow: shadows['1'],
         },
       },
