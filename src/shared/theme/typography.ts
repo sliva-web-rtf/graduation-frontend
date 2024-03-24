@@ -8,6 +8,7 @@ export const typography: TypographyOptions | ((palette: Palette) => TypographyOp
     'sans-serif',
   ].join(','),
   h1: {
+    fontFamily: ['Geologica', 'sans-serif'].join(','),
     fontSize: '32px',
     fontWeight: '600',
     lineHeight: '110%',
@@ -20,6 +21,7 @@ export const typography: TypographyOptions | ((palette: Palette) => TypographyOp
     letterSpacing: '0',
   },
   h3: {
+    fontFamily: ['Geologica', 'sans-serif'].join(','),
     fontSize: '18px',
     fontWeight: '500',
     lineHeight: '110%',
@@ -32,8 +34,15 @@ export const typography: TypographyOptions | ((palette: Palette) => TypographyOp
     letterSpacing: '1%',
   },
   subtitle1: {
+    fontFamily: ['Geologica', 'sans-serif'].join(','),
     fontSize: '14px',
     fontWeight: '400',
+    lineHeight: '110%',
+    letterSpacing: '0',
+  },
+  subtitle2: {
+    fontSize: '14px',
+    fontWeight: '500',
     lineHeight: '110%',
     letterSpacing: '0',
   },

@@ -4,6 +4,7 @@ import { To } from 'history';
 import { NavigateOptions } from 'react-router';
 import { CombinedState, Reducer } from 'redux';
 
+import { catalogReducer } from 'widgets/Catalog/model/slice/catalogSlice';
 import { createReducerManager } from './reducerManager';
 import { StateSchema, ThunkExtraArg } from './StateSchema';
 
@@ -15,6 +16,7 @@ export function createReduxStore(
   const rootReducers: ReducersMapObject<StateSchema> = {
     ...asyncReducers,
     user: userReducer,
+    catalog: catalogReducer,
   };
 
   const reducerManager = createReducerManager(rootReducers);
