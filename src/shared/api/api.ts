@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
 
 export const http: AxiosInstance = axios.create({
-  baseURL: __API__,
+    baseURL: __API__,
 });

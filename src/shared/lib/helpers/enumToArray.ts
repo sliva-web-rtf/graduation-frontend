@@ -5,8 +5,8 @@ type NonFunctional<T> = T extends Function ? never : T;
  * @param enumeration Enumeration object.
  */
 export function enumToArray<T extends Record<string, unknown>>(enumeration: T): NonFunctional<T[keyof T]>[] {
-  return Object.keys(enumeration)
-    .filter((key) => Number.isNaN(Number(key)))
-    .map((key) => enumeration[key])
-    .filter((val): val is NonFunctional<T[keyof T]> => typeof val === 'number' || typeof val === 'string');
+    return Object.keys(enumeration)
+        .filter((key) => Number.isNaN(Number(key)))
+        .map((key) => enumeration[key])
+        .filter((val): val is NonFunctional<T[keyof T]> => typeof val === 'number' || typeof val === 'string');
 }

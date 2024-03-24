@@ -11,17 +11,17 @@ import { catalogCards } from '../model/mock';
 import { getCatalogOption } from '../model/selectors/getCatalogOption/getCatalogOption';
 
 export const Catalog = memo(() => {
-  const option = useSelector(getCatalogOption);
+    const option = useSelector(getCatalogOption);
 
-  return (
-    <Stack spacing={4}>
-      <Search />
-      <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <ToggleList value={option} />
-        {option === CatalogOptions.Themes && <ThemesActions />}
-      </Stack>
-      <CatalogList items={catalogCards} />
-      <BasePagination count={10} />
-    </Stack>
-  );
+    return (
+        <Stack spacing={4}>
+            <Search />
+            <Stack direction="row" justifyContent="space-between" alignItems="center">
+                <ToggleList value={option} />
+                {option === CatalogOptions.Themes && <ThemesActions />}
+            </Stack>
+            <CatalogList items={catalogCards} />
+            <BasePagination count={10} />
+        </Stack>
+    );
 });

@@ -8,51 +8,43 @@ import { getUserRoles } from 'entities/User/model/selectors/getUserRoles/getUser
 import { RoutePath } from '../config/routeConfig';
 
 interface RequireAuthProps {
-  children: ReactNode,
-  isAuth: boolean,
-  roles?: Role[],
+    children: ReactNode;
+    isAuth: boolean;
+    roles?: Role[];
 }
 
 export const RequireAuth: FC<RequireAuthProps> = (props) => {
-  const auth = useSelector(getUserAuthData);
-  const location = useLocation();
-  const userRoles = useSelector(getUserRoles);
+    const auth = useSelector(getUserAuthData);
+    const location = useLocation();
+    const userRoles = useSelector(getUserRoles);
 
-  const { children, isAuth, roles } = props;
+    const { children, isAuth, roles } = props;
 
-  const hasRequiredRoles = useMemo(() => {
-    if (!roles) {
-      return true;
+    const hasRequiredRoles = useMemo(() => {
+        if (!roles) {
+            return true;
+        }
+
+        return roles.some((requiredRole) => {
+            const hasRole = userRoles?.includes(requiredRole);
+            return hasRole;
+        });
+    }, [roles, userRoles]);
+
+    if (!auth && isAuth) {
+        return <Navigate to={RoutePath.Login} state={{ from: location }} replace />;
     }
 
-    return roles.some((requiredRole) => {
-      const hasRole = userRoles?.includes(requiredRole);
-      return hasRole;
-    });
-  }, [roles, userRoles]);
+    if (!hasRequiredRoles) {
+        return <Navigate to={RoutePath.Forbidden} state={{ from: location }} replace />;
+    }
 
-  if (!auth && isAuth) {
-    return <Navigate to={RoutePath.Login} state={{ from: location }} replace />;
-  }
+    if (auth && !isAuth) {
+        return <Navigate to={location.state?.from ?? RoutePath.Catalog} replace />;
+    }
 
-  if (!hasRequiredRoles) {
     return (
-      <Navigate
-        to={RoutePath.Forbidden}
-        state={{ from: location }}
-        replace
-      />
+        // eslint-disable-next-line react/jsx-no-useless-fragment
+        <>{children}</>
     );
-  }
-
-  if (auth && !isAuth) {
-    return <Navigate to={location.state?.from ?? RoutePath.Catalog} replace />;
-  }
-
-  return (
-    // eslint-disable-next-line react/jsx-no-useless-fragment
-    <>
-      { children }
-    </>
-  );
 };

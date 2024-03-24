@@ -9,16 +9,11 @@ export interface componentRenderOptions {
 }
 
 export function componentRender(component: ReactNode, options: componentRenderOptions = {}) {
-  const {
-    route = '/',
-    initialState,
-  } = options;
+    const { route = '/', initialState } = options;
 
-  return render(
-    <MemoryRouter initialEntries={[route]}>
-      <StoreProvider initialState={initialState}>
-        {component}
-      </StoreProvider>
-    </MemoryRouter>,
-  );
+    return render(
+        <MemoryRouter initialEntries={[route]}>
+            <StoreProvider initialState={initialState}>{component}</StoreProvider>
+        </MemoryRouter>,
+    );
 }

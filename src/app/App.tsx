@@ -9,19 +9,15 @@ import useAxios from 'shared/lib/hooks/useAxios/useAxios';
 import { AppRouter } from './providers/router';
 
 function App() {
-  useAxios(); // TODO: пересмотреть это решение из-за возможной постоянной перерисовки
-  const dispatch = useAppDispatch();
-  const inited = useSelector(getUserInited);
+    useAxios(); // TODO: пересмотреть это решение из-за возможной постоянной перерисовки
+    const dispatch = useAppDispatch();
+    const inited = useSelector(getUserInited);
 
-  useEffect(() => {
-    dispatch(getUser());
-  }, [dispatch]);
+    useEffect(() => {
+        dispatch(getUser());
+    }, [dispatch]);
 
-  return (
-    <div>
-      {inited && <AppRouter />}
-    </div>
-  );
+    return <div>{inited && <AppRouter />}</div>;
 }
 
 export default App;

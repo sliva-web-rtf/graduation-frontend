@@ -4,19 +4,19 @@ import ChecklistOutlinedIcon from '@mui/icons-material/ChecklistOutlined';
 import { RoutePath } from 'app/providers/router/config/routeConfig';
 
 export const TABS = [
-  {
-    label: 'Каталог',
-    path: RoutePath.Catalog,
-    startIcon: <AutoAwesomeMotionOutlinedIcon />,
-  },
-  {
-    label: 'Об исследовании',
-    path: RoutePath.About,
-    startIcon: <AppsOutlinedIcon />,
-  },
-  {
-    label: 'Задачи',
-    path: RoutePath.Tasks,
-    startIcon: <ChecklistOutlinedIcon />,
-  },
+    {
+        label: 'Каталог',
+        path: RoutePath.Catalog,
+        startIcon: <AutoAwesomeMotionOutlinedIcon />,
+    },
+    {
+        label: 'Об исследовании',
+        path: RoutePath.About,
+        startIcon: <AppsOutlinedIcon />,
+    },
+    {
+        label: 'Задачи',
+        path: RoutePath.Tasks,
+        startIcon: <ChecklistOutlinedIcon />,
+    },
 ];

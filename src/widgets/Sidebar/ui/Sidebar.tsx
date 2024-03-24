@@ -12,34 +12,34 @@ import { RoutePath } from 'app/providers/router/config/routeConfig';
 import styles from './Sidebar.module.scss';
 
 export const Sidebar = memo(() => {
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
-  const handleLogoutButtonClick = useCallback(async () => {
-    dispatch(userActions.logout());
-    navigate(RoutePath.Login, { replace: true });
-  }, [dispatch, navigate]);
+    const handleLogoutButtonClick = useCallback(async () => {
+        dispatch(userActions.logout());
+        navigate(RoutePath.Login, { replace: true });
+    }, [dispatch, navigate]);
 
-  return (
-    <Stack
-      component={Paper}
-      className={styles.wrapper}
-      sx={{ borderRadius: 3, py: 4, pl: 1 }}
-      justifyContent="space-between"
-    >
-      <Stack spacing={2}>
-        <Logo />
-        <MenuBar sx={{ pr: 1 }} />
-        <NavigationMenu />
-      </Stack>
-      <BaseButton
-        sx={{ ml: 1, alignSelf: 'flex-start' }}
-        color="secondary"
-        startIcon={<LogoutRoundedIcon />}
-        onClick={handleLogoutButtonClick}
-      >
-        Выйти
-      </BaseButton>
-    </Stack>
-  );
+    return (
+        <Stack
+            component={Paper}
+            className={styles.wrapper}
+            sx={{ borderRadius: 3, py: 4, pl: 1 }}
+            justifyContent="space-between"
+        >
+            <Stack spacing={2}>
+                <Logo />
+                <MenuBar sx={{ pr: 1 }} />
+                <NavigationMenu />
+            </Stack>
+            <BaseButton
+                sx={{ ml: 1, alignSelf: 'flex-start' }}
+                color="secondary"
+                startIcon={<LogoutRoundedIcon />}
+                onClick={handleLogoutButtonClick}
+            >
+                Выйти
+            </BaseButton>
+        </Stack>
+    );
 });

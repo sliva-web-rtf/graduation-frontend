@@ -3,15 +3,11 @@ import StarOutlineRoundedIcon from '@mui/icons-material/StarOutlineRounded';
 import { AddRequestProps } from '../model/types/addRequest';
 
 export const AddToFavorites = ({ isSent = false }: AddRequestProps) => {
-  const handleClick = () => console.log('sended');
+    const handleClick = () => console.log('sended');
 
-  return (
-    <BaseButton
-      variant="text"
-      startIcon={<StarOutlineRoundedIcon />}
-      disabled={isSent}
-    >
-      Добавить в избранное
-    </BaseButton>
-  );
+    return (
+        <BaseButton variant="text" startIcon={<StarOutlineRoundedIcon />} disabled={isSent}>
+            Добавить в избранное
+        </BaseButton>
+    );
 };

@@ -1,3 +1,1 @@
-export {
-  BackButton,
-} from './ui/BackButton';
+export { BackButton } from './ui/BackButton';

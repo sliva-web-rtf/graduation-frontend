@@ -5,10 +5,10 @@ import { Stack } from '@mui/material';
 import { NewThemeModal } from 'features/catalog/NewThemeModal';
 
 export const ThemesActions = () => (
-  <Stack direction="row" spacing={2}>
-    <BaseButton sx={{ p: 1 }} variant="shadowed">
-      <SortRoundedIcon />
-    </BaseButton>
-    <NewThemeModal />
-  </Stack>
+    <Stack direction="row" spacing={2}>
+        <BaseButton sx={{ p: 1 }} variant="shadowed">
+            <SortRoundedIcon />
+        </BaseButton>
+        <NewThemeModal />
+    </Stack>
 );
