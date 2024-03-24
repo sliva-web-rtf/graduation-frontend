@@ -26,9 +26,11 @@ export const refreshToken = createAsyncThunk<
 
       return undefined;
     } catch (e) {
+      UserSecretStorageService.clear();
       if (e instanceof Error) {
         return rejectWithValue(e.message);
       }
+
       return rejectWithValue('неизвестная ошибка');
     }
   },

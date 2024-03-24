@@ -5,7 +5,7 @@ import { AxiosInstance } from 'axios';
 import { CombinedState } from 'redux';
 
 import { LoginSchema } from 'features/AuthByEmail/model/types/loginSchema';
-import { UserSchema } from 'entities/Us';
+import { UserSchema } from 'entities/User';
 import { CatalogSchema } from 'widgets/Catalog/model/types/catalogSchema';
 
 export interface StateSchema {
@@ -13,7 +13,7 @@ export interface StateSchema {
   catalog: CatalogSchema,
 
   // Асинхронные редюсеры
-    loginForm?: LoginSchema
+  loginForm?: LoginSchema
 }
 
 export type StateSchemaKey = keyof StateSchema;

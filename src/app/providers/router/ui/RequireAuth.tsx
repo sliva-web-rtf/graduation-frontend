@@ -19,10 +19,11 @@ export const RequireAuth: FC<RequireAuthProps> = ({ children, isAuth }) => {
   }
 
   if (auth && !isAuth) {
-    return <Navigate to={RoutePath.Main} replace />;
+    return <Navigate to={location.state?.from ?? RoutePath.Catalog} replace />;
   }
 
   return (
+    // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
       { children }
     </>

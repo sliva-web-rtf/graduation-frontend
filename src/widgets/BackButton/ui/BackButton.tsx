@@ -2,10 +2,9 @@ import { BaseButton } from 'shared/ui/Button/Button';
 import KeyboardBackspaceRoundedIcon from '@mui/icons-material/KeyboardBackspaceRounded';
 import { useNavigate } from 'react-router-dom';
 import { memo, ReactNode, useCallback } from 'react';
-import { RoutePathValue } from 'shared/config/routeConfig/routeConfig';
 
 interface BackButtonProps {
-  readonly to: RoutePathValue;
+  readonly to: string;
   readonly children: ReactNode,
 }
 
