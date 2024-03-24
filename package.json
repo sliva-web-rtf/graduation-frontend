@@ -24,8 +24,8 @@
     },
     "lint-staged": {
         "**/*.{ts,tsx}": [
-            "prettier",
-            "lint:ts:fix"
+            "yarn prettier",
+            "yarn lint:ts:fix"
         ]
     },
     "keywords": [],

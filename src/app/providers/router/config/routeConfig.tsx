@@ -43,13 +43,13 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     },
     [AppRoutes.About]: {
         path: `${RoutePath.About}`,
-        element: <div>123</div>,
+        element: <div>About</div>,
         hasLayout: true,
         authOnly: true,
     },
     [AppRoutes.Tasks]: {
         path: `${RoutePath.Tasks}`,
-        element: <div>123</div>,
+        element: <div>Tasks</div>,
         hasLayout: true,
         authOnly: true,
     },
