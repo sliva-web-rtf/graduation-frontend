@@ -1,7 +1,7 @@
 import { memo, Suspense, useCallback } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { RequireAuth } from 'app/providers/router/ui/RequireAuth';
-import { Layout } from 'shared/ui/Layout';
+import { Layout } from 'widgets/Layout';
 import { PageLoader } from 'widgets/PageLoader/ui/PageLoader';
 import { AppRoutesProps, routeConfig } from '../config/routeConfig';
 

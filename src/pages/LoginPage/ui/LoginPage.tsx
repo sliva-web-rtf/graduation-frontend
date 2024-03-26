@@ -1,4 +1,4 @@
-import { LoginForm } from 'features/AuthByEmail';
+import { LoginForm } from 'features/auth/AuthByEmail';
 
 const LoginPage = () => <LoginForm />;
 

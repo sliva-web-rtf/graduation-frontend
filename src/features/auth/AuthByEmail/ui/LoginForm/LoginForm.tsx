@@ -3,16 +3,16 @@ import { Box, InputLabel, Stack, Typography } from '@mui/material';
 import classNames from 'classnames';
 import { ChangeEvent, memo, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
-
 import { useSelector } from 'react-redux';
-import { getLoginError } from 'features/AuthByEmail/model/selectors/getLoginError/getLoginError';
-import { getLoginLoading } from 'features/AuthByEmail/model/selectors/getLoginLoading/getLoginLoading';
-import { loginByEmail } from 'features/AuthByEmail/model/services/loginByEmail';
-import { loginActions, loginReducer } from 'features/AuthByEmail/model/slice/loginSlice';
-import { LoginFormSchema, loginFormSchema } from 'features/AuthByEmail/model/types/loginFormSchema';
+
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { BaseButton, BaseField } from 'shared/ui';
+import { LoginFormSchema, loginFormSchema } from '../../model/types/loginFormSchema';
+import { loginActions, loginReducer } from '../../model/slice/loginSlice';
+import { loginByEmail } from '../../model/services/loginByEmail';
+import { getLoginLoading } from '../../model/selectors/getLoginLoading/getLoginLoading';
+import { getLoginError } from '../../model/selectors/getLoginError/getLoginError';
 
 export interface LoginFormProps {
     className?: string;
