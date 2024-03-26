@@ -1,3 +1,1 @@
-export {
-  MenuBar,
-} from './ui/MenuBar';
+export { MenuBar } from './ui/MenuBar';

@@ -1,6 +1,11 @@
+import { Role } from './roles';
+
 export interface User {
-    id: string;
-    username: string;
+    id: number;
+    roles: Role[];
+    fullName?: string;
+    email?: string;
+    lastLogin?: Date;
 }
 
 export interface UserSchema {

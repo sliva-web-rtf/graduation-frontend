@@ -1,3 +1,1 @@
-export {
-  NavigationMenu,
-} from './ui/NavigationMenu';
+export { NavigationMenu } from './ui/NavigationMenu';

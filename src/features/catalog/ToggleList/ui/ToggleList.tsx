@@ -7,27 +7,22 @@ import { getCatalogOptions } from 'widgets/Catalog';
 import { CatalogOptions } from 'shared/lib/types/options';
 
 interface ToggleListProps {
-  readonly value: CatalogOptions,
+    readonly value: CatalogOptions;
 }
 
 export const ToggleList = memo((props: ToggleListProps) => {
-  const { value } = props;
-  const dispatch = useAppDispatch();
-  const options = useSelector(getCatalogOptions);
+    const { value } = props;
+    const dispatch = useAppDispatch();
+    const options = useSelector(getCatalogOptions);
 
-  const handleChange = useCallback((event: MouseEvent<HTMLElement>, newAlignment: CatalogOptions) => {
-    if (newAlignment) {
-      dispatch(catalogActions.setOption(newAlignment));
-    }
-  }, [dispatch]);
+    const handleChange = useCallback(
+        (event: MouseEvent<HTMLElement>, newAlignment: CatalogOptions) => {
+            if (newAlignment) {
+                dispatch(catalogActions.setOption(newAlignment));
+            }
+        },
+        [dispatch],
+    );
 
-  return (
-    <ToggleButtons
-      color="primary"
-      exclusive
-      onChange={handleChange}
-      value={value}
-      options={options}
-    />
-  );
+    return <ToggleButtons color="primary" exclusive onChange={handleChange} value={value} options={options} />;
 });

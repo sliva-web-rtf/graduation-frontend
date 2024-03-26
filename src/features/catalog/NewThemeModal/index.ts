@@ -1,3 +1,1 @@
-export {
-  NewThemeModal,
-} from './ui/NewThemeModal/NewThemeModal';
+export { NewThemeModal } from './ui/NewThemeModal/NewThemeModal';

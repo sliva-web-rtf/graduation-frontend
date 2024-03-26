@@ -1,3 +1,1 @@
-export {
-  Search,
-} from './ui/CatalogSearch';
+export { Search } from './ui/CatalogSearch';

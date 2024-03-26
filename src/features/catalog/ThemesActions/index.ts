@@ -1,3 +1,1 @@
-export {
-  ThemesActions,
-} from './ui/ThemesActions';
+export { ThemesActions } from './ui/ThemesActions';

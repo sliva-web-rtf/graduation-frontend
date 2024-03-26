@@ -1,58 +1,53 @@
-import {
-  styled,
-  Pagination,
-  PaginationProps, Stack, PaginationItem,
-} from '@mui/material';
+import { styled, Pagination, PaginationProps, Stack, PaginationItem } from '@mui/material';
 import NavigateBeforeRoundedIcon from '@mui/icons-material/NavigateBeforeRounded';
 import NavigateNextRoundedIcon from '@mui/icons-material/NavigateNextRounded';
 import { ReactNode } from 'react';
 
 interface NavigationButtonProps {
-  children: ReactNode;
+    children: ReactNode;
 }
 
 const NavigationButton = ({ children }: NavigationButtonProps) => (
-  <Stack direction="row" spacing={1}>{children}</Stack>
+    <Stack direction="row" spacing={1}>
+        {children}
+    </Stack>
 );
 
 const PrevSlot = () => (
-  <NavigationButton>
-    <NavigateBeforeRoundedIcon />
-    Назад
-  </NavigationButton>
+    <NavigationButton>
+        <NavigateBeforeRoundedIcon />
+        Назад
+    </NavigationButton>
 );
 
 const NextSlot = () => (
-  <NavigationButton>
-    Вперед
-    <NavigateNextRoundedIcon />
-  </NavigationButton>
+    <NavigationButton>
+        Вперед
+        <NavigateNextRoundedIcon />
+    </NavigationButton>
 );
 
 export const StyledPagination = styled((props: PaginationProps) => (
-  <Pagination
-    shape="rounded"
-    renderItem={(item) => (
-      <PaginationItem
-        slots={{ previous: PrevSlot, next: NextSlot }}
-        {...item}
-      />
-    )}
-    {...props}
-  />
+    <Pagination
+        shape="rounded"
+        renderItem={(item) => <PaginationItem slots={{ previous: PrevSlot, next: NextSlot }} {...item} />}
+        {...props}
+    />
 ))(({ theme }) => ({
-  '& .MuiPaginationItem-page, .MuiPaginationItem-previousNext': {
-    color: theme.palette.primary.light,
-    fontWeight: 600,
-  },
-  '& .Mui-selected': {
-    color: theme.palette.primary.main,
-  },
-  '& .Mui-disabled': {
-    color: 'unset',
-  },
+    '& .MuiPaginationItem-page, .MuiPaginationItem-previousNext': {
+        color: theme.palette.primary.light,
+        fontWeight: 600,
+    },
+    '& .Mui-selected': {
+        color: theme.palette.primary.main,
+    },
+    '& .Mui-disabled': {
+        color: 'unset',
+    },
 }));
 
 export const BasePagination = (props: PaginationProps) => (
-  <Stack direction="row" justifyContent="center"><StyledPagination {...props} /></Stack>
+    <Stack direction="row" justifyContent="center">
+        <StyledPagination {...props} />
+    </Stack>
 );

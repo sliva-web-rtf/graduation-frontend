@@ -1,3 +1,1 @@
-export {
-  CatalogList,
-} from './ui/CatalogList';
+export { CatalogList } from './ui/CatalogList';

@@ -4,11 +4,9 @@ import { ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicM
 
 const defaultAsyncReducers: ReducersList = {};
 
-export const StoreDecorator = (
-  state: DeepPartial<StateSchema>,
-  asyncReducers?: ReducersList,
-) => (StoryComponent: Story) => (
-  <StoreProvider initialState={state} asyncReducers={{ ...defaultAsyncReducers, ...asyncReducers }}>
-    <StoryComponent />
-  </StoreProvider>
-);
+export const StoreDecorator =
+    (state: DeepPartial<StateSchema>, asyncReducers?: ReducersList) => (StoryComponent: Story) => (
+        <StoreProvider initialState={state} asyncReducers={{ ...defaultAsyncReducers, ...asyncReducers }}>
+            <StoryComponent />
+        </StoreProvider>
+    );

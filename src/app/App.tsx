@@ -1,16 +1,21 @@
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { getUserInited } from 'entities/User';
+
+import { getUser } from 'entities/User/model/services/getUser';
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 import { AppRouter } from './providers/router';
 
 function App() {
-  const inited = useSelector(getUserInited);
+    const dispatch = useAppDispatch();
+    const inited = useSelector(getUserInited);
 
-  return (
-    <div>
-      {inited && <AppRouter />}
-    </div>
-  );
+    useEffect(() => {
+        dispatch(getUser());
+    }, [dispatch]);
+
+    return <div>{inited && <AppRouter />}</div>;
 }
 
 export default App;

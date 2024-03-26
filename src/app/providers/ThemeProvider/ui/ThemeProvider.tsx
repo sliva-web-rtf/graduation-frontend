@@ -1,12 +1,16 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { theme } from 'shared/theme';
 import { GlobalStyles, ThemeProvider as Theme } from '@mui/material';
 
-const ThemeProvider: FC = ({ children }) => (
-  <Theme theme={theme}>
-    <GlobalStyles styles={{ body: { backgroundColor: 'var(--bg-color)' } }} />
-    {children}
-  </Theme>
+interface ThemeProviderProps {
+    children: ReactNode;
+}
+
+const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => (
+    <Theme theme={theme}>
+        <GlobalStyles styles={{ body: { backgroundColor: 'var(--bg-color)' } }} />
+        {children}
+    </Theme>
 );
 
 export default ThemeProvider;
