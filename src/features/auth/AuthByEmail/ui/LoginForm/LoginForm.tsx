@@ -1,9 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Box, InputLabel, Stack, Typography } from '@mui/material';
+import { Box, IconButton, InputAdornment, InputLabel, Stack, Typography } from '@mui/material';
 import classNames from 'classnames';
-import { ChangeEvent, memo, useCallback, useEffect } from 'react';
+import { ChangeEvent, memo, useCallback, useEffect, useState } from 'react';
 import { Path, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
@@ -28,6 +29,7 @@ const initialReducers: ReducersList = {
 
 const LoginForm = memo((props: LoginFormProps) => {
     const { className, onSuccess } = props;
+    const [showPassword, setShowPassword] = useState(false);
 
     const dispatch = useAppDispatch();
     const status = useSelector(getLoginStatus);
@@ -46,6 +48,8 @@ const LoginForm = memo((props: LoginFormProps) => {
         },
         [dispatch],
     );
+
+    const handleClickShowPassword = useCallback(() => setShowPassword(!showPassword), [showPassword]);
 
     const {
         formState: { errors },
@@ -90,10 +94,11 @@ const LoginForm = memo((props: LoginFormProps) => {
     return (
         <DynamicModuleLoader removeAfterUnmount reducers={initialReducers}>
             <form onSubmit={handleSubmit(onSubmitHandler)} className={classNames(className)}>
-                <Stack justifyContent="center" alignItems="center" spacing={2}>
-                    <Box>
+                <Stack justifyContent="center" alignItems="center" spacing={2} sx={{ width: '100%' }}>
+                    <Box sx={{ width: '100%' }}>
                         <InputLabel>Почта</InputLabel>
                         <BaseField
+                            fullWidth
                             autoComplete="false"
                             {...register('email')}
                             onChange={onChangeEmail}
@@ -102,18 +107,34 @@ const LoginForm = memo((props: LoginFormProps) => {
                             FormHelperTextProps={{ style: { backgroundColor: 'transparent' } }}
                         />
                     </Box>
-                    <Box>
+                    <Box sx={{ width: '100%' }}>
                         <InputLabel>Пароль</InputLabel>
                         <BaseField
+                            fullWidth
                             autoComplete="false"
                             {...register('password')}
+                            type={showPassword ? 'text' : 'password'}
                             onChange={onChangePassword}
                             error={Boolean(errors.password)}
                             helperText={errors.password ? errors.password?.message : ' '}
                             FormHelperTextProps={{ style: { backgroundColor: 'transparent' } }}
+                            InputProps={{
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <IconButton onClick={handleClickShowPassword}>
+                                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                ),
+                            }}
                         />
                     </Box>
-                    <BaseButton type="submit" disabled={status === STATUS.request}>
+                    <BaseButton
+                        variant="contained"
+                        sx={{ width: '100%' }}
+                        type="submit"
+                        disabled={status === STATUS.request}
+                    >
                         Зайти
                     </BaseButton>
                     {true && (
