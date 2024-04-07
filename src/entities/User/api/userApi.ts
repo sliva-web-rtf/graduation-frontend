@@ -1,8 +1,8 @@
 import { baseApi } from 'shared/api';
 import { UserSecretStorageService } from 'shared/lib/helpers/userSecretStorage';
-import { Token } from '../model/types/token';
-import { User } from '../model/types/user';
-import { TokenDto, UserDto } from './types';
+import { type Token } from '../../../shared/lib/types/token';
+import { type User } from '../model/types/user';
+import { type TokenDto, UserDto } from './types';
 import { mapTokenDtoToModel } from '../lib/tokenMapper';
 import { mapUserDtoToModel } from '../lib/userMapper';
 
@@ -11,18 +11,23 @@ interface getTokenByEmailValues {
     email: string;
 }
 
+interface refreshValues {
+    userId: User['id'];
+    refreshToken: Token['refreshToken'];
+}
+
 const userApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
-        refresh: build.mutation<Token, string>({
-            query: (token) => ({
+        refresh: build.mutation<Token, refreshValues>({
+            query: (values) => ({
                 url: '/api/auth',
                 method: 'PUT',
                 body: {
-                    token,
+                    ...values,
                 },
             }),
             transformResponse: async (response: TokenDto) => {
-                await UserSecretStorageService.save(response.token);
+                await UserSecretStorageService.save(response);
                 return mapTokenDtoToModel(response);
             },
         }),
@@ -41,7 +46,7 @@ const userApi = baseApi.injectEndpoints({
                 },
             }),
             transformResponse: async (response: TokenDto) => {
-                await UserSecretStorageService.save(response.token);
+                await UserSecretStorageService.save(response);
                 return mapTokenDtoToModel(response);
             },
         }),

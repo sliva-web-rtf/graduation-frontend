@@ -13,7 +13,7 @@ export const baseQuery: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryE
         prepareHeaders: async (headers) => {
             const token = await UserSecretStorageService.get();
             if (token != null) {
-                headers.set('Authorization', `Bearer ${token}`);
+                headers.set('Authorization', `Bearer ${token.token}`);
             }
             return headers;
         },
