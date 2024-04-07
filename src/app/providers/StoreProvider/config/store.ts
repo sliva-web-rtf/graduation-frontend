@@ -22,7 +22,9 @@ export function createReduxStore(initialState?: StateSchema, asyncReducers?: Red
         devTools: __IS_DEV__,
         preloadedState: initialState,
         middleware: (getDefaultMiddleware) =>
-            getDefaultMiddleware({}).concat(baseApi.middleware, invalidateAccessTokenListener.middleware),
+            getDefaultMiddleware({
+                serializableCheck: false,
+            }).concat(baseApi.middleware, invalidateAccessTokenListener.middleware),
     });
 
     // @ts-ignore

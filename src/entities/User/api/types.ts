@@ -12,3 +12,13 @@ export interface TokenDto {
     token: string;
     refreshToken: string;
 }
+
+export interface LoginDto {
+    password: string;
+    email: string;
+}
+
+export interface RefreshTokenDto {
+    userId: UserDto['id'];
+    refreshToken: TokenDto['refreshToken'];
+}

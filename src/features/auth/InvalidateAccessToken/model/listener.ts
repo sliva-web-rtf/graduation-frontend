@@ -16,6 +16,7 @@ startInvalidateAccessTokenListener({
     actionCreator: invalidateAccessToken,
     effect: async (_, api) => {
         try {
+            console.log(123);
             await api.dispatch(refreshToken());
         } catch {
             api.dispatch(userActions.logout());
