@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
 
 import { getUserInited } from 'entities/User';
 import { getUser } from 'entities/User/model/services/getUser';
