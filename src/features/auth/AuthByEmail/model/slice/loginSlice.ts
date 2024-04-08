@@ -1,11 +1,12 @@
+import { STATUS } from 'shared/api/status';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { loginByEmail } from '../services/loginByEmail';
 import { LoginSchema } from '../types/loginSchema';
+import { actions } from '../actions';
 
 const initialState: LoginSchema = {
-    isLoading: false,
     email: '',
     password: '',
+    status: STATUS.initial,
 };
 
 export const loginSlice = createSlice({
@@ -21,15 +22,15 @@ export const loginSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(loginByEmail.pending, (state) => {
+            .addCase(actions.request, (state) => {
                 state.error = undefined;
-                state.isLoading = true;
+                state.status = STATUS.request;
             })
-            .addCase(loginByEmail.fulfilled, (state) => {
-                state.isLoading = false;
+            .addCase(actions.success, (state) => {
+                state.status = STATUS.success;
             })
-            .addCase(loginByEmail.rejected, (state, action) => {
-                state.isLoading = false;
+            .addCase(actions.failure, (state, action) => {
+                state.status = STATUS.failure;
                 state.error = action.payload;
             });
     },

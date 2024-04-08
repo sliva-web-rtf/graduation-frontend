@@ -1,28 +1,27 @@
 import { baseApi } from 'shared/api';
 import { UserSecretStorageService } from 'shared/lib/helpers/userSecretStorage';
-import { Token } from '../model/types/token';
-import { User } from '../model/types/user';
-import { TokenDto, UserDto } from './types';
+import { type Token } from '../../../shared/lib/types/token';
+import { type User } from '../model/types/user';
+import { type TokenDto, UserDto } from './types';
 import { mapTokenDtoToModel } from '../lib/tokenMapper';
 import { mapUserDtoToModel } from '../lib/userMapper';
-
-interface getTokenByEmailValues {
-    password: string;
-    email: string;
-}
+import { type RefreshToken } from '../model/types/refresh';
+import { refreshTokenToDto } from '../lib/refreshToken';
+import { Login } from '../model/types/login';
+import { loginToDto } from '../lib/loginMapper';
 
 const userApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
-        refresh: build.mutation<Token, string>({
-            query: (token) => ({
+        refresh: build.mutation<Token, RefreshToken>({
+            query: (values) => ({
                 url: '/api/auth',
                 method: 'PUT',
                 body: {
-                    token,
+                    ...refreshTokenToDto(values),
                 },
             }),
             transformResponse: async (response: TokenDto) => {
-                await UserSecretStorageService.save(response.token);
+                await UserSecretStorageService.save(response);
                 return mapTokenDtoToModel(response);
             },
         }),
@@ -32,16 +31,16 @@ const userApi = baseApi.injectEndpoints({
             }),
             transformResponse: (response: UserDto) => mapUserDtoToModel(response),
         }),
-        getTokenByEmail: build.mutation<Token, getTokenByEmailValues>({
+        getTokenByEmail: build.mutation<Token, Login>({
             query: (initialValues) => ({
                 url: '/api/auth',
                 method: 'POST',
                 body: {
-                    ...initialValues,
+                    ...loginToDto(initialValues),
                 },
             }),
             transformResponse: async (response: TokenDto) => {
-                await UserSecretStorageService.save(response.token);
+                await UserSecretStorageService.save(response);
                 return mapTokenDtoToModel(response);
             },
         }),

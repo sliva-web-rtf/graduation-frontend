@@ -1,21 +1,27 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { AppError } from 'shared/lib/types/appError';
 
 import { ThunkConfig } from 'app/providers/StoreProvider';
-import { User, userActions } from 'entities/User';
+import { AppErrorMapper, UNKNOW_ERROR } from 'shared/lib/types/mapper.ts/appErrorMapper';
+import { isApiError } from 'shared/api';
 import { getUserQuery } from '../../api/userApi';
+import { actions } from '../actions';
+import { userActions } from '../slice/userSlice';
 
-export const getUser = createAsyncThunk<User, void, ThunkConfig<string>>('user/getUser', async (_, thunkApi) => {
-    const { dispatch, rejectWithValue } = thunkApi;
-
+export const getUser = createAsyncThunk<void, void, ThunkConfig<AppError>>('user/getUser', async (_, thunkApi) => {
+    const { dispatch } = thunkApi;
+    dispatch(actions.requestUser());
     try {
         const user = await dispatch(getUserQuery(undefined)).unwrap();
-        dispatch(userActions.setAuthData(user));
-        return user;
-    } catch (e) {
+        dispatch(actions.successUser(user));
+        return undefined;
+    } catch (error: unknown) {
         dispatch(userActions.setInitValue(true));
-        if (e instanceof Error) {
-            return rejectWithValue(e.message);
+        if (isApiError(error)) {
+            const appError = AppErrorMapper.fromDto(error);
+            dispatch(actions.failureUser(appError.message));
         }
-        return rejectWithValue('неизвестная ошибка');
+        dispatch(actions.failureUser(UNKNOW_ERROR));
     }
+    return undefined;
 });

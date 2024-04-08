@@ -1,10 +1,9 @@
 import { createListenerMiddleware, type TypedStartListening } from '@reduxjs/toolkit';
 import { AppDispatch, StateSchema } from 'app/providers/StoreProvider';
 import { userActions } from 'entities/User';
-import { refreshQuery } from 'entities/User/api/userApi';
 import { refreshToken } from 'entities/User/model/services/refreshToken';
+import { toast } from 'react-toastify';
 import { invalidateAccessToken } from 'shared/api';
-import { UserSecretStorageService } from 'shared/lib/helpers/userSecretStorage';
 
 export const invalidateAccessTokenListener = createListenerMiddleware();
 
@@ -15,10 +14,11 @@ export const startInvalidateAccessTokenListener = invalidateAccessTokenListener.
 startInvalidateAccessTokenListener({
     actionCreator: invalidateAccessToken,
     effect: async (_, api) => {
-        try {
-            await api.dispatch(refreshToken());
-        } catch {
-            api.dispatch(userActions.logout());
-        }
+        api.dispatch(refreshToken()).then((dispatchMeta) => {
+            if (dispatchMeta.meta.requestStatus === 'rejected') {
+                toast.error('Произошла ошибка в авторизации');
+                api.dispatch(userActions.logout());
+            }
+        });
     },
 });
