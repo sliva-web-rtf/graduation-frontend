@@ -4,7 +4,7 @@ import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { catalogActions } from 'widgets/Catalog/model/slice/catalogSlice';
 import { useSelector } from 'react-redux';
 import { getCatalogOptions } from 'widgets/Catalog';
-import { CatalogOptions } from 'shared/lib/types/options';
+import { CatalogOptions } from 'shared/lib/types/catalogOptions';
 
 interface ToggleListProps {
     readonly value: CatalogOptions;

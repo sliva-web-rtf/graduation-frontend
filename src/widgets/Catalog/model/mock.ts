@@ -1,5 +1,3 @@
-import { ICatalogCard } from 'widgets/CatalogCard/model/types/ICatalogCard';
-
 const chips = [
     'Машинное обучение',
     'Анализ данных',
@@ -13,12 +11,12 @@ const titles = ['Коротков Александр Кириллович', 'М�
 const subtitles = ['Старший преподаватель', 'Доцент, канд. пед. наук', 'Доцент, канд. тех. наук'];
 const limit = { current: 5, max: 15 };
 
-const generate = (length: number): ICatalogCard[] =>
-    Array.from({ length }, (_, index) => ({
-        title: titles[index],
-        chips,
-        subtitle: subtitles[index],
-        limit,
-    }));
+// const generate = (length: number): ICatalogCard[] =>
+//     Array.from({ length }, (_, index) => ({
+//         title: titles[index],
+//         chips,
+//         subtitle: subtitles[index],
+//         limit,
+//     }));
 
-export const catalogCards = generate(3);
+// export const catalogCards = generate(3);

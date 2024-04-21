@@ -1,10 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { CatalogSchema } from 'widgets/Catalog/model/types/catalogSchema';
-import { CatalogOptions } from 'shared/lib/types/options';
+import { CatalogOptions } from 'shared/lib/types/catalogOptions';
 
 const initialState: CatalogSchema = {
-    option: CatalogOptions.Supervisors,
+    option: CatalogOptions.Professors,
     options: Object.values(CatalogOptions),
+    pageSize: 10,
+    scientificInterests: [],
+    scientificAreas: [],
 };
 
 export const catalogSlice = createSlice({

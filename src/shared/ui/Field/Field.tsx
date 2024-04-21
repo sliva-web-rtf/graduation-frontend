@@ -1,4 +1,4 @@
-import { TextField, styled, TextFieldProps } from '@mui/material';
+import { styled, TextField, TextFieldProps } from '@mui/material';
 
 export const BaseField = styled(TextField)<TextFieldProps>(({ theme }) => ({
     '& .MuiInputBase-root': {
@@ -19,5 +19,14 @@ export const BaseField = styled(TextField)<TextFieldProps>(({ theme }) => ({
     },
     '& .Mui-error.Mui-focused .MuiOutlinedInput-notchedOutline': {
         border: 'none',
+    },
+    '& .MuiChip-filled': {
+        backgroundColor: theme.palette.secondary.light,
+    },
+
+    '& .MuiChip-label': {
+        maxWidth: '300px',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
     },
 }));

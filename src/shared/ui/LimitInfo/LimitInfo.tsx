@@ -1,12 +1,12 @@
 import { Stack, Typography } from '@mui/material';
 
 interface LimitInfoProps {
-    readonly current: number;
-    readonly max: number;
+    readonly limit: number;
+    readonly fullness: number;
 }
 
 export const LimitInfo = (props: LimitInfoProps) => {
-    const { current, max } = props;
+    const { limit, fullness } = props;
     const variant = 'body2';
 
     return (
@@ -15,7 +15,7 @@ export const LimitInfo = (props: LimitInfoProps) => {
                 Лимит
             </Typography>
             <Typography variant={variant}>
-                {current}/{max}
+                {fullness}/{limit}
             </Typography>
         </Stack>
     );

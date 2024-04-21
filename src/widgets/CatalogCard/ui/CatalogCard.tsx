@@ -3,12 +3,12 @@ import { Avatar, Paper, Stack, Typography } from '@mui/material';
 import { BaseChip } from 'shared/ui/Chip/Chip';
 import { BaseList } from 'shared/ui/List/List';
 import { LimitInfo } from 'shared/ui/LimitInfo/LimitInfo';
-import { AddSupervisor, AddToFavorites } from 'features/entity/AddRequests';
+import { AddProfessor, AddToFavorites } from 'features/entity/AddRequests';
 import { ICatalogCard } from '../model/types/ICatalogCard';
 import styles from './CatalogCard.module.scss';
 
 export const CatalogCard = memo((props: ICatalogCard) => {
-    const { title, chips, subtitle, status, image, limit } = props;
+    const { title, chips, subtitle, status, image, limit, fullness } = props;
 
     return (
         <Paper className={styles.card}>
@@ -27,8 +27,8 @@ export const CatalogCard = memo((props: ICatalogCard) => {
                 />
             </Stack>
             <Stack spacing={1}>
-                {limit && <LimitInfo {...limit} />}
-                <AddSupervisor isSent={false} />
+                {limit && fullness && <LimitInfo limit={limit} fullness={fullness} />}
+                <AddProfessor isSent={false} />
                 <AddToFavorites isSent={false} />
             </Stack>
         </Paper>

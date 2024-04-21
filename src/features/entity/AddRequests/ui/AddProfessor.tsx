@@ -1,7 +1,7 @@
 import { BaseButton } from 'shared/ui/Button/Button';
 import { AddRequestProps } from '../model/types/addRequest';
 
-export const AddSupervisor = (props: AddRequestProps) => {
+export const AddProfessor = (props: AddRequestProps) => {
     const { isSent } = props;
     const handleClick = () => console.log('sended');
 

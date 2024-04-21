@@ -1,5 +1,7 @@
-import { ICatalogCard } from 'widgets/CatalogCard/model/types/ICatalogCard';
+import { Professor } from 'entities/Professor';
+import { ScientificWork } from 'entities/ScientificWork';
+import { Student } from 'entities/Student/types/student';
 
 export interface ICatalogList {
-    readonly items: ICatalogCard[];
+    readonly items: Professor[] | ScientificWork[] | Student[];
 }

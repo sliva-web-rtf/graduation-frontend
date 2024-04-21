@@ -1,5 +1,5 @@
 export enum CatalogOptions {
-    Supervisors = 'Научные руководители',
+    Professors = 'Научные руководители',
     Themes = 'Темы исследований',
     Students = 'Исследователи',
 }

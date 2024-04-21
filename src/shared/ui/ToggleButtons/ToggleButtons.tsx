@@ -1,5 +1,5 @@
 import { styled, ToggleButton, ToggleButtonGroup, ToggleButtonGroupProps, ToggleButtonProps } from '@mui/material';
-import { CatalogOptions } from 'shared/lib/types/options';
+import { CatalogOptions } from 'shared/lib/types/catalogOptions';
 
 interface ToggleButtonsProps extends ToggleButtonGroupProps {
     options: CatalogOptions[];
