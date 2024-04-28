@@ -3,7 +3,6 @@ import { CombinedState, Reducer } from 'redux';
 import { userReducer } from 'entities/User';
 import { baseApi } from 'shared/api';
 import { catalogReducer } from 'widgets/Catalog/model/slice/catalogSlice';
-import { invalidateAccessTokenListener } from 'features/auth/InvalidateAccessToken/model/listener';
 import { createReducerManager } from './reducerManager';
 import { StateSchema } from './StateSchema';
 
@@ -24,7 +23,7 @@ export function createReduxStore(initialState?: StateSchema, asyncReducers?: Red
         middleware: (getDefaultMiddleware) =>
             getDefaultMiddleware({
                 serializableCheck: false,
-            }).concat(baseApi.middleware, invalidateAccessTokenListener.middleware),
+            }).concat(baseApi.middleware),
     });
 
     // @ts-ignore
