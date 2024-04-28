@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  gap: var(--space-xl);
+  width: var(--page-width);
+  min-height: 100vh;
+  padding: var(--space-m) 0;
+  margin: 0 auto;
+}
+
+.mainContainer {
+  padding-top: var(--space-m);
+}
+
+.description {
+  max-width: var(--onboarding-sidebar-description-width);
+}
