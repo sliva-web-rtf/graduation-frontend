@@ -1,37 +1,29 @@
 import { configureStore, ReducersMapObject } from '@reduxjs/toolkit';
-import { userReducer } from 'entities/User';
-import { To } from 'history';
-import { NavigateOptions } from 'react-router';
 import { CombinedState, Reducer } from 'redux';
-
+import { userReducer } from 'entities/User';
+import { baseApi } from 'shared/api';
+import { catalogReducer } from 'widgets/Catalog/model/slice/catalogSlice';
 import { createReducerManager } from './reducerManager';
-import { StateSchema, ThunkExtraArg } from './StateSchema';
+import { StateSchema } from './StateSchema';
 
-export function createReduxStore(
-    initialState?: StateSchema,
-    asyncReducers?: ReducersMapObject<StateSchema>,
-    navigate?: (to: To, options?: NavigateOptions) => void,
-) {
+export function createReduxStore(initialState?: StateSchema, asyncReducers?: ReducersMapObject<StateSchema>) {
     const rootReducers: ReducersMapObject<StateSchema> = {
         ...asyncReducers,
         user: userReducer,
+        catalog: catalogReducer,
+        [baseApi.reducerPath]: baseApi.reducer,
     };
 
     const reducerManager = createReducerManager(rootReducers);
-
-    const extraArg: ThunkExtraArg = {
-        navigate,
-    };
 
     const store = configureStore({
         reducer: reducerManager.reduce as Reducer<CombinedState<StateSchema>>,
         devTools: __IS_DEV__,
         preloadedState: initialState,
-        middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-            thunk: {
-                extraArgument: extraArg,
-            },
-        }),
+        middleware: (getDefaultMiddleware) =>
+            getDefaultMiddleware({
+                serializableCheck: false,
+            }).concat(baseApi.middleware),
     });
 
     // @ts-ignore
@@ -40,6 +32,6 @@ export function createReduxStore(
     return store;
 }
 
-export type Store = ReturnType<typeof createReduxStore>
+export type Store = ReturnType<typeof createReduxStore>;
 
 export type AppDispatch = ReturnType<typeof createReduxStore>['dispatch'];

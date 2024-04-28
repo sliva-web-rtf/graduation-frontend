@@ -1,7 +1,7 @@
 type NonNull<T> = T extends null ? never : T;
 
 type RemoveNull<T> = {
-  [K in keyof T]: NonNull<T[K]>;
+    [K in keyof T]: NonNull<T[K]>;
 };
 
 export function removeEmptyValues<T extends Record<string, any>, R = Partial<RemoveNull<T>>>(object: T): R {

@@ -1,5 +1,12 @@
 @import "reset";
 @import "variables/global";
-@import "themes/normal";
-@import "themes/dark";
-@import "themes/orange";
+@import "fonts";
+
+.page-wrapper {
+  width: var(--page-width);
+  display: grid;
+  grid-template-columns: var(--sidebar-width) 1fr;
+  column-gap: var(--space-xl);
+  padding: var(--space-m) 0;
+  margin: 0 auto;
+}

@@ -1,0 +1,17 @@
+.backdrop {
+  background-color: #c5daf4bf;
+}
+
+.modal {
+  position: absolute;
+  top: var(--space-m);
+  right: 0;
+  width: var(--modal-width);
+  min-height: var(--sidebar-height);
+}
+
+.content {
+  padding: var(--space-xl);
+  border-radius: var(--border-radius);
+  height: 100%;
+}

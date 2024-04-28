@@ -1,9 +1,21 @@
 :root {
-    --font-family-main: serif;
+  // Размеры
+  --space-s: 8px;
+  --space-m: calc(var(--space-s) * 2);
+  --space-l: calc(var(--space-s) * 3);
+  --space-xl: calc(var(--space-s) * 4);
+  --border-radius: 16px;
+  --page-width: 1440px;
+  --sidebar-width: 240px;
+  --sidebar-height: 700px;
+  --catalog-card-height: 144px;
+  --modal-width: 500px;
+  --login-form: 450px;
 
-    // Размеры
+  // z - Индексы
 
-    // z - Индексы
-
-    // Цвета
+  // Цвета
+  --bg-color: #f4f9fd;
+  --primary-color: #408dff;
+  --light-primary-color: #a6c8ff;
 }

@@ -1,10 +1,21 @@
+import { AppError } from 'shared/lib/types/appError';
+import { STATUS } from 'shared/api/status';
+import { Role } from './roles';
+
 export interface User {
-    id: string;
-    username: string;
+    id: number;
+    roles: Role[];
+    fullName?: string;
+    email?: string;
+    lastLogin?: Date;
+    isRegistrationComplete: boolean;
 }
 
 export interface UserSchema {
     authData?: User;
-
-    _isInited: boolean;
+    userError?: string;
+    tokenError?: string;
+    userStatus: STATUS;
+    refreshTokenStatus: STATUS;
+    isInited: boolean;
 }
