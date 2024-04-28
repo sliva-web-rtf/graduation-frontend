@@ -1,5 +1,4 @@
 import { createAction } from '@reduxjs/toolkit';
-import { AppError } from 'shared/lib/types/appError';
 import { User } from '../types/user';
 
 const name = 'user';

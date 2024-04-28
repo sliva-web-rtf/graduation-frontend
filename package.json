@@ -106,6 +106,7 @@
         "@mui/icons-material": "^5.15.12",
         "@mui/material": "^5.15.12",
         "@reduxjs/toolkit": "^1.8.0",
+        "async-mutex": "^0.5.0",
         "axios": "^0.26.1",
         "classnames": "^2.5.1",
         "eslint-plugin-import": "^2.29.1",

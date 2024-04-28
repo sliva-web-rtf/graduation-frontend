@@ -6,6 +6,7 @@ export interface UserDto {
     fullName?: string;
     email?: string;
     lastLogin?: string;
+    isRegistrationComplete: boolean;
 }
 
 export interface TokenDto {
@@ -19,6 +20,5 @@ export interface LoginDto {
 }
 
 export interface RefreshTokenDto {
-    userId: UserDto['id'];
     refreshToken: TokenDto['refreshToken'];
 }
