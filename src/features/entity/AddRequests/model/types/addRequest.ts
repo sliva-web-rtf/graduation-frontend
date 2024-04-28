@@ -1,3 +1,3 @@
 export interface AddRequestProps {
-    readonly isSent: boolean;
+    readonly disabled?: boolean;
 }

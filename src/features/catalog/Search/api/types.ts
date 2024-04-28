@@ -1,11 +1,14 @@
 export type ScientificInterestsDto = Array<string>;
 
-export type ScientificAreasDto = Array<{
+export type ScientificAreaDto = {
     readonly section: string;
     readonly subsections: string[];
-}>;
+};
 
-export type ScientificAreasModel = Array<{
+export type ScientificAreaModel = {
     readonly section: string;
     readonly label: string;
-}>;
+};
+
+export type ScientificAreasDto = Array<ScientificAreaDto>;
+export type ScientificAreasModel = Array<ScientificAreaModel>;

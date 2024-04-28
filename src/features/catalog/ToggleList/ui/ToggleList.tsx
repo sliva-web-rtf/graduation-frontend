@@ -3,20 +3,15 @@ import { ToggleButtons } from 'shared/ui/ToggleButtons/ToggleButtons';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { catalogActions } from 'widgets/Catalog/model/slice/catalogSlice';
 import { useSelector } from 'react-redux';
-import { getCatalogOptions } from 'widgets/Catalog';
-import { CatalogOptions } from 'shared/lib/types/catalogOptions';
+import { getCatalogOption, getCatalogOptions } from 'widgets/Catalog';
 
-interface ToggleListProps {
-    readonly value: CatalogOptions;
-}
-
-export const ToggleList = memo((props: ToggleListProps) => {
-    const { value } = props;
+export const ToggleList = memo(() => {
+    const value = useSelector(getCatalogOption);
     const dispatch = useAppDispatch();
     const options = useSelector(getCatalogOptions);
 
     const handleChange = useCallback(
-        (event: MouseEvent<HTMLElement>, newAlignment: CatalogOptions) => {
+        (_: MouseEvent<HTMLElement>, newAlignment: typeof value) => {
             if (newAlignment) {
                 dispatch(catalogActions.setOption(newAlignment));
             }

@@ -6,6 +6,7 @@ import { catalogReducer } from 'widgets/Catalog/model/slice/catalogSlice';
 import { invalidateAccessTokenListener } from 'features/auth/InvalidateAccessToken/model/listener';
 import { createReducerManager } from './reducerManager';
 import { StateSchema } from './StateSchema';
+import { rtkQueryErrorMiddleware } from './rtkErrorMiddleware';
 
 export function createReduxStore(initialState?: StateSchema, asyncReducers?: ReducersMapObject<StateSchema>) {
     const rootReducers: ReducersMapObject<StateSchema> = {
@@ -24,7 +25,7 @@ export function createReduxStore(initialState?: StateSchema, asyncReducers?: Red
         middleware: (getDefaultMiddleware) =>
             getDefaultMiddleware({
                 serializableCheck: false,
-            }).concat(baseApi.middleware, invalidateAccessTokenListener.middleware),
+            }).concat(baseApi.middleware, invalidateAccessTokenListener.middleware, rtkQueryErrorMiddleware),
     });
 
     // @ts-ignore

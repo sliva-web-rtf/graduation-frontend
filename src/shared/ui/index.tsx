@@ -11,6 +11,4 @@ export * from './AppBar/AppBar';
 export * from './Chip/Chip';
 export * from './Logo/Logo';
 export * from './LimitInfo/LimitInfo';
-export * from './ModalField/InputField';
 export * from './Pagination/Pagination';
-export * from './Search/Search';

@@ -1,1 +1,1 @@
-export { Professor } from './types/professor';
+export { Professor } from './model/types/professor';

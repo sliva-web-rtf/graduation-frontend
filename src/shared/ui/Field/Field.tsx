@@ -15,6 +15,7 @@ export const BaseField = styled(TextField)<TextFieldProps>(({ theme }) => ({
     },
     '& .MuiInputBase-root.Mui-error': {
         boxShadow: theme.shadows['0'],
+        borderColor: theme.palette.error.main,
         border: `2px solid ${theme.palette.error.main}`,
     },
     '& .Mui-error.Mui-focused .MuiOutlinedInput-notchedOutline': {

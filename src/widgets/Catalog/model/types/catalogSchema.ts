@@ -1,9 +1,11 @@
-import { CatalogOptions } from 'shared/lib/types/catalogOptions';
+import { CatalogOptions } from 'entities/CatalogList';
 
 export interface CatalogSchema {
     option: CatalogOptions;
-    options: CatalogOptions[];
+    options: Array<CatalogOptions>;
+    page: number;
     pageSize: number;
-    scientificInterests: string[];
-    scientificAreas: string[];
+    pagesCount: number;
+    scientificInterests: Array<string>;
+    scientificAreas: Array<string>;
 }

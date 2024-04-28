@@ -1,17 +1,26 @@
-import { Autocomplete, AutocompleteProps, CircularProgress, InputAdornment, TextFieldProps } from '@mui/material';
-import { memo } from 'react';
+import { Autocomplete, AutocompleteProps, CircularProgress, TextFieldProps } from '@mui/material';
+import { forwardRef, memo } from 'react';
 import { BaseField } from 'shared/ui';
-import SearchIcon from '@mui/icons-material/Search';
+// import SearchIcon from '@mui/icons-material/Search';
+
+type BaseAutocompleteProps = Omit<AutocompleteProps<any, any, any, any>, 'renderInput'> &
+    Omit<TextFieldProps, 'onChange'>;
 
 export const BaseAutocomplete = memo(
-    (props: AutocompleteProps<any, any, any, any> & Omit<TextFieldProps, 'onChange'>) => {
+    forwardRef<HTMLInputElement, BaseAutocompleteProps>((props: BaseAutocompleteProps, ref) => {
         const { error, helperText, label, placeholder, loading, ...autocompleteProps } = props;
 
         return (
             <Autocomplete
+                ref={ref}
                 {...autocompleteProps}
+                loading={loading}
+                freeSolo
+                forcePopupIcon
                 multiple
                 fullWidth
+                noOptionsText="Пусто"
+                loadingText="Загрузка..."
                 renderInput={(params) => (
                     <BaseField
                         {...params}
@@ -21,19 +30,22 @@ export const BaseAutocomplete = memo(
                         helperText={helperText}
                         InputProps={{
                             ...params.InputProps,
-                            startAdornment: (
+                            // startAdornment: (
+                            //     <>
+                            //         <InputAdornment position="start"><SearchIcon /></InputAdornment>
+                            //         {params.InputProps.startAdornment}
+                            //     </>
+                            // ),
+                            endAdornment: (
                                 <>
-                                    <InputAdornment position="start">
-                                        <SearchIcon />
-                                    </InputAdornment>
-                                    {params.InputProps.startAdornment}
+                                    {loading && <CircularProgress size={24} />}
+                                    {params.InputProps.endAdornment}
                                 </>
                             ),
-                            endAdornment: loading ? <CircularProgress size={24} /> : params.InputProps.endAdornment,
                         }}
                     />
                 )}
             />
         );
-    },
+    }),
 );
