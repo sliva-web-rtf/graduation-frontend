@@ -22,7 +22,6 @@ const userApi = baseApi.injectEndpoints({
                 method: 'POST',
                 body: {
                     ...loginToDto(initialValues),
-                    tokenLifetimeInSeconds: 20,
                 },
             }),
             transformResponse: async (response: TokenDto) => {
