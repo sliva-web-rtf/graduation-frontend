@@ -4,7 +4,7 @@ export const BaseField = styled(TextField)<TextFieldProps>(({ theme }) => ({
     '& .MuiInputBase-root': {
         borderRadius: '16px',
         boxShadow: theme.shadows['1'],
-        background: theme.palette.background.default,
+        background: '#fff',
     },
     '& .MuiOutlinedInput-notchedOutline': {
         border: 'none',

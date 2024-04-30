@@ -6,4 +6,5 @@ export const mapUserDtoToModel = (dto: UserDto): User => ({
     roles: dto.roles,
     fullName: dto.fullName,
     email: dto.email,
+    isRegistrationComplete: dto.isRegistrationComplete,
 });

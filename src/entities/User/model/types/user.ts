@@ -8,6 +8,7 @@ export interface User {
     fullName?: string;
     email?: string;
     lastLogin?: Date;
+    isRegistrationComplete: boolean;
 }
 
 export interface UserSchema {
