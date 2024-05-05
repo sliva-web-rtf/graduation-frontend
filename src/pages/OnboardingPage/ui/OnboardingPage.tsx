@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import { memo } from 'react';
 
 import { OnboardingSidebar } from 'widgets/OnboardingSidebar';
-import { TabsWithStatus } from 'shared/ui';
+import { Onboarding } from 'widgets/Onboarding';
 import classNames from './OnboardingPage.module.scss';
 
 const OnboardingPage = memo(() => (
@@ -21,16 +21,7 @@ const OnboardingPage = memo(() => (
                     Вводимые данные обеспечат более эффективную коммуникацию, а также обеспечат персональную выдачу,
                     которая будет максимально соответствовать Вашим запросам.
                 </Typography>
-                <TabsWithStatus
-                    titles={['Личные данные', 'Научное портфолио', 'Статус поиска']}
-                    subTitles={['Шаг 1', 'Шаг 2', 'Шаг 3']}
-                    values={[1, 2, 3]}
-                    successValues={[1]}
-                    activeValue={2}
-                    errors={{
-                        2: 'текст',
-                    }}
-                />
+                <Onboarding />
             </Stack>
         </Box>
     </>
