@@ -25,5 +25,25 @@
 }
 
 .icon {
-  stroke: var(--secondary-color);
+  fill: var(--secondary-color);
+}
+
+.activeTab {
+  border-color: var(--primary-color);
+}
+
+.errorTab {
+  border-color: var(--error-color);
+}
+
+.tabDescription {
+  color: var(--secondary-color);
+}
+
+.errorTabDescription {
+  color: var(--error-color);
+}
+
+.successTabDescription {
+  color: var(--success-color);
 }

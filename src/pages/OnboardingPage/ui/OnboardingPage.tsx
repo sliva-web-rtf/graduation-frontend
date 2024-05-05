@@ -25,7 +25,11 @@ const OnboardingPage = memo(() => (
                     titles={['Личные данные', 'Научное портфолио', 'Статус поиска']}
                     subTitles={['Шаг 1', 'Шаг 2', 'Шаг 3']}
                     values={[1, 2, 3]}
-                    onChange={() => {}}
+                    successValues={[1]}
+                    activeValue={2}
+                    errors={{
+                        2: 'текст',
+                    }}
                 />
             </Stack>
         </Box>
