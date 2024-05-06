@@ -1,9 +1,11 @@
 import { WorkStatus } from 'entities/ScientificWork';
+import { CatalogOptions } from 'entities/CatalogList';
 
 export interface ICatalogCard {
     readonly id: string;
     readonly title: string;
     readonly chips: string[];
+    readonly option: CatalogOptions;
     readonly image?: any;
     readonly subtitle?: string;
     readonly status?: string;

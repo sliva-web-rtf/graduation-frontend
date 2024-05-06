@@ -19,5 +19,5 @@ export const ToggleList = memo(() => {
         [dispatch],
     );
 
-    return <ToggleButtons color="primary" exclusive onChange={handleChange} value={value} options={options} />;
+    return <ToggleButtons exclusive onChange={handleChange} value={value} options={options} />;
 });

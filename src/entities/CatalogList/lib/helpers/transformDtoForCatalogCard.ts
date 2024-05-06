@@ -2,11 +2,19 @@ import { Professor } from 'entities/Professor';
 import { ScientificWork } from 'entities/ScientificWork';
 import { Student } from 'entities/Student';
 import { ICatalogCard } from 'entities/CatalogCard/model/types/ICatalogCard';
+import { CatalogOptions } from 'entities/CatalogList';
 
 export const transformDtoForCatalogCard = (dto: Professor | ScientificWork | Student): ICatalogCard => ({
     id: dto.id,
-    title: 'name' in dto ? dto.name : `${dto.firstName} ${dto.lastName} ${dto.patronymic}`,
+    title: 'name' in dto ? dto.name : `${dto.lastName} ${dto.firstName} ${dto.patronymic}`,
     chips: dto.scientificInterests,
+    option:
+        // eslint-disable-next-line no-nested-ternary
+        'workStatus' in dto
+            ? CatalogOptions.Themes
+            : 'fullness' in dto
+              ? CatalogOptions.Professors
+              : CatalogOptions.Students,
     image: undefined,
     subtitle: 'degree' in dto ? dto.degree : undefined,
     status: 'status' in dto ? dto.status : undefined,

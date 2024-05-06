@@ -12,3 +12,6 @@ export * from './Chip/Chip';
 export * from './Logo/Logo';
 export * from './LimitInfo/LimitInfo';
 export * from './Pagination/Pagination';
+export * from './FavoritesFilterButton/FavoritesFilterButton';
+export * from './InfoCard/InfoCard';
+export * from './InfoInterests/InfoInterests';

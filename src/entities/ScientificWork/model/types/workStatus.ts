@@ -6,6 +6,6 @@ export enum WorkStatus {
 
 export const WorkStatusRus: Record<WorkStatus, string> = {
     [WorkStatus.NotConfirmed]: 'Не подтверждена',
-    [WorkStatus.Confirmed]: 'Подтверждена',
-    [WorkStatus.Completed]: 'Одобрена',
+    [WorkStatus.Confirmed]: 'Одобрена',
+    [WorkStatus.Completed]: 'Подтверждена',
 };

@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material';
-import { blue, blueGrey, green, grey, lightGreen, red } from '@mui/material/colors';
+import { blue, blueGrey, green, grey, red } from '@mui/material/colors';
 
 import { components } from './components';
 import { shadows } from './shadows';
@@ -23,7 +23,7 @@ export const theme = createTheme({
         },
         success: {
             main: green['500'],
-            light: lightGreen['100'],
+            light: green.A100,
         },
     },
     shadows,

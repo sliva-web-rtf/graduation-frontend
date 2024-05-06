@@ -1,4 +1,4 @@
 export enum StudentStatus {
-    Active,
-    Suspended,
+    Searching = 'Searching',
+    Suspended = 'Suspended',
 }

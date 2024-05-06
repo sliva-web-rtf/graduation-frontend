@@ -1,7 +1,7 @@
 import AutoAwesomeMotionOutlinedIcon from '@mui/icons-material/AutoAwesomeMotionOutlined';
 import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined';
 import ChecklistOutlinedIcon from '@mui/icons-material/ChecklistOutlined';
-import { RoutePath } from 'app/providers/router/config/routeConfig';
+import { RoutePath } from 'app/providers/Router/config/routeConfig';
 
 export const TABS = [
     {

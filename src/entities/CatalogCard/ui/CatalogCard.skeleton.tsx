@@ -1,7 +1,7 @@
 import { memo, useCallback } from 'react';
 import { Paper, Skeleton, Stack, Typography } from '@mui/material';
 import { BaseList } from 'shared/ui/List/List';
-import { AddProfessor, AddToFavorites } from 'features/entity/AddRequests';
+import { AddProfessorButton, AddToFavoritesButton } from 'features/entity/AddRequests';
 import styles from './CatalogCard.module.scss';
 
 export const CatalogCardSkeleton = memo(() => {
@@ -19,7 +19,7 @@ export const CatalogCardSkeleton = memo(() => {
     );
 
     return (
-        <Paper className={styles.card}>
+        <Paper className={styles.card} sx={{ borderRadius: 4 }}>
             <Skeleton variant="rectangular" sx={{ width: 1, height: 1, borderRadius: 3 }} />
             <Stack spacing={3}>
                 <Stack spacing={1}>
@@ -33,8 +33,8 @@ export const CatalogCardSkeleton = memo(() => {
                 <BaseList className={styles.chips} items={[0, 1, 2, 3, 4, 5]} render={render} />
             </Stack>
             <Stack spacing={1} alignSelf="flex-end">
-                <AddProfessor disabled />
-                <AddToFavorites disabled />
+                <AddProfessorButton disabled />
+                <AddToFavoritesButton disabled />
             </Stack>
         </Paper>
     );
