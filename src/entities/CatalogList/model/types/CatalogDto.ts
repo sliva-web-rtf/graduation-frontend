@@ -4,7 +4,7 @@ import { Student } from 'entities/Student';
 
 export interface CatalogDto {
     readonly length: number;
-    readonly professors?: Professor[];
-    readonly scientificWorks?: ScientificWork[];
-    readonly students?: Student[];
+    readonly professors?: Array<Professor>;
+    readonly scientificWorks?: Array<ScientificWork>;
+    readonly students?: Array<Student>;
 }

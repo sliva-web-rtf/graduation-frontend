@@ -1,23 +1,17 @@
 import { memo } from 'react';
 import { Grid, Stack, Typography } from '@mui/material';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { AddToFavoritesButton } from 'features/entity/AddRequests';
 import { ScientificWorkCard } from 'entities/ScientificWork/ui/ScientificWorkCard';
-import { useGeScientificWorkQuery } from 'entities/ScientificWork';
-import { ToggleScientificWorkInfo } from 'features/scientificWork/ToggleInfo';
-// eslint-disable-next-line max-len
-import { getScientificWorkInfoOption } from '../model/selectors/getScientificWorkInfoOption/getScientificWorkInfoOption';
-import { ToggleOptions } from '../model/types/toggleOptions';
+import { useGetScientificWorkQuery } from 'entities/ScientificWork';
+import { CatalogOptions } from 'entities/CatalogList';
 import { ScientificWorkInfoSkeleton } from './ScientificWorkInfo.skeleton';
 import { ScientificWorkGeneral } from './ScientificWorkGeneral';
-import { ScientificWorkSlots } from './ScientificWorkSlots';
 
 export const ScientificWorkInfo = memo(() => {
     const { id } = useParams();
-    const option = useSelector(getScientificWorkInfoOption);
 
-    const { isFetching, data } = useGeScientificWorkQuery({ id: id! });
+    const { isFetching, data } = useGetScientificWorkQuery({ id: id! });
 
     if (isFetching) {
         return <ScientificWorkInfoSkeleton />;
@@ -33,19 +27,12 @@ export const ScientificWorkInfo = memo(() => {
                 <Stack spacing={3}>
                     <ScientificWorkCard {...data} />
                     <Stack spacing={1} alignItems="center">
-                        <AddToFavoritesButton />
+                        <AddToFavoritesButton id={id!} isFavorite={data.isFavorite} option={CatalogOptions.Themes} />
                     </Stack>
                 </Stack>
             </Grid>
             <Grid item xs>
-                <Stack spacing={4} alignItems="flex-start">
-                    <ToggleScientificWorkInfo />
-                    {option === ToggleOptions.General ? (
-                        <ScientificWorkGeneral {...data} />
-                    ) : (
-                        <ScientificWorkSlots id={id!} />
-                    )}
-                </Stack>
+                <ScientificWorkGeneral {...data} />
             </Grid>
         </Grid>
     );

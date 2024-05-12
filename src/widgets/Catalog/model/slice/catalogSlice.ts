@@ -10,6 +10,7 @@ const initialState: CatalogSchema = {
     pagesCount: 1,
     scientificInterests: [],
     scientificAreas: [],
+    isFavoriteFilterOnly: false,
 };
 
 export const catalogSlice = createSlice({
@@ -30,6 +31,9 @@ export const catalogSlice = createSlice({
         },
         setScientificAreas: (state, action: PayloadAction<CatalogSchema['scientificAreas']>) => {
             state.scientificAreas = action.payload;
+        },
+        setIsFavoriteFilter: (state, action: PayloadAction<CatalogSchema['isFavoriteFilterOnly']>) => {
+            state.isFavoriteFilterOnly = action.payload;
         },
     },
 });

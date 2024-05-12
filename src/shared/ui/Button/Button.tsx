@@ -6,6 +6,8 @@ export const BaseButton = styled(Button)<ButtonProps>(() => ({
         borderRadius: 'var(--border-radius)',
         textTransform: 'none',
         minWidth: 0,
+        fontFamily: 'Manrope',
+        fontWeight: '600',
     },
     '&.MuiButton-outlined': {
         borderColor: grey['500'],

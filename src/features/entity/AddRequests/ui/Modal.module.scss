@@ -1,0 +1,16 @@
+.backdrop {
+  background-color: var(--modal-backdrop-color);
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.content {
+  padding: calc(2 * var(--space-l));
+  height: 100%;
+  width: 660px;
+}

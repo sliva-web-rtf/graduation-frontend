@@ -8,4 +8,5 @@ export interface CatalogSchema {
     pagesCount: number;
     scientificInterests: Array<string>;
     scientificAreas: Array<string>;
+    isFavoriteFilterOnly: boolean;
 }

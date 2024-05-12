@@ -6,7 +6,7 @@ import { ScientificWorksRequest } from '../model/types/scientificWorksRequest';
 
 const scientificWorkApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
-        geScientificWork: build.query<ScientificWork, ScientificWorksRequest>({
+        getScientificWork: build.query<ScientificWork, ScientificWorksRequest>({
             query: ({ id }) => ({
                 url: '/api/scientificWork/general-info-by-id',
                 params: { id },
@@ -21,4 +21,4 @@ const scientificWorkApi = baseApi.injectEndpoints({
     }),
 });
 
-export const { useGeScientificWorkQuery, useGetUsersScientificWorksQuery } = scientificWorkApi;
+export const { useGetScientificWorkQuery, useGetUsersScientificWorksQuery } = scientificWorkApi;

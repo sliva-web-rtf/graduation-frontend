@@ -23,10 +23,17 @@ const catalogApi = baseApi.injectEndpoints({
                     const pagesCount = calculatePagesCount(data.length, arg.params.pageSize);
                     dispatch(catalogActions.setPagesCount(pagesCount));
                 } catch (err) {
-                    console.error('Ошибка при получении данных из API каталога:', err);
+                    console.error('Ошибка при получения каталога:', err);
                 }
             },
             transformResponse: (response: CatalogDto) => mapCatalogDtoToModel(response),
+            providesTags: (result) =>
+                result?.data
+                    ? [
+                          ...result.data.map(({ id }) => ({ type: 'Catalog' as never, id })),
+                          { type: 'Catalog' as never, id: 'LIST' },
+                      ]
+                    : [{ type: 'Catalog' as never, id: 'LIST' }],
         }),
     }),
 });

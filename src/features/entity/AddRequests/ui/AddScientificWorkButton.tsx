@@ -1,7 +1,6 @@
 import { BaseButton } from 'shared/ui/Button/Button';
-import { AddRequestProps } from '../model/types/addRequest';
 
-export const AddScientificWorkButton = (props: AddRequestProps) => {
+export const AddScientificWorkButton = (props: any) => {
     const handleClick = () => console.log('sended');
 
     return (

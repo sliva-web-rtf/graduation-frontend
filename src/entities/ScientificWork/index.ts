@@ -1,3 +1,4 @@
 export { ScientificWork } from './model/types/scientificWork';
+export { ScientificWorkRadio } from './ui/ScientificWorkRadio';
 export { WorkStatus, WorkStatusRus } from './model/types/workStatus';
-export { useGeScientificWorkQuery, useGetUsersScientificWorksQuery } from './api/scientificWorkApi';
+export { useGetScientificWorkQuery, useGetUsersScientificWorksQuery } from './api/scientificWorkApi';

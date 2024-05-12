@@ -15,3 +15,4 @@ export * from './Pagination/Pagination';
 export * from './FavoritesFilterButton/FavoritesFilterButton';
 export * from './InfoCard/InfoCard';
 export * from './InfoInterests/InfoInterests';
+export * from './Select/BaseSelect';

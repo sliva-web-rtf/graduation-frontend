@@ -7,5 +7,6 @@ export interface CatalogRequest {
         pageSize: number;
         scientificAreaSubsections?: string[];
         scientificInterests?: string[];
+        isFavoriteFilterOnly: boolean;
     };
 }

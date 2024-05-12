@@ -4,4 +4,5 @@ export interface ScientificWorkRequest {
     result: string;
     scientificAreaSubsections: Array<string>;
     scientificInterests: Array<string>;
+    isEducator: boolean;
 }

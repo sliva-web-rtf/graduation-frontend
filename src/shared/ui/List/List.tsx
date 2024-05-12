@@ -7,6 +7,7 @@ interface ListProps<T> {
     className?: string;
 }
 
-export function BaseList<T>({ items, render, className }: ListProps<T>) {
+export function BaseList<T>(props: ListProps<T>) {
+    const { items, render, className } = props;
     return <Box className={className}>{items.map((item) => render(item))}</Box>;
 }

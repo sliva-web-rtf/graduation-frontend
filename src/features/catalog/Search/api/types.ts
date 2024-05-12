@@ -1,6 +1,6 @@
 export type ScientificInterestsDto = Array<string>;
 
-export type ScientificAreaDto = {
+type ScientificArea = {
     readonly section: string;
     readonly subsections: string[];
 };
@@ -10,5 +10,5 @@ export type ScientificAreaModel = {
     readonly label: string;
 };
 
-export type ScientificAreasDto = Array<ScientificAreaDto>;
+export type ScientificAreas = Array<ScientificArea>;
 export type ScientificAreasModel = Array<ScientificAreaModel>;

@@ -8,6 +8,7 @@ import { CatalogCard } from 'entities/CatalogCard';
 import {
     getCatalogAreas,
     getCatalogInterests,
+    getCatalogIsFavoritesFilter,
     getCatalogOption,
     getCatalogPage,
     getCatalogPageSize,
@@ -25,6 +26,7 @@ export const CatalogList = memo(() => {
         pageSize: useSelector(getCatalogPageSize),
         scientificAreaSubsections: useSelector(getCatalogAreas),
         scientificInterests: useSelector(getCatalogInterests),
+        isFavoriteFilterOnly: useSelector(getCatalogIsFavoritesFilter),
     };
 
     const render = useCallback((item: Professor | ScientificWork | Student) => {

@@ -3,6 +3,6 @@ import { ScientificWork } from 'entities/ScientificWork';
 import { Student } from 'entities/Student';
 
 export interface CatalogModel {
-    readonly data?: Professor[] | ScientificWork[] | Student[];
+    readonly data?: Array<Professor | ScientificWork | Student>;
     readonly length: number;
 }

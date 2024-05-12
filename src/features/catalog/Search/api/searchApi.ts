@@ -1,5 +1,5 @@
 import { baseApi } from 'shared/api';
-import { ScientificAreasDto, ScientificAreasModel, ScientificInterestsDto } from 'features/catalog/Search/api/types';
+import { ScientificAreas, ScientificAreasModel, ScientificInterestsDto } from 'features/catalog/Search/api/types';
 import { transformDtoForAutocomplete } from '../lib/helpers/transformDataForAutocomplete';
 
 const searchApi = baseApi.injectEndpoints({
@@ -16,7 +16,7 @@ const searchApi = baseApi.injectEndpoints({
         }),
         getScientificAreas: build.query<ScientificAreasModel, void>({
             query: () => '/api/infrastructure/list-scientific-area',
-            transformResponse: (response: ScientificAreasDto) => transformDtoForAutocomplete(response),
+            transformResponse: (response: ScientificAreas) => transformDtoForAutocomplete(response),
         }),
     }),
 });

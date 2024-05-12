@@ -1,20 +1,39 @@
 import { BaseButton } from 'shared/ui/Button/Button';
 import StarOutlineRoundedIcon from '@mui/icons-material/StarOutlineRounded';
-import { AddRequestProps } from '../model/types/addRequest';
+import React, { memo } from 'react';
+import { useSelector } from 'react-redux';
+import { isUserProfessor } from 'entities/User/model/selectors/getUserRoles/getUserRoles';
+import { CatalogOptions } from 'entities/CatalogList';
+import { useAddToFavoritesMutation } from 'features/entity/AddRequests/api/addRequestsApi';
+import StarRoundedIcon from '@mui/icons-material/StarRounded';
 
-export const AddToFavoritesButton = (props: AddRequestProps) => {
-    const handleClick = () => console.log('sended');
+interface AddToFavoritesButtonProps {
+    readonly id: string;
+    readonly option: CatalogOptions;
+    readonly isFavorite: boolean;
+}
+
+export const AddToFavoritesButton = memo((props: AddToFavoritesButtonProps) => {
+    const { id, option, isFavorite } = props;
+    const isProfessor = useSelector(isUserProfessor);
+
+    const [addToFavorites, { isLoading }] = useAddToFavoritesMutation();
+
+    const handleClick = () => {
+        addToFavorites({ id, option, isProfessor });
+    };
 
     return (
         <BaseButton
+            onClick={handleClick}
             variant="text"
-            startIcon={<StarOutlineRoundedIcon />}
+            startIcon={isFavorite ? <StarRoundedIcon color="primary" /> : <StarOutlineRoundedIcon />}
             sx={(theme) => ({
                 padding: [theme.spacing(2), theme.spacing(3)].join(''),
             })}
-            {...props}
+            disabled={isLoading}
         >
-            Добавить в избранное
+            {isFavorite ? 'Убрать из избранного' : 'Добавить в избранное'}
         </BaseButton>
     );
-};
+});

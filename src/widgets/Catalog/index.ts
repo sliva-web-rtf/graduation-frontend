@@ -6,3 +6,4 @@ export { getCatalogPageSize } from './model/selectors/getCatalogPageSize/getCata
 export { getCatalogPagesCount } from './model/selectors/getCatalogPagesCount/getCatalogPagesCount';
 export { getCatalogInterests } from './model/selectors/getCatalogInterests/getCatalogInterests';
 export { getCatalogAreas } from './model/selectors/getCatalogAreas/getCatalogAreas';
+export { getCatalogIsFavoritesFilter } from './model/selectors/getCatalogIsFavoritesFilter/getCatalogIsFavoritesFilter';

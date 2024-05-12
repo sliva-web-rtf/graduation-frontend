@@ -3,11 +3,12 @@ import { memo } from 'react';
 
 interface InfoCardProps {
     readonly title: string;
-    readonly text: string | number;
+    readonly text?: string | number;
+    readonly formatted?: boolean;
 }
 
 export const InfoCard = memo((props: InfoCardProps) => {
-    const { title, text } = props;
+    const { title, text, formatted } = props;
 
     return (
         <Paper
@@ -18,7 +19,9 @@ export const InfoCard = memo((props: InfoCardProps) => {
         >
             <Stack spacing={2}>
                 <Typography variant="h3">{title}</Typography>
-                <Typography variant="body1">{text}</Typography>
+                <Typography variant="body1" whiteSpace={formatted ? 'pre' : 'normal'}>
+                    {text || 'Пусто'}
+                </Typography>
             </Stack>
         </Paper>
     );

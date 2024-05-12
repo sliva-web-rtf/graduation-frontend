@@ -13,7 +13,11 @@ export const ProfessorSummary = memo((props: ProfessorSummaryProps) => {
     const { id, image, name } = props;
 
     if (!id) {
-        return <Typography variant="body1">Научный руководитель неизвестен</Typography>;
+        return (
+            <Typography variant="body1" color="secondary">
+                Научный руководитель неизвестен
+            </Typography>
+        );
     }
 
     return (

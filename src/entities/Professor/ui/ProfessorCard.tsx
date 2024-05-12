@@ -4,8 +4,20 @@ import { getFullName } from 'shared/lib/helpers/getFullName';
 import { Professor } from '../model/types/Professor';
 
 export const ProfessorCard = memo((props: Professor) => {
-    const { image, firstName, lastName, patronymic, degree, fullness, limit, phoneNumber, email, address, contacts } =
-        props;
+    const {
+        image,
+        firstName,
+        lastName,
+        patronymic,
+        degree,
+        post,
+        fullness,
+        limit,
+        phoneNumber,
+        email,
+        address,
+        contacts,
+    } = props;
     const name = useMemo(() => getFullName(firstName, lastName, patronymic), [firstName, lastName, patronymic]);
 
     return (
@@ -21,7 +33,7 @@ export const ProfessorCard = memo((props: Professor) => {
                     <Stack spacing={1} textAlign="center">
                         <Typography variant="h3">{name}</Typography>
                         <Typography variant="subtitle1" color="secondary">
-                            {degree}
+                            {degree} {post}
                         </Typography>
                     </Stack>
                 </Stack>
@@ -34,6 +46,9 @@ export const ProfessorCard = memo((props: Professor) => {
                 </Stack>
                 <Divider />
                 <Stack spacing={1}>
+                    <Typography variant="body1" color="secondary">
+                        {contacts}
+                    </Typography>
                     <Typography variant="body1" color="secondary">
                         {phoneNumber}
                     </Typography>

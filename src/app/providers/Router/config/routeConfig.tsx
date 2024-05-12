@@ -3,7 +3,7 @@ import { LoginPage } from 'pages/LoginPage';
 import { CatalogPage } from 'pages/CatalogPage';
 import { NotFoundPage } from 'pages/NotFoundPage';
 import { ForbiddenPage } from 'pages/ForbiddenPage';
-import { Role } from 'entities/User/model/types/roles';
+import { Role } from 'entities/User/model/types/role';
 import { ProfessorPage } from 'pages/ProfessorPage';
 import { StudentPage } from 'pages/StudentPage';
 import { Typography } from '@mui/material';

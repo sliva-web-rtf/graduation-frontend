@@ -1,9 +1,8 @@
-import { AppError } from 'shared/lib/types/appError';
 import { STATUS } from 'shared/api/status';
-import { Role } from './roles';
+import { Role } from './role';
 
 export interface User {
-    id: number;
+    id: string;
     roles: Role[];
     fullName?: string;
     email?: string;

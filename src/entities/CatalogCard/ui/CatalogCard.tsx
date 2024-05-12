@@ -12,7 +12,7 @@ import { ICatalogCard } from '../model/types/ICatalogCard';
 import styles from './CatalogCard.module.scss';
 
 export const CatalogCard = memo((props: ICatalogCard) => {
-    const { id, title, chips, subtitle, image, limit, fullness, workStatus, option } = props;
+    const { id, title, chips, subtitle, image, limit, fullness, workStatus, option, isFavorite, canJoin } = props;
 
     const parentLink = useMemo(() => getParentLink(option), [option]);
 
@@ -23,9 +23,9 @@ export const CatalogCard = memo((props: ICatalogCard) => {
                 alt={title}
                 sx={{ width: 1, height: 1, borderRadius: 3 }}
             />
-            <Stack spacing={3}>
+            <Stack spacing={3} justifyContent="space-between" overflow="hidden">
                 <Stack spacing={1}>
-                    {workStatus && (
+                    {workStatus ? (
                         <BaseChip
                             label={WorkStatusRus[workStatus]}
                             sx={{
@@ -35,10 +35,11 @@ export const CatalogCard = memo((props: ICatalogCard) => {
                                 }.light`,
                             }}
                         />
+                    ) : (
+                        <Typography variant="subtitle1" color="secondary">
+                            {subtitle}
+                        </Typography>
                     )}
-                    <Typography variant="subtitle1" color="secondary">
-                        {subtitle}
-                    </Typography>
                     <Link to={`/${parentLink}/${id}`} color="inherit">
                         <Typography variant="h3">{title}</Typography>
                     </Link>
@@ -51,11 +52,9 @@ export const CatalogCard = memo((props: ICatalogCard) => {
             </Stack>
             <Stack spacing={1} alignSelf="flex-end" alignItems="flex-end">
                 <LimitInfo limit={limit} fullness={fullness} />
-                {workStatus !== WorkStatus.NotConfirmed && (
-                    <AddProfessorButton disabled={workStatus && fullness === limit} />
-                )}
+                {workStatus !== WorkStatus.NotConfirmed && <AddProfessorButton id={id} canJoin={canJoin} />}
 
-                <AddToFavoritesButton />
+                <AddToFavoritesButton id={id} isFavorite={isFavorite} option={option} />
             </Stack>
         </Paper>
     );

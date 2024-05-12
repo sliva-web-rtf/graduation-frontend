@@ -5,7 +5,8 @@ import { useSelector } from 'react-redux';
 import { getStudentInfoOption } from 'widgets/StudentInfo/model/selectors/getStudentInfoOption/getStudentInfoOption';
 import { StudentCard, useGetStudentQuery } from 'entities/Student';
 import { ToggleStudentInfo } from 'features/student/ToggleInfo';
-import { AddStudentButton, AddToFavoritesButton } from 'features/entity/AddRequests';
+import { AddToFavoritesButton } from 'features/entity/AddRequests';
+import { CatalogOptions } from 'entities/CatalogList';
 import { ToggleOptions } from '../model/types/toggleOptions';
 import { StudentInfoSkeleton } from './StudentInfo.skeleton';
 import { StudentPortfolio } from './StudentPortfolio';
@@ -31,8 +32,8 @@ export const StudentInfo = memo(() => {
                 <Stack spacing={3}>
                     <StudentCard {...data} />
                     <Stack spacing={1} alignItems="center">
-                        <AddStudentButton />
-                        <AddToFavoritesButton />
+                        {/* <AddStudentButton /> */}
+                        <AddToFavoritesButton id={id!} isFavorite={data.isFavorite} option={CatalogOptions.Students} />
                     </Stack>
                 </Stack>
             </Grid>

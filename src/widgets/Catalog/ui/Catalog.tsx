@@ -3,12 +3,12 @@ import { BasePagination } from 'shared/ui/Pagination/Pagination';
 import { Search } from 'features/catalog/Search';
 import { ToggleList } from 'features/catalog/ToggleList';
 import { useSelector } from 'react-redux';
-import React, { ChangeEvent, memo, useCallback } from 'react';
+import React, { ChangeEvent, memo } from 'react';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { catalogActions } from 'widgets/Catalog/model/slice/catalogSlice';
 import { CatalogList, CatalogOptions } from 'entities/CatalogList';
-import { FavoritesFilterCheckbox } from 'shared/ui';
-import { NewScientificWorkModal } from 'features/catalog/NewScientificWork';
+import { FavoritesFilterCheckbox } from 'features/catalog/Favorites';
+import { CreateScientificWorkModal } from 'features/scientificWork/CreateScientificWork';
 import { getCatalogPage } from '../model/selectors/getCatalogPage/getCatalogPage';
 import { getCatalogPagesCount } from '../model/selectors/getCatalogPagesCount/getCatalogPagesCount';
 import { getCatalogOption } from '../model/selectors/getCatalogOption/getCatalogOption';
@@ -19,12 +19,9 @@ export const Catalog = memo(() => {
     const page = useSelector(getCatalogPage);
     const pagesCount = useSelector(getCatalogPagesCount);
 
-    const handlePageChange = useCallback(
-        (_: ChangeEvent<unknown>, value: number) => {
-            dispatch(catalogActions.setPage(value));
-        },
-        [dispatch],
-    );
+    const handlePageChange = (_: ChangeEvent<unknown>, value: number) => {
+        dispatch(catalogActions.setPage(value));
+    };
 
     return (
         <Stack spacing={4} justifyContent="space-between" height="100%">
@@ -34,7 +31,7 @@ export const Catalog = memo(() => {
                     <ToggleList />
                     <Stack direction="row" spacing={2}>
                         <FavoritesFilterCheckbox />
-                        {option === CatalogOptions.Themes && <NewScientificWorkModal />}
+                        {option === CatalogOptions.Themes && <CreateScientificWorkModal />}
                     </Stack>
                 </Stack>
                 <CatalogList />

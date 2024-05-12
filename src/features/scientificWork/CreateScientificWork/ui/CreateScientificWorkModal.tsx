@@ -2,7 +2,7 @@ import { Modal, Paper, Stack, Typography } from '@mui/material';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { BaseButton } from 'shared/ui/Button/Button';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
-import React, { useCallback, useState } from 'react';
+import React, { memo, useState } from 'react';
 import { useGetScientificAreasQuery, useGetScientificInterestsQuery } from 'features/catalog/Search/api/searchApi';
 import { useDebounce } from 'use-debounce';
 import { DEBOUNCE_DELAY } from 'shared/lib/const/const';
@@ -10,54 +10,55 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { BaseField } from 'shared/ui';
 import { BaseAutocomplete } from 'widgets/Autocomplete/Autocomplete';
-import styles from './NewScientificWorkModal.module.scss';
-import { NewScientificWorkFormSchema, newScientificWorkFormSchema } from '../models/types/newScientificWorkSchema';
+import { useSelector } from 'react-redux';
+import { isUserProfessor } from 'entities/User/model/selectors/getUserRoles/getUserRoles';
+import styles from './CreateScientificWorkModal.module.scss';
+import { AddScientificWorkFormSchema, addScientificWorkFormSchema } from '../models/types/addScientificWorkSchema';
 import { useAddNewScientificWorkMutation } from '../api/newScientificWorkApi';
 
-export const NewScientificWorkModal = () => {
+export const CreateScientificWorkModal = memo(() => {
+    const isProfessorRole = useSelector(isUserProfessor);
     const [isOpen, setOpen] = useState(false);
-    const toggleOpen = () => setOpen((prev) => !prev);
     const [search, setSearch] = useState('');
     const [searchText] = useDebounce(search, DEBOUNCE_DELAY);
+    const toggleOpen = () => setOpen((prev) => !prev);
 
     const { isFetching: isInterestsFetching, data: interests } = useGetScientificInterestsQuery(searchText);
     const { isFetching: isAreasFetching, data: areas } = useGetScientificAreasQuery();
-    const [addNewScientificWork, { isLoading: isNewScientificWorkFetching }] = useAddNewScientificWorkMutation();
+    const [addNewScientificWork, { isLoading: isCreating }] = useAddNewScientificWorkMutation();
 
     const {
         formState: { errors },
         handleSubmit,
         setValue,
         register,
-    } = useForm<NewScientificWorkFormSchema>({
-        mode: 'onBlur',
-        resolver: zodResolver(newScientificWorkFormSchema),
+        reset,
+    } = useForm<AddScientificWorkFormSchema>({
+        resolver: zodResolver(addScientificWorkFormSchema),
     });
 
-    const handleInterestsChange = useCallback(
-        (_: any, newValue: any) => {
-            setValue('scientificInterests', newValue);
-        },
-        [setValue],
-    );
+    const handleInterestsChange = (_: any, newValue: any) => {
+        setValue('scientificInterests', newValue);
+    };
 
-    const handleAreasChange = useCallback(
-        (_: any, newValue: any) => {
-            setValue('scientificAreaSubsections', newValue);
-        },
-        [setValue],
-    );
+    const handleAreasChange = (_: any, newValue: any) => {
+        setValue('scientificAreaSubsections', newValue);
+    };
 
-    const onSubmit = useCallback(
-        (data: NewScientificWorkFormSchema) => {
-            const areasWithoutSection = data.scientificAreaSubsections.map((item) => item.label);
-            addNewScientificWork({
+    const onSubmit = async (data: AddScientificWorkFormSchema) => {
+        const areasWithoutSection = data.scientificAreaSubsections.map((item) => item.label);
+        try {
+            await addNewScientificWork({
                 ...data,
                 scientificAreaSubsections: areasWithoutSection,
+                isEducator: !isProfessorRole,
             });
-        },
-        [addNewScientificWork],
-    );
+            toggleOpen();
+            reset();
+        } catch (err) {
+            /* empty */
+        }
+    };
 
     return (
         <>
@@ -75,7 +76,7 @@ export const NewScientificWorkModal = () => {
                             className={styles.content}
                             spacing={4}
                             elevation={0}
-                            sx={{ borderRadius: 2 }}
+                            sx={{ borderRadius: 4 }}
                         >
                             <Typography variant="h3">Предложение темы для исследования</Typography>
                             <Stack spacing={2}>
@@ -128,7 +129,22 @@ export const NewScientificWorkModal = () => {
                                     helperText={errors.scientificInterests?.message}
                                 />
                             </Stack>
-                            <BaseButton type="submit" variant="contained" sx={{ alignSelf: 'end', py: 1, px: 3 }}>
+
+                            <BaseField
+                                type="number"
+                                {...register('limit', { valueAsNumber: true })}
+                                label="Количество участников"
+                                placeholder="Введите количество"
+                                error={Boolean(errors.limit)}
+                                helperText={errors.limit?.message}
+                            />
+
+                            <BaseButton
+                                type="submit"
+                                variant="contained"
+                                sx={{ alignSelf: 'end', py: 1, px: 3 }}
+                                disabled={isCreating}
+                            >
                                 Предложить
                             </BaseButton>
                         </Stack>
@@ -137,4 +153,4 @@ export const NewScientificWorkModal = () => {
             </Modal>
         </>
     );
-};
+});

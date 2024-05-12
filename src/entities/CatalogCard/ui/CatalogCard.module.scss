@@ -3,14 +3,12 @@
   grid-template-columns: var(--catalog-card-height) 1fr auto;
   grid-template-rows: var(--catalog-card-height);
   column-gap: var(--space-l);
-  padding: var(--border-radius);
+  padding: var(--space-m);
 }
 
 .chips {
   display: flex;
   flex-wrap: wrap;
-  overflow: hidden;
   column-gap: var(--space-s);
   row-gap: calc(0.5 * var(--space-s));
-  margin-top: var(--space-l);
 }

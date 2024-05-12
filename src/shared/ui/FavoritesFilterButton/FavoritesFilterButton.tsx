@@ -14,7 +14,7 @@ export const StyledFilterCheckbox = styled(Checkbox)<CheckboxProps>(({ theme }) 
     },
 }));
 
-export const FavoritesFilterCheckbox = memo((props: CheckboxProps) => (
+export const FavoritesCheckbox = memo((props: CheckboxProps) => (
     <StyledFilterCheckbox
         icon={<StarOutlineRoundedIcon />}
         checkedIcon={<StarRoundedIcon color="primary" />}

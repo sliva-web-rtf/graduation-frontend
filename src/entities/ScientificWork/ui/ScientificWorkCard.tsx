@@ -1,16 +1,15 @@
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
 import { Avatar, Divider, Paper, Stack, Typography } from '@mui/material';
 import scientificWorkImage from 'shared/assets/images/scientificWork.png';
 import { ProfessorSummary } from 'entities/Professor/ui/ProfessorSummary';
 import { getInitials } from 'shared/lib/helpers/getInitials';
+import { BaseChip } from 'shared/ui';
+import { WorkStatus, WorkStatusRus } from 'entities/ScientificWork';
 import { ScientificWork } from '../model/types/scientificWork';
 
 export const ScientificWorkCard = memo((props: ScientificWork) => {
-    const { name, title, fullness, limit, professor } = props;
-    const professorName = useMemo(
-        () => getInitials(professor?.firstName, professor?.lastName, professor?.patronymic) ?? '',
-        [professor],
-    );
+    const { name, fullness, limit, professor, workStatus } = props;
+    const professorName = getInitials(professor?.firstName, professor?.lastName, professor?.patronymic) ?? '';
 
     return (
         <Paper
@@ -33,6 +32,16 @@ export const ScientificWorkCard = memo((props: ScientificWork) => {
                     <Typography variant="h3" textAlign="center">
                         {name}
                     </Typography>
+                </Stack>
+                <Stack direction="row" justifyContent="space-between" alignItems="center">
+                    <Typography variant="body1">Статус</Typography>
+                    <BaseChip
+                        label={WorkStatusRus[workStatus]}
+                        sx={{
+                            alignSelf: 'flex-start',
+                            backgroundColor: `${workStatus === WorkStatus.Confirmed ? 'success' : 'secondary'}.light`,
+                        }}
+                    />
                 </Stack>
                 <Divider />
                 <Stack direction="row" justifyContent="space-between" alignItems="center">
