@@ -1,7 +1,6 @@
 import { memo, useMemo } from 'react';
 import { Avatar, Paper, Stack, Typography } from '@mui/material';
 import { BaseChip } from 'shared/ui/Chip/Chip';
-import { BaseList } from 'shared/ui/List/List';
 import { LimitInfo } from 'shared/ui/LimitInfo/LimitInfo';
 import { AddProfessorButton, AddStudentButton, AddToFavoritesButton } from 'features/entity/AddRequests';
 import { WorkStatus, WorkStatusRus } from 'entities/ScientificWork/model/types/workStatus';
@@ -9,6 +8,7 @@ import { getParentLink } from 'entities/CatalogCard/lib/helpers/getParentLink';
 import scientificWorkImage from 'shared/assets/images/scientificWork.png';
 import { Link } from 'react-router-dom';
 import { CatalogOptions } from 'entities/CatalogList';
+import { ChipsGroup } from 'shared/ui';
 import { ICatalogCard } from '../model/types/ICatalogCard';
 import styles from './CatalogCard.module.scss';
 
@@ -40,7 +40,7 @@ export const CatalogCard = memo((props: ICatalogCard) => {
                 alt={title}
                 sx={{ width: 1, height: 1, borderRadius: 3 }}
             />
-            <Stack spacing={3} justifyContent="space-between" overflow="hidden">
+            <Stack spacing={2} overflow="hidden">
                 <Stack spacing={1}>
                     {workStatus ? (
                         <BaseChip
@@ -61,11 +61,7 @@ export const CatalogCard = memo((props: ICatalogCard) => {
                         <Typography variant="h3">{title}</Typography>
                     </Link>
                 </Stack>
-                <BaseList
-                    className={styles.chips}
-                    items={chips}
-                    render={(item: string) => <BaseChip key={item} variant="outlined" label={item} />}
-                />
+                <ChipsGroup chips={chips} maxCount={4} />
             </Stack>
             <Stack spacing={1} alignSelf="flex-end" alignItems="flex-end">
                 <LimitInfo limit={limit} fullness={fullness} />

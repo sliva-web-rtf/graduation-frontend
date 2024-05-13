@@ -9,6 +9,7 @@ export { FAQSummary } from './FAQ/FAQSummary';
 export * from './ToggleButtons/ToggleButtons';
 export * from './AppBar/AppBar';
 export * from './Chip/Chip';
+export * from './Chip/ChipsGroup';
 export * from './Logo/Logo';
 export * from './LimitInfo/LimitInfo';
 export * from './Pagination/Pagination';

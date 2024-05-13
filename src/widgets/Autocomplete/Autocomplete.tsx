@@ -8,7 +8,7 @@ type BaseAutocompleteProps = Omit<AutocompleteProps<any, any, any, any>, 'render
 
 export const BaseAutocomplete = memo(
     forwardRef<HTMLInputElement, BaseAutocompleteProps>((props: BaseAutocompleteProps, ref) => {
-        const { error, helperText, label, placeholder, loading, ...autocompleteProps } = props;
+        const { error, helperText, placeholder, loading, ...autocompleteProps } = props;
 
         return (
             <Autocomplete
@@ -21,15 +21,20 @@ export const BaseAutocomplete = memo(
                 fullWidth
                 noOptionsText="Пусто"
                 loadingText="Загрузка..."
+                sx={(theme) => ({
+                    '& .MuiFilledInput-root': {
+                        padding: theme.spacing(1),
+                    },
+                })}
                 renderInput={(params) => (
                     <BaseField
                         {...params}
                         placeholder={placeholder}
-                        label={label}
                         error={error}
                         helperText={helperText}
                         InputProps={{
                             ...params.InputProps,
+                            disableUnderline: true,
                             // startAdornment: (
                             //     <>
                             //         <InputAdornment position="start"><SearchIcon /></InputAdornment>

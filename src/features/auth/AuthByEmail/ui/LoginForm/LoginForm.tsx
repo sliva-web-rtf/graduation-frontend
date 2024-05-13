@@ -114,6 +114,7 @@ const LoginForm = memo((props: LoginFormProps) => {
                             error={Boolean(errors.password)}
                             helperText={errors.password?.message}
                             InputProps={{
+                                disableUnderline: true,
                                 endAdornment: (
                                     <InputAdornment position="end">
                                         <IconButton onClick={handleClickShowPassword}>

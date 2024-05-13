@@ -1,5 +1,5 @@
 import { BaseButton } from 'shared/ui/Button/Button';
-import { FormControl, Modal, Paper, RadioGroup, Stack, Typography } from '@mui/material';
+import { Box, FormControl, Modal, Paper, RadioGroup, Stack, Typography } from '@mui/material';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import React, { ChangeEvent, memo } from 'react';
 import { ScientificWork, ScientificWorkRadio, useGetUsersScientificWorksQuery } from 'entities/ScientificWork';
@@ -77,10 +77,12 @@ export const AddRequestModal = memo((props: AddRequestModalProps) => {
                                     <Typography variant="h3">Выбрать из тем пользователя</Typography>
                                     <RadioList items={otherScientificWorks} />
                                 </Stack>
-                                <Stack spacing={2} alignItems="flex-start">
+                                <Stack spacing={2}>
                                     <Typography variant="h3">Предложить из своих тем</Typography>
                                     <RadioList items={usersScientificWorks} />
-                                    <CreateScientificWorkModal />
+                                    <Box alignSelf="flex-start">
+                                        <CreateScientificWorkModal />
+                                    </Box>
                                 </Stack>
                                 <BaseButton
                                     disabled={!scientificWorkId || disabled}

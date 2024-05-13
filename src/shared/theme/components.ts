@@ -19,6 +19,14 @@ export const components: Components<Omit<Theme, 'components'>> | undefined = {
             },
         ],
     },
+    MuiTextField: {
+        defaultProps: {
+            variant: 'filled',
+            InputProps: {
+                disableUnderline: true,
+            },
+        },
+    },
     MuiAvatar: {
         styleOverrides: {
             root: {

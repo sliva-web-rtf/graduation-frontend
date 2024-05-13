@@ -20,7 +20,7 @@ export const CatalogCardSkeleton = memo(() => {
     return (
         <Paper className={styles.card} sx={{ borderRadius: 4 }}>
             <Skeleton variant="rectangular" sx={{ width: 1, height: 1, borderRadius: 3 }} />
-            <Stack spacing={3}>
+            <Stack spacing={2}>
                 <Stack spacing={1}>
                     <Typography variant="subtitle1" color="secondary" width="30%">
                         <Skeleton />

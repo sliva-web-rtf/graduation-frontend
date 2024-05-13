@@ -128,17 +128,15 @@ export const CreateScientificWorkModal = memo(() => {
                                     error={Boolean(errors.scientificInterests)}
                                     helperText={errors.scientificInterests?.message}
                                 />
+                                <BaseField
+                                    type="number"
+                                    {...register('limit', { valueAsNumber: true })}
+                                    label="Количество участников"
+                                    placeholder="Введите количество"
+                                    error={Boolean(errors.limit)}
+                                    helperText={errors.limit?.message}
+                                />
                             </Stack>
-
-                            <BaseField
-                                type="number"
-                                {...register('limit', { valueAsNumber: true })}
-                                label="Количество участников"
-                                placeholder="Введите количество"
-                                error={Boolean(errors.limit)}
-                                helperText={errors.limit?.message}
-                            />
-
                             <BaseButton
                                 type="submit"
                                 variant="contained"
