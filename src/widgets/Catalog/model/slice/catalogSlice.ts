@@ -3,7 +3,7 @@ import { CatalogSchema } from 'widgets/Catalog/model/types/catalogSchema';
 import { CatalogOptions } from 'entities/CatalogList';
 
 const initialState: CatalogSchema = {
-    option: CatalogOptions.Professors,
+    option: CatalogOptions.Themes,
     options: Object.values(CatalogOptions),
     page: 1,
     pageSize: 10,

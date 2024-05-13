@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { ProfessorCard, useGetProfessorQuery } from 'entities/Professor';
 import { ToggleProfessorInfo } from 'features/professor/ToggleInfo';
 import { useSelector } from 'react-redux';
-import { AddToFavoritesButton } from 'features/entity/AddRequests';
+import { AddProfessorButton, AddToFavoritesButton } from 'features/entity/AddRequests';
 import { CatalogOptions } from 'entities/CatalogList';
 import { ToggleOptions } from '../model/types/toggleOptions';
 import { ProfessorInfoSkeleton } from './ProfessorInfo.skeleton';
@@ -32,7 +32,7 @@ export const ProfessorInfo = memo(() => {
                 <Stack spacing={3}>
                     <ProfessorCard {...data} />
                     <Stack spacing={1} alignItems="center">
-                        {/* <AddProfessorButton /> */}
+                        <AddProfessorButton id={id!} canJoin={data.canJoin} />
                         <AddToFavoritesButton
                             id={id!}
                             isFavorite={data.isFavorite}

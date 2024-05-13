@@ -7,8 +7,10 @@ export interface ICatalogCard {
     readonly chips: string[];
     readonly option: CatalogOptions;
     readonly isFavorite: boolean;
-    readonly canJoin: boolean;
-    readonly image?: any;
+    readonly canJoin?: boolean;
+    readonly commandSearching?: boolean;
+    readonly professorSearching?: boolean;
+    readonly image?: string;
     readonly subtitle?: string;
     readonly status?: string;
     readonly limit?: number;

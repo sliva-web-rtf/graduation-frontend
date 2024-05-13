@@ -1,5 +1,5 @@
 import { BaseButton } from 'shared/ui/Button/Button';
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getUserAuthData } from 'entities/User';
 import { RequestEnum } from 'features/entity/AddRequests/model/types/requestEnum';
@@ -11,7 +11,7 @@ interface AddProfessorButtonProps {
     readonly canJoin: boolean;
 }
 
-export const AddProfessorButton = (props: AddProfessorButtonProps) => {
+export const AddProfessorButton = memo((props: AddProfessorButtonProps) => {
     const studentId = useSelector(getUserAuthData)?.id;
     const [scientificWorkId, setScientificWorkId] = useState('');
     const [open, setOpen] = useState(false);
@@ -55,4 +55,4 @@ export const AddProfessorButton = (props: AddProfessorButtonProps) => {
             />
         </>
     );
-};
+});

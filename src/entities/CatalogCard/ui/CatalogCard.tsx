@@ -3,16 +3,33 @@ import { Avatar, Paper, Stack, Typography } from '@mui/material';
 import { BaseChip } from 'shared/ui/Chip/Chip';
 import { BaseList } from 'shared/ui/List/List';
 import { LimitInfo } from 'shared/ui/LimitInfo/LimitInfo';
-import { AddProfessorButton, AddToFavoritesButton } from 'features/entity/AddRequests';
+import { AddProfessorButton, AddStudentButton, AddToFavoritesButton } from 'features/entity/AddRequests';
 import { WorkStatus, WorkStatusRus } from 'entities/ScientificWork/model/types/workStatus';
 import { getParentLink } from 'entities/CatalogCard/lib/helpers/getParentLink';
 import scientificWorkImage from 'shared/assets/images/scientificWork.png';
 import { Link } from 'react-router-dom';
+import { CatalogOptions } from 'entities/CatalogList';
 import { ICatalogCard } from '../model/types/ICatalogCard';
 import styles from './CatalogCard.module.scss';
 
+/* eslint-disable no-nested-ternary */
+
 export const CatalogCard = memo((props: ICatalogCard) => {
-    const { id, title, chips, subtitle, image, limit, fullness, workStatus, option, isFavorite, canJoin } = props;
+    const {
+        id,
+        title,
+        chips,
+        subtitle,
+        image,
+        limit,
+        fullness,
+        workStatus,
+        option,
+        isFavorite,
+        canJoin,
+        commandSearching,
+        professorSearching,
+    } = props;
 
     const parentLink = useMemo(() => getParentLink(option), [option]);
 
@@ -52,7 +69,17 @@ export const CatalogCard = memo((props: ICatalogCard) => {
             </Stack>
             <Stack spacing={1} alignSelf="flex-end" alignItems="flex-end">
                 <LimitInfo limit={limit} fullness={fullness} />
-                {workStatus !== WorkStatus.NotConfirmed && <AddProfessorButton id={id} canJoin={canJoin} />}
+                {option === CatalogOptions.Professors ? (
+                    <AddProfessorButton id={id} canJoin={Boolean(canJoin)} />
+                ) : option === CatalogOptions.Students ? (
+                    <AddStudentButton
+                        id={id}
+                        commandSearching={Boolean(commandSearching)}
+                        professorSearching={Boolean(professorSearching)}
+                    />
+                ) : (
+                    <AddStudentButton id={id} commandSearching professorSearching />
+                )}
 
                 <AddToFavoritesButton id={id} isFavorite={isFavorite} option={option} />
             </Stack>

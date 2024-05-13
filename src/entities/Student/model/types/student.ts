@@ -9,18 +9,12 @@ export interface Student {
     readonly phoneNumber: string;
     readonly email: string;
     readonly isFavorite: boolean;
-    readonly canJoin: boolean;
     readonly degree: string;
-    readonly publicationsCount: number;
     readonly commandSearching: boolean;
     readonly professorSearching: boolean;
     readonly scientificInterests: Array<string>;
     readonly scientificArea: ScientificAreas;
     readonly status: StudentStatus;
-    readonly hIndex?: number;
     readonly image?: string;
     readonly contacts?: string;
-    readonly urpUri?: string;
-    readonly scopusUri?: string;
-    readonly riscUri?: string;
 }

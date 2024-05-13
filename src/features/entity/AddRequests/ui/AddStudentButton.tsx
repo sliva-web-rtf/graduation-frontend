@@ -2,7 +2,7 @@ import { BaseButton } from 'shared/ui/Button/Button';
 import { useSelector } from 'react-redux';
 import { isUserProfessor } from 'entities/User/model/selectors/getUserRoles/getUserRoles';
 import { getUserAuthData } from 'entities/User';
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { useAddProfessorMutation, useAddStudentMutation } from 'features/entity/AddRequests';
 import { RequestEnum } from 'features/entity/AddRequests/model/types/requestEnum';
 import { AddRequestModal } from 'features/entity/AddRequests/ui/AddRequestModal';
@@ -13,7 +13,7 @@ interface AddStudentButtonProps {
     readonly professorSearching: boolean;
 }
 
-export const AddStudentButton = (props: AddStudentButtonProps) => {
+export const AddStudentButton = memo((props: AddStudentButtonProps) => {
     const { id: studentId, commandSearching, professorSearching } = props;
     const isProfessor = useSelector(isUserProfessor);
     const id = useSelector(getUserAuthData)?.id;
@@ -69,4 +69,4 @@ export const AddStudentButton = (props: AddStudentButtonProps) => {
             />
         </>
     );
-};
+});

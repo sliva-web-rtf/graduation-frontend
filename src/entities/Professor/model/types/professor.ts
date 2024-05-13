@@ -19,9 +19,5 @@ export interface Professor {
     readonly scientificInterests: Array<string>;
     readonly scientificArea: ScientificAreas;
     readonly about: string;
-    readonly hIndex?: number;
     readonly image?: string;
-    readonly urpUri?: string;
-    readonly scopusUri?: string;
-    readonly riscUri?: string;
 }

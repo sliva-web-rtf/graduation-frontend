@@ -74,7 +74,7 @@ export const AddRequestModal = memo((props: AddRequestModalProps) => {
                                     </Typography>
                                 </Stack>
                                 <Stack spacing={2} width="100%">
-                                    <Typography variant="h3">Выбрать из тем научного руководителя</Typography>
+                                    <Typography variant="h3">Выбрать из тем пользователя</Typography>
                                     <RadioList items={otherScientificWorks} />
                                 </Stack>
                                 <Stack spacing={2} alignItems="flex-start">

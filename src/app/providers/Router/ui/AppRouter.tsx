@@ -7,11 +7,8 @@ import { AppRoutesProps, routeConfig } from '../config/routeConfig';
 
 const AppRouter = () => {
     const renderWithWrapper = useCallback((route: AppRoutesProps) => {
-        const element = (
-            <Suspense fallback={<PageLoader />}>
-                {route.hasLayout ? <Layout>{route.element}</Layout> : route.element}
-            </Suspense>
-        );
+        const element = route.hasLayout ? <Layout>{route.element}</Layout> : route.element;
+
         return (
             <Route
                 key={route.path}
@@ -29,7 +26,11 @@ const AppRouter = () => {
         );
     }, []);
 
-    return <Routes>{Object.values(routeConfig).map(renderWithWrapper)}</Routes>;
+    return (
+        <Suspense fallback={<PageLoader />}>
+            <Routes>{Object.values(routeConfig).map(renderWithWrapper)}</Routes>{' '}
+        </Suspense>
+    );
 };
 
 export default memo(AppRouter);
