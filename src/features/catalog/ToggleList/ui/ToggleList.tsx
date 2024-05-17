@@ -16,6 +16,7 @@ export const ToggleList = memo(() => {
         (_: MouseEvent<HTMLElement>, newAlignment: typeof value) => {
             if (newAlignment) {
                 dispatch(catalogActions.setOption(newAlignment));
+                dispatch(catalogActions.setPage(1));
             }
         },
         [dispatch],

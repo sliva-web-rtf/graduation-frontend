@@ -10,7 +10,7 @@ export interface ICatalogCard {
     readonly canJoin?: boolean;
     readonly commandSearching?: boolean;
     readonly professorSearching?: boolean;
-    readonly image?: string;
+    readonly avatarImagePath?: string;
     readonly subtitle?: string;
     readonly status?: string;
     readonly limit?: number;

@@ -1,9 +1,9 @@
+import { ScientificAreas } from 'features/catalog/Search/api/types';
 import { WorkStatus } from 'entities/ScientificWork';
 import { Professor } from 'entities/Professor';
-import { ScientificAreas } from 'features/catalog/Search/api/types';
 import { Student } from 'entities/Student';
 
-export interface ScientificWork {
+export interface ScientificWorkDto {
     readonly id: string;
     readonly name: string;
     readonly description: string;
@@ -17,5 +17,5 @@ export interface ScientificWork {
     readonly scientificArea: ScientificAreas;
     readonly workStatus: WorkStatus;
     readonly professor: Professor;
-    readonly students: Array<Student>;
+    readonly studentDtos: Array<Student>;
 }

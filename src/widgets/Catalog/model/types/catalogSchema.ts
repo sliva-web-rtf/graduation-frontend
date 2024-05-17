@@ -5,7 +5,7 @@ export interface CatalogSchema {
     options: Array<CatalogOptions>;
     page: number;
     pageSize: number;
-    pagesCount: number;
+    pagesCount: Record<CatalogOptions, number>;
     scientificInterests: Array<string>;
     scientificAreas: Array<string>;
     isFavoriteFilterOnly: boolean;

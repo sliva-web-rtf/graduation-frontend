@@ -5,7 +5,7 @@ import { Professor } from '../model/types/Professor';
 
 export const ProfessorCard = memo((props: Professor) => {
     const {
-        image,
+        avatarImagePath,
         firstName,
         lastName,
         patronymic,
@@ -29,7 +29,11 @@ export const ProfessorCard = memo((props: Professor) => {
         >
             <Stack spacing={3}>
                 <Stack spacing={3} alignItems="center">
-                    <Avatar src={image} alt={name} sx={{ width: 144, height: 144, borderRadius: 3 }} />
+                    <Avatar
+                        src={__API__ + avatarImagePath}
+                        alt={name}
+                        sx={{ width: 144, height: 144, borderRadius: 3 }}
+                    />
                     <Stack spacing={1} textAlign="center">
                         <Typography variant="h3">{name}</Typography>
                         <Typography variant="subtitle1" color="secondary">

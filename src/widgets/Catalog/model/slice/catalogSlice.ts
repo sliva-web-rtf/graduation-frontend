@@ -6,8 +6,12 @@ const initialState: CatalogSchema = {
     option: CatalogOptions.Themes,
     options: Object.values(CatalogOptions),
     page: 1,
-    pageSize: 10,
-    pagesCount: 1,
+    pageSize: 5,
+    pagesCount: {
+        [CatalogOptions.Professors]: 1,
+        [CatalogOptions.Themes]: 1,
+        [CatalogOptions.Students]: 1,
+    },
     scientificInterests: [],
     scientificAreas: [],
     isFavoriteFilterOnly: false,
@@ -23,8 +27,8 @@ export const catalogSlice = createSlice({
         setPage: (state, action: PayloadAction<CatalogSchema['page']>) => {
             state.page = action.payload;
         },
-        setPagesCount: (state, action: PayloadAction<CatalogSchema['pagesCount']>) => {
-            state.pagesCount = action.payload;
+        setPagesCount: (state, action: PayloadAction<number>) => {
+            state.pagesCount[state.option] = action.payload;
         },
         setScientificInterests: (state, action: PayloadAction<CatalogSchema['scientificInterests']>) => {
             state.scientificInterests = action.payload;
