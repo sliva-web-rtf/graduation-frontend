@@ -20,7 +20,7 @@ export const PersonalInfoForm = memo(() => {
         resolver: zodResolver(personalInfoFormSchema),
     });
     return (
-        <form>
+        <form className={styles.form}>
             <Stack spacing={2}>
                 <Stack direction="row" justifyContent="space-between" spacing={1}>
                     <Box sx={{ width: '100%' }}>
