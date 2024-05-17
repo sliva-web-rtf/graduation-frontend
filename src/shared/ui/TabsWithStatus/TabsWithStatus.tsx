@@ -11,7 +11,7 @@ interface TabsWithStatusProps<T extends string | number> {
     values: T[];
     titles: string[];
     activeValue: T;
-    successValues: T[];
+    successValues?: T[];
     subTitles?: string[];
     errors?: Partial<Record<T, string>>;
 }
@@ -23,7 +23,7 @@ export const TabsWithStatus = typedMemo(
         subTitles,
         errors,
         activeValue,
-        successValues,
+        successValues = [],
     }: TabsWithStatusProps<T>) => {
         const [activeValueIndex, setActiveValueIndex] = useState(values.indexOf(activeValue));
 
