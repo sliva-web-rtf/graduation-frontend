@@ -5,31 +5,28 @@ import { memo } from 'react';
 import { getInfoPagePath } from 'shared/lib/helpers/getInfoPagePath';
 import { getInitials } from 'shared/lib/helpers/getInitials';
 
-interface ProfessorSummaryProps {
+interface StudentSummaryProps {
     readonly id: string;
     readonly firstName: string;
     readonly lastName: string;
-    readonly patronymic?: string;
+    readonly degree: string;
     readonly avatarImagePath?: string;
+    readonly patronymic?: string;
 }
 
-export const ProfessorSummary = memo((props: ProfessorSummaryProps) => {
-    const { id, avatarImagePath, firstName, lastName, patronymic } = props;
+export const StudentSummary = memo((props: StudentSummaryProps) => {
+    const { id, avatarImagePath, firstName, lastName, patronymic, degree } = props;
     const name = getInitials(firstName, lastName, patronymic);
 
     return (
         <Stack direction="row" spacing={1}>
-            <Avatar variant="circular" src={__API__ + avatarImagePath} sx={{ width: 40, height: 40 }} />
+            <Avatar variant="circular" src={__API__ + avatarImagePath} sx={{ width: 40, height: 40 }} alt={name} />
             <Stack>
-                {id ? (
-                    <Link to={getInfoPagePath(AppRoutes.Professors, id)}>
-                        <Typography variant="h4">{name}</Typography>
-                    </Link>
-                ) : (
-                    <Typography variant="h4">Не определен</Typography>
-                )}
+                <Link to={getInfoPagePath(AppRoutes.Students, id)}>
+                    <Typography variant="h4">{name}</Typography>
+                </Link>
                 <Typography variant="subtitle2" color="secondary">
-                    Научный руководитель
+                    {degree}
                 </Typography>
             </Stack>
         </Stack>

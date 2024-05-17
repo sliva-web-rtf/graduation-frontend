@@ -11,7 +11,7 @@ export const getParamsByOption = (option: CatalogOptions) => {
             break;
         case CatalogOptions.Themes:
             endpoint = 'scientific-work';
-            param = 'scientificWorkId';
+            param = 'scientificWorksId';
             break;
         default:
             break;

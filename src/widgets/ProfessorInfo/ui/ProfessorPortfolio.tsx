@@ -6,14 +6,14 @@ import { ScientificAreas } from 'features/catalog/Search/api/types';
 
 interface ProfessorPortfolioProps {
     readonly about: string;
-    readonly publicationsCount: number;
+    readonly workExperienceYears: number;
     readonly scientificArea?: ScientificAreas;
     readonly scientificInterests?: Array<string>;
-    // readonly workExperienceYears?: number;
+    // readonly publicationsCount: number;
 }
 
 export const ProfessorPortfolio = memo((props: ProfessorPortfolioProps) => {
-    const { about, scientificArea, publicationsCount, scientificInterests } = props;
+    const { about, scientificArea, workExperienceYears, scientificInterests } = props;
     const formattedScientificArea = getFormattedScientificArea(scientificArea || []);
 
     return (
@@ -22,7 +22,8 @@ export const ProfessorPortfolio = memo((props: ProfessorPortfolioProps) => {
                 <Stack spacing={3} alignItems="flex-start">
                     <InfoCard title="О себе" text={about} />
                     <InfoCard formatted title="Область науки и технологий" text={formattedScientificArea} />
-                    <InfoCard title="Количество публикаций" text={publicationsCount} />
+                    <InfoCard title="Стаж работы по специальности, лет" text={workExperienceYears} />
+                    {/* <InfoCard title="Количество публикаций" text={publicationsCount} /> */}
                 </Stack>
             </Grid>
             <Grid item xs>

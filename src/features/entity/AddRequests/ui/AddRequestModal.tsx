@@ -68,7 +68,7 @@ export const AddRequestModal = memo((props: AddRequestModalProps) => {
                                 sx={{ borderRadius: 4 }}
                             >
                                 <Stack spacing={2}>
-                                    <Typography variant="h2">Отправка запроса</Typography>
+                                    <Typography variant="h2">Оформление заявки</Typography>
                                     <Typography variant="body1">
                                         Выберите тему исследования для отправки запроса
                                     </Typography>
@@ -90,7 +90,7 @@ export const AddRequestModal = memo((props: AddRequestModalProps) => {
                                     sx={{ alignSelf: 'flex-end' }}
                                     onClick={onSubmit}
                                 >
-                                    Отправить запрос
+                                    Оформить заявку
                                 </BaseButton>
                             </Stack>
                         </RadioGroup>

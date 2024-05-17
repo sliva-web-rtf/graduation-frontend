@@ -1,6 +1,6 @@
 import { Modal, Paper, Stack, Typography } from '@mui/material';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import { BaseButton } from 'shared/ui/Button/Button';
+import { BaseButton, BaseLoadingButton } from 'shared/ui/Button/Button';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import React, { memo, useState } from 'react';
 import { useGetScientificAreasQuery, useGetScientificInterestsQuery } from 'features/catalog/Search/api/searchApi';
@@ -23,8 +23,12 @@ export const CreateScientificWorkModal = memo(() => {
     const [searchText] = useDebounce(search, DEBOUNCE_DELAY);
     const toggleOpen = () => setOpen((prev) => !prev);
 
-    const { isFetching: isInterestsFetching, data: interests } = useGetScientificInterestsQuery(searchText);
-    const { isFetching: isAreasFetching, data: areas } = useGetScientificAreasQuery();
+    const { isFetching: isInterestsFetching, data: interests } = useGetScientificInterestsQuery(searchText, {
+        skip: !isOpen,
+    });
+    const { isFetching: isAreasFetching, data: areas } = useGetScientificAreasQuery(undefined, {
+        skip: !isOpen,
+    });
     const [addNewScientificWork, { isLoading: isCreating }] = useAddNewScientificWorkMutation();
 
     const {
@@ -37,7 +41,7 @@ export const CreateScientificWorkModal = memo(() => {
         resolver: zodResolver(addScientificWorkFormSchema),
     });
 
-    const handleInterestsChange = (_: any, newValue: any) => {
+    const handleInterestsChange = (_: any, newValue: string[]) => {
         setValue('scientificInterests', newValue);
     };
 
@@ -51,7 +55,7 @@ export const CreateScientificWorkModal = memo(() => {
             await addNewScientificWork({
                 ...data,
                 scientificAreaSubsections: areasWithoutSection,
-                isEducator: !isProfessorRole,
+                isEducator: isProfessorRole,
             });
             toggleOpen();
             reset();
@@ -100,7 +104,7 @@ export const CreateScientificWorkModal = memo(() => {
                                 <BaseField
                                     {...register('result')}
                                     label="Ожидаемые результаты"
-                                    placeholder="Опишите результаты, которые предполагется достичб в ходе исследования"
+                                    placeholder="Опишите результаты, которые предполагается достичь в ходе исследования"
                                     multiline
                                     rows={3}
                                     error={Boolean(errors.result)}
@@ -137,14 +141,14 @@ export const CreateScientificWorkModal = memo(() => {
                                     helperText={errors.limit?.message}
                                 />
                             </Stack>
-                            <BaseButton
+                            <BaseLoadingButton
                                 type="submit"
                                 variant="contained"
                                 sx={{ alignSelf: 'end', py: 1, px: 3 }}
-                                disabled={isCreating}
+                                loading={isCreating}
                             >
                                 Предложить
-                            </BaseButton>
+                            </BaseLoadingButton>
                         </Stack>
                     </form>
                 </Stack>

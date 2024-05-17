@@ -1,6 +1,6 @@
 import { BaseButton } from 'shared/ui/Button/Button';
 import StarOutlineRoundedIcon from '@mui/icons-material/StarOutlineRounded';
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { isUserProfessor } from 'entities/User/model/selectors/getUserRoles/getUserRoles';
 import { CatalogOptions } from 'entities/CatalogList';
@@ -14,13 +14,15 @@ interface AddToFavoritesButtonProps {
 }
 
 export const AddToFavoritesButton = memo((props: AddToFavoritesButtonProps) => {
-    const { id, option, isFavorite } = props;
+    const { id, option, isFavorite: flag } = props;
+    const [isFavorite, setFavorite] = useState(flag);
     const isProfessor = useSelector(isUserProfessor);
 
     const [addToFavorites, { isLoading }] = useAddToFavoritesMutation();
 
     const handleClick = () => {
-        addToFavorites({ id, option, isProfessor });
+        addToFavorites({ id, option, isProfessor, isFavorite });
+        setFavorite((prev) => !prev);
     };
 
     return (

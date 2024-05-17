@@ -1,4 +1,8 @@
-export const getInitials = (firstName: string | null, lastName: string | null, patronymic: string | null) => {
+export const getInitials = (
+    firstName: string | null,
+    lastName: string | null,
+    patronymic: string | null | undefined,
+) => {
     if (!firstName || !lastName) {
         return 'Неизвестно';
     }

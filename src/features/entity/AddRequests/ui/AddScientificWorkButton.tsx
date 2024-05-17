@@ -5,7 +5,7 @@ export const AddScientificWorkButton = (props: any) => {
 
     return (
         <BaseButton variant="contained" {...props}>
-            Отправить запрос
+            Оформить заявку
         </BaseButton>
     );
 };

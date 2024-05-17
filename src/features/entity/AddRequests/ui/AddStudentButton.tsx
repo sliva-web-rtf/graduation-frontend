@@ -55,7 +55,7 @@ export const AddStudentButton = memo((props: AddStudentButtonProps) => {
     return (
         <>
             <BaseButton variant="contained" onClick={toggleOpen} disabled={disabled}>
-                Отправить запрос
+                Оформить заявку
             </BaseButton>
             <AddRequestModal
                 id={studentId}

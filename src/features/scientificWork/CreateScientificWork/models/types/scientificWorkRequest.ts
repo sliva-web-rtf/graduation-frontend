@@ -1,8 +1,8 @@
 export interface ScientificWorkRequest {
-    name: string;
-    description: string;
-    result: string;
-    scientificAreaSubsections: Array<string>;
-    scientificInterests: Array<string>;
-    isEducator: boolean;
+    readonly name: string;
+    readonly description: string;
+    readonly result: string;
+    readonly scientificAreaSubsections: Array<string>;
+    readonly scientificInterests: Array<string>;
+    readonly isEducator: boolean;
 }

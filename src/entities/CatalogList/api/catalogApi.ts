@@ -27,13 +27,6 @@ const catalogApi = baseApi.injectEndpoints({
                 }
             },
             transformResponse: (response: CatalogDto) => mapCatalogDtoToModel(response),
-            providesTags: (result) =>
-                result?.data
-                    ? [
-                          ...result.data.map(({ id }) => ({ type: 'Catalog' as never, id })),
-                          { type: 'Catalog' as never, id: 'LIST' },
-                      ]
-                    : [{ type: 'Catalog' as never, id: 'LIST' }],
         }),
     }),
 });

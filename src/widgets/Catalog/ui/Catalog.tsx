@@ -36,7 +36,7 @@ export const Catalog = memo(() => {
                 </Stack>
                 <CatalogList />
             </Stack>
-            <BasePagination page={page} count={pagesCount} onChange={handlePageChange} />
+            <BasePagination page={page} count={pagesCount[option]} onChange={handlePageChange} />
         </Stack>
     );
 });
