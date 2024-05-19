@@ -1,7 +1,7 @@
 import { ScientificAreas } from 'features/catalog/Search/api/types';
 
-export const getFormattedScientificArea = (sections: ScientificAreas | []) => {
-    if (!sections.length) {
+export const getFormattedScientificArea = (sections: ScientificAreas | undefined) => {
+    if (!sections?.length) {
         return 'Пусто';
     }
     let result = '';

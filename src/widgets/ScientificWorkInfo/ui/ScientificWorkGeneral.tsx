@@ -18,7 +18,7 @@ interface ScientificWorkGeneralProps {
 
 export const ScientificWorkGeneral = memo((props: ScientificWorkGeneralProps) => {
     const { description, result, scientificArea, scientificInterests, fullness, limit, students } = props;
-    const formattedScientificArea = getFormattedScientificArea(scientificArea || []);
+    const formattedScientificArea = getFormattedScientificArea(scientificArea);
 
     return (
         <Grid container gap={3}>

@@ -19,15 +19,17 @@ import { useAddNewScientificWorkMutation } from '../api/newScientificWorkApi';
 export const CreateScientificWorkModal = memo(() => {
     const isProfessorRole = useSelector(isUserProfessor);
     const [isOpen, setOpen] = useState(false);
+    const [isInterestsOpen, setInterestsOpen] = useState(false);
+    const [isAreasOpen, setAreasOpen] = useState(false);
     const [search, setSearch] = useState('');
     const [searchText] = useDebounce(search, DEBOUNCE_DELAY);
     const toggleOpen = () => setOpen((prev) => !prev);
 
     const { isFetching: isInterestsFetching, data: interests } = useGetScientificInterestsQuery(searchText, {
-        skip: !isOpen,
+        skip: !isInterestsOpen,
     });
     const { isFetching: isAreasFetching, data: areas } = useGetScientificAreasQuery(undefined, {
-        skip: !isOpen,
+        skip: !isAreasOpen,
     });
     const [addNewScientificWork, { isLoading: isCreating }] = useAddNewScientificWorkMutation();
 
@@ -113,24 +115,26 @@ export const CreateScientificWorkModal = memo(() => {
                                 <BaseAutocomplete
                                     placeholder="Область науки и технологий"
                                     name="scientificAreaSubsections"
-                                    onChange={handleAreasChange}
                                     limitTags={1}
                                     loading={isAreasFetching}
                                     options={areas || []}
                                     groupBy={(option) => option.section}
                                     error={Boolean(errors.scientificAreaSubsections)}
                                     helperText={errors.scientificAreaSubsections?.message}
+                                    onChange={handleAreasChange}
+                                    onOpen={() => setAreasOpen(true)}
                                 />
                                 <BaseAutocomplete
                                     placeholder="Ключевые слова"
                                     name="scientificInterests"
-                                    onChange={handleInterestsChange}
                                     limitTags={1}
                                     loading={isInterestsFetching}
                                     options={interests || []}
-                                    onInputChange={(_, value) => setSearch(value)}
                                     error={Boolean(errors.scientificInterests)}
                                     helperText={errors.scientificInterests?.message}
+                                    onChange={handleInterestsChange}
+                                    onInputChange={(_, value) => setSearch(value)}
+                                    onOpen={() => setInterestsOpen(true)}
                                 />
                                 <BaseField
                                     type="number"

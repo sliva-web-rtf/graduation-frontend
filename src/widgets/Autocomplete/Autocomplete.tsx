@@ -1,7 +1,6 @@
 import { Autocomplete, AutocompleteProps, CircularProgress, TextFieldProps } from '@mui/material';
 import { forwardRef, memo } from 'react';
 import { BaseField } from 'shared/ui';
-// import SearchIcon from '@mui/icons-material/Search';
 
 type BaseAutocompleteProps = Omit<AutocompleteProps<any, any, any, any>, 'renderInput'> &
     Omit<TextFieldProps, 'onChange'>;
@@ -35,12 +34,6 @@ export const BaseAutocomplete = memo(
                         InputProps={{
                             ...params.InputProps,
                             disableUnderline: true,
-                            // startAdornment: (
-                            //     <>
-                            //         <InputAdornment position="start"><SearchIcon /></InputAdornment>
-                            //         {params.InputProps.startAdornment}
-                            //     </>
-                            // ),
                             endAdornment: (
                                 <>
                                     {loading && <CircularProgress size={24} />}

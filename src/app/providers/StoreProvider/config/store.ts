@@ -5,7 +5,6 @@ import { baseApi } from 'shared/api';
 import { catalogReducer } from 'widgets/Catalog/model/slice/catalogSlice';
 import { professorInfoReducer } from 'widgets/ProfessorInfo';
 import { studentInfoReducer } from 'widgets/StudentInfo';
-import { scientificWorkInfoReducer } from 'widgets/ScientificWorkInfo';
 import { createReducerManager } from './reducerManager';
 import { StateSchema } from './StateSchema';
 import { rtkQueryErrorMiddleware } from './rtkErrorMiddleware';
@@ -17,7 +16,6 @@ export function createReduxStore(initialState?: StateSchema, asyncReducers?: Red
         catalog: catalogReducer,
         professor: professorInfoReducer,
         student: studentInfoReducer,
-        scientificWork: scientificWorkInfoReducer,
         [baseApi.reducerPath]: baseApi.reducer,
     };
 
