@@ -2,7 +2,7 @@ import { STATUS } from 'shared/api/status';
 import { AppError } from 'shared/lib/types/appError';
 import { PersonalInfoFormSchema } from './personalInfoFormSchema';
 
-export interface LoginSchema {
+export interface OnboardingPersonalInfoSchema {
     firstName: string;
     lastName: string;
     middleName: string;

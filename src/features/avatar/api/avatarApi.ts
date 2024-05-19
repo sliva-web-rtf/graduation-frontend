@@ -38,7 +38,7 @@ const userAvatarApi = baseApi.injectEndpoints({
             },
             transformErrorResponse: (error: unknown) => {
                 if (isApiError(error)) {
-                    return new AppError(error.data?.title ?? DEFAULT_UPLOAD_AVATAR_ERROR_TEXT);
+                    return new AppError(error.data?.title ?? DEFAULT_GET_AVATAR_ERROR_TEXT);
                 }
 
                 return new AppError(DEFAULT_GET_AVATAR_ERROR_TEXT);
@@ -52,7 +52,7 @@ const userAvatarApi = baseApi.injectEndpoints({
             invalidatesTags: (_, error) => (error ? [] : ['Avatar']),
             transformErrorResponse: (error: unknown) => {
                 if (isApiError(error)) {
-                    return new AppError(error.data?.title ?? DEFAULT_UPLOAD_AVATAR_ERROR_TEXT);
+                    return new AppError(error.data?.title ?? DEFAULT_DELETE_AVATAR_ERROR_TEXT);
                 }
 
                 return new AppError(DEFAULT_DELETE_AVATAR_ERROR_TEXT);
