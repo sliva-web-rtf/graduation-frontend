@@ -1,7 +1,7 @@
 import { memo, useMemo } from 'react';
 import { Avatar, Divider, Paper, Stack, Typography } from '@mui/material';
 import { getFullName } from 'shared/lib/helpers/getFullName';
-import { Professor } from '../model/types/Professor';
+import { Professor } from '../model/types/professor';
 
 export const ProfessorCard = memo((props: Professor) => {
     const {
