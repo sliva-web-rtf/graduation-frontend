@@ -1,16 +1,18 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, InputLabel, Stack } from '@mui/material';
 import { forwardRef, memo, useCallback } from 'react';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { BaseField } from 'shared/ui';
 import { PersonalInfoFormSchema, personalInfoFormSchema } from 'widgets/Onboarding/model/types/personalInfoFormSchema';
+import { updateProfile } from 'widgets/Onboarding/api/onboardingApi';
 import styles from './PersonalInfoForm.module.scss';
 
 const RequiredMark = () => <span className={styles.requiredMark}>*</span>;
 
 export const PersonalInfoForm = memo(
     forwardRef<HTMLFormElement>((_, ref) => {
+        const [updatedProfileInfo, { isLoading, error }] = updateProfile();
         const {
             formState: { errors },
             handleSubmit,
@@ -21,9 +23,12 @@ export const PersonalInfoForm = memo(
             resolver: zodResolver(personalInfoFormSchema),
         });
 
-        const onSubmitHandler = useCallback(async () => {
-            console.log(123);
-        }, []);
+        const onSubmitHandler = useCallback(
+            (values: PersonalInfoFormSchema) => {
+                updatedProfileInfo(values);
+            },
+            [updatedProfileInfo],
+        );
 
         return (
             <form ref={ref} onSubmit={handleSubmit(onSubmitHandler)} className={styles.form}>

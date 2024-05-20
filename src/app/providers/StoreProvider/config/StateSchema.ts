@@ -5,6 +5,7 @@ import { LoginSchema } from 'features/auth/AuthByEmail/model/types/loginSchema';
 import { UserSchema } from 'entities/User';
 import { CatalogSchema } from 'widgets/Catalog/model/types/catalogSchema';
 import { baseApi } from 'shared/api';
+import { OnboardingSchema } from 'widgets/Onboarding/model/types/onboardingSchema';
 
 export interface StateSchema {
     user: UserSchema;
@@ -13,6 +14,7 @@ export interface StateSchema {
 
     // Асинхронные редюсеры
     loginForm?: LoginSchema;
+    onboarding?: OnboardingSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;
