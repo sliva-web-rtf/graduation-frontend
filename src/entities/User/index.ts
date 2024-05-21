@@ -5,3 +5,4 @@ export { UserSchema, User } from './model/types/user';
 export { validationLoginErrorsFromDto } from './lib/loginMapper';
 export { Login } from './model/types/login';
 export { getUserInited } from './model/selectors/getUserIsInited/getUserIsInited';
+export { Role } from './model/types/role';

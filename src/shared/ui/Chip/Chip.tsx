@@ -8,4 +8,7 @@ export const BaseChip = styled(Chip)<ChipProps>(({ theme }) => ({
     '&.MuiChip-outlined': {
         borderColor: '#FFC000',
     },
+    '& .MuiChip-label': {
+        padding: '0',
+    },
 }));

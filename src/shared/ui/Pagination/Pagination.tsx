@@ -1,4 +1,4 @@
-import { styled, Pagination, PaginationProps, Stack, PaginationItem } from '@mui/material';
+import { Pagination, PaginationItem, PaginationProps, Stack, styled } from '@mui/material';
 import NavigateBeforeRoundedIcon from '@mui/icons-material/NavigateBeforeRounded';
 import NavigateNextRoundedIcon from '@mui/icons-material/NavigateNextRounded';
 import { ReactNode } from 'react';
@@ -43,6 +43,9 @@ export const StyledPagination = styled((props: PaginationProps) => (
     },
     '& .Mui-disabled': {
         color: 'unset',
+    },
+    '& .MuiPagination-ul': {
+        columnGap: theme.spacing(1),
     },
 }));
 
