@@ -1,8 +1,7 @@
 import { styled, ToggleButton, ToggleButtonGroup, ToggleButtonGroupProps, ToggleButtonProps } from '@mui/material';
-import { CatalogOptions } from 'shared/lib/types/options';
 
 interface ToggleButtonsProps extends ToggleButtonGroupProps {
-    options: CatalogOptions[];
+    options: any[];
 }
 
 const StyledToggleButtonGroup = styled(ToggleButtonGroup)<ToggleButtonGroupProps>(({ theme }) => ({
@@ -19,6 +18,7 @@ const StyledToggleButton = styled(ToggleButton)<ToggleButtonProps>(({ theme }) =
         fontWeight: 600,
         border: 0,
         textTransform: 'unset',
+        padding: [theme.spacing(1.5), theme.spacing(3)].join(' '),
     },
     '&.Mui-selected': {
         color: theme.palette.primary.contrastText,

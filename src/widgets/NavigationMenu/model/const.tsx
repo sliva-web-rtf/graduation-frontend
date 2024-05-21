@@ -1,9 +1,15 @@
 import AutoAwesomeMotionOutlinedIcon from '@mui/icons-material/AutoAwesomeMotionOutlined';
 import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined';
-import ChecklistOutlinedIcon from '@mui/icons-material/ChecklistOutlined';
-import { RoutePath } from 'app/providers/router/config/routeConfig';
+import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
+import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
+import { RoutePath } from 'app/providers/Router/config/routeConfig';
 
 export const TABS = [
+    {
+        label: 'Справочник',
+        path: RoutePath.Manual,
+        startIcon: <BookmarkBorderOutlinedIcon />,
+    },
     {
         label: 'Каталог',
         path: RoutePath.Catalog,
@@ -17,6 +23,6 @@ export const TABS = [
     {
         label: 'Задачи',
         path: RoutePath.Tasks,
-        startIcon: <ChecklistOutlinedIcon />,
+        startIcon: <AssignmentOutlinedIcon />,
     },
 ];

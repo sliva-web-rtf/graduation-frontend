@@ -1,0 +1,17 @@
+.backdrop {
+  background-color: var(--modal-backdrop-color);
+}
+
+.modal {
+  position: absolute;
+  top: var(--space-m);
+  right: var(--space-m);
+}
+
+.content {
+  padding: var(--space-xl);
+  width: var(--modal-width);
+  height: 100%;
+  max-height: 90vh;
+  overflow-y: scroll;
+}

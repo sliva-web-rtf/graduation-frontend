@@ -3,26 +3,31 @@ import { ToggleButtons } from 'shared/ui/ToggleButtons/ToggleButtons';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { catalogActions } from 'widgets/Catalog/model/slice/catalogSlice';
 import { useSelector } from 'react-redux';
-import { getCatalogOptions } from 'widgets/Catalog';
-import { CatalogOptions } from 'shared/lib/types/options';
+import { getCatalogOption, getCatalogOptions } from 'widgets/Catalog';
+import { isUserProfessor } from 'entities/User/model/selectors/getUserRoles/getUserRoles';
 
-interface ToggleListProps {
-    readonly value: CatalogOptions;
-}
-
-export const ToggleList = memo((props: ToggleListProps) => {
-    const { value } = props;
+export const ToggleList = memo(() => {
+    const value = useSelector(getCatalogOption);
     const dispatch = useAppDispatch();
     const options = useSelector(getCatalogOptions);
+    const isProfessor = useSelector(isUserProfessor);
 
     const handleChange = useCallback(
-        (event: MouseEvent<HTMLElement>, newAlignment: CatalogOptions) => {
+        (_: MouseEvent<HTMLElement>, newAlignment: typeof value) => {
             if (newAlignment) {
                 dispatch(catalogActions.setOption(newAlignment));
+                dispatch(catalogActions.setPage(1));
             }
         },
         [dispatch],
     );
 
-    return <ToggleButtons color="primary" exclusive onChange={handleChange} value={value} options={options} />;
+    return (
+        <ToggleButtons
+            exclusive
+            onChange={handleChange}
+            value={value}
+            options={isProfessor ? options.slice(1) : options}
+        />
+    );
 });

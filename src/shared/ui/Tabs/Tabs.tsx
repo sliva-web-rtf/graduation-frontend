@@ -1,4 +1,4 @@
-import { styled, Tabs, Tab, TabsProps, TabProps, Typography } from '@mui/material';
+import { styled, Tab, TabProps, Tabs, TabsProps, Typography } from '@mui/material';
 import React, { ReactNode } from 'react';
 
 interface BaseTabsProps extends TabsProps {
@@ -34,7 +34,11 @@ const BaseTab = styled(Tab)<BaseTabProps>(({ theme }) => ({
 }));
 
 const TabLabel = ({ label, startIcon }: TabLabelProps) => (
-    <Typography sx={{ display: 'flex', columnGap: (theme) => theme.spacing(1), alignItems: 'center' }} variant="h4">
+    <Typography
+        sx={{ display: 'flex', columnGap: (theme) => theme.spacing(1), alignItems: 'center' }}
+        variant="body1"
+        fontWeight={600}
+    >
         {startIcon} {label}
     </Typography>
 );

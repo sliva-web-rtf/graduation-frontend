@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { UserSecretStorageService } from 'shared/lib/helpers/userSecretStorage';
 import { STATUS } from 'shared/api/status';
 import { UserSchema } from '../types/user';

@@ -8,7 +8,7 @@ import { MenuBar } from 'widgets/MenuBar';
 import { NavigationMenu } from 'widgets/NavigationMenu';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { userActions } from 'entities/User';
-import { RoutePath } from 'app/providers/router/config/routeConfig';
+import { RoutePath } from 'app/providers/Router/config/routeConfig';
 import styles from './Sidebar.module.scss';
 
 export const Sidebar = memo(() => {
