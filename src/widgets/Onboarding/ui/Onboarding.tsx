@@ -70,25 +70,27 @@ export const Onboarding = memo(() => {
                 />
                 <Stack spacing={2} className={styles.formsContainer}>
                     <Box className={styles.formWrapper}>
-                        <Stack direction="row" spacing={4} sx={{ flex: 1 }}>
-                            <UploadAvatar isAvatarGetting={isAvatarLoading} url={avatarUrl} />
-                            <PersonalInfoForm
-                                onError={() => onError(values[0])}
-                                onSuccess={() => onSuccess(values[0], values[1])}
-                                onRequestStart={onRequestStart}
-                                ref={formRef}
-                            />
-                        </Stack>
+                        {activeTabValue === values[0] && (
+                            <Stack direction="row" spacing={4} sx={{ flex: 1 }}>
+                                <UploadAvatar isAvatarGetting={isAvatarLoading} url={avatarUrl} />
+                                <PersonalInfoForm
+                                    onError={() => onError(values[0])}
+                                    onSuccess={() => onSuccess(values[0], values[1])}
+                                    onRequestStart={onRequestStart}
+                                    ref={formRef}
+                                />
+                            </Stack>
+                        )}
                     </Box>
                     <Stack className={styles.actionsContainer} direction="row-reverse" justifyContent="space-between">
                         <BaseButton disabled={isLoading} type="submit" onClick={submit} variant="contained">
                             Далее
                         </BaseButton>
-                        {values[0] !== activeTabValue && (
+                        {/* {values[0] !== activeTabValue && (
                             <BaseButton disabled={isLoading} variant="outlined">
                                 Назад
                             </BaseButton>
-                        )}
+                        )} */}
                     </Stack>
                 </Stack>
             </Box>
