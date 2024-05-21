@@ -2,10 +2,12 @@ import { ErrorMessage } from 'shared/lib/helpers/errorMessages';
 import { z } from 'zod';
 
 export const personalInfoFormSchema = z.object({
-    firstName: z.string(),
-    lastName: z.string(),
-    middleName: z.string(),
-    email: z.string(),
+    firstName: z.string().min(1, { message: ErrorMessage.getRequiredErrorFieldMessage() }),
+    lastName: z.string().min(1, { message: ErrorMessage.getRequiredErrorFieldMessage() }),
+    middleName: z.string().min(1, { message: ErrorMessage.getRequiredErrorFieldMessage() }),
+    email: z.string().min(1, { message: ErrorMessage.getRequiredErrorFieldMessage() }).email({
+        message: ErrorMessage.getEmailErrorFieldMessage(),
+    }),
     phone: z
         .optional(
             z

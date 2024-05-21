@@ -1,9 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, InputLabel, Stack } from '@mui/material';
-import { forwardRef, memo, useCallback, useEffect } from 'react';
+import { forwardRef, useCallback, useEffect } from 'react';
 import { Path, useForm } from 'react-hook-form';
 
 import { BaseField } from 'shared/ui';
+import { typedMemo } from 'shared/lib/helpers/typedMemo';
 import { PersonalInfoFormSchema, personalInfoFormSchema } from 'widgets/Onboarding/model/types/personalInfoFormSchema';
 import { AppError, EntityValidationErrors } from 'shared/lib/types/appError';
 import { updateProfile } from 'widgets/Onboarding/api/onboardingApi';
@@ -11,9 +12,15 @@ import styles from './PersonalInfoForm.module.scss';
 
 const RequiredMark = () => <span className={styles.requiredMark}>*</span>;
 
-export const PersonalInfoForm = memo(
-    forwardRef<HTMLFormElement>((_, ref) => {
-        const [updatedProfileInfo, { isLoading, error }] = updateProfile();
+interface PersonalInfoFormProps {
+    onSuccess?: () => void;
+    onRequestStart?: () => void;
+    onError?: () => void;
+}
+
+export const PersonalInfoForm = typedMemo(
+    forwardRef<HTMLFormElement, PersonalInfoFormProps>(({ onError, onSuccess, onRequestStart }, ref) => {
+        const [updatedProfileInfo, { error }] = updateProfile();
         const {
             formState: { errors },
             handleSubmit,
@@ -26,16 +33,25 @@ export const PersonalInfoForm = memo(
 
         const onSubmitHandler = useCallback(
             async (values: PersonalInfoFormSchema) => {
-                await updatedProfileInfo(values)
-                    .then((response) => {
-                        console.log(response);
-                    })
-                    .catch(() => {
-                        console.log(1234);
-                    });
+                onRequestStart?.();
+                await updatedProfileInfo(values).then((response) => {
+                    if ('error' in response) {
+                        onError?.();
+                    } else {
+                        onSuccess?.();
+                    }
+                });
             },
+            // eslint-disable-next-line react-hooks/exhaustive-deps
             [updatedProfileInfo],
         );
+
+        useEffect(() => {
+            if (Object.keys(errors).length > 0) {
+                onError?.();
+            }
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+        }, [errors]);
 
         const setValidationErrors = useCallback(
             (validationErrors: EntityValidationErrors<PersonalInfoFormSchema>) => {
@@ -69,8 +85,8 @@ export const PersonalInfoForm = memo(
                                 fullWidth
                                 autoComplete="false"
                                 {...register('firstName')}
-                                error={Boolean(errors.lastName)}
-                                helperText={errors.lastName ? errors.lastName?.message : ' '}
+                                error={Boolean(errors.firstName)}
+                                helperText={errors.firstName ? errors.firstName?.message : ' '}
                                 FormHelperTextProps={{ style: { backgroundColor: 'transparent' } }}
                             />
                         </Box>
@@ -82,8 +98,8 @@ export const PersonalInfoForm = memo(
                                 fullWidth
                                 autoComplete="false"
                                 {...register('lastName')}
-                                error={Boolean(errors.firstName)}
-                                helperText={errors.firstName ? errors.firstName?.message : ' '}
+                                error={Boolean(errors.lastName)}
+                                helperText={errors.lastName ? errors.lastName?.message : ' '}
                                 FormHelperTextProps={{ style: { backgroundColor: 'transparent' } }}
                             />
                         </Box>

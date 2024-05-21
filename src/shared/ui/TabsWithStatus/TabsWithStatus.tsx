@@ -3,7 +3,7 @@ import { Box, Stack, Typography } from '@mui/material';
 import DataUsageIcon from '@mui/icons-material/DataUsage';
 import DoneIcon from '@mui/icons-material/Done';
 import classNames from 'classnames';
-import { useCallback, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { typedMemo } from 'shared/lib/helpers/typedMemo';
 import styles from './TabsWIthStatus.module.scss';
 
@@ -27,12 +27,16 @@ export const TabsWithStatus = typedMemo(
     }: TabsWithStatusProps<T>) => {
         const [activeValueIndex, setActiveValueIndex] = useState(values.indexOf(activeValue));
 
+        useEffect(() => {
+            setActiveValueIndex(values.indexOf(activeValue));
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+        }, [activeValue]);
+
         return (
             <Box role="tablist" className={styles.container}>
                 {values.map((value, index) => {
                     const hasError = errors && errors[value] !== undefined;
                     const isSuccessValue = successValues.includes(value);
-
                     return (
                         <Box
                             role="tab"
