@@ -1,10 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, InputLabel, Stack } from '@mui/material';
-import { forwardRef, memo, useCallback } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { forwardRef, memo, useCallback, useEffect } from 'react';
+import { Path, useForm } from 'react-hook-form';
 
 import { BaseField } from 'shared/ui';
 import { PersonalInfoFormSchema, personalInfoFormSchema } from 'widgets/Onboarding/model/types/personalInfoFormSchema';
+import { AppError, EntityValidationErrors } from 'shared/lib/types/appError';
 import { updateProfile } from 'widgets/Onboarding/api/onboardingApi';
 import styles from './PersonalInfoForm.module.scss';
 
@@ -24,11 +25,37 @@ export const PersonalInfoForm = memo(
         });
 
         const onSubmitHandler = useCallback(
-            (values: PersonalInfoFormSchema) => {
-                updatedProfileInfo(values);
+            async (values: PersonalInfoFormSchema) => {
+                await updatedProfileInfo(values)
+                    .then((response) => {
+                        console.log(response);
+                    })
+                    .catch(() => {
+                        console.log(1234);
+                    });
             },
             [updatedProfileInfo],
         );
+
+        const setValidationErrors = useCallback(
+            (validationErrors: EntityValidationErrors<PersonalInfoFormSchema>) => {
+                Object.entries(validationErrors).forEach(([field, messageOrError]) => {
+                    if (messageOrError !== undefined) {
+                        setError(field as Path<PersonalInfoFormSchema>, {
+                            type: 'server',
+                            message: messageOrError,
+                        });
+                    }
+                });
+            },
+            [setError],
+        );
+
+        useEffect(() => {
+            if (error instanceof AppError && error.validationData) {
+                setValidationErrors(error.validationData as EntityValidationErrors<PersonalInfoFormSchema>);
+            }
+        }, [error, setValidationErrors]);
 
         return (
             <form ref={ref} onSubmit={handleSubmit(onSubmitHandler)} className={styles.form}>
@@ -41,7 +68,7 @@ export const PersonalInfoForm = memo(
                             <BaseField
                                 fullWidth
                                 autoComplete="false"
-                                {...register('lastName')}
+                                {...register('firstName')}
                                 error={Boolean(errors.lastName)}
                                 helperText={errors.lastName ? errors.lastName?.message : ' '}
                                 FormHelperTextProps={{ style: { backgroundColor: 'transparent' } }}
@@ -54,7 +81,7 @@ export const PersonalInfoForm = memo(
                             <BaseField
                                 fullWidth
                                 autoComplete="false"
-                                {...register('firstName')}
+                                {...register('lastName')}
                                 error={Boolean(errors.firstName)}
                                 helperText={errors.firstName ? errors.firstName?.message : ' '}
                                 FormHelperTextProps={{ style: { backgroundColor: 'transparent' } }}

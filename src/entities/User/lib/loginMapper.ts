@@ -12,10 +12,10 @@ export function loginToDto(model: Login): LoginDto {
 }
 
 export function validationLoginErrorsFromDto(
-    errorDto?: ValidationErrorDto<LoginDto> | null,
+    errorDto?: ValidationErrorDto<LoginDto>[] | null,
 ): EntityValidationErrors<Login> {
     return {
-        email: extractErrorMessage(errorDto?.email),
-        password: extractErrorMessage(errorDto?.password) ?? extractErrorMessage(errorDto?.non_field_errors),
+        email: extractErrorMessage('email', errorDto),
+        password: extractErrorMessage('password', errorDto),
     };
 }
