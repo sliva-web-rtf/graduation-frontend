@@ -1,14 +1,13 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Box, IconButton, InputAdornment, InputLabel, Stack, Typography } from '@mui/material';
+import { IconButton, InputAdornment, Stack, Typography } from '@mui/material';
 import classNames from 'classnames';
 import { ChangeEvent, memo, useCallback, useEffect, useState } from 'react';
 import { Path, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { BaseButton, BaseField } from 'shared/ui';
+import { BaseField, BaseLoadingButton } from 'shared/ui';
 import { STATUS } from 'shared/api/status';
 import { Login } from 'entities/User';
 import { EntityValidationErrors } from 'shared/lib/types/appError';
@@ -57,7 +56,6 @@ const LoginForm = memo((props: LoginFormProps) => {
         register,
         setError,
     } = useForm<LoginFormSchema>({
-        mode: 'onBlur',
         resolver: zodResolver(loginFormSchema),
     });
 
@@ -94,31 +92,29 @@ const LoginForm = memo((props: LoginFormProps) => {
     return (
         <DynamicModuleLoader removeAfterUnmount reducers={initialReducers}>
             <form onSubmit={handleSubmit(onSubmitHandler)} className={classNames(className)}>
-                <Stack justifyContent="center" alignItems="center" spacing={2} sx={{ width: '100%' }}>
-                    <Box sx={{ width: '100%' }}>
-                        <InputLabel>Почта</InputLabel>
+                <Stack spacing={3} justifyContent="center" alignItems="center">
+                    <Stack spacing={2} width="100%">
                         <BaseField
+                            autoFocus
+                            label="Почта"
                             fullWidth
                             autoComplete="false"
                             {...register('email')}
                             onChange={onChangeEmail}
                             error={Boolean(errors.email)}
-                            helperText={errors.email ? errors.email?.message : ' '}
-                            FormHelperTextProps={{ style: { backgroundColor: 'transparent' } }}
+                            helperText={errors.email?.message}
                         />
-                    </Box>
-                    <Box sx={{ width: '100%' }}>
-                        <InputLabel>Пароль</InputLabel>
                         <BaseField
+                            label="Пароль"
                             fullWidth
                             autoComplete="false"
                             {...register('password')}
                             type={showPassword ? 'text' : 'password'}
                             onChange={onChangePassword}
                             error={Boolean(errors.password)}
-                            helperText={errors.password ? errors.password?.message : ' '}
-                            FormHelperTextProps={{ style: { backgroundColor: 'transparent' } }}
+                            helperText={errors.password?.message}
                             InputProps={{
+                                disableUnderline: true,
                                 endAdornment: (
                                     <InputAdornment position="end">
                                         <IconButton onClick={handleClickShowPassword}>
@@ -128,24 +124,20 @@ const LoginForm = memo((props: LoginFormProps) => {
                                 ),
                             }}
                         />
-                    </Box>
-                    <BaseButton
-                        variant="contained"
-                        sx={{ width: '100%' }}
-                        type="submit"
-                        disabled={status === STATUS.request}
-                    >
-                        Зайти
-                    </BaseButton>
-                    {true && (
-                        <Typography
-                            sx={(theme) => ({
-                                color: theme.palette.error.main,
-                            })}
-                        >
-                            {errors.root?.message}
+                        <Typography variant="body1" color="primary" alignSelf="flex-end">
+                            Забыли пароль?
                         </Typography>
-                    )}
+                    </Stack>
+                    <BaseLoadingButton
+                        fullWidth
+                        type="submit"
+                        variant="contained"
+                        loading={status === STATUS.request}
+                        sx={(theme) => ({ padding: theme.spacing(1.5) })}
+                    >
+                        Войти
+                    </BaseLoadingButton>
+                    {Boolean(errors.root?.message) && <Typography color="error">{errors.root!.message}</Typography>}
                 </Stack>
             </form>
         </DynamicModuleLoader>

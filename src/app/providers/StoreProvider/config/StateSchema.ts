@@ -5,10 +5,14 @@ import { LoginSchema } from 'features/auth/AuthByEmail/model/types/loginSchema';
 import { UserSchema } from 'entities/User';
 import { CatalogSchema } from 'widgets/Catalog/model/types/catalogSchema';
 import { baseApi } from 'shared/api';
+import { ProfessorInfoSchema } from 'widgets/ProfessorInfo';
+import { StudentInfoSchema } from 'widgets/StudentInfo';
 
 export interface StateSchema {
     user: UserSchema;
     catalog: CatalogSchema;
+    professor: ProfessorInfoSchema;
+    student: StudentInfoSchema;
     [baseApi.reducerPath]: ReturnType<typeof baseApi.reducer>;
 
     // Асинхронные редюсеры

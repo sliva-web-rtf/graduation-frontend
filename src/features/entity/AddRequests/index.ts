@@ -1,4 +1,5 @@
-export { AddSupervisor } from './ui/AddSupervisor';
-export { AddTheme } from './ui/AddTheme';
-export { AddStudent } from './ui/AddStudent';
-export { AddToFavorites } from './ui/AddToFavorites';
+export { AddProfessorButton } from './ui/AddProfessorButton';
+export { AddScientificWorkButton } from './ui/AddScientificWorkButton';
+export { AddStudentButton } from './ui/AddStudentButton';
+export { AddToFavoritesButton } from './ui/AddToFavoritesButton';
+export { useAddToFavoritesMutation, useAddProfessorMutation, useAddStudentMutation } from './api/addRequestsApi';

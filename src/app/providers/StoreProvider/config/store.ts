@@ -3,14 +3,19 @@ import { CombinedState, Reducer } from 'redux';
 import { userReducer } from 'entities/User';
 import { baseApi } from 'shared/api';
 import { catalogReducer } from 'widgets/Catalog/model/slice/catalogSlice';
+import { professorInfoReducer } from 'widgets/ProfessorInfo';
+import { studentInfoReducer } from 'widgets/StudentInfo';
 import { createReducerManager } from './reducerManager';
 import { StateSchema } from './StateSchema';
+import { rtkQueryErrorMiddleware } from './rtkErrorMiddleware';
 
 export function createReduxStore(initialState?: StateSchema, asyncReducers?: ReducersMapObject<StateSchema>) {
     const rootReducers: ReducersMapObject<StateSchema> = {
         ...asyncReducers,
         user: userReducer,
         catalog: catalogReducer,
+        professor: professorInfoReducer,
+        student: studentInfoReducer,
         [baseApi.reducerPath]: baseApi.reducer,
     };
 
@@ -23,7 +28,7 @@ export function createReduxStore(initialState?: StateSchema, asyncReducers?: Red
         middleware: (getDefaultMiddleware) =>
             getDefaultMiddleware({
                 serializableCheck: false,
-            }).concat(baseApi.middleware),
+            }).concat(baseApi.middleware, rtkQueryErrorMiddleware),
     });
 
     // @ts-ignore

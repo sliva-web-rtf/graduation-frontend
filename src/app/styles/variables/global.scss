@@ -7,10 +7,12 @@
   --border-radius: 16px;
   --page-width: 1440px;
   --sidebar-width: 240px;
-  --sidebar-height: 700px;
+  --sidebar-height: 765px;
   --catalog-card-height: 144px;
   --modal-width: 500px;
-  --login-form: 450px;
+  --login-form-width: 400px;
+  --manual-card-width: 258px;
+  --manual-card-height: 156px;
 
   // z - Индексы
 
@@ -18,4 +20,5 @@
   --bg-color: #f4f9fd;
   --primary-color: #408dff;
   --light-primary-color: #a6c8ff;
+  --modal-backdrop-color: #c5daf4bf;
 }

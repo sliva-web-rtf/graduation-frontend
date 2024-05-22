@@ -1,7 +1,7 @@
-import { Role } from '../model/types/roles';
+import { Role } from '../model/types/role';
 
 export interface UserDto {
-    id: number;
+    id: string;
     roles: Role[];
     fullName?: string;
     email?: string;
