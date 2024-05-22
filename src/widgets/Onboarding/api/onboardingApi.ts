@@ -2,6 +2,9 @@ import { baseApi, isApiError } from 'shared/api';
 import { AppErrorMapper } from 'shared/lib/types/mapper.ts/appErrorMapper';
 import { PersonalInfoFormSchema } from '../model/types/personalInfoFormSchema';
 import { updateProfileToDto, validationUpdateProfileErrorsFromDto } from '../lib/updateProfileMapper';
+import { StudentProfile } from '../model/types/student-profile';
+import { StudentProfileDto } from './types';
+import { studentProfileFromDto } from '../lib/studentProfileMapper';
 
 const onboardingApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
@@ -24,7 +27,14 @@ const onboardingApi = baseApi.injectEndpoints({
                 return error;
             },
         }),
+        getStudentProfile: build.query<StudentProfile, void>({
+            query: () => ({
+                url: '/api/on-boarding/student-profile',
+            }),
+            transformResponse: (studentProfileDto: StudentProfileDto) => studentProfileFromDto(studentProfileDto),
+        }),
     }),
 });
 
 export const updateProfile = onboardingApi.useUpdateProfileInfoMutation;
+export const getStudentProfile = onboardingApi.useGetStudentProfileQuery;

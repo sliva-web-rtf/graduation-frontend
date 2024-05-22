@@ -1,12 +1,15 @@
 import { Box, Stack } from '@mui/material';
 import { memo, useCallback, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import { UploadAvatar, useGetAvatar } from 'features/avatar';
 import { BaseButton, TabsWithStatus } from 'shared/ui';
+import { Role, getUserAuthData } from 'entities/User';
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { PersonalInfoForm } from './PersonalInfoForm/PersonalInfoForm';
 import { onboardingReducer } from '../model/slice/onboardingSlice';
 import styles from './Onboarding.module.scss';
+import { getStudentProfile } from '../api/onboardingApi';
 
 const initialReducers: ReducersList = {
     onboarding: onboardingReducer,
@@ -18,11 +21,16 @@ const titles = ['Личные данные', 'Научное портфолио'
 const ERROR_TEXT = 'Произошла ошибка';
 
 export const Onboarding = memo(() => {
+    const user = useSelector(getUserAuthData);
+    const { data: avatarUrl, isLoading: isAvatarLoading } = useGetAvatar();
+    const { data: studentProfile, isLoading: isStudentProfileLoading } = getStudentProfile(undefined, {
+        skip: !user?.roles.includes(Role.Student),
+    });
+
     const [isLoading, setIsLoading] = useState(false);
     const [activeTabValue, setActiveTabValue] = useState<(typeof values)[number]>(values[0]);
     const [successTabValue, setSuccessTabValue] = useState<typeof values>([]);
     const [errors, setErrors] = useState<null | Record<(typeof values)[number], string>>(null);
-    const { data: avatarUrl, isLoading: isAvatarLoading } = useGetAvatar();
 
     const formRef = useRef<null | HTMLFormElement>(null);
 
@@ -31,6 +39,11 @@ export const Onboarding = memo(() => {
             formRef.current.requestSubmit();
         }
     }, []);
+
+    const goBack = useCallback(() => {
+        const activeTabValueIndex = values.indexOf(activeTabValue);
+        setActiveTabValue(values[activeTabValueIndex - 1]);
+    }, [activeTabValue]);
 
     const onSuccess = useCallback(
         (currentValue: (typeof values)[number], nextValue?: (typeof values)[number]) => {
@@ -78,19 +91,25 @@ export const Onboarding = memo(() => {
                                     onSuccess={() => onSuccess(values[0], values[1])}
                                     onRequestStart={onRequestStart}
                                     ref={formRef}
+                                    initialValues={studentProfile?.personalInfo}
                                 />
                             </Stack>
                         )}
                     </Box>
                     <Stack className={styles.actionsContainer} direction="row-reverse" justifyContent="space-between">
-                        <BaseButton disabled={isLoading} type="submit" onClick={submit} variant="contained">
+                        <BaseButton
+                            disabled={isLoading || isStudentProfileLoading}
+                            type="submit"
+                            onClick={submit}
+                            variant="contained"
+                        >
                             Далее
                         </BaseButton>
-                        {/* {values[0] !== activeTabValue && (
-                            <BaseButton disabled={isLoading} variant="outlined">
+                        {values[0] !== activeTabValue && (
+                            <BaseButton onClick={goBack} disabled={isLoading} variant="outlined">
                                 Назад
                             </BaseButton>
-                        )} */}
+                        )}
                     </Stack>
                 </Stack>
             </Box>

@@ -8,7 +8,7 @@ export const onboardingSlice = createSlice({
     name: 'onboarding',
     initialState,
     reducers: {
-        setUpdatedProfileInfo: (state, action: PayloadAction<PersonalInfoFormSchema>) => {
+        setUpdatedProfileInfo: (state, action: PayloadAction<PersonalInfoFormSchema | undefined>) => {
             state.updatedProfileInfo = action.payload;
         },
     },

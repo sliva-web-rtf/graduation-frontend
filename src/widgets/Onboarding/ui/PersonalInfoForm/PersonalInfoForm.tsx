@@ -1,159 +1,233 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Box, InputLabel, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
+import { isEqual } from 'lodash';
 import { forwardRef, useCallback, useEffect } from 'react';
-import { Path, useForm } from 'react-hook-form';
+import { Controller, Path, useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 
-import { BaseField } from 'shared/ui';
 import { typedMemo } from 'shared/lib/helpers/typedMemo';
-import { PersonalInfoFormSchema, personalInfoFormSchema } from 'widgets/Onboarding/model/types/personalInfoFormSchema';
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { AppError, EntityValidationErrors } from 'shared/lib/types/appError';
+import { BaseField } from 'shared/ui';
 import { updateProfile } from 'widgets/Onboarding/api/onboardingApi';
+import { getProfileInfo } from 'widgets/Onboarding/model/selectors/getProfileInfo';
+import { onboardingActions } from 'widgets/Onboarding/model/slice/onboardingSlice';
+import { PersonalInfoFormSchema, personalInfoFormSchema } from 'widgets/Onboarding/model/types/personalInfoFormSchema';
 import styles from './PersonalInfoForm.module.scss';
-
-const RequiredMark = () => <span className={styles.requiredMark}>*</span>;
 
 interface PersonalInfoFormProps {
     onSuccess?: () => void;
     onRequestStart?: () => void;
     onError?: () => void;
+    isDisabled?: boolean;
+    initialValues?: PersonalInfoFormSchema;
 }
 
+const defaultValues: PersonalInfoFormSchema = {
+    lastName: '',
+    firstName: '',
+    email: '',
+    contacts: '',
+    middleName: '',
+    phone: '',
+};
+
 export const PersonalInfoForm = typedMemo(
-    forwardRef<HTMLFormElement, PersonalInfoFormProps>(({ onError, onSuccess, onRequestStart }, ref) => {
-        const [updatedProfileInfo, { error }] = updateProfile();
-        const {
-            formState: { errors },
-            handleSubmit,
-            register,
-            setError,
-        } = useForm<PersonalInfoFormSchema>({
-            mode: 'onBlur',
-            resolver: zodResolver(personalInfoFormSchema),
-        });
+    forwardRef<HTMLFormElement, PersonalInfoFormProps>(
+        ({ onError, onSuccess, onRequestStart, initialValues, isDisabled }, ref) => {
+            const profileInfo = useSelector(getProfileInfo);
+            const [updatedProfileInfo, { error }] = updateProfile();
+            const dispatch = useAppDispatch();
+            const {
+                formState: { errors },
+                control,
+                handleSubmit,
+                setError,
+                setValue,
+            } = useForm<PersonalInfoFormSchema>({
+                defaultValues,
+                mode: 'onBlur',
+                resolver: zodResolver(personalInfoFormSchema),
+            });
 
-        const onSubmitHandler = useCallback(
-            async (values: PersonalInfoFormSchema) => {
-                onRequestStart?.();
-                await updatedProfileInfo(values).then((response) => {
-                    if ('error' in response) {
-                        onError?.();
-                    } else {
+            const onSubmitHandler = useCallback(
+                async (values: PersonalInfoFormSchema) => {
+                    onRequestStart?.();
+                    if (isEqual(values, profileInfo)) {
                         onSuccess?.();
-                    }
-                });
-            },
-            // eslint-disable-next-line react-hooks/exhaustive-deps
-            [updatedProfileInfo],
-        );
-
-        useEffect(() => {
-            if (Object.keys(errors).length > 0) {
-                onError?.();
-            }
-            // eslint-disable-next-line react-hooks/exhaustive-deps
-        }, [errors]);
-
-        const setValidationErrors = useCallback(
-            (validationErrors: EntityValidationErrors<PersonalInfoFormSchema>) => {
-                Object.entries(validationErrors).forEach(([field, messageOrError]) => {
-                    if (messageOrError !== undefined) {
-                        setError(field as Path<PersonalInfoFormSchema>, {
-                            type: 'server',
-                            message: messageOrError,
+                    } else {
+                        await updatedProfileInfo(values).then((response) => {
+                            if ('error' in response) {
+                                onError?.();
+                            } else {
+                                dispatch(onboardingActions.setUpdatedProfileInfo(values));
+                                onSuccess?.();
+                            }
                         });
                     }
-                });
-            },
-            [setError],
-        );
+                },
+                // eslint-disable-next-line react-hooks/exhaustive-deps
+                [profileInfo, updatedProfileInfo],
+            );
 
-        useEffect(() => {
-            if (error instanceof AppError && error.validationData) {
-                setValidationErrors(error.validationData as EntityValidationErrors<PersonalInfoFormSchema>);
-            }
-        }, [error, setValidationErrors]);
+            useEffect(() => {
+                if (initialValues) {
+                    Object.keys(initialValues).forEach((key) => {
+                        const value = initialValues[key as keyof PersonalInfoFormSchema];
+                        if (value) {
+                            setValue(key as keyof PersonalInfoFormSchema, value, {
+                                shouldTouch: true,
+                            });
+                        }
+                    });
+                }
+                dispatch(onboardingActions.setUpdatedProfileInfo(initialValues));
+                // eslint-disable-next-line react-hooks/exhaustive-deps
+            }, [initialValues]);
 
-        return (
-            <form ref={ref} onSubmit={handleSubmit(onSubmitHandler)} className={styles.form}>
-                <Stack spacing={2}>
-                    <Stack direction="row" justifyContent="space-between" spacing={1}>
-                        <Box sx={{ width: '100%' }}>
-                            <InputLabel>
-                                Имя <RequiredMark />
-                            </InputLabel>
-                            <BaseField
-                                fullWidth
-                                autoComplete="false"
-                                {...register('firstName')}
-                                error={Boolean(errors.firstName)}
-                                helperText={errors.firstName ? errors.firstName?.message : ' '}
-                                FormHelperTextProps={{ style: { backgroundColor: 'transparent' } }}
+            useEffect(() => {
+                if (Object.keys(errors).length > 0) {
+                    onError?.();
+                }
+                // eslint-disable-next-line react-hooks/exhaustive-deps
+            }, [errors]);
+
+            const setValidationErrors = useCallback(
+                (validationErrors: EntityValidationErrors<PersonalInfoFormSchema>) => {
+                    Object.entries(validationErrors).forEach(([field, messageOrError]) => {
+                        if (messageOrError !== undefined) {
+                            setError(field as Path<PersonalInfoFormSchema>, {
+                                type: 'server',
+                                message: messageOrError,
+                            });
+                        }
+                    });
+                },
+                [setError],
+            );
+
+            useEffect(() => {
+                if (error instanceof AppError && error.validationData) {
+                    setValidationErrors(error.validationData as EntityValidationErrors<PersonalInfoFormSchema>);
+                }
+            }, [error, setValidationErrors]);
+
+            return (
+                <form ref={ref} onSubmit={handleSubmit(onSubmitHandler)} className={styles.form}>
+                    <Stack spacing={2}>
+                        <Stack direction="row" justifyContent="space-between" spacing={1}>
+                            <Controller
+                                control={control}
+                                name="firstName"
+                                render={({ field: { onChange, onBlur, value } }) => (
+                                    <BaseField
+                                        fullWidth
+                                        onChange={onChange}
+                                        onBlur={onBlur}
+                                        value={value}
+                                        label="Имя *"
+                                        disabled={isDisabled}
+                                        autoComplete="false"
+                                        error={Boolean(errors.firstName)}
+                                        helperText={errors.firstName ? errors.firstName?.message : ' '}
+                                        FormHelperTextProps={{ style: { backgroundColor: 'transparent' } }}
+                                    />
+                                )}
                             />
-                        </Box>
-                        <Box sx={{ width: '100%' }}>
-                            <InputLabel>
-                                Фамилия <RequiredMark />
-                            </InputLabel>
-                            <BaseField
-                                fullWidth
-                                autoComplete="false"
-                                {...register('lastName')}
-                                error={Boolean(errors.lastName)}
-                                helperText={errors.lastName ? errors.lastName?.message : ' '}
-                                FormHelperTextProps={{ style: { backgroundColor: 'transparent' } }}
+                            <Controller
+                                control={control}
+                                name="lastName"
+                                render={({ field: { onChange, onBlur, value } }) => (
+                                    <BaseField
+                                        fullWidth
+                                        onChange={onChange}
+                                        onBlur={onBlur}
+                                        value={value}
+                                        label="Фамилия *"
+                                        disabled={isDisabled}
+                                        autoComplete="false"
+                                        error={Boolean(errors.lastName)}
+                                        helperText={errors.lastName ? errors.lastName?.message : ' '}
+                                        FormHelperTextProps={{ style: { backgroundColor: 'transparent' } }}
+                                    />
+                                )}
                             />
-                        </Box>
-                        <Box sx={{ width: '100%' }}>
-                            <InputLabel>
-                                Отчество <RequiredMark />
-                            </InputLabel>
-                            <BaseField
-                                fullWidth
-                                autoComplete="false"
-                                {...register('middleName')}
-                                error={Boolean(errors.middleName)}
-                                helperText={errors.middleName ? errors.middleName?.message : ' '}
-                                FormHelperTextProps={{ style: { backgroundColor: 'transparent' } }}
+                            <Controller
+                                control={control}
+                                name="middleName"
+                                render={({ field: { onChange, onBlur, value } }) => (
+                                    <BaseField
+                                        fullWidth
+                                        onChange={onChange}
+                                        onBlur={onBlur}
+                                        value={value}
+                                        label="Отчество *"
+                                        disabled={isDisabled}
+                                        autoComplete="false"
+                                        error={Boolean(errors.middleName)}
+                                        helperText={errors.middleName ? errors.middleName?.message : ' '}
+                                        FormHelperTextProps={{ style: { backgroundColor: 'transparent' } }}
+                                    />
+                                )}
                             />
-                        </Box>
+                        </Stack>
+                        <Controller
+                            control={control}
+                            name="email"
+                            render={({ field: { onChange, onBlur, value } }) => (
+                                <BaseField
+                                    fullWidth
+                                    onChange={onChange}
+                                    onBlur={onBlur}
+                                    value={value}
+                                    label="Адрес электронной почты *"
+                                    disabled={isDisabled}
+                                    autoComplete="false"
+                                    error={Boolean(errors.email)}
+                                    helperText={errors.email ? errors.email?.message : ' '}
+                                    FormHelperTextProps={{ style: { backgroundColor: 'transparent' } }}
+                                />
+                            )}
+                        />
+                        <Controller
+                            control={control}
+                            name="phone"
+                            render={({ field: { onChange, onBlur, value } }) => (
+                                <BaseField
+                                    fullWidth
+                                    onChange={onChange}
+                                    onBlur={onBlur}
+                                    value={value}
+                                    label="Телефон"
+                                    disabled={isDisabled}
+                                    autoComplete="false"
+                                    error={Boolean(errors.phone)}
+                                    helperText={errors.phone ? errors.phone?.message : ' '}
+                                    FormHelperTextProps={{ style: { backgroundColor: 'transparent' } }}
+                                />
+                            )}
+                        />
+                        <Controller
+                            control={control}
+                            name="contacts"
+                            render={({ field: { onChange, onBlur, value } }) => (
+                                <BaseField
+                                    fullWidth
+                                    onChange={onChange}
+                                    onBlur={onBlur}
+                                    value={value}
+                                    label="Telegram"
+                                    disabled={isDisabled}
+                                    autoComplete="false"
+                                    error={Boolean(errors.contacts)}
+                                    helperText={errors.contacts ? errors.contacts?.message : ' '}
+                                    FormHelperTextProps={{ style: { backgroundColor: 'transparent' } }}
+                                />
+                            )}
+                        />
                     </Stack>
-                    <Box sx={{ width: '100%' }}>
-                        <InputLabel>
-                            Адрес электронной почты <RequiredMark />
-                        </InputLabel>
-                        <BaseField
-                            fullWidth
-                            autoComplete="false"
-                            {...register('email')}
-                            error={Boolean(errors.email)}
-                            helperText={errors.email ? errors.email?.message : ' '}
-                            FormHelperTextProps={{ style: { backgroundColor: 'transparent' } }}
-                        />
-                    </Box>
-                    <Box sx={{ width: '100%' }}>
-                        <InputLabel>Номер телефона</InputLabel>
-                        <BaseField
-                            fullWidth
-                            autoComplete="false"
-                            {...register('phone')}
-                            error={Boolean(errors.phone)}
-                            helperText={errors.phone ? errors.phone?.message : ' '}
-                            FormHelperTextProps={{ style: { backgroundColor: 'transparent' } }}
-                        />
-                    </Box>
-                    <Box sx={{ width: '100%' }}>
-                        <InputLabel>Telegram</InputLabel>
-                        <BaseField
-                            fullWidth
-                            autoComplete="false"
-                            {...register('contacts')}
-                            error={Boolean(errors.contacts)}
-                            helperText={errors.contacts ? errors.contacts?.message : ' '}
-                            FormHelperTextProps={{ style: { backgroundColor: 'transparent' } }}
-                        />
-                    </Box>
-                </Stack>
-            </form>
-        );
-    }),
+                </form>
+            );
+        },
+    ),
 );
