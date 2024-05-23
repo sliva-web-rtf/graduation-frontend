@@ -23,15 +23,6 @@ interface PersonalInfoFormProps {
     initialValues?: PersonalInfoFormSchema;
 }
 
-const defaultValues: PersonalInfoFormSchema = {
-    lastName: '',
-    firstName: '',
-    email: '',
-    contacts: '',
-    middleName: '',
-    phone: '',
-};
-
 export const PersonalInfoForm = memo(
     ({ onError, onSuccess, onRequestStart, initialValues, isDisabled, id }: PersonalInfoFormProps) => {
         const profileInfo = useSelector(getProfileInfo);
