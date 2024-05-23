@@ -37,4 +37,4 @@ const onboardingApi = baseApi.injectEndpoints({
 });
 
 export const updateProfile = onboardingApi.useUpdateProfileInfoMutation;
-export const getStudentProfile = onboardingApi.useGetStudentProfileQuery;
+export const getLazyStudentProfile = onboardingApi.useLazyGetStudentProfileQuery;

@@ -5,7 +5,7 @@
     "scripts": {
         "start": "webpack serve --env port=3000 apiUrl=https://ainurgalimzyanov-scientificwork-70da.twc1.net",
         "build:prod": "webpack  --env mode=production apiUrl=https://ainurgalimzyanov-scientificwork-70da.twc1.net",
-        "build:dev": "webpack  --env mode=development",
+        "build:dev": "webpack  --env mode=development apiUrl=https://ainurgalimzyanov-scientificwork-70da.twc1.netz",
         "lint:ts": "eslint \"**/*.{ts,tsx}\"",
         "lint:ts:fix": "eslint \"**/*.{ts,tsx}\" --fix",
         "lint:scss": "npx stylelint \"**/*.scss\"",
