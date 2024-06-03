@@ -2,7 +2,12 @@ import { memo, useMemo } from 'react';
 import { Avatar, Paper, Stack, Typography } from '@mui/material';
 import { BaseChip } from 'shared/ui/Chip/Chip';
 import { LimitInfo } from 'shared/ui/LimitInfo/LimitInfo';
-import { AddProfessorButton, AddStudentButton, AddToFavoritesButton } from 'features/entity/AddRequests';
+import {
+    AddProfessorButton,
+    AddScientificWorkButton,
+    AddStudentButton,
+    AddToFavoritesButton,
+} from 'features/entity/AddRequests';
 import { WorkStatusRus } from 'entities/ScientificWork/model/types/workStatus';
 import { getParentLink } from 'entities/CatalogCard/lib/helpers/getParentLink';
 import scientificWorkImage from 'shared/assets/images/scientificWork.png';
@@ -73,7 +78,7 @@ export const CatalogCard = memo((props: ICatalogCard) => {
                         professorSearching={Boolean(professorSearching)}
                     />
                 ) : (
-                    <BaseChip label="Сделать запрос" />
+                    <AddScientificWorkButton id={id} canJoin={Boolean(canJoin)} />
                 )}
 
                 <AddToFavoritesButton id={id} isFavorite={isFavorite} option={option} />

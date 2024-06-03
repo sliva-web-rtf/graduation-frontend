@@ -5,6 +5,7 @@ import { ToggleEnum } from 'features/entity/AddRequests/model/types/toggleEnum';
 import { AddToFavoritesRequest } from '../model/types/addToFavoritesRequest';
 import { AddProfessorRequest } from '../model/types/addProfessorRequest';
 import { AddStudentRequest } from '../model/types/addStudentRequest';
+import { AddScientificWorkRequest } from '../model/types/addScientificWorkRequest';
 
 const addRequestsApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
@@ -43,7 +44,22 @@ const addRequestsApi = baseApi.injectEndpoints({
                 toast.success('Запрос успешно отправлен');
             },
         }),
+        addScientificWork: build.mutation<void, AddScientificWorkRequest>({
+            query: (body) => ({
+                url: `/api/scientificWork/enter-scientific-work`,
+                method: 'POST',
+                body,
+            }),
+            transformResponse: () => {
+                toast.success('Запрос успешно отправлен');
+            },
+        }),
     }),
 });
 
-export const { useAddToFavoritesMutation, useAddProfessorMutation, useAddStudentMutation } = addRequestsApi;
+export const {
+    useAddToFavoritesMutation,
+    useAddProfessorMutation,
+    useAddStudentMutation,
+    useAddScientificWorkMutation,
+} = addRequestsApi;
