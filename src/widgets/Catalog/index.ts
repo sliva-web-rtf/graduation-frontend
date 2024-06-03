@@ -1,4 +1,4 @@
-export { Catalog } from './ui/Catalog';
+export { CatalogAsync as Catalog } from './ui/Catalog.async';
 export { getCatalogOption } from './model/selectors/getCatalogOption/getCatalogOption';
 export { getCatalogOptions } from './model/selectors/getCatalogOptions/getCatalogOptions';
 export { getCatalogPage } from './model/selectors/getCatalogPage/getCatalogPage';
@@ -7,3 +7,4 @@ export { getCatalogPagesCount } from './model/selectors/getCatalogPagesCount/get
 export { getCatalogInterests } from './model/selectors/getCatalogInterests/getCatalogInterests';
 export { getCatalogAreas } from './model/selectors/getCatalogAreas/getCatalogAreas';
 export { getCatalogIsFavoritesFilter } from './model/selectors/getCatalogIsFavoritesFilter/getCatalogIsFavoritesFilter';
+export { CatalogOption } from './model/types/catalogOption';

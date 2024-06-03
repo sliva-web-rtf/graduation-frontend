@@ -3,13 +3,14 @@ import StarOutlineRoundedIcon from '@mui/icons-material/StarOutlineRounded';
 import React, { memo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { isUserProfessor } from 'entities/User/model/selectors/getUserRoles/getUserRoles';
-import { CatalogOptions } from 'entities/CatalogList';
+
 import { useAddToFavoritesMutation } from 'features/entity/AddRequests/api/addRequestsApi';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
+import { CatalogOption } from 'widgets/Catalog';
 
 interface AddToFavoritesButtonProps {
     readonly id: string;
-    readonly option: CatalogOptions;
+    readonly option: CatalogOption;
     readonly isFavorite: boolean;
 }
 

@@ -5,15 +5,21 @@ import { ToggleList } from 'features/catalog/ToggleList';
 import { useSelector } from 'react-redux';
 import React, { ChangeEvent, memo } from 'react';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { catalogActions } from 'widgets/Catalog/model/slice/catalogSlice';
-import { CatalogList, CatalogOptions } from 'entities/CatalogList';
+import { CatalogList } from 'entities/CatalogList';
 import { FavoritesFilterCheckbox } from 'features/catalog/Favorites';
 import { CreateScientificWorkModal } from 'features/scientificWork/CreateScientificWork';
+import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+import { CatalogOption } from '../model/types/catalogOption';
+import { catalogActions, catalogReducer } from '../model/slice/catalogSlice';
 import { getCatalogPage } from '../model/selectors/getCatalogPage/getCatalogPage';
 import { getCatalogPagesCount } from '../model/selectors/getCatalogPagesCount/getCatalogPagesCount';
 import { getCatalogOption } from '../model/selectors/getCatalogOption/getCatalogOption';
 
-export const Catalog = memo(() => {
+const initialReducers: ReducersList = {
+    catalog: catalogReducer,
+};
+
+const Catalog = memo(() => {
     const dispatch = useAppDispatch();
     const option = useSelector(getCatalogOption);
     const page = useSelector(getCatalogPage);
@@ -24,19 +30,23 @@ export const Catalog = memo(() => {
     };
 
     return (
-        <Stack spacing={4} justifyContent="space-between" height="100%">
-            <Stack spacing={4}>
-                <Search />
-                <Stack direction="row" justifyContent="space-between" alignItems="center">
-                    <ToggleList />
-                    <Stack direction="row" spacing={2}>
-                        <FavoritesFilterCheckbox />
-                        {option === CatalogOptions.Themes && <CreateScientificWorkModal />}
+        <DynamicModuleLoader removeAfterUnmount reducers={initialReducers}>
+            <Stack spacing={4} justifyContent="space-between" height="100%">
+                <Stack spacing={4}>
+                    <Search />
+                    <Stack direction="row" justifyContent="space-between" alignItems="center">
+                        <ToggleList />
+                        <Stack direction="row" spacing={2}>
+                            <FavoritesFilterCheckbox />
+                            {option === CatalogOption.Themes && <CreateScientificWorkModal />}
+                        </Stack>
                     </Stack>
+                    <CatalogList />
                 </Stack>
-                <CatalogList />
+                <BasePagination page={page} count={pagesCount[option]} onChange={handlePageChange} />
             </Stack>
-            <BasePagination page={page} count={pagesCount[option]} onChange={handlePageChange} />
-        </Stack>
+        </DynamicModuleLoader>
     );
 });
+
+export default Catalog;

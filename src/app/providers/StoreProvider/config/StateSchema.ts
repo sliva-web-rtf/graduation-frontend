@@ -10,13 +10,13 @@ import { StudentInfoSchema } from 'widgets/StudentInfo';
 
 export interface StateSchema {
     user: UserSchema;
-    catalog: CatalogSchema;
     professor: ProfessorInfoSchema;
     student: StudentInfoSchema;
     [baseApi.reducerPath]: ReturnType<typeof baseApi.reducer>;
 
     // Асинхронные редюсеры
     loginForm?: LoginSchema;
+    catalog?: CatalogSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;

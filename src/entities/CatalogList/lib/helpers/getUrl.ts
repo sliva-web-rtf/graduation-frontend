@@ -1,15 +1,9 @@
-import { CatalogOptions } from '../../model/types/catalogOptions';
+import { CatalogOption } from 'widgets/Catalog';
 
-enum Urls {
-    Professors = '/api/professor/list-professor',
-    ScientificWorks = '/api/scientificWork/list-scientific-works',
-    Students = '/api/student/list-students',
-}
-
-const URL_MAP: Record<CatalogOptions, Urls> = {
-    [CatalogOptions.Professors]: Urls.Professors,
-    [CatalogOptions.Themes]: Urls.ScientificWorks,
-    [CatalogOptions.Students]: Urls.Students,
+const URL_MAP: Record<CatalogOption, string> = {
+    [CatalogOption.Professors]: '/api/professor/list-professor',
+    [CatalogOption.Themes]: '/api/scientificWork/list-scientific-works',
+    [CatalogOption.Students]: '/api/student/list-students',
 };
 
-export const getUrl = (option: CatalogOptions): Urls => URL_MAP[option];
+export const getUrl = (option: CatalogOption): string => URL_MAP[option];

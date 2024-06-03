@@ -1,11 +1,11 @@
 import { WorkStatus } from 'entities/ScientificWork';
-import { CatalogOptions } from 'entities/CatalogList';
+import { CatalogOption } from 'widgets/Catalog';
 
 export interface ICatalogCard {
     readonly id: string;
     readonly title: string;
     readonly chips: string[];
-    readonly option: CatalogOptions;
+    readonly option: CatalogOption;
     readonly isFavorite: boolean;
     readonly canJoin?: boolean;
     readonly commandSearching?: boolean;

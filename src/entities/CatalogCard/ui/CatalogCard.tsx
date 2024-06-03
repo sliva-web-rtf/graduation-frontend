@@ -7,9 +7,9 @@ import { WorkStatusRus } from 'entities/ScientificWork/model/types/workStatus';
 import { getParentLink } from 'entities/CatalogCard/lib/helpers/getParentLink';
 import scientificWorkImage from 'shared/assets/images/scientificWork.png';
 import { Link } from 'react-router-dom';
-import { CatalogOptions } from 'entities/CatalogList';
 import { ChipsGroup } from 'shared/ui';
 import { getChipColorByWorkStatus } from 'shared/lib/helpers/getChipColorByStatus';
+import { CatalogOption } from 'widgets/Catalog';
 import { ICatalogCard } from '../model/types/ICatalogCard';
 import styles from './CatalogCard.module.scss';
 
@@ -64,9 +64,9 @@ export const CatalogCard = memo((props: ICatalogCard) => {
             </Stack>
             <Stack spacing={1} alignSelf="flex-end" alignItems="flex-end">
                 <LimitInfo limit={limit} fullness={fullness} />
-                {option === CatalogOptions.Professors ? (
+                {option === CatalogOption.Professors ? (
                     <AddProfessorButton id={id} canJoin={Boolean(canJoin)} />
-                ) : option === CatalogOptions.Students ? (
+                ) : option === CatalogOption.Students ? (
                     <AddStudentButton
                         id={id}
                         commandSearching={Boolean(commandSearching)}

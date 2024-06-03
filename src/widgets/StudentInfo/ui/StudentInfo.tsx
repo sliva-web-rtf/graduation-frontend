@@ -6,7 +6,7 @@ import { getStudentInfoOption } from 'widgets/StudentInfo/model/selectors/getStu
 import { StudentCard, useGetStudentQuery } from 'entities/Student';
 import { ToggleStudentInfo } from 'features/student/ToggleInfo';
 import { AddStudentButton, AddToFavoritesButton } from 'features/entity/AddRequests';
-import { CatalogOptions } from 'entities/CatalogList';
+import { CatalogOption } from 'widgets/Catalog';
 import { ToggleOptions } from '../model/types/toggleOptions';
 import { StudentInfoSkeleton } from './StudentInfo.skeleton';
 import { StudentPortfolio } from './StudentPortfolio';
@@ -37,7 +37,7 @@ export const StudentInfo = memo(() => {
                             commandSearching={data.commandSearching}
                             professorSearching={data.professorSearching}
                         />
-                        <AddToFavoritesButton id={id!} isFavorite={data.isFavorite} option={CatalogOptions.Students} />
+                        <AddToFavoritesButton id={id!} isFavorite={data.isFavorite} option={CatalogOption.Students} />
                     </Stack>
                 </Stack>
             </Grid>

@@ -18,6 +18,7 @@ export const Sidebar = memo(() => {
     const handleLogoutButtonClick = useCallback(async () => {
         dispatch(userActions.logout());
         navigate(RoutePath.Login, { replace: true });
+        window.location.reload();
     }, [dispatch, navigate]);
 
     return (
