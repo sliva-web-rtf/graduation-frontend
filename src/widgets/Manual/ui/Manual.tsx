@@ -35,6 +35,7 @@ export const Manual = memo(() => {
                     {filteredManual.map((item) => (
                         <ManualBlock key={item.title} title={item.title} content={item.content} />
                     ))}
+                    {!filteredManual.length && <Typography variant="h3">Ничего не найдено</Typography>}
                 </Stack>
             </Stack>
         </DynamicModuleLoader>
