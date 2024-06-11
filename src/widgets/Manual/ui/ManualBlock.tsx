@@ -15,7 +15,7 @@ export const ManualBlock = memo((props: ManualBlockProps) => {
             <Typography variant="h2">{title}</Typography>
             <Stack direction="row" gap={3} flexWrap="wrap">
                 {content.map((item) => (
-                    <ManualCard key={item.id} {...item} />
+                    <ManualCard key={item.id} id={item.id} title={item.title} url={item.url} icon={item.icon} />
                 ))}
             </Stack>
         </Stack>

@@ -46,7 +46,7 @@ export const CatalogCard = memo((props: ICatalogCard) => {
                 alt={title}
                 sx={{ width: 1, height: 1, borderRadius: 3 }}
             />
-            <Stack spacing={2} overflow="hidden">
+            <Stack spacing={2} justifyContent="space-between" overflow="hidden">
                 <Stack spacing={1}>
                     {workStatus ? (
                         <BaseChip
@@ -62,26 +62,29 @@ export const CatalogCard = memo((props: ICatalogCard) => {
                         </Typography>
                     )}
                     <Link to={`/${parentLink}/${id}`} color="inherit">
-                        <Typography variant="h3">{title}</Typography>
+                        <Typography variant="h3" className={styles.title}>
+                            {title}
+                        </Typography>
                     </Link>
                 </Stack>
-                <ChipsGroup chips={chips} maxCount={4} />
+                <ChipsGroup chips={chips} />
             </Stack>
-            <Stack spacing={1} alignSelf="flex-end" alignItems="flex-end">
+            <Stack spacing={4} justifyContent="space-between" alignSelf="center">
                 <LimitInfo limit={limit} fullness={fullness} />
-                {option === CatalogOption.Professors ? (
-                    <AddProfessorButton id={id} canJoin={Boolean(canJoin)} />
-                ) : option === CatalogOption.Students ? (
-                    <AddStudentButton
-                        id={id}
-                        commandSearching={Boolean(commandSearching)}
-                        professorSearching={Boolean(professorSearching)}
-                    />
-                ) : (
-                    <AddScientificWorkButton id={id} canJoin={Boolean(canJoin)} />
-                )}
-
-                <AddToFavoritesButton id={id} isFavorite={isFavorite} option={option} />
+                <Stack spacing={1}>
+                    {option === CatalogOption.Professors ? (
+                        <AddProfessorButton id={id} canJoin={Boolean(canJoin)} />
+                    ) : option === CatalogOption.Students ? (
+                        <AddStudentButton
+                            id={id}
+                            commandSearching={Boolean(commandSearching)}
+                            professorSearching={Boolean(professorSearching)}
+                        />
+                    ) : (
+                        <AddScientificWorkButton id={id} canJoin={Boolean(canJoin)} />
+                    )}
+                    <AddToFavoritesButton id={id} isFavorite={isFavorite} option={option} />
+                </Stack>
             </Stack>
         </Paper>
     );

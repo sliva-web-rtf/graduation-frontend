@@ -22,12 +22,7 @@ export const Sidebar = memo(() => {
     }, [dispatch, navigate]);
 
     return (
-        <Stack
-            component={Paper}
-            className={styles.wrapper}
-            sx={{ borderRadius: 3, py: 4, pl: 1 }}
-            justifyContent="space-between"
-        >
+        <Stack component={Paper} className={styles.wrapper} sx={{ py: 4, pl: 1 }} justifyContent="space-between">
             <Stack spacing={2}>
                 <Logo />
                 <MenuBar sx={{ pr: 1 }} />

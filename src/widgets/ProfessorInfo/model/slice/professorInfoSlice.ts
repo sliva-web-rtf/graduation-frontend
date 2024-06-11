@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ProfessorInfoSchema } from '../types/ProfessorInfoSchema';
 import { ToggleOptions } from '../types/toggleOptions';
 
-const initialState: ProfessorInfoSchema = {
+export const initialState: ProfessorInfoSchema = {
     option: ToggleOptions.Portfolio,
     options: Object.values(ToggleOptions),
 };

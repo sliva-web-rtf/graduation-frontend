@@ -6,10 +6,8 @@ import { ForbiddenPage } from 'pages/ForbiddenPage';
 import { Role } from 'entities/User/model/types/role';
 import { ProfessorPage } from 'pages/ProfessorPage';
 import { StudentPage } from 'pages/StudentPage';
-import { Typography } from '@mui/material';
 import { ScientificWorkPage } from 'pages/ScientificWorkPage';
 import { ManualPage } from 'pages/ManualPage';
-import { ManualArticlePage } from 'pages/ManuaArticlelPage';
 
 export type AppRoutesProps = RouteProps & {
     authOnly?: boolean;
@@ -20,15 +18,15 @@ export type AppRoutesProps = RouteProps & {
 export enum AppRoutes {
     Login = 'Login',
     Catalog = 'Catalog',
-    About = 'About',
-    Tasks = 'Tasks',
     NotFound = 'NotFound',
     Forbidden = 'Forbidden',
     Professors = 'Professors',
     ScientificWork = 'ScientificWork',
     Students = 'Students',
     Manual = 'Manual',
-    ManualArticle = 'ManualArticle',
+    // ManualArticle = 'ManualArticle',
+    // About = 'About',
+    // Tasks = 'Tasks',
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
@@ -38,11 +36,11 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.ScientificWork]: '/themes/:id',
     [AppRoutes.Students]: '/students/:id',
     [AppRoutes.Manual]: '/manual',
-    [AppRoutes.ManualArticle]: '/manual/:id',
-    [AppRoutes.About]: '/about',
-    [AppRoutes.Tasks]: '/tasks',
     [AppRoutes.Forbidden]: '/forbidden',
     [AppRoutes.NotFound]: '*',
+    // [AppRoutes.ManualArticle]: '/manual/:id',
+    // [AppRoutes.About]: '/about',
+    // [AppRoutes.Tasks]: '/tasks',
 };
 
 export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
@@ -54,12 +52,6 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     [AppRoutes.Manual]: {
         path: RoutePath.Manual,
         element: <ManualPage />,
-        hasLayout: true,
-        authOnly: true,
-    },
-    [AppRoutes.ManualArticle]: {
-        path: RoutePath.ManualArticle,
-        element: <ManualArticlePage />,
         hasLayout: true,
         authOnly: true,
     },
@@ -87,18 +79,6 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         hasLayout: true,
         authOnly: true,
     },
-    [AppRoutes.About]: {
-        path: RoutePath.About,
-        element: <Typography variant="h1">Об исследовании</Typography>,
-        hasLayout: true,
-        authOnly: true,
-    },
-    [AppRoutes.Tasks]: {
-        path: RoutePath.Tasks,
-        element: <Typography variant="h1">Задачи</Typography>,
-        hasLayout: true,
-        authOnly: true,
-    },
     [AppRoutes.Forbidden]: {
         path: RoutePath.Forbidden,
         element: <ForbiddenPage />,
@@ -111,4 +91,22 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         authOnly: true,
         hasLayout: true,
     },
+    // [AppRoutes.ManualArticle]: {
+    //     path: RoutePath.ManualArticle,
+    //     element: <ManualArticlePage />,
+    //     hasLayout: true,
+    //     authOnly: true,
+    // },
+    // [AppRoutes.About]: {
+    //     path: RoutePath.About,
+    //     element: <Typography variant="h1">Об исследовании</Typography>,
+    //     hasLayout: true,
+    //     authOnly: true,
+    // },
+    // [AppRoutes.Tasks]: {
+    //     path: RoutePath.Tasks,
+    //     element: <Typography variant="h1">Задачи</Typography>,
+    //     hasLayout: true,
+    //     authOnly: true,
+    // },
 };
