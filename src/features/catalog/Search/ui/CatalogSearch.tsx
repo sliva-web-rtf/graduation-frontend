@@ -1,60 +1,35 @@
-import { memo, useCallback, useState } from 'react';
-import { Box, Stack } from '@mui/material';
-import { useDebounce } from 'use-debounce';
+import { memo } from 'react';
 import { useSelector } from 'react-redux';
-import { BaseAutocomplete } from '@/shared/ui/Autocomplete/Autocomplete';
-import { DEBOUNCE_DELAY } from '@/shared/lib/const/const';
+import { Box, Stack } from '@mui/material';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { catalogActions } from '@/widgets/Catalog/model/slice/catalogSlice';
-import { getCatalogInterests } from '@/widgets/Catalog';
-import { useGetScientificInterestsQuery } from '../api/searchApi';
-import { ScientificArea, ScientificAreasAutocomplete } from '@/entities/ScientificAreas';
+import { ScientificAreasAutocomplete } from '@/entities/ScientificAreas';
+import { ScientificInterestsAutocomplete } from '@/entities/ScietificInterests';
+import { getCatalogAreas, getCatalogInterests } from '@/widgets/Catalog';
 
 export const Search = memo(() => {
     const dispatch = useAppDispatch();
-    const [isInterestsOpen, setInterestsOpen] = useState(false);
-    const [search, setSearch] = useState('');
-    const [searchText] = useDebounce(search, DEBOUNCE_DELAY);
-    const scientificInterests = useSelector(getCatalogInterests);
-
-    const { isFetching: isInterestsFetching, data: interests } = useGetScientificInterestsQuery(searchText, {
-        skip: !isInterestsOpen,
-    });
-
-    const handleInterestsChange = useCallback(
-        (_: any, newValue: any) => {
-            dispatch(catalogActions.setScientificInterests(newValue));
-        },
-        [dispatch],
-    );
-
-    const handleAreasChange = useCallback(
-        (newValue: ScientificArea[]) => {
-            console.log(newValue);
-            const mapped = newValue.map((item) => item.label);
-            dispatch(catalogActions.setScientificAreas(mapped));
-        },
-        [dispatch],
-    );
+    // TODO: улучшить структуру
+    const areas = useSelector(getCatalogAreas);
+    const interests = useSelector(getCatalogInterests);
 
     return (
         <Stack direction="row" spacing={2}>
             <Box width="60%">
-                <BaseAutocomplete
-                    value={scientificInterests}
+                <ScientificInterestsAutocomplete
+                    multiple
+                    value={interests}
+                    onChange={(_, value) => dispatch(catalogActions.setScientificInterests(value))}
                     placeholder="Поиск по ключевым словам"
                     limitTags={1}
-                    loading={isInterestsFetching}
-                    options={interests || []}
-                    onChange={handleInterestsChange}
-                    onInputChange={(_, value) => setSearch(value)}
-                    onOpen={() => setInterestsOpen(true)}
                 />
             </Box>
             <Box width="40%">
                 <ScientificAreasAutocomplete
+                    multiple
                     limitTags={1}
-                    handleChange={handleAreasChange}
+                    value={areas}
+                    onChange={(_, value) => dispatch(catalogActions.setScientificAreas(value))}
                     placeholder="Область науки и технологий"
                 />
             </Box>

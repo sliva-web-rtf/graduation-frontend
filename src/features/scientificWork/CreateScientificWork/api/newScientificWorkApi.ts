@@ -8,7 +8,10 @@ const newScientificWorkApi = baseApi.injectEndpoints({
             query: (data) => ({
                 url: '/api/scientificWork/create-scientific-work',
                 method: 'POST',
-                body: data,
+                body: {
+                    ...data,
+                    scientificAreaSubsections: data.scientificAreaSubsections.map((value) => value.label),
+                },
             }),
             transformResponse: () => {
                 toast.success('Тема исследования успешно предложена');

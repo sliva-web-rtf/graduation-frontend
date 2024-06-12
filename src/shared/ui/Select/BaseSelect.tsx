@@ -31,7 +31,7 @@ export type BaseSelectProps = SelectProps & {
 };
 
 export const BaseSelect = memo((props: BaseSelectProps) => {
-    const { name, control, options, label, helperText, defaultValue } = props;
+    const { name, control, options, label, helperText, defaultValue, ...otherProps } = props;
     return (
         <FormControl fullWidth>
             <InputLabel id={`${name}-label`}>{label}</InputLabel>
@@ -41,7 +41,7 @@ export const BaseSelect = memo((props: BaseSelectProps) => {
                 defaultValue={defaultValue}
                 render={({ field }) => (
                     // eslint-disable-next-line react/jsx-props-no-spreading
-                    <StyledSelect {...props} label={label} labelId={`${name}-label`} {...field}>
+                    <StyledSelect {...otherProps} label={label} labelId={`${name}-label`} {...field}>
                         {options.map((option) => (
                             <MenuItem key={option} value={option}>
                                 {option}

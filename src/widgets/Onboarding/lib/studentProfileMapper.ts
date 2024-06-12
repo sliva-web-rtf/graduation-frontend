@@ -14,7 +14,7 @@ export function studentProfileFromDto(dto: StudentProfileDto): StudentProfile {
         scientificPorfolio: {
             educationLevel: dto.degree,
             course: dto.year,
-            scienceArea: dto.scientificAreaSubsections,
+            scienceArea: [],
             scienceInterests: dto.scientificInterests,
             about: dto.about,
         },

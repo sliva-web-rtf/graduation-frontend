@@ -8,7 +8,7 @@ export function updateStudentScientificPortfolioToDto(model: ScientificFormSchem
     return {
         degree: model.educationLevel,
         year: model.course,
-        scientificAreaSubsections: model.scienceArea,
+        scientificAreaSubsections: model.scienceArea.map((value) => value.label),
         scientificInterests: model.scienceInterests,
         about: model.about ?? '',
     };

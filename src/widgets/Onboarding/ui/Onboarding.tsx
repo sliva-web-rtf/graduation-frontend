@@ -15,6 +15,7 @@ import { getIsLoadingState } from '../model/selectors/getLoadingProfileStatus';
 import { StudentProfile } from '../model/types/student-profile';
 import { StudentScientificPorfolioForm } from './ScientificPortfolioForm/ScientificPortfolioForm';
 import styles from './Onboarding.module.scss';
+import { getStudent } from '../model/selectors/getStudent';
 
 const initialReducers: ReducersList = {
     onboarding: onboardingReducer,
@@ -29,11 +30,12 @@ const FORM_ID = 'onboarding-form';
 export const Onboarding = memo(() => {
     const dispatch = useAppDispatch();
     const user = useSelector(getUserAuthData);
+    const student = useSelector(getStudent);
     const isProfileLoading = useSelector(getIsLoadingState);
+
     const { data: avatarUrl, isLoading: isAvatarLoading } = useGetAvatar();
     const [getStudentProfile] = getLazyStudentProfile();
 
-    const [student, setStudent] = useState<StudentProfile | undefined>();
     const [isLoading, setIsLoading] = useState(false);
     const [activeTabValue, setActiveTabValue] = useState<(typeof values)[number]>(values[0]);
     const [successTabValue, setSuccessTabValue] = useState<typeof values>([]);
@@ -73,11 +75,7 @@ export const Onboarding = memo(() => {
 
     useEffect(() => {
         if (user?.roles.includes(Role.Student)) {
-            getStudentProfile().then((response) => {
-                if (response.data) {
-                    setStudent(response.data);
-                }
-            });
+            getStudentProfile();
         }
     }, [dispatch, getStudentProfile, user]);
 
@@ -107,7 +105,6 @@ export const Onboarding = memo(() => {
                                 />
                             </Stack>
                         )}
-                        {isProfileLoading && <OnboardingFormSkeleton />}
                         {!isProfileLoading && activeTabValue === values[1] && (
                             <StudentScientificPorfolioForm
                                 id={FORM_ID}

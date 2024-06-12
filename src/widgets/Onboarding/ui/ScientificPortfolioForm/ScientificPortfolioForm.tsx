@@ -13,6 +13,8 @@ import { onboardingActions } from '@/widgets/Onboarding/model/slice/onboardingSl
 import { ScientificFormSchema, scientificFormSchema } from '../../model/types/scientificFormSchema';
 import { getStudentScientificInfo } from '../../model/selectors/getStudentScientificInfo';
 import { EducationLevelSelect } from '@/entities/EducationLevel';
+import { ScientificAreasAutocomplete } from '@/entities/ScientificAreas';
+import { ScientificInterestsAutocomplete } from '@/entities/ScietificInterests';
 
 interface StudentScientitificPorfolioFormProps {
     id: string;
@@ -107,6 +109,57 @@ export const StudentScientificPorfolioForm = memo(
                             helperText={errors.educationLevel ? errors.educationLevel?.message : ' '}
                         />
                     </Stack>
+                    <Controller
+                        control={control}
+                        name="scienceArea"
+                        render={({ field: { onChange, onBlur, value } }) => (
+                            <ScientificAreasAutocomplete
+                                onChange={(_, targetValue) => onChange(targetValue)}
+                                onBlur={onBlur}
+                                value={value}
+                                limitTags={1}
+                                placeholder="Области науки и технологий"
+                                name="scienceArea"
+                                error={Boolean(errors.scienceArea)}
+                                helperText={errors.scienceArea ? errors.scienceArea?.message : ' '}
+                            />
+                        )}
+                    />
+                    <Controller
+                        control={control}
+                        name="scienceInterests"
+                        render={({ field: { onChange, onBlur, value } }) => (
+                            <ScientificInterestsAutocomplete
+                                multiple
+                                onChange={(_, targetValue) => onChange(targetValue)}
+                                onBlur={onBlur}
+                                value={value ?? []}
+                                limitTags={1}
+                                placeholder="Сферы научных интересов *"
+                                error={Boolean(errors.scienceInterests)}
+                                helperText={errors.scienceInterests ? errors.scienceInterests?.message : ' '}
+                            />
+                        )}
+                    />
+                    <Controller
+                        control={control}
+                        name="about"
+                        render={({ field: { onChange, onBlur, value } }) => (
+                            <BaseField
+                                multiline
+                                fullWidth
+                                onChange={onChange}
+                                onBlur={onBlur}
+                                value={value}
+                                label="О себе"
+                                disabled={isDisabled}
+                                autoComplete="false"
+                                error={Boolean(errors.about)}
+                                helperText={errors.about ? errors.about?.message : ' '}
+                                FormHelperTextProps={{ style: { backgroundColor: 'transparent' } }}
+                            />
+                        )}
+                    />
                 </Stack>
             </form>
         );

@@ -2,12 +2,9 @@ import { Modal, Paper, Stack, Typography } from '@mui/material';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import { memo, useState } from 'react';
-import { useDebounce } from 'use-debounce';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useSelector } from 'react-redux';
-import { useGetScientificInterestsQuery } from '@/features/catalog/Search/api/searchApi';
-import { DEBOUNCE_DELAY } from '@/shared/lib/const/const';
 import { BaseField } from '@/shared/ui';
 import { BaseButton, BaseLoadingButton } from '@/shared/ui/Button/Button';
 import { isUserProfessor } from '@/entities/User/model/selectors/getUserRoles/getUserRoles';
@@ -15,41 +12,24 @@ import styles from './CreateScientificWorkModal.module.scss';
 import { AddScientificWorkFormSchema, addScientificWorkFormSchema } from '../models/types/addScientificWorkSchema';
 import { useAddNewScientificWorkMutation } from '../api/newScientificWorkApi';
 import { ScientificArea, ScientificAreasAutocomplete } from '@/entities/ScientificAreas';
-import { BaseAutocomplete } from '@/shared/ui/Autocomplete/Autocomplete';
+import { ScientificInterestsAutocomplete } from '@/entities/ScietificInterests';
 
 export const CreateScientificWorkModal = memo(() => {
     const isProfessorRole = useSelector(isUserProfessor);
     const [isOpen, setOpen] = useState(false);
-    const [isInterestsOpen, setInterestsOpen] = useState(false);
-    const [search, setSearch] = useState('');
-    const [searchText] = useDebounce(search, DEBOUNCE_DELAY);
     const toggleOpen = () => setOpen((prev) => !prev);
 
-    const { isFetching: isInterestsFetching, data: interests } = useGetScientificInterestsQuery(searchText, {
-        skip: !isInterestsOpen,
-    });
     const [addNewScientificWork, { isLoading: isCreating }] = useAddNewScientificWorkMutation();
 
     const {
         formState: { errors },
         handleSubmit,
-        setValue,
         register,
         reset,
+        control,
     } = useForm<AddScientificWorkFormSchema>({
         resolver: zodResolver(addScientificWorkFormSchema),
     });
-
-    const handleInterestsChange = (_: any, newValue: string[]) => {
-        setValue('scientificInterests', newValue);
-    };
-
-    const handleAreasChange = (newValue: ScientificArea[]) => {
-        setValue(
-            'scientificAreaSubsections',
-            newValue.map((area) => area.label),
-        );
-    };
 
     const onSubmit = async (data: AddScientificWorkFormSchema) => {
         try {
@@ -109,25 +89,43 @@ export const CreateScientificWorkModal = memo(() => {
                                     error={Boolean(errors.result)}
                                     helperText={errors.result?.message}
                                 />
-                                <ScientificAreasAutocomplete
-                                    handleChange={handleAreasChange}
-                                    limitTags={1}
-                                    placeholder="Область науки и технологий"
+                                <Controller
+                                    control={control}
                                     name="scientificAreaSubsections"
-                                    error={Boolean(errors.scientificAreaSubsections)}
-                                    helperText={errors.scientificAreaSubsections?.message}
+                                    render={({ field: { onChange, onBlur, value } }) => (
+                                        <ScientificAreasAutocomplete
+                                            multiple
+                                            onChange={(_, targetValue) => onChange(targetValue)}
+                                            onBlur={onBlur}
+                                            value={value ?? []}
+                                            limitTags={1}
+                                            placeholder="Области науки и технологий"
+                                            error={Boolean(errors.scientificAreaSubsections)}
+                                            helperText={
+                                                errors.scientificAreaSubsections
+                                                    ? errors.scientificAreaSubsections?.message
+                                                    : ' '
+                                            }
+                                        />
+                                    )}
                                 />
-                                <BaseAutocomplete
-                                    placeholder="Ключевые слова"
+                                <Controller
+                                    control={control}
                                     name="scientificInterests"
-                                    limitTags={1}
-                                    loading={isInterestsFetching}
-                                    options={interests || []}
-                                    error={Boolean(errors.scientificInterests)}
-                                    helperText={errors.scientificInterests?.message}
-                                    onChange={handleInterestsChange}
-                                    onInputChange={(_, value) => setSearch(value)}
-                                    onOpen={() => setInterestsOpen(true)}
+                                    render={({ field: { onChange, onBlur, value } }) => (
+                                        <ScientificAreasAutocomplete
+                                            multiple
+                                            onChange={(_, targetValue) => onChange(targetValue)}
+                                            onBlur={onBlur}
+                                            value={value ?? []}
+                                            limitTags={1}
+                                            placeholder="Сферы научных интересов"
+                                            error={Boolean(errors.scientificInterests)}
+                                            helperText={
+                                                errors.scientificInterests ? errors.scientificInterests?.message : ' '
+                                            }
+                                        />
+                                    )}
                                 />
                                 <BaseField
                                     type="number"
