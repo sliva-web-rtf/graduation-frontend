@@ -1,8 +1,8 @@
-import { BaseButton } from 'shared/ui/Button/Button';
-import React, { memo, useState } from 'react';
+import { memo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { getUserAuthData } from 'entities/User';
-import { RequestEnum } from 'features/entity/AddRequests/model/types/requestEnum';
+import { BaseButton } from '@/shared/ui/Button/Button';
+import { getUserAuthData } from '@/entities/User';
+import { RequestEnum } from '@/features/entity/AddRequests/model/types/requestEnum';
 import { AddRequestModal } from './AddRequestModal';
 import { useAddProfessorMutation } from '../api/addRequestsApi';
 

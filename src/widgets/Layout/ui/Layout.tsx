@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react';
 import { Box } from '@mui/material';
-import { Sidebar } from 'widgets/Sidebar';
+import { Sidebar } from '@/widgets/Sidebar';
 
 interface LayoutProps {
     children: ReactNode;

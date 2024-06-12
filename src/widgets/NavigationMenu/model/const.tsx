@@ -2,7 +2,7 @@ import AutoAwesomeMotionOutlinedIcon from '@mui/icons-material/AutoAwesomeMotion
 import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined';
 import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
 import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
-import { RoutePath } from 'app/providers/Router/config/routeConfig';
+import { RoutePath } from '@/app/providers/Router/config/routeConfig';
 
 export const TABS = [
     {

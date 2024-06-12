@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { Grid, Stack } from '@mui/material';
-import { ToggleButtons } from 'shared/ui';
-import { StudentCardSkeleton } from 'entities/Student';
+import { ToggleButtons } from '@/shared/ui';
+import { StudentCardSkeleton } from '@/entities/Student';
 import { StudentPortfolioSkeleton } from './StudentPortfolio.skeleton';
 import { ToggleOptions } from '../model/types/toggleOptions';
 

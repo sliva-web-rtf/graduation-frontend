@@ -1,10 +1,10 @@
 import { memo } from 'react';
 import { Grid, Stack, Typography } from '@mui/material';
 import { useParams } from 'react-router-dom';
-import { AddToFavoritesButton } from 'features/entity/AddRequests';
-import { ScientificWorkCard } from 'entities/ScientificWork/ui/ScientificWorkCard';
-import { useGetScientificWorkQuery } from 'entities/ScientificWork';
-import { CatalogOptions } from 'entities/CatalogList';
+import { AddToFavoritesButton } from '@/features/entity/AddRequests';
+import { ScientificWorkCard } from '@/entities/ScientificWork/ui/ScientificWorkCard';
+import { useGetScientificWorkQuery } from '@/entities/ScientificWork';
+import { CatalogOptions } from '@/entities/CatalogList';
 import { ScientificWorkInfoSkeleton } from './ScientificWorkInfo.skeleton';
 import { ScientificWorkGeneral } from './ScientificWorkGeneral';
 

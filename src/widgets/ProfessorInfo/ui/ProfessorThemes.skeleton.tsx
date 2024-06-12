@@ -1,6 +1,6 @@
 import { memo, useCallback } from 'react';
-import { CatalogCardSkeleton } from 'entities/CatalogCard';
-import { BaseList } from 'shared/ui/List/List';
+import { CatalogCardSkeleton } from '@/entities/CatalogCard';
+import { BaseList } from '@/shared/ui/List/List';
 import styles from './ProfessorThemes.module.scss';
 
 interface ProfessorThemesSkeletonProps {

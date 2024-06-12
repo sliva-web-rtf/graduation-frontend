@@ -1,6 +1,6 @@
 import { memo, useCallback } from 'react';
-import { BaseList } from 'shared/ui/List/List';
-import { CatalogCardSkeleton } from 'entities/CatalogCard';
+import { BaseList } from '@/shared/ui/List/List';
+import { CatalogCardSkeleton } from '@/entities/CatalogCard';
 import styles from './CatalogList.module.scss';
 
 export const CatalogListSkeleton = memo((props: { count: number }) => {

@@ -1,7 +1,7 @@
-import { baseApi } from 'shared/api';
-import { catalogActions } from 'widgets/Catalog/model/slice/catalogSlice';
-import { calculatePagesCount } from 'shared/lib/helpers/calculatePagesCount';
 import queryString from 'query-string';
+import { baseApi } from '@/shared/api';
+import { catalogActions } from '@/widgets/Catalog/model/slice/catalogSlice';
+import { calculatePagesCount } from '@/shared/lib/helpers/calculatePagesCount';
 import { mapCatalogDtoToModel } from '../lib/helpers/catalogMapper';
 import { getUrl } from '../lib/helpers/getUrl';
 import { CatalogDto } from '../model/types/CatalogDto';

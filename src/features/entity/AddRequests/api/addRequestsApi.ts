@@ -1,7 +1,7 @@
-import { baseApi } from 'shared/api';
-import { getParamsByOption } from 'features/entity/AddRequests/model/lib/helpers/getParamsByOption';
 import { toast } from 'react-toastify';
-import { ToggleEnum } from 'features/entity/AddRequests/model/types/toggleEnum';
+import { baseApi } from '@/shared/api';
+import { getParamsByOption } from '@/features/entity/AddRequests/model/lib/helpers/getParamsByOption';
+import { ToggleEnum } from '@/features/entity/AddRequests/model/types/toggleEnum';
 import { AddToFavoritesRequest } from '../model/types/addToFavoritesRequest';
 import { AddProfessorRequest } from '../model/types/addProfessorRequest';
 import { AddStudentRequest } from '../model/types/addStudentRequest';

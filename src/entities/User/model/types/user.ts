@@ -1,4 +1,4 @@
-import { STATUS } from 'shared/api/status';
+import { STATUS } from '@/shared/api/status';
 import { Role } from './role';
 
 export interface User {

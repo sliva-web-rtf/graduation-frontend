@@ -1,4 +1,4 @@
-import { baseApi } from 'shared/api';
+import { baseApi } from '@/shared/api';
 import { Professor } from '../model/types/professor';
 import { ProfessorRequest } from '../model/types/professorRequest';
 

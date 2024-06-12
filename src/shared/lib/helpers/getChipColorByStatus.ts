@@ -1,4 +1,4 @@
-import { WorkStatus } from 'entities/ScientificWork';
+import { WorkStatus } from '@/entities/ScientificWork';
 
 export const getChipColorByWorkStatus = (status: WorkStatus): string => {
     switch (status) {

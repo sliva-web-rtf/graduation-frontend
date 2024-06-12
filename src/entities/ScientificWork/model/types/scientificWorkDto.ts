@@ -1,7 +1,7 @@
-import { ScientificAreas } from 'features/catalog/Search/api/types';
-import { WorkStatus } from 'entities/ScientificWork';
-import { Professor } from 'entities/Professor';
-import { Student } from 'entities/Student';
+import { ScientificAreas } from '@/features/catalog/Search/api/types';
+import { WorkStatus } from '@/entities/ScientificWork';
+import { Professor } from '@/entities/Professor';
+import { Student } from '@/entities/Student';
 
 export interface ScientificWorkDto {
     readonly id: string;

@@ -1,5 +1,5 @@
-import { baseApi } from 'shared/api';
-import { UserSecretStorageService } from 'shared/lib/helpers/userSecretStorage';
+import { baseApi } from '@/shared/api';
+import { UserSecretStorageService } from '@/shared/lib/helpers/userSecretStorage';
 import { type Token } from '../../../shared/lib/types/token';
 import { type User } from '../model/types/user';
 import { type TokenDto, UserDto } from './types';
