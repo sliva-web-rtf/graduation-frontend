@@ -1,6 +1,6 @@
-import { ScientificAreas, ScientificAreasModel } from '../../api/types';
+import { ScientificArea } from '../model/types';
 
-export const transformDtoForAutocomplete = (options: ScientificAreas): ScientificAreasModel =>
+export const transformScientificAreaFromDto = (options: ScientificAreaDto[]): ScientificArea[] =>
     options.flatMap((current) =>
         current.subsections.map((subsection) => ({
             section: current.section,

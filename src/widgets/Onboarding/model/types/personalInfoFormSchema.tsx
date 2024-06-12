@@ -18,11 +18,7 @@ export const personalInfoFormSchema = z.object({
         )
         .optional()
         .or(z.literal('')),
-    contacts: z
-        .string()
-        .refine((value) => value?.at(0) === '@', 'Значение должно начинаться с @.')
-        .optional()
-        .or(z.literal('')),
+    contacts: z.string(),
 });
 
 export type PersonalInfoFormSchema = z.infer<typeof personalInfoFormSchema>;

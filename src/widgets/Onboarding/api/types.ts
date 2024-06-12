@@ -7,6 +7,14 @@ export type PersonalInfoFormSchemaDto = {
     phone?: string;
 };
 
+export type StudentScientificInfoDto = {
+    degree: string;
+    year: number;
+    scientificAreaSubsections: string[];
+    scientificInterests: string[];
+    about: string;
+};
+
 export type StudentProfileDto = {
     firstName: string;
     lastName: string;
@@ -14,4 +22,9 @@ export type StudentProfileDto = {
     email: string;
     contacts: string;
     phoneNumber: string;
+    degree: string;
+    year: number;
+    scientificAreaSubsections: string[];
+    scientificInterests: string[];
+    about: string;
 };

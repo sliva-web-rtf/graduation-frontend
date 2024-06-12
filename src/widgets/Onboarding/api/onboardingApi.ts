@@ -5,6 +5,12 @@ import { updateProfileToDto, validationUpdateProfileErrorsFromDto } from '../lib
 import { StudentProfile } from '../model/types/student-profile';
 import { StudentProfileDto } from './types';
 import { studentProfileFromDto } from '../lib/studentProfileMapper';
+import {
+    updateStudentScientificPortfolioToDto,
+    validationStudentScientificPortfolioErrorsFromDto,
+} from '../lib/studentScientificInfoMapper';
+import { ScientificFormSchema } from '../model/types/scientificFormSchema';
+import { onboardingActions } from '../model/slice/onboardingSlice';
 
 const onboardingApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
@@ -27,14 +33,49 @@ const onboardingApi = baseApi.injectEndpoints({
                 return error;
             },
         }),
+        updateStudentScientificInfo: build.mutation<void, ScientificFormSchema>({
+            query: (initialValues) => ({
+                url: '/api/on-boarding/update-scientific-portfolio',
+                method: 'PUT',
+                body: {
+                    ...updateStudentScientificPortfolioToDto(initialValues),
+                },
+            }),
+            transformErrorResponse: (error: unknown) => {
+                if (isApiError(error)) {
+                    const appError = AppErrorMapper.fromDtoWithValidationSupport(
+                        error,
+                        validationStudentScientificPortfolioErrorsFromDto,
+                    );
+                    return appError;
+                }
+                return error;
+            },
+        }),
         getStudentProfile: build.query<StudentProfile, void>({
             query: () => ({
                 url: '/api/on-boarding/student-profile',
             }),
+            onQueryStarted: async (_, api) => {
+                const { dispatch, queryFulfilled } = api;
+                try {
+                    dispatch(onboardingActions.setLoadingState(true));
+                    const { data } = await queryFulfilled;
+                    if (data) {
+                        dispatch(onboardingActions.setUpdatedProfileInfo(data.personalInfo));
+                        dispatch(onboardingActions.setStudentScientificInfo(data.scientificPorfolio));
+                    }
+                } catch (err) {
+                    /* empty */
+                } finally {
+                    dispatch(onboardingActions.setLoadingState(false));
+                }
+            },
             transformResponse: (studentProfileDto: StudentProfileDto) => studentProfileFromDto(studentProfileDto),
         }),
     }),
 });
 
 export const updateProfile = onboardingApi.useUpdateProfileInfoMutation;
+export const updateStudentScientificInfo = onboardingApi.useUpdateStudentScientificInfoMutation;
 export const getLazyStudentProfile = onboardingApi.useLazyGetStudentProfileQuery;

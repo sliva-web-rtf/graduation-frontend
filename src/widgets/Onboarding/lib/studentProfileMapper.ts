@@ -11,5 +11,12 @@ export function studentProfileFromDto(dto: StudentProfileDto): StudentProfile {
             contacts: dto.contacts,
             phone: dto.phoneNumber,
         },
+        scientificPorfolio: {
+            educationLevel: dto.degree,
+            course: dto.year,
+            scienceArea: dto.scientificAreaSubsections,
+            scienceInterests: dto.scientificInterests,
+            about: dto.about,
+        },
     };
 }

@@ -1,5 +1,5 @@
-import { Box, Skeleton, Stack } from '@mui/material';
-import { memo, useCallback, useEffect, useRef, useState } from 'react';
+import { Box, Stack } from '@mui/material';
+import { memo, useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
@@ -8,10 +8,13 @@ import { BaseButton, TabsWithStatus } from '@/shared/ui';
 import { Role, getUserAuthData } from '@/entities/User';
 import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { PersonalInfoForm } from './PersonalInfoForm/PersonalInfoForm';
-import { onboardingActions, onboardingReducer } from '../model/slice/onboardingSlice';
-import styles from './Onboarding.module.scss';
+import { onboardingReducer } from '../model/slice/onboardingSlice';
 import { getLazyStudentProfile } from '../api/onboardingApi';
+import { OnboardingFormSkeleton } from './OnboardingForm.skeleton';
+import { getIsLoadingState } from '../model/selectors/getLoadingProfileStatus';
 import { StudentProfile } from '../model/types/student-profile';
+import { StudentScientificPorfolioForm } from './ScientificPortfolioForm/ScientificPortfolioForm';
+import styles from './Onboarding.module.scss';
 
 const initialReducers: ReducersList = {
     onboarding: onboardingReducer,
@@ -23,30 +26,15 @@ const titles = ['Личные данные', 'Научное портфолио'
 const ERROR_TEXT = 'Произошла ошибка';
 const FORM_ID = 'onboarding-form';
 
-const FormSkeleton = () => (
-    <Stack direction="row" spacing={4} flex={1}>
-        <Stack flex={1} spacing={2}>
-            <Stack direction="row" justifyContent="space-between" spacing={1}>
-                <Skeleton width="100%" height={56} />
-                <Skeleton width="100%" height={56} />
-                <Skeleton width="100%" height={56} />
-            </Stack>
-            <Skeleton width="100%" height={56} />
-            <Skeleton width="100%" height={56} />
-            <Skeleton width="100%" height={56} />
-        </Stack>
-    </Stack>
-);
-
 export const Onboarding = memo(() => {
     const dispatch = useAppDispatch();
     const user = useSelector(getUserAuthData);
+    const isProfileLoading = useSelector(getIsLoadingState);
     const { data: avatarUrl, isLoading: isAvatarLoading } = useGetAvatar();
     const [getStudentProfile] = getLazyStudentProfile();
 
+    const [student, setStudent] = useState<StudentProfile | undefined>();
     const [isLoading, setIsLoading] = useState(false);
-    const [isProfileLoading, setIsProfileLoading] = useState(false);
-    const [studentProfile, setStudentProfile] = useState<null | StudentProfile>(null);
     const [activeTabValue, setActiveTabValue] = useState<(typeof values)[number]>(values[0]);
     const [successTabValue, setSuccessTabValue] = useState<typeof values>([]);
     const [errors, setErrors] = useState<null | Record<(typeof values)[number], string>>(null);
@@ -73,8 +61,9 @@ export const Onboarding = memo(() => {
             setErrors({
                 [value]: ERROR_TEXT,
             });
+            setSuccessTabValue(successTabValue.filter((targetValue) => targetValue !== value));
         },
-        [setIsLoading],
+        [setIsLoading, successTabValue],
     );
 
     const onRequestStart = useCallback(() => {
@@ -84,13 +73,10 @@ export const Onboarding = memo(() => {
 
     useEffect(() => {
         if (user?.roles.includes(Role.Student)) {
-            setIsProfileLoading(true);
             getStudentProfile().then((response) => {
                 if (response.data) {
-                    dispatch(onboardingActions.setUpdatedProfileInfo(response?.data.personalInfo));
-                    setStudentProfile(response.data);
+                    setStudent(response.data);
                 }
-                setIsProfileLoading(false);
             });
         }
     }, [dispatch, getStudentProfile, user]);
@@ -108,7 +94,7 @@ export const Onboarding = memo(() => {
                 />
                 <Stack spacing={2} className={styles.formsContainer}>
                     <Box className={styles.formWrapper}>
-                        {isProfileLoading && <FormSkeleton />}
+                        {isProfileLoading && <OnboardingFormSkeleton />}
                         {!isProfileLoading && activeTabValue === values[0] && (
                             <Stack direction="row" spacing={4} sx={{ flex: 1 }}>
                                 <UploadAvatar isAvatarGetting={isAvatarLoading} url={avatarUrl} />
@@ -117,9 +103,19 @@ export const Onboarding = memo(() => {
                                     onError={() => onError(values[0])}
                                     onSuccess={() => onSuccess(values[0], values[1])}
                                     onRequestStart={onRequestStart}
-                                    initialValues={studentProfile?.personalInfo}
+                                    initialValues={student?.personalInfo}
                                 />
                             </Stack>
+                        )}
+                        {isProfileLoading && <OnboardingFormSkeleton />}
+                        {!isProfileLoading && activeTabValue === values[1] && (
+                            <StudentScientificPorfolioForm
+                                id={FORM_ID}
+                                onError={() => onError(values[1])}
+                                onSuccess={() => onSuccess(values[1], values[2])}
+                                onRequestStart={onRequestStart}
+                                initialValues={student?.scientificPorfolio}
+                            />
                         )}
                     </Box>
                     <Stack className={styles.actionsContainer} direction="row-reverse" justifyContent="space-between">

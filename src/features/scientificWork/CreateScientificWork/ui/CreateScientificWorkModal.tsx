@@ -1,35 +1,32 @@
 import { Modal, Paper, Stack, Typography } from '@mui/material';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
-import React, { memo, useState } from 'react';
+import { memo, useState } from 'react';
 import { useDebounce } from 'use-debounce';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useSelector } from 'react-redux';
-import { useGetScientificAreasQuery, useGetScientificInterestsQuery } from '@/features/catalog/Search/api/searchApi';
+import { useGetScientificInterestsQuery } from '@/features/catalog/Search/api/searchApi';
 import { DEBOUNCE_DELAY } from '@/shared/lib/const/const';
 import { BaseField } from '@/shared/ui';
-import { BaseAutocomplete } from '@/widgets/Autocomplete/Autocomplete';
 import { BaseButton, BaseLoadingButton } from '@/shared/ui/Button/Button';
 import { isUserProfessor } from '@/entities/User/model/selectors/getUserRoles/getUserRoles';
 import styles from './CreateScientificWorkModal.module.scss';
 import { AddScientificWorkFormSchema, addScientificWorkFormSchema } from '../models/types/addScientificWorkSchema';
 import { useAddNewScientificWorkMutation } from '../api/newScientificWorkApi';
+import { ScientificArea, ScientificAreasAutocomplete } from '@/entities/ScientificAreas';
+import { BaseAutocomplete } from '@/shared/ui/Autocomplete/Autocomplete';
 
 export const CreateScientificWorkModal = memo(() => {
     const isProfessorRole = useSelector(isUserProfessor);
     const [isOpen, setOpen] = useState(false);
     const [isInterestsOpen, setInterestsOpen] = useState(false);
-    const [isAreasOpen, setAreasOpen] = useState(false);
     const [search, setSearch] = useState('');
     const [searchText] = useDebounce(search, DEBOUNCE_DELAY);
     const toggleOpen = () => setOpen((prev) => !prev);
 
     const { isFetching: isInterestsFetching, data: interests } = useGetScientificInterestsQuery(searchText, {
         skip: !isInterestsOpen,
-    });
-    const { isFetching: isAreasFetching, data: areas } = useGetScientificAreasQuery(undefined, {
-        skip: !isAreasOpen,
     });
     const [addNewScientificWork, { isLoading: isCreating }] = useAddNewScientificWorkMutation();
 
@@ -47,19 +44,19 @@ export const CreateScientificWorkModal = memo(() => {
         setValue('scientificInterests', newValue);
     };
 
-    const handleAreasChange = (_: any, newValue: any) => {
-        setValue('scientificAreaSubsections', newValue);
+    const handleAreasChange = (newValue: ScientificArea[]) => {
+        setValue(
+            'scientificAreaSubsections',
+            newValue.map((area) => area.label),
+        );
     };
 
     const onSubmit = async (data: AddScientificWorkFormSchema) => {
-        const areasWithoutSection = data.scientificAreaSubsections.map((item) => item.label);
         try {
             await addNewScientificWork({
                 ...data,
-                scientificAreaSubsections: areasWithoutSection,
                 isEducator: isProfessorRole,
             });
-            toggleOpen();
             reset();
         } catch (err) {
             /* empty */
@@ -112,17 +109,13 @@ export const CreateScientificWorkModal = memo(() => {
                                     error={Boolean(errors.result)}
                                     helperText={errors.result?.message}
                                 />
-                                <BaseAutocomplete
+                                <ScientificAreasAutocomplete
+                                    handleChange={handleAreasChange}
+                                    limitTags={1}
                                     placeholder="Область науки и технологий"
                                     name="scientificAreaSubsections"
-                                    limitTags={1}
-                                    loading={isAreasFetching}
-                                    options={areas || []}
-                                    groupBy={(option) => option.section}
                                     error={Boolean(errors.scientificAreaSubsections)}
                                     helperText={errors.scientificAreaSubsections?.message}
-                                    onChange={handleAreasChange}
-                                    onOpen={() => setAreasOpen(true)}
                                 />
                                 <BaseAutocomplete
                                     placeholder="Ключевые слова"

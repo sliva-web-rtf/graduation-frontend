@@ -1,8 +1,11 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { OnboardingSchema } from '../types/onboardingSchema';
 import { PersonalInfoFormSchema } from '../types/personalInfoFormSchema';
+import { ScientificFormSchema } from '../types/scientificFormSchema';
 
-const initialState: OnboardingSchema = {};
+const initialState: OnboardingSchema = {
+    isProfileLoading: false,
+};
 
 export const onboardingSlice = createSlice({
     name: 'onboarding',
@@ -10,6 +13,12 @@ export const onboardingSlice = createSlice({
     reducers: {
         setUpdatedProfileInfo: (state, action: PayloadAction<PersonalInfoFormSchema | undefined>) => {
             state.updatedProfileInfo = action.payload;
+        },
+        setStudentScientificInfo: (state, action: PayloadAction<ScientificFormSchema | undefined>) => {
+            state.studentScientificInfo = action.payload;
+        },
+        setLoadingState: (state, action: PayloadAction<boolean>) => {
+            state.isProfileLoading = action.payload;
         },
     },
 });

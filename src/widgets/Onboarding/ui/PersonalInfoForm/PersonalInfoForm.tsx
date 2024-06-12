@@ -15,7 +15,6 @@ import {
     PersonalInfoFormSchema,
     personalInfoFormSchema,
 } from '@/widgets/Onboarding/model/types/personalInfoFormSchema';
-import styles from './PersonalInfoForm.module.scss';
 
 interface PersonalInfoFormProps {
     id: string;
@@ -90,7 +89,7 @@ export const PersonalInfoForm = memo(
         }, [error, setValidationErrors]);
 
         return (
-            <form id={id} onSubmit={handleSubmit(onSubmitHandler)} className={styles.form}>
+            <form id={id} onSubmit={handleSubmit(onSubmitHandler)} style={{ width: '100%' }}>
                 <Stack spacing={2}>
                     <Stack direction="row" justifyContent="space-between" spacing={1}>
                         <Controller
