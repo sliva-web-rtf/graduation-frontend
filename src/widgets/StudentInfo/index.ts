@@ -1,5 +1,5 @@
 export { StudentInfo } from './ui/StudentInfo';
-export { StudentInfoSchema } from './model/types/studentInfoSchema';
+export { type StudentInfoSchema } from './model/types/studentInfoSchema';
 export { getStudentInfoOption } from './model/selectors/getStudentInfoOption/getStudentInfoOption';
 export { getStudentInfoOptions } from './model/selectors/getStudentInfoOptions/getStudentInfoOptions';
 export { studentInfoReducer } from './model/slice/studentInfoSlice';

@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { Grid, Stack, Typography } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { getStudentInfoOption } from '@/widgets/StudentInfo/model/selectors/getStudentInfoOption/getStudentInfoOption';
+import { getStudentInfoOption } from '../model/selectors/getStudentInfoOption/getStudentInfoOption';
 import { StudentCard, useGetStudentQuery } from '@/entities/Student';
 import { ToggleStudentInfo } from '@/features/student/ToggleInfo';
 import { AddStudentButton, AddToFavoritesButton } from '@/features/entity/AddRequests';

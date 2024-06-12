@@ -3,7 +3,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 
 import { FC, ReactNode, useMemo } from 'react';
 import { getUserAuthData } from '@/entities/User';
-import { Role } from '@/entities/User/model/types/role';
+import { type Role } from '@/entities/User/model/types/role';
 import { getUserRoles } from '@/entities/User/model/selectors/getUserRoles/getUserRoles';
 import { RoutePath } from '../config/routeConfig';
 

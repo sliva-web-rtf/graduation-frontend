@@ -10,7 +10,7 @@ import scientificWorkImage from '@/shared/assets/images/scientificWork.png';
 import { CatalogOptions } from '@/entities/CatalogList';
 import { ChipsGroup } from '@/shared/ui';
 import { getChipColorByWorkStatus } from '@/shared/lib/helpers/getChipColorByStatus';
-import { ICatalogCard } from '../model/types/ICatalogCard';
+import { type ICatalogCard } from '../model/types/ICatalogCard';
 import styles from './CatalogCard.module.scss';
 
 /* eslint-disable no-nested-ternary */
