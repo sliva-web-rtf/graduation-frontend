@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Stack } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { isEqual } from 'lodash';
 import { memo, useCallback, useEffect } from 'react';
 import { Controller, Path, useForm } from 'react-hook-form';
@@ -90,6 +90,9 @@ export const PersonalInfoForm = memo(
 
         return (
             <form id={id} onSubmit={handleSubmit(onSubmitHandler)} style={{ width: '100%' }}>
+                <Typography variant="h2" mb={3}>
+                    Личные данные
+                </Typography>
                 <Stack spacing={2}>
                     <Stack direction="row" justifyContent="space-between" spacing={1}>
                         <Controller

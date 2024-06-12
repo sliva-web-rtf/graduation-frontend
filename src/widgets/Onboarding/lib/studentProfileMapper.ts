@@ -1,5 +1,5 @@
 import { StudentProfileDto } from '../api/types';
-import { StudentProfile } from '../model/types/student-profile';
+import { StudentProfile } from '../model/types/studentProfile';
 
 export function studentProfileFromDto(dto: StudentProfileDto): StudentProfile {
     return {
@@ -14,9 +14,15 @@ export function studentProfileFromDto(dto: StudentProfileDto): StudentProfile {
         scientificPorfolio: {
             educationLevel: dto.degree,
             course: dto.year,
+            // TODO: пофиксить это и попросить бек присылать везде одинаковые объекты
             scienceArea: [],
             scienceInterests: dto.scientificInterests,
             about: dto.about,
+        },
+        StudentStatus: {
+            isTeamSearching: dto.commandSearching,
+            isProfessorSearching: dto.professorSearching,
+            status: dto.status,
         },
     };
 }

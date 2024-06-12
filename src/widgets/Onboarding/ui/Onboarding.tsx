@@ -12,10 +12,11 @@ import { onboardingReducer } from '../model/slice/onboardingSlice';
 import { getLazyStudentProfile } from '../api/onboardingApi';
 import { OnboardingFormSkeleton } from './OnboardingForm.skeleton';
 import { getIsLoadingState } from '../model/selectors/getLoadingProfileStatus';
-import { StudentProfile } from '../model/types/student-profile';
+import { StudentProfile } from '../model/types/studentProfile';
 import { StudentScientificPorfolioForm } from './ScientificPortfolioForm/ScientificPortfolioForm';
 import styles from './Onboarding.module.scss';
 import { getStudent } from '../model/selectors/getStudent';
+import { StudentSearchStatusForm } from './SearchStatusForm/SearchStatusForm';
 
 const initialReducers: ReducersList = {
     onboarding: onboardingReducer,
@@ -112,6 +113,15 @@ export const Onboarding = memo(() => {
                                 onSuccess={() => onSuccess(values[1], values[2])}
                                 onRequestStart={onRequestStart}
                                 initialValues={student?.scientificPorfolio}
+                            />
+                        )}
+                        {!isProfileLoading && activeTabValue === values[2] && (
+                            <StudentSearchStatusForm
+                                id={FORM_ID}
+                                onError={() => onError(values[2])}
+                                onSuccess={() => onSuccess(values[2])}
+                                onRequestStart={onRequestStart}
+                                initialValues={student?.studentStatus}
                             />
                         )}
                     </Box>

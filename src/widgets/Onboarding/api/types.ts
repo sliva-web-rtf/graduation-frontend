@@ -1,3 +1,5 @@
+import { SearchingStatus } from '@/shared/lib/types/searchingStatus';
+
 export type PersonalInfoFormSchemaDto = {
     firstName: string;
     lastName: string;
@@ -15,6 +17,12 @@ export type StudentScientificInfoDto = {
     about: string;
 };
 
+export type StudentStatusDto = {
+    commandSearching: boolean;
+    professorSearching: boolean;
+    status: SearchingStatus;
+};
+
 export type StudentProfileDto = {
     firstName: string;
     lastName: string;
@@ -27,4 +35,7 @@ export type StudentProfileDto = {
     scientificAreaSubsections: string[];
     scientificInterests: string[];
     about: string;
+    commandSearching: boolean;
+    professorSearching: boolean;
+    status: SearchingStatus;
 };
