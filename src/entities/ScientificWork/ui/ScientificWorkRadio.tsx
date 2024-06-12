@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { Avatar, Paper, Radio, Stack, Typography } from '@mui/material';
-import scientificWorkImage from 'shared/assets/images/scientificWork.png';
+import scientificWorkImage from '@/shared/assets/images/scientificWork.png';
 
 interface ScientificWorkRadioProps {
     readonly id: string;

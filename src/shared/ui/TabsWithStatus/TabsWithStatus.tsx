@@ -4,7 +4,7 @@ import DataUsageIcon from '@mui/icons-material/DataUsage';
 import DoneIcon from '@mui/icons-material/Done';
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
-import { typedMemo } from 'shared/lib/helpers/typedMemo';
+import { typedMemo } from '@/shared/lib/helpers/typedMemo';
 import styles from './TabsWIthStatus.module.scss';
 
 interface TabsWithStatusProps<T extends string | number> {

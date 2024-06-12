@@ -1,5 +1,5 @@
-import { baseApi } from 'shared/api';
-import { ScientificAreas, ScientificAreasModel, ScientificInterestsDto } from 'features/catalog/Search/api/types';
+import { baseApi } from '@/shared/api';
+import { ScientificAreas, ScientificAreasModel, ScientificInterestsDto } from '@/features/catalog/Search/api/types';
 import { transformDtoForAutocomplete } from '../lib/helpers/transformDataForAutocomplete';
 
 const searchApi = baseApi.injectEndpoints({

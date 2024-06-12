@@ -1,9 +1,9 @@
 import { Helmet } from 'react-helmet';
 import { Grid, Stack } from '@mui/material';
-import { BackButton } from 'widgets/BackButton';
-import { RoutePath } from 'app/providers/Router/config/routeConfig';
-import { ManualArticle } from 'widgets/ManualArticle';
-import { ManualArticleNavigation } from 'widgets/ManualArticleNavigation';
+import { BackButton } from '@/widgets/BackButton';
+import { RoutePath } from '@/app/providers/Router/config/routeConfig';
+import { ManualArticle } from '@/widgets/ManualArticle';
+import { ManualArticleNavigation } from '@/widgets/ManualArticleNavigation';
 
 const ManualArticlePage = () => (
     <>

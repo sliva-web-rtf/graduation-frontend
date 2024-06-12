@@ -1,5 +1,5 @@
-import { baseApi, isApiError } from 'shared/api';
-import { AppError } from 'shared/lib/types/appError';
+import { baseApi, isApiError } from '@/shared/api';
+import { AppError } from '@/shared/lib/types/appError';
 import { mapAvatarToDto } from '../lib/uploadAvatarMapper';
 import { GetAvatarDto } from './types';
 

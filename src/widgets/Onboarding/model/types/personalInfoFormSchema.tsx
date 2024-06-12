@@ -1,5 +1,5 @@
-import { ErrorMessage } from 'shared/lib/helpers/errorMessages';
 import { z } from 'zod';
+import { ErrorMessage } from '@/shared/lib/helpers/errorMessages';
 
 export const personalInfoFormSchema = z.object({
     firstName: z.string().min(1, { message: ErrorMessage.getRequiredErrorFieldMessage() }),

@@ -1,13 +1,13 @@
 import { AnyAction, EnhancedStore, Reducer, ReducersMapObject } from '@reduxjs/toolkit';
 import { CombinedState } from 'redux';
 
-import { LoginSchema } from 'features/auth/AuthByEmail/model/types/loginSchema';
-import { UserSchema } from 'entities/User';
-import { CatalogSchema } from 'widgets/Catalog/model/types/catalogSchema';
-import { baseApi } from 'shared/api';
-import { OnboardingSchema } from 'widgets/Onboarding/model/types/onboardingSchema';
-import { ProfessorInfoSchema } from 'widgets/ProfessorInfo';
-import { StudentInfoSchema } from 'widgets/StudentInfo';
+import { type LoginSchema } from '@/features/auth/AuthByEmail/model/types/loginSchema';
+import { UserSchema } from '@/entities/User';
+import { type CatalogSchema } from '@/widgets/Catalog/model/types/catalogSchema';
+import { baseApi } from '@/shared/api';
+import { OnboardingSchema } from '@/widgets/Onboarding/model/types/onboardingSchema';
+import { ProfessorInfoSchema } from '@/widgets/ProfessorInfo';
+import { StudentInfoSchema } from '@/widgets/StudentInfo';
 
 export interface StateSchema {
     user: UserSchema;

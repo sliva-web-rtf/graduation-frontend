@@ -2,8 +2,8 @@ import { Box, Stack, Typography } from '@mui/material';
 import { Helmet } from 'react-helmet';
 import { memo } from 'react';
 
-import { OnboardingSidebar } from 'widgets/OnboardingSidebar';
-import { Onboarding } from 'widgets/Onboarding';
+import { OnboardingSidebar } from '@/widgets/OnboardingSidebar';
+import { Onboarding } from '@/widgets/Onboarding';
 import classNames from './OnboardingPage.module.scss';
 
 const OnboardingPage = memo(() => (

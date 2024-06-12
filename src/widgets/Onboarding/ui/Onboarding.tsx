@@ -2,11 +2,11 @@ import { Box, Skeleton, Stack } from '@mui/material';
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { UploadAvatar, useGetAvatar } from 'features/avatar';
-import { BaseButton, TabsWithStatus } from 'shared/ui';
-import { Role, getUserAuthData } from 'entities/User';
-import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { UploadAvatar, useGetAvatar } from '@/features/avatar';
+import { BaseButton, TabsWithStatus } from '@/shared/ui';
+import { Role, getUserAuthData } from '@/entities/User';
+import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { PersonalInfoForm } from './PersonalInfoForm/PersonalInfoForm';
 import { onboardingActions, onboardingReducer } from '../model/slice/onboardingSlice';
 import styles from './Onboarding.module.scss';

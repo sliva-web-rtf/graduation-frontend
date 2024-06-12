@@ -1,4 +1,4 @@
-import { CatalogOptions } from 'entities/CatalogList';
+import { CatalogOptions } from '@/entities/CatalogList';
 
 export interface CatalogSchema {
     option: CatalogOptions;

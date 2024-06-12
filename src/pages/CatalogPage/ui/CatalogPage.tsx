@@ -1,6 +1,6 @@
 import { Stack, Typography } from '@mui/material';
 import { Helmet } from 'react-helmet';
-import { Catalog } from 'widgets/Catalog';
+import { Catalog } from '@/widgets/Catalog';
 
 const CatalogPage = () => (
     <>

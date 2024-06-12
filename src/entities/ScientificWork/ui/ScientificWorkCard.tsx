@@ -1,10 +1,10 @@
 import { memo } from 'react';
 import { Avatar, Divider, Paper, Stack, Typography } from '@mui/material';
-import scientificWorkImage from 'shared/assets/images/scientificWork.png';
-import { ProfessorSummary } from 'entities/Professor';
-import { BaseChip } from 'shared/ui';
-import { WorkStatusRus } from 'entities/ScientificWork';
-import { getChipColorByWorkStatus } from 'shared/lib/helpers/getChipColorByStatus';
+import scientificWorkImage from '@/shared/assets/images/scientificWork.png';
+import { ProfessorSummary } from '@/entities/Professor';
+import { BaseChip } from '@/shared/ui';
+import { WorkStatusRus } from '@/entities/ScientificWork';
+import { getChipColorByWorkStatus } from '@/shared/lib/helpers/getChipColorByStatus';
 import { ScientificWork } from '../model/types/scientificWork';
 
 export const ScientificWorkCard = memo((props: ScientificWork) => {

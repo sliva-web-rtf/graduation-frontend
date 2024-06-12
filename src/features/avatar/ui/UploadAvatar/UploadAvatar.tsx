@@ -1,9 +1,9 @@
 import { Avatar, Stack } from '@mui/material';
 import { ChangeEvent, memo, useCallback, useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
-import { AppError } from 'shared/lib/types/appError';
-import { useDeleteAvatar, useUploadAvatar } from 'features/avatar/api/avatarApi';
-import { BaseButton } from 'shared/ui';
+import { AppError } from '@/shared/lib/types/appError';
+import { useDeleteAvatar, useUploadAvatar } from '@/features/avatar/api/avatarApi';
+import { BaseButton } from '@/shared/ui';
 import styles from './UploadAvatar.module.scss';
 
 interface UploadAvatarProps {

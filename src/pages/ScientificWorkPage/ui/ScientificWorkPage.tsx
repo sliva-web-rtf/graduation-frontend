@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet';
 import { Stack, Typography } from '@mui/material';
-import { BackButton } from 'widgets/BackButton';
-import { ScientificWorkInfo } from 'widgets/ScientificWorkInfo';
+import { BackButton } from '@/widgets/BackButton';
+import { ScientificWorkInfo } from '@/widgets/ScientificWorkInfo';
 
 const ScientificWorkPage = () => (
     <>

@@ -1,12 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { isApiError } from 'shared/api';
-import { AppErrorMapper, UNKNOW_ERROR } from 'shared/lib/types/mapper.ts/appErrorMapper';
-import { AppError } from 'shared/lib/types/appError';
+import { isApiError } from '@/shared/api';
+import { AppErrorMapper, UNKNOW_ERROR } from '@/shared/lib/types/mapper.ts/appErrorMapper';
+import { AppError } from '@/shared/lib/types/appError';
 
-import { ThunkConfig } from 'app/providers/StoreProvider';
-import { getTokenByEmail } from 'entities/User/api/userApi';
-import { getUser } from 'entities/User/model/services/getUser';
-import { type Login, validationLoginErrorsFromDto } from 'entities/User';
+import { ThunkConfig } from '@/app/providers/StoreProvider';
+import { getTokenByEmail } from '@/entities/User/api/userApi';
+import { getUser } from '@/entities/User/model/services/getUser';
+import { type Login, validationLoginErrorsFromDto } from '@/entities/User';
 import { getLoginEmail } from '../selectors/getLoginEmail/getLoginEmail';
 import { getLoginPassword } from '../selectors/getLoginPassword/getLoginPassword';
 import { actions } from '../actions';

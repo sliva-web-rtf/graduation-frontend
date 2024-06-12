@@ -1,5 +1,5 @@
-import { baseApi } from 'shared/api';
-import { Student } from 'entities/Student';
+import { baseApi } from '@/shared/api';
+import { Student } from '@/entities/Student';
 import { StudentRequest } from '../model/types/studentRequest';
 
 const studentApi = baseApi.injectEndpoints({

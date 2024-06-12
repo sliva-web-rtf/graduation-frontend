@@ -1,10 +1,10 @@
 import { memo, useCallback } from 'react';
-import { ScientificWork, useGetUsersScientificWorksQuery } from 'entities/ScientificWork';
-import { transformDtoForCatalogCard } from 'entities/CatalogList/lib/helpers/transformDtoForCatalogCard';
-import { CatalogCard } from 'entities/CatalogCard';
-import { BaseList } from 'shared/ui/List/List';
-
 import { Stack, Typography } from '@mui/material';
+import { ScientificWork, useGetUsersScientificWorksQuery } from '@/entities/ScientificWork';
+import { transformDtoForCatalogCard } from '@/entities/CatalogList/lib/helpers/transformDtoForCatalogCard';
+import { CatalogCard } from '@/entities/CatalogCard';
+import { BaseList } from '@/shared/ui/List/List';
+
 import { ProfessorThemesSkeleton } from './ProfessorThemes.skeleton';
 import styles from './ProfessorThemes.module.scss';
 

@@ -1,6 +1,6 @@
 import { Stack } from '@mui/material';
-import { BaseChip } from 'shared/ui';
 import { memo } from 'react';
+import { BaseChip } from '@/shared/ui';
 
 interface ChipsGroupProps {
     readonly chips: Array<string>;

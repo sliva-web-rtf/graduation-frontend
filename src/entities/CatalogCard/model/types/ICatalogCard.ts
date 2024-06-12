@@ -1,5 +1,5 @@
-import { WorkStatus } from 'entities/ScientificWork';
-import { CatalogOptions } from 'entities/CatalogList';
+import { WorkStatus } from '@/entities/ScientificWork';
+import { CatalogOptions } from '@/entities/CatalogList';
 
 export interface ICatalogCard {
     readonly id: string;

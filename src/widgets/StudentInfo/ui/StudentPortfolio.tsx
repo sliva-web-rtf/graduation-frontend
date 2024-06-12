@@ -1,8 +1,8 @@
 import { memo } from 'react';
 import { Grid, Stack, Typography } from '@mui/material';
-import { InfoCard, InfoInterests } from 'shared/ui';
-import { getFormattedScientificArea } from 'shared/lib/helpers/getFormattedScientificArea';
-import { ScientificAreas } from 'features/catalog/Search/api/types';
+import { InfoCard, InfoInterests } from '@/shared/ui';
+import { getFormattedScientificArea } from '@/shared/lib/helpers/getFormattedScientificArea';
+import { ScientificAreas } from '@/features/catalog/Search/api/types';
 
 interface ProfessorPortfolioProps {
     readonly about?: string;

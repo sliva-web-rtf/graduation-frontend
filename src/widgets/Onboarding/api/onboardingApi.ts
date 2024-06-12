@@ -1,5 +1,5 @@
-import { baseApi, isApiError } from 'shared/api';
-import { AppErrorMapper } from 'shared/lib/types/mapper.ts/appErrorMapper';
+import { baseApi, isApiError } from '@/shared/api';
+import { AppErrorMapper } from '@/shared/lib/types/mapper.ts/appErrorMapper';
 import { PersonalInfoFormSchema } from '../model/types/personalInfoFormSchema';
 import { updateProfileToDto, validationUpdateProfileErrorsFromDto } from '../lib/updateProfileMapper';
 import { StudentProfile } from '../model/types/student-profile';

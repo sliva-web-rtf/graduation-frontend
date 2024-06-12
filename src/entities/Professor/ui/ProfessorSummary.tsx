@@ -1,9 +1,9 @@
 import { Avatar, Stack, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { AppRoutes } from 'app/providers/Router/config/routeConfig';
 import { memo } from 'react';
-import { getInfoPagePath } from 'shared/lib/helpers/getInfoPagePath';
-import { getInitials } from 'shared/lib/helpers/getInitials';
+import { AppRoutes } from '@/app/providers/Router/config/routeConfig';
+import { getInfoPagePath } from '@/shared/lib/helpers/getInfoPagePath';
+import { getInitials } from '@/shared/lib/helpers/getInitials';
 
 interface ProfessorSummaryProps {
     readonly id: string;

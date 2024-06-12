@@ -1,16 +1,16 @@
 import { RouteProps } from 'react-router-dom';
-import { LoginPage } from 'pages/LoginPage';
-import { CatalogPage } from 'pages/CatalogPage';
-import { NotFoundPage } from 'pages/NotFoundPage';
-import { ForbiddenPage } from 'pages/ForbiddenPage';
-import { Role } from 'entities/User/model/types/role';
-import { ProfessorPage } from 'pages/ProfessorPage';
-import { StudentPage } from 'pages/StudentPage';
 import { Typography } from '@mui/material';
-import { ScientificWorkPage } from 'pages/ScientificWorkPage';
-import { ManualPage } from 'pages/ManualPage';
-import { ManualArticlePage } from 'pages/ManuaArticlelPage';
-import { OnboardingPage } from 'pages/OnboardingPage';
+import { OnboardingPage } from '@/pages/OnboardingPage';
+import { LoginPage } from '@/pages/LoginPage';
+import { CatalogPage } from '@/pages/CatalogPage';
+import { NotFoundPage } from '@/pages/NotFoundPage';
+import { ForbiddenPage } from '@/pages/ForbiddenPage';
+import { type Role } from '@/entities/User/model/types/role';
+import { ProfessorPage } from '@/pages/ProfessorPage';
+import { StudentPage } from '@/pages/StudentPage';
+import { ScientificWorkPage } from '@/pages/ScientificWorkPage';
+import { ManualPage } from '@/pages/ManualPage';
+import { ManualArticlePage } from '@/pages/ManuaArticlelPage';
 
 export type AppRoutesProps = RouteProps & {
     authOnly?: boolean;

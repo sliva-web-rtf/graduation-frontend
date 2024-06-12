@@ -5,13 +5,16 @@ import { memo, useCallback, useEffect } from 'react';
 import { Controller, Path, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { AppError, EntityValidationErrors } from 'shared/lib/types/appError';
-import { BaseField } from 'shared/ui';
-import { updateProfile } from 'widgets/Onboarding/api/onboardingApi';
-import { getProfileInfo } from 'widgets/Onboarding/model/selectors/getProfileInfo';
-import { onboardingActions } from 'widgets/Onboarding/model/slice/onboardingSlice';
-import { PersonalInfoFormSchema, personalInfoFormSchema } from 'widgets/Onboarding/model/types/personalInfoFormSchema';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { AppError, EntityValidationErrors } from '@/shared/lib/types/appError';
+import { BaseField } from '@/shared/ui';
+import { updateProfile } from '@/widgets/Onboarding/api/onboardingApi';
+import { getProfileInfo } from '@/widgets/Onboarding/model/selectors/getProfileInfo';
+import { onboardingActions } from '@/widgets/Onboarding/model/slice/onboardingSlice';
+import {
+    PersonalInfoFormSchema,
+    personalInfoFormSchema,
+} from '@/widgets/Onboarding/model/types/personalInfoFormSchema';
 import styles from './PersonalInfoForm.module.scss';
 
 interface PersonalInfoFormProps {

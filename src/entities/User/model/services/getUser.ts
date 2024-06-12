@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { ThunkConfig } from 'app/providers/StoreProvider';
-import { AppErrorMapper, UNKNOW_ERROR } from 'shared/lib/types/mapper.ts/appErrorMapper';
-import { isApiError } from 'shared/api';
+import { ThunkConfig } from '@/app/providers/StoreProvider';
+import { AppErrorMapper, UNKNOW_ERROR } from '@/shared/lib/types/mapper.ts/appErrorMapper';
+import { isApiError } from '@/shared/api';
 import { getUserQuery } from '../../api/userApi';
 import { actions } from '../actions';
 import { userActions } from '../slice/userSlice';

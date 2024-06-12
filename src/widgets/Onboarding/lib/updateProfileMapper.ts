@@ -1,6 +1,6 @@
-import { ValidationErrorDto } from 'shared/lib/types/dto/validationErrorDto';
-import { extractErrorMessage } from 'shared/lib/helpers/extractErrorMessage';
-import { EntityValidationErrors } from 'shared/lib/types/appError';
+import { ValidationErrorDto } from '@/shared/lib/types/dto/validationErrorDto';
+import { extractErrorMessage } from '@/shared/lib/helpers/extractErrorMessage';
+import { EntityValidationErrors } from '@/shared/lib/types/appError';
 import { PersonalInfoFormSchemaDto } from '../api/types';
 import { PersonalInfoFormSchema } from '../model/types/personalInfoFormSchema';
 

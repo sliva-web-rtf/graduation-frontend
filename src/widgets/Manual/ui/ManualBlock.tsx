@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { Stack, Typography } from '@mui/material';
-import { ManualCard, ManualCardModel } from 'entities/ManualCard';
+import { ManualCard, ManualCardModel } from '@/entities/ManualCard';
 
 interface ManualBlockProps {
     readonly title: string;

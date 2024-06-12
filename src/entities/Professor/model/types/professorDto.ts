@@ -1,4 +1,4 @@
-import { ScientificAreas } from 'features/catalog/Search/api/types';
+import { ScientificAreas } from '@/features/catalog/Search/api/types';
 
 export interface ProfessorDto {
     readonly id: string;

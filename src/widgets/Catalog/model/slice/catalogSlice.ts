@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CatalogSchema } from 'widgets/Catalog/model/types/catalogSchema';
-import { CatalogOptions } from 'entities/CatalogList';
+import { CatalogSchema } from '@/widgets/Catalog/model/types/catalogSchema';
+import { CatalogOptions } from '@/entities/CatalogList';
 
 const initialState: CatalogSchema = {
     option: CatalogOptions.Themes,

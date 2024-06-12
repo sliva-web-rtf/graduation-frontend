@@ -1,5 +1,5 @@
-import { CatalogOptions } from 'entities/CatalogList';
-import { RoutePath } from 'app/providers/Router/config/routeConfig';
+import { CatalogOptions } from '@/entities/CatalogList';
+import { RoutePath } from '@/app/providers/Router/config/routeConfig';
 
 export const getParentLink = (option: CatalogOptions) => {
     let path = '';

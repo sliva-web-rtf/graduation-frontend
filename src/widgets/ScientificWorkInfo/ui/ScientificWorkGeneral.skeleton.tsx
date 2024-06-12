@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { Grid, Stack } from '@mui/material';
-import { InfoCardSkeleton } from 'shared/ui/InfoCard/InfoCard.skeleton';
-import { InfoInterestsSkeleton } from 'shared/ui/InfoInterests/InfoInterests.skeleton';
+import { InfoCardSkeleton } from '@/shared/ui/InfoCard/InfoCard.skeleton';
+import { InfoInterestsSkeleton } from '@/shared/ui/InfoInterests/InfoInterests.skeleton';
 
 export const ScientificWorkGeneralSkeleton = memo(() => (
     <Grid container gap={3}>

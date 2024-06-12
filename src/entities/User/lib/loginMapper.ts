@@ -1,6 +1,6 @@
-import { extractErrorMessage } from 'shared/lib/helpers/extractErrorMessage';
-import { type EntityValidationErrors } from 'shared/lib/types/appError';
-import { type ValidationErrorDto } from 'shared/lib/types/dto/validationErrorDto';
+import { extractErrorMessage } from '@/shared/lib/helpers/extractErrorMessage';
+import { type EntityValidationErrors } from '@/shared/lib/types/appError';
+import { type ValidationErrorDto } from '@/shared/lib/types/dto/validationErrorDto';
 import { type Login } from '../model/types/login';
 import { type LoginDto } from '../api/types';
 
