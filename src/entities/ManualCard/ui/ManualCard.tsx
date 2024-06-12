@@ -1,6 +1,7 @@
 import { Box, Paper, Stack, Typography } from '@mui/material';
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
+import { RoutePath } from '@/app/providers/Router/config/routeConfig';
 import { ManualCardModel } from '../model/types/ManualCardModel';
 import styles from './ManualCard.module.scss';
 

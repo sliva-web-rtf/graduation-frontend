@@ -1,8 +1,8 @@
-import { Professor } from 'entities/Professor';
-import { ScientificWork } from 'entities/ScientificWork';
-import { Student } from 'entities/Student';
-import { ICatalogCard } from 'entities/CatalogCard/model/types/ICatalogCard';
-import { CatalogOption } from 'widgets/Catalog';
+import { Professor } from '@/entities/Professor';
+import { ScientificWork } from '@/entities/ScientificWork';
+import { Student } from '@/entities/Student';
+import { ICatalogCard } from '@/entities/CatalogCard/model/types/ICatalogCard';
+import { CatalogOption } from '@/widgets/Catalog';
 
 const getCatalogOption = (dto: Professor | ScientificWork | Student) => {
     if ('workStatus' in dto) {

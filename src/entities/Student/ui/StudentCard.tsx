@@ -1,6 +1,6 @@
 import { memo, useMemo } from 'react';
 import { Avatar, Paper, Stack, Typography } from '@mui/material';
-import { getFullName } from 'shared/lib/helpers/getFullName';
+import { getFullName } from '@/shared/lib/helpers/getFullName';
 import { Student } from '../model/types/student';
 
 export const StudentCard = memo((props: Student) => {

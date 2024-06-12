@@ -1,10 +1,10 @@
 import { InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import { BaseField } from 'shared/ui';
 import { useDispatch, useSelector } from 'react-redux';
-import { getManualSearch, manualActions } from 'widgets/Manual';
 import { useEffect, useState } from 'react';
 import { useDebounce } from 'use-debounce';
+import { getManualSearch, manualActions } from '@/widgets/Manual';
+import { BaseField } from '@/shared/ui';
 
 export const ManualSearch = () => {
     const dispatch = useDispatch();

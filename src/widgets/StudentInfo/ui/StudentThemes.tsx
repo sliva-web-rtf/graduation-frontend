@@ -1,9 +1,9 @@
 import { memo, useCallback } from 'react';
-import { ScientificWork, useGetUsersScientificWorksQuery } from 'entities/ScientificWork';
-import { transformDtoForCatalogCard } from 'entities/CatalogList/lib/helpers/transformDtoForCatalogCard';
-import { CatalogCard } from 'entities/CatalogCard';
-import { BaseList } from 'shared/ui/List/List';
 import { Stack, Typography } from '@mui/material';
+import { ScientificWork, useGetUsersScientificWorksQuery } from '@/entities/ScientificWork';
+import { transformDtoForCatalogCard } from '@/entities/CatalogList/lib/helpers/transformDtoForCatalogCard';
+import { CatalogCard } from '@/entities/CatalogCard';
+import { BaseList } from '@/shared/ui/List/List';
 import { StudentThemesSkeleton } from './StudentThemes.skeleton';
 import styles from './StudentThemes.module.scss';
 

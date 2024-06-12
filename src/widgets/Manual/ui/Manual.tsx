@@ -1,9 +1,9 @@
 import { memo, useMemo } from 'react';
 import { Stack, Typography } from '@mui/material';
-import { ManualBlock } from 'widgets/Manual/ui/ManualBlock';
-import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import { ManualSearch } from 'features/manual/search';
 import { useSelector } from 'react-redux';
+import { ManualBlock } from '@/widgets/Manual/ui/ManualBlock';
+import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+import { ManualSearch } from '@/features/manual/search';
 import { getManualSearch } from '../model/selectors/getManualSearch/getManualSearch';
 import { manualReducer } from '../model/slice/manualSlice';
 import { MANUAL } from '../model/const';

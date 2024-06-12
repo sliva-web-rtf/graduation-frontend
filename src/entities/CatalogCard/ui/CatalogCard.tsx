@@ -1,22 +1,22 @@
 import { memo, useMemo } from 'react';
 import { Avatar, Paper, Stack, Typography } from '@mui/material';
-import { BaseChip } from 'shared/ui/Chip/Chip';
-import { LimitInfo } from 'shared/ui/LimitInfo/LimitInfo';
+import { Link } from 'react-router-dom';
+import { BaseChip } from '@/shared/ui/Chip/Chip';
+import { LimitInfo } from '@/shared/ui/LimitInfo/LimitInfo';
 import {
     AddProfessorButton,
     AddScientificWorkButton,
     AddStudentButton,
     AddToFavoritesButton,
-} from 'features/entity/AddRequests';
-import { WorkStatusRus } from 'entities/ScientificWork/model/types/workStatus';
-import { getParentLink } from 'entities/CatalogCard/lib/helpers/getParentLink';
-import scientificWorkImage from 'shared/assets/images/scientificWork.png';
-import { Link } from 'react-router-dom';
-import { ChipsGroup } from 'shared/ui';
-import { getChipColorByWorkStatus } from 'shared/lib/helpers/getChipColorByStatus';
-import { CatalogOption } from 'widgets/Catalog';
-import { ICatalogCard } from '../model/types/ICatalogCard';
+} from '@/features/entity/AddRequests';
+import { WorkStatusRus } from '@/entities/ScientificWork/model/types/workStatus';
+import { getParentLink } from '@/entities/CatalogCard/lib/helpers/getParentLink';
+import scientificWorkImage from '@/shared/assets/images/scientificWork.png';
+import { ChipsGroup } from '@/shared/ui';
+import { getChipColorByWorkStatus } from '@/shared/lib/helpers/getChipColorByStatus';
+import { type ICatalogCard } from '../model/types/ICatalogCard';
 import styles from './CatalogCard.module.scss';
+import { CatalogOption } from '@/widgets/Catalog';
 
 /* eslint-disable no-nested-ternary */
 

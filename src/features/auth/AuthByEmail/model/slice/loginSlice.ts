@@ -1,5 +1,5 @@
-import { STATUS } from 'shared/api/status';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { STATUS } from '@/shared/api/status';
 import { LoginSchema } from '../types/loginSchema';
 import { actions } from '../actions';
 

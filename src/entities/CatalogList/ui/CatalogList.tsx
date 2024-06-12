@@ -1,10 +1,11 @@
 import { memo, useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import { BaseList } from 'shared/ui/List/List';
-import { Professor } from 'entities/Professor';
-import { ScientificWork } from 'entities/ScientificWork';
-import { Student } from 'entities/Student';
-import { CatalogCard } from 'entities/CatalogCard';
+import { Typography } from '@mui/material';
+import { BaseList } from '@/shared/ui/List/List';
+import { Professor } from '@/entities/Professor';
+import { ScientificWork } from '@/entities/ScientificWork';
+import { Student } from '@/entities/Student';
+import { CatalogCard } from '@/entities/CatalogCard';
 import {
     getCatalogAreas,
     getCatalogInterests,
@@ -12,8 +13,7 @@ import {
     getCatalogOption,
     getCatalogPage,
     getCatalogPageSize,
-} from 'widgets/Catalog';
-import { Typography } from '@mui/material';
+} from '@/widgets/Catalog';
 import { useGetCatalogQuery } from '../api/catalogApi';
 import { CatalogListSkeleton } from './CatalogList.skeleton';
 import { transformDtoForCatalogCard } from '../lib/helpers/transformDtoForCatalogCard';

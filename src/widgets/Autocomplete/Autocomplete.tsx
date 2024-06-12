@@ -1,6 +1,6 @@
 import { Autocomplete, AutocompleteProps, CircularProgress, TextFieldProps } from '@mui/material';
 import { forwardRef, memo } from 'react';
-import { BaseField } from 'shared/ui';
+import { BaseField } from '@/shared/ui';
 
 type BaseAutocompleteProps = Omit<AutocompleteProps<any, any, any, any>, 'renderInput'> &
     Omit<TextFieldProps, 'onChange'>;

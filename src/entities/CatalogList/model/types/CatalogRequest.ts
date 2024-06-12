@@ -1,4 +1,4 @@
-import { CatalogOption } from 'widgets/Catalog';
+import { CatalogOption } from '@/widgets/Catalog';
 
 export interface CatalogRequest {
     option: CatalogOption;

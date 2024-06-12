@@ -1,8 +1,8 @@
 import { BaseQueryApi, FetchArgs } from '@reduxjs/toolkit/query/react';
 import { Mutex } from 'async-mutex';
-import { UserSecretStorageService } from 'shared/lib/helpers/userSecretStorage';
-import { Token } from 'shared/lib/types/token';
-import { userActions } from 'entities/User';
+import { UserSecretStorageService } from '@/shared/lib/helpers/userSecretStorage';
+import { Token } from '@/shared/lib/types/token';
+import { userActions } from '@/entities/User';
 import { baseQuery } from './baseQuery';
 
 const AUTH_ERROR_CODES = new Set([401]);

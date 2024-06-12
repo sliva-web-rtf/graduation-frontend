@@ -1,4 +1,4 @@
-import { CatalogOption } from 'widgets/Catalog';
+import { CatalogOption } from '@/widgets/Catalog';
 
 const URL_MAP: Record<CatalogOption, string> = {
     [CatalogOption.Professors]: '/api/professor/list-professor',

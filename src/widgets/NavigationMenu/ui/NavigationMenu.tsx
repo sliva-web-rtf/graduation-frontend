@@ -1,7 +1,7 @@
 import { NavLink, useLocation } from 'react-router-dom';
-import { BaseTabs, BaseTab, TabLabel } from 'shared/ui/Tabs/Tabs';
 import { memo } from 'react';
 import { TabsProps } from '@mui/material';
+import { BaseTabs, BaseTab, TabLabel } from '@/shared/ui/Tabs/Tabs';
 import { TABS } from '../model/const';
 
 export const NavigationMenu = memo((props: TabsProps) => {

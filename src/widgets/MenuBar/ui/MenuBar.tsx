@@ -3,7 +3,7 @@ import { AppBarProps, Avatar, Badge, Box, IconButton, Toolbar } from '@mui/mater
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import NotificationsNoneRoundedIcon from '@mui/icons-material/NotificationsNoneRounded';
 import WorkspacePremiumOutlinedIcon from '@mui/icons-material/WorkspacePremiumOutlined';
-import { BaseAppBar } from 'shared/ui/AppBar/AppBar';
+import { BaseAppBar } from '@/shared/ui/AppBar/AppBar';
 
 interface MenuBarProps extends AppBarProps {}
 

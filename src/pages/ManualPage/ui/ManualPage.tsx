@@ -1,5 +1,7 @@
 import { Helmet } from 'react-helmet';
-import { Manual } from 'widgets/Manual';
+import { Stack, Typography } from '@mui/material';
+import { ManualSearch } from '@/features/manual/search';
+import { Manual } from '@/widgets/Manual';
 
 const ManualPage = () => (
     <>

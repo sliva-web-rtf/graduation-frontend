@@ -1,4 +1,4 @@
-import { CatalogOption } from '../types/catalogOption';
+import { CatalogOption } from './catalogOption';
 
 export interface CatalogSchema {
     option: CatalogOption;

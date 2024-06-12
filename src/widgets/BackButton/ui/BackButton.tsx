@@ -1,8 +1,8 @@
-import { BaseButton } from 'shared/ui/Button/Button';
 import KeyboardBackspaceRoundedIcon from '@mui/icons-material/KeyboardBackspaceRounded';
 import { useNavigate } from 'react-router-dom';
 import { memo, ReactNode } from 'react';
-import { RoutePath } from 'app/providers/Router/config/routeConfig';
+import { BaseButton } from '@/shared/ui/Button/Button';
+import { RoutePath } from '@/app/providers/Router/config/routeConfig';
 
 interface BackButtonProps {
     readonly to?: string;

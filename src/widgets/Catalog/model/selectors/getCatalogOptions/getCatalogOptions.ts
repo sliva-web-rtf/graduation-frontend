@@ -1,5 +1,5 @@
-import { StateSchema } from 'app/providers/StoreProvider';
-import { Role } from 'entities/User';
+import { StateSchema } from '@/app/providers/StoreProvider';
+import { Role } from '@/entities/User';
 import { initialState } from '../../slice/catalogSlice';
 
 export const getCatalogOptions = (state: StateSchema) =>

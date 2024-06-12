@@ -1,5 +1,5 @@
-import { BaseLoadingButton } from 'shared/ui/Button/Button';
 import { memo } from 'react';
+import { BaseLoadingButton } from '@/shared/ui/Button/Button';
 import { useAddScientificWorkMutation } from '../api/addRequestsApi';
 
 interface AddScientificWorkButtonProps {

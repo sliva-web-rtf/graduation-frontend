@@ -15,7 +15,7 @@ import {
     TaskListIcon,
     UrfuIcon,
     WebIcon,
-} from 'shared/ui';
+} from '@/shared/ui';
 
 const a = {
     title: 'Гайд по исследовательской деятельности',

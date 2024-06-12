@@ -1,6 +1,6 @@
 import { memo, useCallback } from 'react';
 import { Paper, Skeleton, Stack, Typography } from '@mui/material';
-import { BaseList } from 'shared/ui/List/List';
+import { BaseList } from '@/shared/ui/List/List';
 import styles from './CatalogCard.module.scss';
 
 export const CatalogCardSkeleton = memo(() => {

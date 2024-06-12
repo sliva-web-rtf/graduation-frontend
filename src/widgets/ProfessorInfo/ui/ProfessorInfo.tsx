@@ -1,12 +1,12 @@
 import { memo } from 'react';
 import { Grid, Stack, Typography } from '@mui/material';
 import { useParams } from 'react-router-dom';
-import { ProfessorCard, useGetProfessorQuery } from 'entities/Professor';
-import { ToggleProfessorInfo } from 'features/professor/ToggleInfo';
 import { useSelector } from 'react-redux';
-import { AddProfessorButton, AddToFavoritesButton } from 'features/entity/AddRequests';
-import { CatalogOption } from 'widgets/Catalog';
-import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+import { ProfessorCard, useGetProfessorQuery } from '@/entities/Professor';
+import { ToggleProfessorInfo } from '@/features/professor/ToggleInfo';
+import { AddProfessorButton, AddToFavoritesButton } from '@/features/entity/AddRequests';
+import { CatalogOption } from '@/widgets/Catalog';
+import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { professorInfoReducer } from '../model/slice/professorInfoSlice';
 import { ToggleOptions } from '../model/types/toggleOptions';
 import { ProfessorInfoSkeleton } from './ProfessorInfo.skeleton';

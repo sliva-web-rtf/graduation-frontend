@@ -1,4 +1,4 @@
-import { CatalogOption } from 'widgets/Catalog';
+import { CatalogOptions } from '@/entities/CatalogList';
 
 export const getParamsByOption = (option: CatalogOption) => {
     let endpoint = 'student';
