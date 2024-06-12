@@ -1,4 +1,4 @@
-import { CatalogOptions } from 'entities/CatalogList';
+import { CatalogOptions } from '@/entities/CatalogList';
 
 export interface AddToFavoritesRequest {
     readonly id: string;

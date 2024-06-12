@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { Grid, Stack } from '@mui/material';
-import { ProfessorCardSkeleton } from 'entities/Professor';
+import { ProfessorCardSkeleton } from '@/entities/Professor';
 import { ScientificWorkGeneralSkeleton } from './ScientificWorkGeneral.skeleton';
 
 export const ScientificWorkInfoSkeleton = memo(() => (

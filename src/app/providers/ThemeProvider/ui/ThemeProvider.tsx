@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react';
-import { theme } from 'shared/theme';
 import { GlobalStyles, ThemeProvider as Theme } from '@mui/material';
+import { theme } from '@/shared/theme';
 
 interface ThemeProviderProps {
     children: ReactNode;

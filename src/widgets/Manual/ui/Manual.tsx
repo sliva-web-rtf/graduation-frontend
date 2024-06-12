@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { Stack } from '@mui/material';
-import { ManualBlock } from 'widgets/Manual/ui/ManualBlock';
+import { ManualBlock } from '@/widgets/Manual/ui/ManualBlock';
 import { MANUAL } from '../model/const';
 
 export const Manual = memo(() => (

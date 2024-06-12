@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet';
 import { Stack, Typography } from '@mui/material';
-import { BackButton } from 'widgets/BackButton';
-import { ProfessorInfo } from 'widgets/ProfessorInfo';
+import { BackButton } from '@/widgets/BackButton';
+import { ProfessorInfo } from '@/widgets/ProfessorInfo';
 
 const ProfessorPage = () => (
     <>

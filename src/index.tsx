@@ -3,12 +3,12 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 
 import { ToastContainer } from 'react-toastify';
-import { ErrorBoundary } from 'app/providers/ErrorBoundary';
-import { StoreProvider } from 'app/providers/StoreProvider';
-import ThemeProvider from 'app/providers/ThemeProvider/ui/ThemeProvider';
+import { ErrorBoundary } from '@/app/providers/ErrorBoundary';
+import { StoreProvider } from '@/app/providers/StoreProvider';
+import ThemeProvider from '@/app/providers/ThemeProvider/ui/ThemeProvider';
 import App from './app/App';
 import 'react-toastify/dist/ReactToastify.css';
-import 'app/styles/index.scss';
+import '@/app/styles/index.scss';
 
 const container = document.getElementById('root');
 

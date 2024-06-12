@@ -1,12 +1,12 @@
 import React, { memo, useCallback, useState } from 'react';
 import { Box, Stack } from '@mui/material';
-import { BaseAutocomplete } from 'widgets/Autocomplete/Autocomplete';
 import { useDebounce } from 'use-debounce';
-import { DEBOUNCE_DELAY } from 'shared/lib/const/const';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { catalogActions } from 'widgets/Catalog/model/slice/catalogSlice';
 import { useSelector } from 'react-redux';
-import { getCatalogInterests } from 'widgets/Catalog';
+import { BaseAutocomplete } from '@/widgets/Autocomplete/Autocomplete';
+import { DEBOUNCE_DELAY } from '@/shared/lib/const/const';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { catalogActions } from '@/widgets/Catalog/model/slice/catalogSlice';
+import { getCatalogInterests } from '@/widgets/Catalog';
 import { useGetScientificAreasQuery, useGetScientificInterestsQuery } from '../api/searchApi';
 
 export const Search = memo(() => {

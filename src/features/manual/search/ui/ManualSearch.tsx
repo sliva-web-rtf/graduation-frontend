@@ -1,6 +1,6 @@
 import { InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import { BaseField } from 'shared/ui';
+import { BaseField } from '@/shared/ui';
 
 export const ManualSearch = () => {
     const a = 'a';

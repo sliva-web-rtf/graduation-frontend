@@ -1,9 +1,9 @@
-import { BaseButton } from 'shared/ui/Button/Button';
 import { Box, FormControl, Modal, Paper, RadioGroup, Stack, Typography } from '@mui/material';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import React, { ChangeEvent, memo } from 'react';
-import { ScientificWork, ScientificWorkRadio, useGetUsersScientificWorksQuery } from 'entities/ScientificWork';
-import { CreateScientificWorkModal } from 'features/scientificWork/CreateScientificWork';
+import { BaseButton } from '@/shared/ui/Button/Button';
+import { ScientificWork, ScientificWorkRadio, useGetUsersScientificWorksQuery } from '@/entities/ScientificWork';
+import { CreateScientificWorkModal } from '@/features/scientificWork/CreateScientificWork';
 import styles from './Modal.module.scss';
 
 interface AddRequestModalProps {

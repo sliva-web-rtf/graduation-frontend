@@ -1,5 +1,5 @@
-import { baseApi } from 'shared/api';
 import { toast } from 'react-toastify';
+import { baseApi } from '@/shared/api';
 import { ScientificWorkRequest } from '../models/types/scientificWorkRequest';
 
 const newScientificWorkApi = baseApi.injectEndpoints({

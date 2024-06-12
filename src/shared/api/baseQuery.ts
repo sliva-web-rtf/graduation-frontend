@@ -5,7 +5,7 @@ import {
     type FetchBaseQueryMeta,
 } from '@reduxjs/toolkit/dist/query/fetchBaseQuery';
 import { fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { UserSecretStorageService } from 'shared/lib/helpers/userSecretStorage';
+import { UserSecretStorageService } from '@/shared/lib/helpers/userSecretStorage';
 
 export const baseQuery: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError, {}, FetchBaseQueryMeta> =
     fetchBaseQuery({

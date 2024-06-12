@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux';
-import { ToggleButtons } from 'shared/ui';
 import { memo, MouseEvent, useCallback } from 'react';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { getProfessorInfoOption, getProfessorInfoOptions, professorInfoActions } from 'widgets/ProfessorInfo';
+import { ToggleButtons } from '@/shared/ui';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { getProfessorInfoOption, getProfessorInfoOptions, professorInfoActions } from '@/widgets/ProfessorInfo';
 
 export const ToggleProfessorInfo = memo(() => {
     const dispatch = useAppDispatch();

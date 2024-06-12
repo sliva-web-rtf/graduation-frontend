@@ -1,11 +1,11 @@
-import { BaseButton } from 'shared/ui/Button/Button';
 import StarOutlineRoundedIcon from '@mui/icons-material/StarOutlineRounded';
 import React, { memo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { isUserProfessor } from 'entities/User/model/selectors/getUserRoles/getUserRoles';
-import { CatalogOptions } from 'entities/CatalogList';
-import { useAddToFavoritesMutation } from 'features/entity/AddRequests/api/addRequestsApi';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
+import { BaseButton } from '@/shared/ui/Button/Button';
+import { isUserProfessor } from '@/entities/User/model/selectors/getUserRoles/getUserRoles';
+import { CatalogOptions } from '@/entities/CatalogList';
+import { useAddToFavoritesMutation } from '@/features/entity/AddRequests/api/addRequestsApi';
 
 interface AddToFavoritesButtonProps {
     readonly id: string;

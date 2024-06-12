@@ -1,10 +1,10 @@
 import { memo, MouseEvent, useCallback } from 'react';
-import { ToggleButtons } from 'shared/ui/ToggleButtons/ToggleButtons';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { catalogActions } from 'widgets/Catalog/model/slice/catalogSlice';
 import { useSelector } from 'react-redux';
-import { getCatalogOption, getCatalogOptions } from 'widgets/Catalog';
-import { isUserProfessor } from 'entities/User/model/selectors/getUserRoles/getUserRoles';
+import { ToggleButtons } from '@/shared/ui/ToggleButtons/ToggleButtons';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { catalogActions } from '@/widgets/Catalog/model/slice/catalogSlice';
+import { getCatalogOption, getCatalogOptions } from '@/widgets/Catalog';
+import { isUserProfessor } from '@/entities/User/model/selectors/getUserRoles/getUserRoles';
 
 export const ToggleList = memo(() => {
     const value = useSelector(getCatalogOption);
