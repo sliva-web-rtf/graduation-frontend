@@ -24,7 +24,7 @@ export const CatalogList = memo(() => {
     const params = {
         page: useSelector(getCatalogPage),
         pageSize: useSelector(getCatalogPageSize),
-        scientificAreaSubsections: useSelector(getCatalogAreas),
+        scientificAreaSubsections: useSelector(getCatalogAreas).map((area) => area.label),
         scientificInterests: useSelector(getCatalogInterests),
         isFavoriteFilterOnly: useSelector(getCatalogIsFavoritesFilter),
     };

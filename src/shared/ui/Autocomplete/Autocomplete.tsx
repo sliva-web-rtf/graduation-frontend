@@ -2,7 +2,8 @@ import { Autocomplete, AutocompleteProps, CircularProgress, TextFieldProps } fro
 import { forwardRef, memo } from 'react';
 import { BaseField } from '@/shared/ui';
 
-type BaseAutocompleteProps = Omit<AutocompleteProps<any, any, any, any>, 'renderInput'> &
+// TODO: типизировать
+export type BaseAutocompleteProps = Omit<AutocompleteProps<any, any, any, any>, 'renderInput'> &
     Omit<TextFieldProps, 'onChange'>;
 
 export const BaseAutocomplete = memo(

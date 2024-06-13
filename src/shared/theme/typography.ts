@@ -1,6 +1,25 @@
 import { Palette } from '@mui/material';
 import { TypographyOptions } from '@mui/material/styles/createTypography';
 
+import '@mui/material/styles';
+import '@mui/material/Typography';
+
+declare module '@mui/material/styles' {
+    interface TypographyVariants {
+        bodyXS: React.CSSProperties;
+    }
+
+    interface TypographyVariantsOptions {
+        bodyXS?: React.CSSProperties;
+    }
+}
+
+declare module '@mui/material/Typography' {
+    interface TypographyPropsVariantOverrides {
+        bodyXS: true;
+    }
+}
+
 export const typography: TypographyOptions | ((palette: Palette) => TypographyOptions) | undefined = {
     fontFamily: ['Manrope', 'Geologica', 'sans-serif'].join(','),
     h1: {
@@ -53,6 +72,12 @@ export const typography: TypographyOptions | ((palette: Palette) => TypographyOp
     },
     body1: {
         fontSize: '16px',
+        fontWeight: '400',
+        lineHeight: '140%',
+        letterSpacing: '0',
+    },
+    bodyXS: {
+        fontSize: '12px',
         fontWeight: '400',
         lineHeight: '140%',
         letterSpacing: '0',

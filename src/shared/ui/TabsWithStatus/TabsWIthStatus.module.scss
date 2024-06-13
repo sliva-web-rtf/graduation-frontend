@@ -1,0 +1,49 @@
+.container {
+  display: flex;
+  width: 100%;
+}
+
+.clearButton {
+  background-color: var(--tab-with-status-background-color);
+  border: none;
+  border-radius: 0;
+  color: var(--text-color);
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--space-m);
+  cursor: pointer;
+  min-width: var(--tab-with-status-min-width);
+  padding: var(--space-m);
+  border-bottom: 2px var(--secondary-color) solid;
+  box-shadow: 1px 2px 14px 0 #e0e0e0;
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
+}
+
+.icon {
+  fill: var(--secondary-color);
+}
+
+.activeTab {
+  border-color: var(--primary-color);
+}
+
+.errorTab {
+  border-color: var(--error-color);
+}
+
+.tabDescription {
+  color: var(--secondary-color);
+}
+
+.errorTabDescription {
+  color: var(--error-color);
+}
+
+.successTabDescription {
+  color: var(--success-color);
+}
