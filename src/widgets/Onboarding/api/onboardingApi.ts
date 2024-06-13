@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { baseApi, isApiError } from '@/shared/api';
 import { AppErrorMapper } from '@/shared/lib/types/mapper.ts/appErrorMapper';
 import { PersonalInfoFormSchema } from '../model/types/personalInfoFormSchema';
@@ -11,6 +12,9 @@ import {
 } from '../lib/studentScientificInfoMapper';
 import { ScientificFormSchema } from '../model/types/scientificFormSchema';
 import { onboardingActions } from '../model/slice/onboardingSlice';
+import { StudentSearchingStatus } from '../model/types/studentStatus';
+import { updateStudentStatusToDto, validationUpdateStudentStatusErrorsFromDto } from '../lib/studentStatusMapper';
+import { userActions } from '@/entities/User';
 
 const onboardingApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
@@ -27,6 +31,25 @@ const onboardingApi = baseApi.injectEndpoints({
                     const appError = AppErrorMapper.fromDtoWithValidationSupport(
                         error,
                         validationUpdateProfileErrorsFromDto,
+                    );
+                    return appError;
+                }
+                return error;
+            },
+        }),
+        updateStudentStatusSearching: build.mutation<void, StudentSearchingStatus>({
+            query: (initialValues) => ({
+                url: '/api/on-boarding/update-status',
+                method: 'PUT',
+                body: {
+                    ...updateStudentStatusToDto(initialValues),
+                },
+            }),
+            transformErrorResponse: (error: unknown) => {
+                if (isApiError(error)) {
+                    const appError = AppErrorMapper.fromDtoWithValidationSupport(
+                        error,
+                        validationUpdateStudentStatusErrorsFromDto,
                     );
                     return appError;
                 }
@@ -50,6 +73,25 @@ const onboardingApi = baseApi.injectEndpoints({
                     return appError;
                 }
                 return error;
+            },
+        }),
+        completeRegistration: build.mutation<void, void>({
+            query: () => ({
+                url: '/api/on-boarding/complete',
+                method: 'POST',
+                body: {},
+            }),
+            transformErrorResponse: () => {
+                toast.error('Что-то пошло не так! Попробуйте еще раз');
+            },
+            onQueryStarted: async (_, api) => {
+                const { dispatch, queryFulfilled } = api;
+                try {
+                    await queryFulfilled;
+                    dispatch(userActions.changeRegistration(true));
+                } catch (err) {
+                    /* empty */
+                }
             },
         }),
         getStudentProfile: build.query<StudentProfile, void>({
@@ -77,5 +119,7 @@ const onboardingApi = baseApi.injectEndpoints({
 });
 
 export const updateProfile = onboardingApi.useUpdateProfileInfoMutation;
+export const completeRegistration = onboardingApi.useCompleteRegistrationMutation;
 export const updateStudentScientificInfo = onboardingApi.useUpdateStudentScientificInfoMutation;
+export const updateStudentStatusSearching = onboardingApi.useUpdateStudentStatusSearchingMutation;
 export const getLazyStudentProfile = onboardingApi.useLazyGetStudentProfileQuery;

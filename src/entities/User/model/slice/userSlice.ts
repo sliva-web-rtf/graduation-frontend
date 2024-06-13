@@ -26,6 +26,11 @@ export const userSlice = createSlice({
         setInitValue: (state, action: PayloadAction<boolean>) => {
             state.isInited = action.payload;
         },
+        changeRegistration: (state, action: PayloadAction<boolean>) => {
+            if (state.authData) {
+                state.authData.isRegistrationComplete = action.payload;
+            }
+        },
     },
     extraReducers: (builder) => {
         builder
