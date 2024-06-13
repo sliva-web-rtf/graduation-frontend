@@ -1,14 +1,16 @@
 import { Checkbox, FormControlLabel, FormGroup, Radio, RadioGroup, Stack, Typography } from '@mui/material';
-import { isEqual } from 'lodash';
-import { memo, useCallback, useEffect, useState } from 'react';
+import { FormEvent, memo, useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { updateStudentScientificInfo } from '../../api/onboardingApi';
-import { onboardingActions } from '@/widgets/Onboarding/model/slice/onboardingSlice';
+import { completeRegistration, updateStudentStatusSearching } from '../../api/onboardingApi';
 import { getStudentScientificInfo } from '../../model/selectors/getStudentScientificInfo';
 import { SearchingStatus } from '@/shared/lib/types/searchingStatus';
 import { StudentSearchingStatus } from '../../model/types/studentStatus';
+import { refreshToken } from '@/entities/User/api/userApi';
+import { UserSecretStorageService } from '@/shared/lib/helpers/userSecretStorage';
+import { userActions } from '@/entities/User';
 
 type StudentSearching = {
     isTeamSearching: boolean;
@@ -25,8 +27,10 @@ interface StudentSearchStatusFormProps {
 
 export const StudentSearchStatusForm = memo(
     ({ onError, onSuccess, onRequestStart, id, initialValues }: StudentSearchStatusFormProps) => {
-        const studentScientificPortfolio = useSelector(getStudentScientificInfo);
         const dispatch = useAppDispatch();
+
+        const studentScientificPortfolio = useSelector(getStudentScientificInfo);
+
         const [studentSearching, setStudentSearching] = useState<StudentSearching>({
             isTeamSearching: initialValues?.isTeamSearching ?? false,
             isProfessorSearching: initialValues?.isTeamSearching ?? false,
@@ -35,30 +39,50 @@ export const StudentSearchStatusForm = memo(
             initialValues?.status ?? SearchingStatus.DoNotSearch,
         );
 
-        const [updatedProfileInfo, { error }] = updateStudentScientificInfo();
+        const [updatedSearchingStatus, { error }] = updateStudentStatusSearching();
+        const [completeStudentRegistration] = completeRegistration();
+        const [refreshAccessToken] = refreshToken();
 
         const onSubmitHandler = useCallback(
-            async (values: any) => {
+            async (event: FormEvent<HTMLFormElement>) => {
+                event.preventDefault();
                 onRequestStart?.();
-                if (isEqual(values, studentScientificPortfolio)) {
-                    onSuccess?.();
+                const values: StudentSearchingStatus = {
+                    status: searchingType,
+                    isProfessorSearching: studentSearching.isProfessorSearching,
+                    isTeamSearching: studentSearching.isTeamSearching,
+                };
+                const updateSearchingStatusResponse = await updatedSearchingStatus(values);
+                // TODO: переделать в отдельный action всю пачку запросов
+                if ('error' in updateSearchingStatusResponse) {
+                    onError?.();
                 } else {
-                    await updatedProfileInfo(values).then((response) => {
-                        if ('error' in response) {
-                            onError?.();
+                    const registrationCompeteResponse = await completeStudentRegistration();
+                    if ('error' in registrationCompeteResponse) {
+                        onError?.();
+                    } else {
+                        const token = await UserSecretStorageService.get();
+                        if (token) {
+                            const refreshResponse = await refreshAccessToken(token);
+                            if ('error' in refreshResponse) {
+                                onError?.();
+                            } else {
+                                dispatch(userActions.changeRegistration(true));
+                                onSuccess?.();
+                            }
                         } else {
-                            dispatch(onboardingActions.setStudentScientificInfo(values));
-                            onSuccess?.();
+                            onError?.();
                         }
-                    });
+                    }
                 }
             },
             // eslint-disable-next-line react-hooks/exhaustive-deps
-            [studentScientificPortfolio, updatedProfileInfo],
+            [studentScientificPortfolio, updatedSearchingStatus],
         );
 
         useEffect(() => {
             if (error) {
+                toast.error('Что-то пошло не так. Попробуйте еще раз');
                 onError?.();
             }
             // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -90,7 +114,7 @@ export const StudentSearchStatusForm = memo(
         }, [studentSearching]);
 
         return (
-            <form id={id} onSubmit={() => onSubmitHandler('')}>
+            <form id={id} onSubmit={onSubmitHandler}>
                 <Typography variant="h2" mb={3}>
                     Выберите статус поиска
                 </Typography>

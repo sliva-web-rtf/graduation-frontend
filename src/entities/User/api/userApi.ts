@@ -29,8 +29,22 @@ const userApi = baseApi.injectEndpoints({
                 return mapTokenDtoToModel(response);
             },
         }),
+        refreshToken: build.mutation<Token, Token>({
+            query: (token) => ({
+                url: '/api/auth',
+                method: 'PUT',
+                body: {
+                    refreshToken: token.refreshToken,
+                },
+            }),
+            transformResponse: async (response: TokenDto) => {
+                await UserSecretStorageService.save(response);
+                return mapTokenDtoToModel(response);
+            },
+        }),
     }),
 });
 
 export const getUserQuery = userApi.endpoints.getUser.initiate;
+export const refreshToken = userApi.useRefreshTokenMutation;
 export const getTokenByEmail = userApi.endpoints.getTokenByEmail.initiate;
