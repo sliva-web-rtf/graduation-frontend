@@ -1,6 +1,7 @@
 import { baseApi } from '@/shared/api';
 import { ScientificArea } from '../model/types';
 import { transformScientificAreaFromDto } from '../lib/scientificAreasMapper';
+import { ScientificAreaDto } from './types';
 
 const scientificAreaApi = baseApi.injectEndpoints({
     endpoints: (build) => ({

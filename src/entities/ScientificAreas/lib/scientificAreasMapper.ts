@@ -1,3 +1,4 @@
+import { ScientificAreaDto } from '../api/types';
 import { ScientificArea } from '../model/types';
 
 export const transformScientificAreaFromDto = (options: ScientificAreaDto[]): ScientificArea[] =>

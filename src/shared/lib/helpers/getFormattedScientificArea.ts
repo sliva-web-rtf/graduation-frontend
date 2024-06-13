@@ -1,6 +1,6 @@
-import { ScientificAreas } from '@/features/catalog/Search/api/types';
+import { ScientificAreaDto } from '@/entities/ScientificAreas/api/types';
 
-export const getFormattedScientificArea = (sections: ScientificAreas | undefined) => {
+export const getFormattedScientificArea = (sections: ScientificAreaDto[] | undefined) => {
     if (!sections?.length) {
         return 'Пусто';
     }
