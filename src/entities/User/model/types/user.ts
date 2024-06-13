@@ -15,6 +15,5 @@ export interface UserSchema {
     userError?: string;
     tokenError?: string;
     userStatus: STATUS;
-    refreshTokenStatus: STATUS;
     isInited: boolean;
 }

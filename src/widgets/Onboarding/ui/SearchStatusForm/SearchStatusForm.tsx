@@ -1,14 +1,16 @@
 import { Checkbox, FormControlLabel, FormGroup, Radio, RadioGroup, Stack, Typography } from '@mui/material';
-import { FormEvent, FormEventHandler, memo, useCallback, useEffect, useState } from 'react';
+import { FormEvent, memo, useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
 
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { completeRegistration, updateStudentStatusSearching } from '../../api/onboardingApi';
 import { getStudentScientificInfo } from '../../model/selectors/getStudentScientificInfo';
 import { SearchingStatus } from '@/shared/lib/types/searchingStatus';
 import { StudentSearchingStatus } from '../../model/types/studentStatus';
+import { refreshToken } from '@/entities/User/api/userApi';
+import { UserSecretStorageService } from '@/shared/lib/helpers/userSecretStorage';
+import { userActions } from '@/entities/User';
 
 type StudentSearching = {
     isTeamSearching: boolean;
@@ -25,7 +27,6 @@ interface StudentSearchStatusFormProps {
 
 export const StudentSearchStatusForm = memo(
     ({ onError, onSuccess, onRequestStart, id, initialValues }: StudentSearchStatusFormProps) => {
-        const navigate = useNavigate();
         const dispatch = useAppDispatch();
 
         const studentScientificPortfolio = useSelector(getStudentScientificInfo);
@@ -40,6 +41,7 @@ export const StudentSearchStatusForm = memo(
 
         const [updatedSearchingStatus, { error }] = updateStudentStatusSearching();
         const [completeStudentRegistration] = completeRegistration();
+        const [refreshAccessToken] = refreshToken();
 
         const onSubmitHandler = useCallback(
             async (event: FormEvent<HTMLFormElement>) => {
@@ -51,6 +53,7 @@ export const StudentSearchStatusForm = memo(
                     isTeamSearching: studentSearching.isTeamSearching,
                 };
                 const updateSearchingStatusResponse = await updatedSearchingStatus(values);
+                // TODO: переделать в отдельный action всю пачку запросов
                 if ('error' in updateSearchingStatusResponse) {
                     onError?.();
                 } else {
@@ -58,8 +61,18 @@ export const StudentSearchStatusForm = memo(
                     if ('error' in registrationCompeteResponse) {
                         onError?.();
                     } else {
-                        onSuccess?.();
-                        // navigate('/', {replace: true});
+                        const token = await UserSecretStorageService.get();
+                        if (token) {
+                            const refreshResponse = await refreshAccessToken(token);
+                            if ('error' in refreshResponse) {
+                                onError?.();
+                            } else {
+                                dispatch(userActions.changeRegistration(true));
+                                onSuccess?.();
+                            }
+                        } else {
+                            onError?.();
+                        }
                     }
                 }
             },
