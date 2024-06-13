@@ -1,4 +1,5 @@
-import { ScientificAreas } from '@/features/catalog/Search/api/types';
+import { ScientificArea } from '@/entities/ScientificAreas';
+import { ScientificAreaDto } from '@/entities/ScientificAreas/api/types';
 
 export interface Professor {
     readonly id: string;
@@ -18,7 +19,7 @@ export interface Professor {
     readonly publicationsCount: number;
     readonly workExperienceYears: number;
     readonly scientificInterests: Array<string>;
-    readonly scientificArea: ScientificAreas;
+    readonly scientificArea: ScientificAreaDto[];
     readonly about: string;
     readonly avatarImagePath?: string;
 }

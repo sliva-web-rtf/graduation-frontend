@@ -6,7 +6,6 @@ import { isUserProfessor } from '@/entities/User/model/selectors/getUserRoles/ge
 
 import { useAddToFavoritesMutation } from '@/features/entity/AddRequests/api/addRequestsApi';
 import { BaseButton } from '@/shared/ui/Button/Button';
-import { CatalogOptions } from '@/entities/CatalogList';
 import { CatalogOption } from '@/widgets/Catalog';
 
 interface AddToFavoritesButtonProps {

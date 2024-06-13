@@ -1,5 +1,6 @@
 import { RouteProps } from 'react-router-dom';
 import { Typography } from '@mui/material';
+import { OnboardingPage } from '@/pages/OnboardingPage';
 import { LoginPage } from '@/pages/LoginPage';
 import { CatalogPage } from '@/pages/CatalogPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
@@ -29,6 +30,7 @@ export enum AppRoutes {
     // ManualArticle = 'ManualArticle',
     // About = 'About',
     // Tasks = 'Tasks',
+    Onboarding = 'Onboarding',
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
@@ -39,6 +41,7 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.Students]: '/students/:id',
     [AppRoutes.Manual]: '/manual',
     [AppRoutes.Forbidden]: '/forbidden',
+    [AppRoutes.Onboarding]: '/onboarding',
     [AppRoutes.NotFound]: '*',
     // [AppRoutes.ManualArticle]: '/manual/:id',
     // [AppRoutes.About]: '/about',
@@ -92,6 +95,12 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         element: <NotFoundPage />,
         authOnly: true,
         hasLayout: true,
+    },
+    [AppRoutes.Onboarding]: {
+        path: `${RoutePath.Onboarding}`,
+        element: <OnboardingPage />,
+        authOnly: true,
+        hasLayout: false,
     },
     // [AppRoutes.ManualArticle]: {
     //     path: RoutePath.ManualArticle,

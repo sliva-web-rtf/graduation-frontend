@@ -5,6 +5,7 @@ import { type LoginSchema } from '@/features/auth/AuthByEmail/model/types/loginS
 import { UserSchema } from '@/entities/User';
 import { type CatalogSchema } from '@/widgets/Catalog/model/types/catalogSchema';
 import { baseApi } from '@/shared/api';
+import { OnboardingSchema } from '@/widgets/Onboarding/model/types/onboardingSchema';
 import { ProfessorInfoSchema } from '@/widgets/ProfessorInfo';
 import { StudentInfoSchema } from '@/widgets/StudentInfo';
 import { ManualSchema } from '@/widgets/Manual';
@@ -18,6 +19,7 @@ export interface StateSchema {
     professor?: ProfessorInfoSchema;
     student?: StudentInfoSchema;
     manual?: ManualSchema;
+    onboarding?: OnboardingSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;

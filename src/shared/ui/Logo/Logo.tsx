@@ -1,6 +1,7 @@
 import { Box, Typography } from '@mui/material';
+import { memo } from 'react';
 
-const Logo = () => {
+const Logo = memo(() => {
     const fontFamily = 'Geologica';
     const variant = 'h1';
 
@@ -19,6 +20,6 @@ const Logo = () => {
             </Typography>
         </Box>
     );
-};
+});
 
 export default Logo;

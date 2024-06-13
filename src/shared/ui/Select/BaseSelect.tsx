@@ -11,7 +11,7 @@ const StyledSelect = styled(Select)<SelectProps>(({ theme }) => ({
     '& .MuiOutlinedInput-notchedOutline': {
         border: 'none',
     },
-    '&.Mui-focused': {
+    '&.Mui-focused  .MuiOutlinedInput-notchedOutline': {
         border: `2px solid ${theme.palette.primary.main}`,
     },
     '&.Mui-error': {
@@ -23,7 +23,7 @@ const StyledSelect = styled(Select)<SelectProps>(({ theme }) => ({
     },
 }));
 
-type BaseSelectProps = SelectProps & {
+export type BaseSelectProps = SelectProps & {
     readonly name: string;
     readonly control: any;
     readonly options: Array<string | number>;
@@ -31,7 +31,7 @@ type BaseSelectProps = SelectProps & {
 };
 
 export const BaseSelect = memo((props: BaseSelectProps) => {
-    const { name, control, options, label, helperText, defaultValue } = props;
+    const { name, control, options, label, helperText, defaultValue, ...otherProps } = props;
     return (
         <FormControl fullWidth>
             <InputLabel id={`${name}-label`}>{label}</InputLabel>
@@ -41,7 +41,7 @@ export const BaseSelect = memo((props: BaseSelectProps) => {
                 defaultValue={defaultValue}
                 render={({ field }) => (
                     // eslint-disable-next-line react/jsx-props-no-spreading
-                    <StyledSelect label={label} labelId={`${name}-label`} {...field}>
+                    <StyledSelect {...otherProps} label={label} labelId={`${name}-label`} {...field}>
                         {options.map((option) => (
                             <MenuItem key={option} value={option}>
                                 {option}

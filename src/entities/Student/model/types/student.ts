@@ -1,5 +1,5 @@
-import { ScientificAreas } from '@/features/catalog/Search/api/types';
 import { StudentStatus } from './studentStatus';
+import { ScientificAreaDto } from '@/entities/ScientificAreas/api/types';
 
 export interface Student {
     readonly id: string;
@@ -13,7 +13,7 @@ export interface Student {
     readonly commandSearching: boolean;
     readonly professorSearching: boolean;
     readonly scientificInterests: Array<string>;
-    readonly scientificArea: ScientificAreas;
+    readonly scientificArea: ScientificAreaDto[];
     readonly status: StudentStatus;
     readonly avatarImagePath?: string;
     readonly contacts?: string;

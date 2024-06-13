@@ -8,7 +8,7 @@ import { typography } from './typography';
 export const theme = createTheme({
     palette: {
         background: {
-            default: '#f4f9fd',
+            default: '#F4F9FD',
         },
         primary: {
             main: blue['600'],
