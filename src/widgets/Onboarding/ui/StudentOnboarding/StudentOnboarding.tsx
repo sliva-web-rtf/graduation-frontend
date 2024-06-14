@@ -6,7 +6,7 @@ import { UploadAvatar, useGetAvatar } from '@/features/avatar';
 import { OnboardingFormSkeleton } from '../OnboardingForm.skeleton';
 import { getIsLoadingState } from '../../model/selectors/getLoadingProfileStatus';
 import { getLazyStudentProfile } from '../../api/onboardingApi';
-import { PersonalInfoForm } from '../PersonalInfoForm/PersonalInfoForm';
+import { StudentPersonalInfoForm } from '../StudentPersonalInfoForm/StudentPersonalInfoForm';
 import { StudentScientificPorfolioForm } from '../ScientificPortfolioForm/ScientificPortfolioForm';
 import { StudentSearchStatusForm } from '../SearchStatusForm/SearchStatusForm';
 import { getStudent } from '../../model/selectors/getStudent';
@@ -43,7 +43,7 @@ const StudentOnboarding = memo((props: StudentOnboardingProps) => {
             {student !== undefined && activeTabValue === values[0] && (
                 <Stack direction="row" spacing={4} sx={{ flex: 1 }}>
                     <UploadAvatar isAvatarGetting={isAvatarLoading} url={avatarUrl} />
-                    <PersonalInfoForm
+                    <StudentPersonalInfoForm
                         id={id}
                         onError={() => onError(values[0])}
                         onSuccess={() => onSuccess(values[0], values[1])}

@@ -39,3 +39,27 @@ export type StudentProfileDto = {
     professorSearching: boolean;
     status: SearchingStatus;
 };
+
+export type ProfessorProfileDto = {
+    firstName: string;
+    lastName: string;
+    patronymic: string;
+    email: string;
+    phoneNumber: string;
+    degree: string;
+    year: number;
+    scientificAreaSubsections: string[];
+    scientificInterests: string[];
+    about: string;
+    commandSearching: boolean;
+    professorSearching: boolean;
+    status: SearchingStatus;
+};
+
+export type ProfessorPersonalInfoFormSchemaDto = {
+    firstName: string;
+    lastName: string;
+    patronymic: string;
+    email: string;
+    phone?: string;
+};

@@ -8,6 +8,7 @@ import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/Dynam
 import { onboardingReducer } from '../model/slice/onboardingSlice';
 import { StudentOnboarding } from './StudentOnboarding/StudentOnboarding.async';
 import { getIsLoadingState } from '../model/selectors/getLoadingProfileStatus';
+import ProfessorOnboarding from './ProfessorOnboarding/ProfessorOnboarding.async';
 import { STATUS } from '@/shared/api/status';
 import styles from './Onboarding.module.scss';
 
@@ -77,6 +78,16 @@ export const Onboarding = memo(() => {
                     <Box className={styles.formWrapper}>
                         {user?.roles.includes(Role.Student) && (
                             <StudentOnboarding
+                                id={FORM_ID}
+                                onSuccess={onSuccess}
+                                onError={onError}
+                                onRequestStart={onRequestStart}
+                                activeTabValue={activeTabValue}
+                                values={values}
+                            />
+                        )}
+                        {user?.roles.includes(Role.Professor) && (
+                            <ProfessorOnboarding
                                 id={FORM_ID}
                                 onSuccess={onSuccess}
                                 onError={onError}

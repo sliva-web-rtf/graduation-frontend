@@ -4,7 +4,7 @@ import { AppErrorMapper } from '@/shared/lib/types/mapper.ts/appErrorMapper';
 import { PersonalInfoFormSchema } from '../model/types/personalInfoFormSchema';
 import { updateProfileToDto, validationUpdateProfileErrorsFromDto } from '../lib/updateProfileMapper';
 import { StudentProfile } from '../model/types/studentProfile';
-import { StudentProfileDto } from './types';
+import { ProfessorProfileDto, StudentProfileDto } from './types';
 import { studentProfileFromDto } from '../lib/studentProfileMapper';
 import {
     updateStudentScientificPortfolioToDto,
@@ -16,6 +16,10 @@ import { StudentSearchingStatus } from '../model/types/studentStatus';
 import { updateStudentStatusToDto, validationUpdateStudentStatusErrorsFromDto } from '../lib/studentStatusMapper';
 import { userActions } from '@/entities/User';
 import { STATUS } from '@/shared/api/status';
+import { ProfessorPersonalInfoFormSchema } from '../model/types/professorInfoFormSchema';
+import { updateProfessorProfileToDto } from '../lib/professorPersonaInfoMapper';
+import { professorProfileFromDto } from '../lib/professorProfileMapper';
+import { ProfessorProfile } from '../model/types/professorProfile';
 
 const onboardingApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
@@ -25,6 +29,25 @@ const onboardingApi = baseApi.injectEndpoints({
                 method: 'PUT',
                 body: {
                     ...updateProfileToDto(initialValues),
+                },
+            }),
+            transformErrorResponse: (error: unknown) => {
+                if (isApiError(error)) {
+                    const appError = AppErrorMapper.fromDtoWithValidationSupport(
+                        error,
+                        validationUpdateProfileErrorsFromDto,
+                    );
+                    return appError;
+                }
+                return error;
+            },
+        }),
+        updateProfessorProfileInfo: build.mutation<void, ProfessorPersonalInfoFormSchema>({
+            query: (initialValues) => ({
+                url: '/api/on-boarding/update-profile-info',
+                method: 'PUT',
+                body: {
+                    ...updateProfessorProfileToDto(initialValues),
                 },
             }),
             transformErrorResponse: (error: unknown) => {
@@ -95,6 +118,27 @@ const onboardingApi = baseApi.injectEndpoints({
                 }
             },
         }),
+        getProfessorProfile: build.query<ProfessorProfile, void>({
+            query: () => ({
+                url: '/api/on-boarding/professor-profile',
+            }),
+            onQueryStarted: async (_, api) => {
+                const { dispatch, queryFulfilled } = api;
+                try {
+                    dispatch(onboardingActions.setLoadingState(STATUS.request));
+                    const { data } = await queryFulfilled;
+                    if (data) {
+                        dispatch(onboardingActions.setProfessorUpdatedProfileInfo(data.personalInfo));
+                    }
+                    dispatch(onboardingActions.setLoadingState(STATUS.success));
+                } catch (err) {
+                    dispatch(onboardingActions.setLoadingState(STATUS.failure));
+                    /* empty */
+                }
+            },
+            transformResponse: (professorProfileDto: ProfessorProfileDto) =>
+                professorProfileFromDto(professorProfileDto),
+        }),
         getStudentProfile: build.query<StudentProfile, void>({
             query: () => ({
                 url: '/api/on-boarding/student-profile',
@@ -107,6 +151,7 @@ const onboardingApi = baseApi.injectEndpoints({
                     if (data) {
                         dispatch(onboardingActions.setUpdatedProfileInfo(data.personalInfo));
                         dispatch(onboardingActions.setStudentScientificInfo(data.scientificPorfolio));
+                        dispatch(onboardingActions.setStudentStudentStatus(data.studentStatus));
                     }
                     dispatch(onboardingActions.setLoadingState(STATUS.success));
                 } catch (err) {
@@ -120,7 +165,9 @@ const onboardingApi = baseApi.injectEndpoints({
 });
 
 export const updateProfile = onboardingApi.useUpdateProfileInfoMutation;
+export const updateProfessorProfile = onboardingApi.useUpdateProfessorProfileInfoMutation;
 export const completeRegistration = onboardingApi.useCompleteRegistrationMutation;
 export const updateStudentScientificInfo = onboardingApi.useUpdateStudentScientificInfoMutation;
 export const updateStudentStatusSearching = onboardingApi.useUpdateStudentStatusSearchingMutation;
 export const getLazyStudentProfile = onboardingApi.useLazyGetStudentProfileQuery;
+export const getLazyProfessorProfile = onboardingApi.useLazyGetProfessorProfileQuery;

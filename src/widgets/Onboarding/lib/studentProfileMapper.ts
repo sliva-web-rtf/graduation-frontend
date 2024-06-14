@@ -19,7 +19,7 @@ export function studentProfileFromDto(dto: StudentProfileDto): StudentProfile {
             scienceInterests: dto.scientificInterests,
             about: dto.about,
         },
-        StudentStatus: {
+        studentStatus: {
             isTeamSearching: dto.commandSearching,
             isProfessorSearching: dto.professorSearching,
             status: dto.status,
