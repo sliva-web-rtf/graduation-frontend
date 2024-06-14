@@ -1,22 +1,15 @@
 import { Box, Stack } from '@mui/material';
-import { memo, useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { UploadAvatar, useGetAvatar } from '@/features/avatar';
 import { BaseButton, TabsWithStatus } from '@/shared/ui';
 import { Role, getUserAuthData } from '@/entities/User';
 import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import { PersonalInfoForm } from './PersonalInfoForm/PersonalInfoForm';
 import { onboardingReducer } from '../model/slice/onboardingSlice';
-import { getLazyStudentProfile } from '../api/onboardingApi';
-import { OnboardingFormSkeleton } from './OnboardingForm.skeleton';
+import { StudentOnboarding } from './StudentOnboarding/StudentOnboarding.async';
 import { getIsLoadingState } from '../model/selectors/getLoadingProfileStatus';
-import { StudentProfile } from '../model/types/studentProfile';
-import { StudentScientificPorfolioForm } from './ScientificPortfolioForm/ScientificPortfolioForm';
+import { STATUS } from '@/shared/api/status';
 import styles from './Onboarding.module.scss';
-import { getStudent } from '../model/selectors/getStudent';
-import { StudentSearchStatusForm } from './SearchStatusForm/SearchStatusForm';
 
 const initialReducers: ReducersList = {
     onboarding: onboardingReducer,
@@ -29,13 +22,8 @@ const ERROR_TEXT = 'Произошла ошибка';
 const FORM_ID = 'onboarding-form';
 
 export const Onboarding = memo(() => {
-    const dispatch = useAppDispatch();
     const user = useSelector(getUserAuthData);
-    const student = useSelector(getStudent);
     const isProfileLoading = useSelector(getIsLoadingState);
-
-    const { data: avatarUrl, isLoading: isAvatarLoading } = useGetAvatar();
-    const [getStudentProfile] = getLazyStudentProfile();
 
     const [isLoading, setIsLoading] = useState(false);
     const [activeTabValue, setActiveTabValue] = useState<(typeof values)[number]>(values[0]);
@@ -74,12 +62,6 @@ export const Onboarding = memo(() => {
         setErrors(null);
     }, [setIsLoading]);
 
-    useEffect(() => {
-        if (user?.roles.includes(Role.Student)) {
-            getStudentProfile();
-        }
-    }, [dispatch, getStudentProfile, user]);
-
     return (
         <DynamicModuleLoader removeAfterUnmount reducers={initialReducers}>
             <Box>
@@ -93,41 +75,20 @@ export const Onboarding = memo(() => {
                 />
                 <Stack spacing={2} className={styles.formsContainer}>
                     <Box className={styles.formWrapper}>
-                        {isProfileLoading && <OnboardingFormSkeleton />}
-                        {!isProfileLoading && activeTabValue === values[0] && (
-                            <Stack direction="row" spacing={4} sx={{ flex: 1 }}>
-                                <UploadAvatar isAvatarGetting={isAvatarLoading} url={avatarUrl} />
-                                <PersonalInfoForm
-                                    id={FORM_ID}
-                                    onError={() => onError(values[0])}
-                                    onSuccess={() => onSuccess(values[0], values[1])}
-                                    onRequestStart={onRequestStart}
-                                    initialValues={student?.personalInfo}
-                                />
-                            </Stack>
-                        )}
-                        {!isProfileLoading && activeTabValue === values[1] && (
-                            <StudentScientificPorfolioForm
+                        {user?.roles.includes(Role.Student) && (
+                            <StudentOnboarding
                                 id={FORM_ID}
-                                onError={() => onError(values[1])}
-                                onSuccess={() => onSuccess(values[1], values[2])}
+                                onSuccess={onSuccess}
+                                onError={onError}
                                 onRequestStart={onRequestStart}
-                                initialValues={student?.scientificPorfolio}
-                            />
-                        )}
-                        {!isProfileLoading && activeTabValue === values[2] && (
-                            <StudentSearchStatusForm
-                                id={FORM_ID}
-                                onError={() => onError(values[2])}
-                                onSuccess={() => onSuccess(values[2])}
-                                onRequestStart={onRequestStart}
-                                initialValues={student?.studentStatus}
+                                activeTabValue={activeTabValue}
+                                values={values}
                             />
                         )}
                     </Box>
                     <Stack className={styles.actionsContainer} direction="row-reverse" justifyContent="space-between">
                         <BaseButton
-                            disabled={isLoading || isProfileLoading}
+                            disabled={isLoading || isProfileLoading === STATUS.request}
                             type="submit"
                             form={FORM_ID}
                             variant="contained"

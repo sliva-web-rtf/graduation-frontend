@@ -15,6 +15,7 @@ import { onboardingActions } from '../model/slice/onboardingSlice';
 import { StudentSearchingStatus } from '../model/types/studentStatus';
 import { updateStudentStatusToDto, validationUpdateStudentStatusErrorsFromDto } from '../lib/studentStatusMapper';
 import { userActions } from '@/entities/User';
+import { STATUS } from '@/shared/api/status';
 
 const onboardingApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
@@ -101,16 +102,16 @@ const onboardingApi = baseApi.injectEndpoints({
             onQueryStarted: async (_, api) => {
                 const { dispatch, queryFulfilled } = api;
                 try {
-                    dispatch(onboardingActions.setLoadingState(true));
+                    dispatch(onboardingActions.setLoadingState(STATUS.request));
                     const { data } = await queryFulfilled;
                     if (data) {
                         dispatch(onboardingActions.setUpdatedProfileInfo(data.personalInfo));
                         dispatch(onboardingActions.setStudentScientificInfo(data.scientificPorfolio));
                     }
+                    dispatch(onboardingActions.setLoadingState(STATUS.success));
                 } catch (err) {
+                    dispatch(onboardingActions.setLoadingState(STATUS.failure));
                     /* empty */
-                } finally {
-                    dispatch(onboardingActions.setLoadingState(false));
                 }
             },
             transformResponse: (studentProfileDto: StudentProfileDto) => studentProfileFromDto(studentProfileDto),

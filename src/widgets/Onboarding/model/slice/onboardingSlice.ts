@@ -3,9 +3,10 @@ import { OnboardingSchema } from '../types/onboardingSchema';
 import { PersonalInfoFormSchema } from '../types/personalInfoFormSchema';
 import { ScientificFormSchema } from '../types/scientificFormSchema';
 import { StudentSearchingStatus } from '../types/studentStatus';
+import { STATUS } from '@/shared/api/status';
 
 const initialState: OnboardingSchema = {
-    isProfileLoading: false,
+    isProfileLoading: STATUS.initial,
 };
 
 export const onboardingSlice = createSlice({
@@ -21,7 +22,7 @@ export const onboardingSlice = createSlice({
         setStudentStudentStatus: (state, action: PayloadAction<StudentSearchingStatus | undefined>) => {
             state.studentStatus = action.payload;
         },
-        setLoadingState: (state, action: PayloadAction<boolean>) => {
+        setLoadingState: (state, action: PayloadAction<STATUS>) => {
             state.isProfileLoading = action.payload;
         },
     },
