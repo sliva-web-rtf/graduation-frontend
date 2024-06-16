@@ -1,12 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { UserSecretStorageService } from 'shared/lib/helpers/userSecretStorage';
-import { STATUS } from 'shared/api/status';
+import { UserSecretStorageService } from '@/shared/lib/helpers/userSecretStorage';
+import { STATUS } from '@/shared/api/status';
 import { UserSchema } from '../types/user';
 import { actions } from '../actions';
 
 const initialState: UserSchema = {
     userStatus: STATUS.initial,
-    refreshTokenStatus: STATUS.initial,
     isInited: false,
 };
 
@@ -17,7 +16,6 @@ export const userSlice = createSlice({
         logout: (state) => {
             state.authData = undefined;
             state.userStatus = STATUS.initial;
-            state.refreshTokenStatus = STATUS.initial;
             state.userError = undefined;
             state.tokenError = undefined;
             state.isInited = true;
@@ -25,6 +23,11 @@ export const userSlice = createSlice({
         },
         setInitValue: (state, action: PayloadAction<boolean>) => {
             state.isInited = action.payload;
+        },
+        changeRegistration: (state, action: PayloadAction<boolean>) => {
+            if (state.authData) {
+                state.authData.isRegistrationComplete = action.payload;
+            }
         },
     },
     extraReducers: (builder) => {
@@ -42,17 +45,6 @@ export const userSlice = createSlice({
                 state.userStatus = STATUS.failure;
                 state.userError = payload;
                 state.isInited = true;
-            })
-            .addCase(actions.requestRefresh, (state) => {
-                state.refreshTokenStatus = STATUS.request;
-                state.tokenError = undefined;
-            })
-            .addCase(actions.successRefresh, (state) => {
-                state.refreshTokenStatus = STATUS.success;
-            })
-            .addCase(actions.failureRefresh, (state, { payload }) => {
-                state.refreshTokenStatus = STATUS.failure;
-                state.tokenError = payload;
             });
     },
 });

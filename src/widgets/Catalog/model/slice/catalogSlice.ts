@@ -1,16 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CatalogSchema } from 'widgets/Catalog/model/types/catalogSchema';
-import { CatalogOptions } from 'entities/CatalogList';
+import { CatalogSchema } from '@/widgets/Catalog/model/types/catalogSchema';
+import { CatalogOption } from '../types/catalogOption';
 
-const initialState: CatalogSchema = {
-    option: CatalogOptions.Themes,
-    options: Object.values(CatalogOptions),
+export const initialState: CatalogSchema = {
+    option: CatalogOption.Themes,
+    options: Object.values(CatalogOption),
     page: 1,
     pageSize: 5,
     pagesCount: {
-        [CatalogOptions.Professors]: 1,
-        [CatalogOptions.Themes]: 1,
-        [CatalogOptions.Students]: 1,
+        [CatalogOption.Professors]: 1,
+        [CatalogOption.Themes]: 1,
+        [CatalogOption.Students]: 1,
     },
     scientificInterests: [],
     scientificAreas: [],
@@ -23,6 +23,9 @@ export const catalogSlice = createSlice({
     reducers: {
         setOption: (state, action: PayloadAction<CatalogSchema['option']>) => {
             state.option = action.payload;
+        },
+        setOptions: (state, action: PayloadAction<CatalogSchema['options']>) => {
+            state.options = action.payload;
         },
         setPage: (state, action: PayloadAction<CatalogSchema['page']>) => {
             state.page = action.payload;

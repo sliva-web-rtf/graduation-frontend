@@ -1,6 +1,6 @@
-import { Student, StudentSummary } from 'entities/Student';
 import { Paper, Stack, Typography } from '@mui/material';
 import GroupIcon from '@mui/icons-material/Group';
+import { Student, StudentSummary } from '@/entities/Student';
 
 interface ScientificWorkStudentsProps {
     readonly fullness: number;

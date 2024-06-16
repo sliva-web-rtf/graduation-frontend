@@ -1,4 +1,4 @@
-import { STATUS } from 'shared/api/status';
+import { STATUS } from '@/shared/api/status';
 import { Role } from './role';
 
 export interface User {
@@ -15,6 +15,5 @@ export interface UserSchema {
     userError?: string;
     tokenError?: string;
     userStatus: STATUS;
-    refreshTokenStatus: STATUS;
     isInited: boolean;
 }

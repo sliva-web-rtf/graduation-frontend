@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
-import { Login } from 'entities/User';
-import { AppError } from 'shared/lib/types/appError';
+import { Login } from '@/entities/User';
+import { AppError } from '@/shared/lib/types/appError';
 
 const name = 'login';
 

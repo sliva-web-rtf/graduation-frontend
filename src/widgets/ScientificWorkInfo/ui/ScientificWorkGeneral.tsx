@@ -1,10 +1,10 @@
 import { memo } from 'react';
 import { Grid, Stack, Typography } from '@mui/material';
-import { InfoCard, InfoInterests } from 'shared/ui';
-import { getFormattedScientificArea } from 'shared/lib/helpers/getFormattedScientificArea';
-import { ScientificAreas } from 'features/catalog/Search/api/types';
-import { ScientificWorkStudents } from 'widgets/ScientificWorkInfo/ui/ScientificWorkStudents';
-import { Student } from 'entities/Student';
+import { InfoCard, InfoInterests } from '@/shared/ui';
+import { getFormattedScientificArea } from '@/shared/lib/helpers/getFormattedScientificArea';
+import { ScientificWorkStudents } from '@/widgets/ScientificWorkInfo/ui/ScientificWorkStudents';
+import { Student } from '@/entities/Student';
+import { ScientificAreaDto } from '@/entities/ScientificAreas/api/types';
 
 interface ScientificWorkGeneralProps {
     readonly description: string;
@@ -12,7 +12,7 @@ interface ScientificWorkGeneralProps {
     readonly fullness: number;
     readonly limit: number;
     readonly students: Array<Student>;
-    readonly scientificArea?: ScientificAreas;
+    readonly scientificArea?: ScientificAreaDto[];
     readonly scientificInterests?: Array<string>;
 }
 

@@ -1,13 +1,13 @@
-import { CatalogOptions } from 'entities/CatalogList';
-import { RoutePath } from 'app/providers/Router/config/routeConfig';
+import { RoutePath } from '@/app/providers/Router/config/routeConfig';
+import { CatalogOption } from '@/widgets/Catalog';
 
-export const getParentLink = (option: CatalogOptions) => {
+export const getParentLink = (option: CatalogOption) => {
     let path = '';
     switch (option) {
-        case CatalogOptions.Professors:
+        case CatalogOption.Professors:
             path = RoutePath.Professors;
             break;
-        case CatalogOptions.Themes:
+        case CatalogOption.Themes:
             path = RoutePath.ScientificWork;
             break;
         default:

@@ -1,14 +1,14 @@
 import { memo, useCallback } from 'react';
 import { Paper, Stack } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import Logo from 'shared/ui/Logo/Logo';
-import { BaseButton } from 'shared/ui/Button/Button';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
-import { MenuBar } from 'widgets/MenuBar';
-import { NavigationMenu } from 'widgets/NavigationMenu';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { userActions } from 'entities/User';
-import { RoutePath } from 'app/providers/Router/config/routeConfig';
+import Logo from '@/shared/ui/Logo/Logo';
+import { BaseButton } from '@/shared/ui/Button/Button';
+import { MenuBar } from '@/widgets/MenuBar';
+import { NavigationMenu } from '@/widgets/NavigationMenu';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { userActions } from '@/entities/User';
+import { RoutePath } from '@/app/providers/Router/config/routeConfig';
 import styles from './Sidebar.module.scss';
 
 export const Sidebar = memo(() => {
@@ -18,15 +18,11 @@ export const Sidebar = memo(() => {
     const handleLogoutButtonClick = useCallback(async () => {
         dispatch(userActions.logout());
         navigate(RoutePath.Login, { replace: true });
+        window.location.reload();
     }, [dispatch, navigate]);
 
     return (
-        <Stack
-            component={Paper}
-            className={styles.wrapper}
-            sx={{ borderRadius: 3, py: 4, pl: 1 }}
-            justifyContent="space-between"
-        >
+        <Stack component={Paper} className={styles.wrapper} sx={{ py: 4, pl: 1 }} justifyContent="space-between">
             <Stack spacing={2}>
                 <Logo />
                 <MenuBar sx={{ pr: 1 }} />

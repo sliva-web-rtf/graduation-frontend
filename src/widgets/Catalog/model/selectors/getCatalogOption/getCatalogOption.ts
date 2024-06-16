@@ -1,3 +1,4 @@
-import { StateSchema } from 'app/providers/StoreProvider';
+import { StateSchema } from '@/app/providers/StoreProvider';
+import { initialState } from '../../slice/catalogSlice';
 
-export const getCatalogOption = (state: StateSchema) => state.catalog.option;
+export const getCatalogOption = (state: StateSchema) => state.catalog?.option || initialState.option;

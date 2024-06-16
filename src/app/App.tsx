@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import { getUserInited } from 'entities/User';
-import { getUser } from 'entities/User/model/services/getUser';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { getUserInited } from '@/entities/User';
+import { getUser } from '@/entities/User/model/services/getUser';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 import { AppRouter } from './providers/Router';
 
