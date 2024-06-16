@@ -5,12 +5,18 @@ import { useSelector } from 'react-redux';
 import { ProfessorCard, useGetProfessorQuery } from '@/entities/Professor';
 import { ToggleProfessorInfo } from '@/features/professor/ToggleInfo';
 import { AddProfessorButton, AddToFavoritesButton } from '@/features/entity/AddRequests';
-import { CatalogOptions } from '@/entities/CatalogList';
+import { CatalogOption } from '@/widgets/Catalog';
+import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+import { professorInfoReducer } from '../model/slice/professorInfoSlice';
 import { ToggleOptions } from '../model/types/toggleOptions';
 import { ProfessorInfoSkeleton } from './ProfessorInfo.skeleton';
 import { getProfessorInfoOption } from '../model/selectors/getProfessorInfoOption/getProfessorInfoOption';
 import { ProfessorPortfolio } from './ProfessorPortfolio';
 import { ProfessorThemes } from './ProfessorThemes';
+
+const initialReducers: ReducersList = {
+    professor: professorInfoReducer,
+};
 
 export const ProfessorInfo = memo(() => {
     const { id } = useParams();
@@ -27,30 +33,32 @@ export const ProfessorInfo = memo(() => {
     }
 
     return (
-        <Grid container gap={3}>
-            <Grid item xs={2.8}>
-                <Stack spacing={3}>
-                    <ProfessorCard {...data} />
-                    <Stack spacing={1} alignItems="center">
-                        <AddProfessorButton id={id!} canJoin={data.canJoin} />
-                        <AddToFavoritesButton
-                            id={id!}
-                            isFavorite={data.isFavorite}
-                            option={CatalogOptions.Professors}
-                        />
+        <DynamicModuleLoader removeAfterUnmount reducers={initialReducers}>
+            <Grid container gap={3}>
+                <Grid item xs={2.8}>
+                    <Stack spacing={3}>
+                        <ProfessorCard {...data} />
+                        <Stack spacing={1} alignItems="center">
+                            <AddProfessorButton id={id!} canJoin={data.canJoin} />
+                            <AddToFavoritesButton
+                                id={id!}
+                                isFavorite={data.isFavorite}
+                                option={CatalogOption.Professors}
+                            />
+                        </Stack>
                     </Stack>
-                </Stack>
+                </Grid>
+                <Grid item xs>
+                    <Stack spacing={4} alignItems="flex-start">
+                        <ToggleProfessorInfo />
+                        {option === ToggleOptions.Portfolio ? (
+                            <ProfessorPortfolio {...data} />
+                        ) : (
+                            <ProfessorThemes id={id!} />
+                        )}
+                    </Stack>
+                </Grid>
             </Grid>
-            <Grid item xs>
-                <Stack spacing={4} alignItems="flex-start">
-                    <ToggleProfessorInfo />
-                    {option === ToggleOptions.Portfolio ? (
-                        <ProfessorPortfolio {...data} />
-                    ) : (
-                        <ProfessorThemes id={id!} />
-                    )}
-                </Stack>
-            </Grid>
-        </Grid>
+        </DynamicModuleLoader>
     );
 });

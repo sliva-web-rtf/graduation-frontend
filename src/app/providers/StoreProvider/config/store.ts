@@ -13,9 +13,6 @@ export function createReduxStore(initialState?: StateSchema, asyncReducers?: Red
     const rootReducers: ReducersMapObject<StateSchema> = {
         ...asyncReducers,
         user: userReducer,
-        catalog: catalogReducer,
-        professor: professorInfoReducer,
-        student: studentInfoReducer,
         [baseApi.reducerPath]: baseApi.reducer,
     };
 

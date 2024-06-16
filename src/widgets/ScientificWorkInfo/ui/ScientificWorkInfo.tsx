@@ -1,10 +1,10 @@
 import { memo } from 'react';
 import { Grid, Stack, Typography } from '@mui/material';
 import { useParams } from 'react-router-dom';
-import { AddToFavoritesButton } from '@/features/entity/AddRequests';
+import { AddScientificWorkButton, AddToFavoritesButton } from '@/features/entity/AddRequests';
 import { ScientificWorkCard } from '@/entities/ScientificWork/ui/ScientificWorkCard';
 import { useGetScientificWorkQuery } from '@/entities/ScientificWork';
-import { CatalogOptions } from '@/entities/CatalogList';
+import { CatalogOption } from '@/widgets/Catalog';
 import { ScientificWorkInfoSkeleton } from './ScientificWorkInfo.skeleton';
 import { ScientificWorkGeneral } from './ScientificWorkGeneral';
 
@@ -27,7 +27,8 @@ export const ScientificWorkInfo = memo(() => {
                 <Stack spacing={3}>
                     <ScientificWorkCard {...data} />
                     <Stack spacing={1} alignItems="center">
-                        <AddToFavoritesButton id={id!} isFavorite={data.isFavorite} option={CatalogOptions.Themes} />
+                        <AddToFavoritesButton id={id!} isFavorite={data.isFavorite} option={CatalogOption.Themes} />
+                        <AddScientificWorkButton id={id!} canJoin={data.canJoin} />
                     </Stack>
                 </Stack>
             </Grid>

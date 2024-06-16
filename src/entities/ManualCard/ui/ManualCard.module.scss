@@ -7,17 +7,3 @@
 .card a {
   transition: unset;
 }
-
-.card:hover {
-  background-color: var(--light-primary-color);
-  color: #fff;
-}
-
-.card:hover .icon,
-.hoverText {
-  display: none;
-}
-
-.card:hover .hoverText, {
-  display: unset;
-}

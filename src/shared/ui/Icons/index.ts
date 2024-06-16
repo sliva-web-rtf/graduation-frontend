@@ -1,0 +1,15 @@
+export { AtomIcon } from './AtomIcon';
+export { ServerIcon } from './ServerIcon';
+export { FlaskIcon } from './FlaskIcon';
+export { ConferencesIcon } from './ConferencesIcon';
+export { WebIcon } from './WebIcon';
+export { GitCompareIcon } from './GitCompareIcon';
+export { OpenBookIcon } from './OpenBookIcon';
+export { UrfuIcon } from './UrfuIcon';
+export { ArchiveIcon } from './ArchiveIcon';
+export { GlobeIcon } from './GlobeIcon';
+export { JournalIcon } from './JournalIcon';
+export { TaskListIcon } from './TaskListIcon';
+export { DatabaseIcon } from './DatabaseIcon';
+export { BookIcon } from './BookIcon';
+export { AccessebilityIcon } from './AccessebilityIcon';

@@ -2,16 +2,16 @@ import { Professor } from '@/entities/Professor';
 import { ScientificWork } from '@/entities/ScientificWork';
 import { Student } from '@/entities/Student';
 import { ICatalogCard } from '@/entities/CatalogCard/model/types/ICatalogCard';
-import { CatalogOptions } from '@/entities/CatalogList';
+import { CatalogOption } from '@/widgets/Catalog';
 
 const getCatalogOption = (dto: Professor | ScientificWork | Student) => {
     if ('workStatus' in dto) {
-        return CatalogOptions.Themes;
+        return CatalogOption.Themes;
     }
     if ('fullness' in dto) {
-        return CatalogOptions.Professors;
+        return CatalogOption.Professors;
     }
-    return CatalogOptions.Students;
+    return CatalogOption.Students;
 };
 
 export const transformDtoForCatalogCard = (dto: Professor | ScientificWork | Student): ICatalogCard => ({

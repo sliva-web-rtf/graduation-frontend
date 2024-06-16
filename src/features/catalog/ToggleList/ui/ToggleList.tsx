@@ -10,7 +10,6 @@ export const ToggleList = memo(() => {
     const value = useSelector(getCatalogOption);
     const dispatch = useAppDispatch();
     const options = useSelector(getCatalogOptions);
-    const isProfessor = useSelector(isUserProfessor);
 
     const handleChange = useCallback(
         (_: MouseEvent<HTMLElement>, newAlignment: typeof value) => {
@@ -22,12 +21,5 @@ export const ToggleList = memo(() => {
         [dispatch],
     );
 
-    return (
-        <ToggleButtons
-            exclusive
-            onChange={handleChange}
-            value={value}
-            options={isProfessor ? options.slice(1) : options}
-        />
-    );
+    return <ToggleButtons exclusive onChange={handleChange} value={value} options={options} />;
 });

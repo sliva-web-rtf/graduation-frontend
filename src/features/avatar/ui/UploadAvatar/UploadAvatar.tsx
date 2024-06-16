@@ -27,7 +27,7 @@ export const UploadAvatar = memo(
                 const { files } = event.target;
                 if (files != null) {
                     const maxSize = 1024 * 1024 * MAX_AVATAR_MB_SIZE;
-                    if (maxSize > files[0]?.size ?? maxSize) {
+                    if (maxSize > files[0]?.size || maxSize) {
                         uploadAvatar(files[0]);
                     } else {
                         toast.error(`Максимальный размер картинки должно составлять менее ${MAX_AVATAR_MB_SIZE} МБ.`);

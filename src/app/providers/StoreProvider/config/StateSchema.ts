@@ -8,16 +8,17 @@ import { baseApi } from '@/shared/api';
 import { OnboardingSchema } from '@/widgets/Onboarding/model/types/onboardingSchema';
 import { ProfessorInfoSchema } from '@/widgets/ProfessorInfo';
 import { StudentInfoSchema } from '@/widgets/StudentInfo';
+import { ManualSchema } from '@/widgets/Manual';
 
 export interface StateSchema {
     user: UserSchema;
-    catalog: CatalogSchema;
-    professor: ProfessorInfoSchema;
-    student: StudentInfoSchema;
     [baseApi.reducerPath]: ReturnType<typeof baseApi.reducer>;
 
-    // Асинхронные редюсеры
     loginForm?: LoginSchema;
+    catalog?: CatalogSchema;
+    professor?: ProfessorInfoSchema;
+    student?: StudentInfoSchema;
+    manual?: ManualSchema;
     onboarding?: OnboardingSchema;
 }
 

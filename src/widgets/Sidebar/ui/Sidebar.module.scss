@@ -1,3 +1,7 @@
 .wrapper {
+  position: sticky;
+  top: var(--space-m);
+  align-self: flex-start;
   height: var(--sidebar-height);
+  border-radius: var(--space-l) !important;
 }

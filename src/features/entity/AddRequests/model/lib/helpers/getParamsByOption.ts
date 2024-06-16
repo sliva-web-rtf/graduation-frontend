@@ -1,15 +1,15 @@
-import { CatalogOptions } from '@/entities/CatalogList';
+import { CatalogOption } from '@/widgets/Catalog';
 
-export const getParamsByOption = (option: CatalogOptions) => {
+export const getParamsByOption = (option: CatalogOption) => {
     let endpoint = 'student';
     let param = 'studentId';
 
     switch (option) {
-        case CatalogOptions.Professors:
+        case CatalogOption.Professors:
             endpoint = 'professor';
             param = 'professorId';
             break;
-        case CatalogOptions.Themes:
+        case CatalogOption.Themes:
             endpoint = 'scientific-work';
             param = 'scientificWorksId';
             break;

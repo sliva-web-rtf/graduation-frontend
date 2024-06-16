@@ -1,12 +1,12 @@
-import { CatalogOptions } from '@/entities/CatalogList';
+import { CatalogOption } from './catalogOption';
 import { ScientificArea } from '@/entities/ScientificAreas';
 
 export interface CatalogSchema {
-    option: CatalogOptions;
-    options: Array<CatalogOptions>;
+    option: CatalogOption;
+    options: Array<CatalogOption>;
     page: number;
     pageSize: number;
-    pagesCount: Record<CatalogOptions, number>;
+    pagesCount: Record<CatalogOption, number>;
     scientificInterests: Array<string>;
     scientificAreas: Array<ScientificArea>;
     isFavoriteFilterOnly: boolean;

@@ -18,3 +18,5 @@ export * from './InfoCard/InfoCard';
 export * from './InfoInterests/InfoInterests';
 export * from './Select/BaseSelect';
 export * from './TabsWithStatus/TabsWithStatus';
+export * from './Select/BaseSelect';
+export * from './Icons';

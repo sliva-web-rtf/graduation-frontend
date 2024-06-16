@@ -1,11 +1,21 @@
-import { BaseButton } from '@/shared/ui/Button/Button';
+import { memo } from 'react';
+import { BaseLoadingButton } from '@/shared/ui/Button/Button';
+import { useAddScientificWorkMutation } from '../api/addRequestsApi';
 
-export const AddScientificWorkButton = (props: any) => {
-    const handleClick = () => console.log('sended');
+interface AddScientificWorkButtonProps {
+    readonly id: string;
+    readonly canJoin: boolean;
+}
+
+export const AddScientificWorkButton = memo((props: AddScientificWorkButtonProps) => {
+    const { id, canJoin } = props;
+    const [addScientificWork, { isLoading }] = useAddScientificWorkMutation();
+
+    const handleSubmit = () => addScientificWork({ scientificWorkId: id });
 
     return (
-        <BaseButton variant="contained" {...props}>
+        <BaseLoadingButton variant="contained" disabled={!canJoin} loading={isLoading} onClick={handleSubmit}>
             Оформить заявку
-        </BaseButton>
+        </BaseLoadingButton>
     );
-};
+});

@@ -1,7 +1,7 @@
-import { CatalogOptions } from './catalogOptions';
+import { CatalogOption } from '@/widgets/Catalog';
 
 export interface CatalogRequest {
-    option: CatalogOptions;
+    option: CatalogOption;
     params: {
         page: number;
         pageSize: number;

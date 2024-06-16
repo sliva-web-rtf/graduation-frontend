@@ -1,33 +1,59 @@
-import { Stack } from '@mui/material';
-import { memo } from 'react';
+import { Stack, Typography } from '@mui/material';
+import { memo, useEffect, useRef, useState } from 'react';
 import { BaseChip } from '@/shared/ui';
 
 interface ChipsGroupProps {
     readonly chips: Array<string>;
-    readonly maxCount: number;
 }
 
 export const ChipsGroup = memo((props: ChipsGroupProps) => {
-    const { chips, maxCount } = props;
+    const { chips } = props;
 
-    const visibleChips = chips.slice(0, maxCount);
-    const hiddenCount = chips.length - visibleChips.length;
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [visibleChips, setVisibleChips] = useState(chips);
+    const [hiddenCount, setHiddenCount] = useState(0);
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (!containerRef.current) return;
+
+            const containerWidth = containerRef.current.offsetWidth;
+            let totalWidth = 0;
+            let visibleChipsCount = 0;
+
+            for (let i = 0; i < chips.length; i += 1) {
+                const chipElement = containerRef.current.children[i] as HTMLElement;
+                const chipWidth = chipElement?.offsetWidth ?? 0;
+
+                if (totalWidth + chipWidth > containerWidth - 80) {
+                    break;
+                }
+
+                totalWidth += chipWidth;
+                visibleChipsCount += 1;
+            }
+
+            setVisibleChips(chips.slice(0, visibleChipsCount));
+            setHiddenCount(chips.length - visibleChipsCount);
+        };
+
+        handleResize();
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, [chips]);
 
     return (
-        <Stack direction="row" gap={0.5} flexWrap="wrap">
+        <Stack direction="row" gap={1} ref={containerRef}>
             {visibleChips.map((item) => (
                 <BaseChip key={item} variant="outlined" label={item} />
             ))}
             {hiddenCount > 0 && (
-                <BaseChip
-                    variant="filled"
-                    sx={{
-                        color: 'secondary.main',
-                        backgroundColor: 'transparent',
-                        padding: 0,
-                    }}
-                    label={`Eще ${hiddenCount}...`}
-                />
+                <Typography variant="subtitle2" color="secondary" alignSelf="center">
+                    Eще {hiddenCount}...
+                </Typography>
             )}
         </Stack>
     );

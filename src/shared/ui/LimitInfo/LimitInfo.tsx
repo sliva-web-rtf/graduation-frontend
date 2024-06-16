@@ -12,7 +12,7 @@ export const LimitInfo = (props: LimitInfoProps) => {
     if (!fullness && !limit) return null;
 
     return (
-        <Stack direction="row" spacing={1} justifyContent="flex-end" pb={3}>
+        <Stack direction="row" spacing={1} justifyContent="flex-end">
             <Typography variant={variant} color="secondary">
                 Лимит
             </Typography>
