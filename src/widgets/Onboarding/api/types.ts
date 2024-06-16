@@ -47,13 +47,17 @@ export type ProfessorProfileDto = {
     email: string;
     phoneNumber: string;
     degree: string;
-    year: number;
+    workExperienceYears: number;
     scientificAreaSubsections: string[];
     scientificInterests: string[];
     about: string;
-    commandSearching: boolean;
-    professorSearching: boolean;
-    status: SearchingStatus;
+    urpUri: string;
+    scopusUri: string;
+    riscUri: string;
+    post: string;
+    address: string;
+    limit: number;
+    searchStatus: SearchingStatus;
 };
 
 export type ProfessorPersonalInfoFormSchemaDto = {
@@ -62,4 +66,22 @@ export type ProfessorPersonalInfoFormSchemaDto = {
     patronymic: string;
     email: string;
     phone?: string;
+};
+
+export type ProfessorScientificInfoDto = {
+    degree: string;
+    workExperienceYears: number;
+    scientificAreaSubsections: string[];
+    scientificInterests: string[];
+    about: string;
+    urpUri: string;
+    scopusUri: string;
+    riscUri: string;
+    post: string;
+    address: string;
+};
+
+export type ProfessorStatusDto = {
+    limit: number;
+    searchStatus: SearchingStatus;
 };

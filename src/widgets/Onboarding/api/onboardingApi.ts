@@ -20,6 +20,13 @@ import { ProfessorPersonalInfoFormSchema } from '../model/types/professorInfoFor
 import { updateProfessorProfileToDto } from '../lib/professorPersonaInfoMapper';
 import { professorProfileFromDto } from '../lib/professorProfileMapper';
 import { ProfessorProfile } from '../model/types/professorProfile';
+import { ProfessorScientificFormSchema } from '../model/types/professorScientificFormSchema';
+import {
+    updateProfessorScientificPortfolioToDto,
+    validationProfessorScientificPortfolioErrorsFromDto,
+} from '../lib/professorScientificInfoMapper';
+import { ProfessorSearchingStatus } from '../model/types/professorStatus';
+import { updateProfessorStatusToDto, validationUpdateProfessorStatusErrorsFromDto } from '../lib/professorStatusMapper';
 
 const onboardingApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
@@ -80,6 +87,25 @@ const onboardingApi = baseApi.injectEndpoints({
                 return error;
             },
         }),
+        updateProfessorStatusSearching: build.mutation<void, ProfessorSearchingStatus>({
+            query: (initialValues) => ({
+                url: '/api/on-boarding/update-professor-status',
+                method: 'PUT',
+                body: {
+                    ...updateProfessorStatusToDto(initialValues),
+                },
+            }),
+            transformErrorResponse: (error: unknown) => {
+                if (isApiError(error)) {
+                    const appError = AppErrorMapper.fromDtoWithValidationSupport(
+                        error,
+                        validationUpdateProfessorStatusErrorsFromDto,
+                    );
+                    return appError;
+                }
+                return error;
+            },
+        }),
         updateStudentScientificInfo: build.mutation<void, ScientificFormSchema>({
             query: (initialValues) => ({
                 url: '/api/on-boarding/update-scientific-portfolio',
@@ -93,6 +119,25 @@ const onboardingApi = baseApi.injectEndpoints({
                     const appError = AppErrorMapper.fromDtoWithValidationSupport(
                         error,
                         validationStudentScientificPortfolioErrorsFromDto,
+                    );
+                    return appError;
+                }
+                return error;
+            },
+        }),
+        updateProfessorScientificInfo: build.mutation<void, ProfessorScientificFormSchema>({
+            query: (initialValues) => ({
+                url: '/api/on-boarding/update-professor-scientific-portfolio',
+                method: 'PUT',
+                body: {
+                    ...updateProfessorScientificPortfolioToDto(initialValues),
+                },
+            }),
+            transformErrorResponse: (error: unknown) => {
+                if (isApiError(error)) {
+                    const appError = AppErrorMapper.fromDtoWithValidationSupport(
+                        error,
+                        validationProfessorScientificPortfolioErrorsFromDto,
                     );
                     return appError;
                 }
@@ -129,6 +174,7 @@ const onboardingApi = baseApi.injectEndpoints({
                     const { data } = await queryFulfilled;
                     if (data) {
                         dispatch(onboardingActions.setProfessorUpdatedProfileInfo(data.personalInfo));
+                        dispatch(onboardingActions.setProfessorScientificPortfolio(data.scientificPorfolio));
                     }
                     dispatch(onboardingActions.setLoadingState(STATUS.success));
                 } catch (err) {
@@ -171,3 +217,5 @@ export const updateStudentScientificInfo = onboardingApi.useUpdateStudentScienti
 export const updateStudentStatusSearching = onboardingApi.useUpdateStudentStatusSearchingMutation;
 export const getLazyStudentProfile = onboardingApi.useLazyGetStudentProfileQuery;
 export const getLazyProfessorProfile = onboardingApi.useLazyGetProfessorProfileQuery;
+export const updateProfessorScientificInfo = onboardingApi.useUpdateProfessorScientificInfoMutation;
+export const updateProfessorStatusSearching = onboardingApi.useUpdateProfessorStatusSearchingMutation;

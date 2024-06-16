@@ -8,7 +8,7 @@ import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/Dynam
 import { onboardingReducer } from '../model/slice/onboardingSlice';
 import { StudentOnboarding } from './StudentOnboarding/StudentOnboarding.async';
 import { getIsLoadingState } from '../model/selectors/getLoadingProfileStatus';
-import ProfessorOnboarding from './ProfessorOnboarding/ProfessorOnboarding.async';
+import { ProfessorOnboarding } from './ProfessorOnboarding/ProfessorOnboarding.async';
 import { STATUS } from '@/shared/api/status';
 import styles from './Onboarding.module.scss';
 

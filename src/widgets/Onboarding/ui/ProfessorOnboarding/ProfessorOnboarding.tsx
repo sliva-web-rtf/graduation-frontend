@@ -9,6 +9,8 @@ import { STATUS } from '@/shared/api/status';
 import { ProfessorPersonalInfoForm } from '../ProfessorPersonalInfoForm/ProfessorPersonalInfoForm';
 import { getProfessor } from '../../model/selectors/getProfessor';
 import { getLazyProfessorProfile } from '../../api/onboardingApi';
+import { ProfessorScientificPorfolioForm } from '../ProfessorScientificPortfolioForm/ProfessorScientificPortfolioForm';
+import { ProfessorSearchStatusForm } from '../ProfessorSearchStatusForm copy/ProfessorSearchStatusForm';
 
 interface ProfessorOnboardingProps {
     values: string[];
@@ -50,8 +52,24 @@ const ProfessorOnboarding = memo((props: ProfessorOnboardingProps) => {
                     />
                 </Stack>
             )}
-            {activeTabValue === values[1] && 123}
-            {activeTabValue === values[2] && 456}
+            {activeTabValue === values[1] && (
+                <ProfessorScientificPorfolioForm
+                    id={id}
+                    onError={() => onError(values[1])}
+                    onSuccess={() => onSuccess(values[1], values[2])}
+                    onRequestStart={onRequestStart}
+                    initialValues={professor?.scientificPorfolio}
+                />
+            )}
+            {activeTabValue === values[2] && (
+                <ProfessorSearchStatusForm
+                    id={id}
+                    onError={() => onError(values[2])}
+                    onSuccess={() => onSuccess(values[2])}
+                    onRequestStart={onRequestStart}
+                    initialValues={professor?.professorStatus}
+                />
+            )}
         </>
     );
 });

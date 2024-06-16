@@ -8,41 +8,44 @@ import { useSelector } from 'react-redux';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { AppError, EntityValidationErrors } from '@/shared/lib/types/appError';
 import { BaseField, BaseSelect } from '@/shared/ui';
-import { updateStudentScientificInfo } from '../../api/onboardingApi';
+import { updateProfessorScientificInfo } from '../../api/onboardingApi';
 import { onboardingActions } from '@/widgets/Onboarding/model/slice/onboardingSlice';
-import { ScientificFormSchema, scientificFormSchema } from '../../model/types/scientificFormSchema';
 import { getStudentScientificInfo } from '../../model/selectors/getStudentScientificInfo';
-import { EducationLevelSelect } from '@/entities/EducationLevel';
 import { ScientificAreasAutocomplete } from '@/entities/ScientificAreas';
 import { ScientificInterestsAutocomplete } from '@/entities/ScietificInterests';
+import {
+    ProfessorScientificFormSchema,
+    professorScientificFormSchema,
+} from '../../model/types/professorScientificFormSchema';
+import { ProfessorEducationLevelAutoComplete } from '@/entities/EducationLevel';
 
-interface StudentScientitificPorfolioFormProps {
+interface ProfessorScientitificPorfolioFormProps {
     id: string;
     onSuccess?: () => void;
     onRequestStart?: () => void;
     onError?: () => void;
     isDisabled?: boolean;
-    initialValues?: ScientificFormSchema;
+    initialValues?: ProfessorScientificFormSchema;
 }
 
-export const StudentScientificPorfolioForm = memo(
-    ({ onError, onSuccess, onRequestStart, initialValues, isDisabled, id }: StudentScientitificPorfolioFormProps) => {
+export const ProfessorScientificPorfolioForm = memo(
+    ({ onError, onSuccess, onRequestStart, initialValues, isDisabled, id }: ProfessorScientitificPorfolioFormProps) => {
         const studentScientificPortfolio = useSelector(getStudentScientificInfo);
-        const [updatedProfileInfo, { error }] = updateStudentScientificInfo();
+        const [updatedProfileInfo, { error }] = updateProfessorScientificInfo();
         const dispatch = useAppDispatch();
         const {
             formState: { errors },
             control,
             handleSubmit,
             setError,
-        } = useForm<ScientificFormSchema>({
+        } = useForm<ProfessorScientificFormSchema>({
             defaultValues: initialValues,
             mode: 'onBlur',
-            resolver: zodResolver(scientificFormSchema),
+            resolver: zodResolver(professorScientificFormSchema),
         });
 
         const onSubmitHandler = useCallback(
-            async (values: ScientificFormSchema) => {
+            async (values: ProfessorScientificFormSchema) => {
                 onRequestStart?.();
                 if (isEqual(values, studentScientificPortfolio)) {
                     onSuccess?.();
@@ -51,7 +54,7 @@ export const StudentScientificPorfolioForm = memo(
                         if ('error' in response) {
                             onError?.();
                         } else {
-                            dispatch(onboardingActions.setStudentScientificInfo(values));
+                            dispatch(onboardingActions.setProfessorScientificPortfolio(values));
                             onSuccess?.();
                         }
                     });
@@ -69,10 +72,10 @@ export const StudentScientificPorfolioForm = memo(
         }, [errors]);
 
         const setValidationErrors = useCallback(
-            (validationErrors: EntityValidationErrors<ScientificFormSchema>) => {
+            (validationErrors: EntityValidationErrors<ProfessorScientificFormSchema>) => {
                 Object.entries(validationErrors).forEach(([field, messageOrError]) => {
                     if (messageOrError !== undefined) {
-                        setError(field as Path<ScientificFormSchema>, {
+                        setError(field as Path<ProfessorScientificFormSchema>, {
                             type: 'server',
                             message: messageOrError,
                         });
@@ -84,7 +87,7 @@ export const StudentScientificPorfolioForm = memo(
 
         useEffect(() => {
             if (error instanceof AppError && error.validationData) {
-                setValidationErrors(error.validationData as EntityValidationErrors<ScientificFormSchema>);
+                setValidationErrors(error.validationData as EntityValidationErrors<ProfessorScientificFormSchema>);
             }
         }, [error, setValidationErrors]);
         return (
@@ -94,22 +97,28 @@ export const StudentScientificPorfolioForm = memo(
                 </Typography>
                 <Stack spacing={2}>
                     <Stack direction="row" justifyContent="space-between" spacing={1}>
-                        <EducationLevelSelect
-                            name="educationLevel"
+                        <Controller
                             control={control}
-                            label="Фамилия *"
-                            disabled={isDisabled}
-                            error={Boolean(errors.educationLevel)}
-                            helperText={errors.educationLevel ? errors.educationLevel?.message : ' '}
+                            name="educationLevel"
+                            render={({ field: { onChange, onBlur, value } }) => (
+                                <ProfessorEducationLevelAutoComplete
+                                    onChange={(_, targetValue) => onChange(targetValue)}
+                                    onBlur={onBlur}
+                                    value={value ?? []}
+                                    placeholder="Ученая степень, ученое звание, должность *"
+                                    error={Boolean(errors.educationLevel)}
+                                    helperText={errors.educationLevel ? errors.educationLevel?.message : ' '}
+                                />
+                            )}
                         />
                         <BaseSelect
-                            name="course"
+                            name="workExperienceYears"
                             control={control}
-                            label="Курс *"
-                            options={[1, 2, 3, 4, 5, 6]}
+                            label="Стаж *"
+                            options={Array.from(Array(51).keys()).slice(1)}
                             disabled={isDisabled}
-                            error={Boolean(errors.course)}
-                            helperText={errors.course ? errors.course?.message : ' '}
+                            error={Boolean(errors.workExperienceYears)}
+                            helperText={errors.workExperienceYears ? errors.workExperienceYears?.message : ' '}
                         />
                     </Stack>
                     <Controller
@@ -142,6 +151,63 @@ export const StudentScientificPorfolioForm = memo(
                                 placeholder="Сферы научных интересов *"
                                 error={Boolean(errors.scienceInterests)}
                                 helperText={errors.scienceInterests ? errors.scienceInterests?.message : ' '}
+                            />
+                        )}
+                    />
+                    <Controller
+                        control={control}
+                        name="urfuResearchPortal"
+                        render={({ field: { onChange, onBlur, value } }) => (
+                            <BaseField
+                                multiline
+                                fullWidth
+                                onChange={onChange}
+                                onBlur={onBlur}
+                                value={value}
+                                label="Профиль UrFU Research Portal *"
+                                disabled={isDisabled}
+                                autoComplete="false"
+                                error={Boolean(errors.urfuResearchPortal)}
+                                helperText={errors.urfuResearchPortal ? errors.urfuResearchPortal?.message : ' '}
+                                FormHelperTextProps={{ style: { backgroundColor: 'transparent' } }}
+                            />
+                        )}
+                    />
+                    <Controller
+                        control={control}
+                        name="scopus"
+                        render={({ field: { onChange, onBlur, value } }) => (
+                            <BaseField
+                                multiline
+                                fullWidth
+                                onChange={onChange}
+                                onBlur={onBlur}
+                                value={value}
+                                label="Профиль Scopus *"
+                                disabled={isDisabled}
+                                autoComplete="false"
+                                error={Boolean(errors.scopus)}
+                                helperText={errors.scopus ? errors.scopus?.message : ' '}
+                                FormHelperTextProps={{ style: { backgroundColor: 'transparent' } }}
+                            />
+                        )}
+                    />
+                    <Controller
+                        control={control}
+                        name="rinc"
+                        render={({ field: { onChange, onBlur, value } }) => (
+                            <BaseField
+                                multiline
+                                fullWidth
+                                onChange={onChange}
+                                onBlur={onBlur}
+                                value={value}
+                                label="Профиль РИНЦ *"
+                                disabled={isDisabled}
+                                autoComplete="false"
+                                error={Boolean(errors.rinc)}
+                                helperText={errors.rinc ? errors.rinc?.message : ' '}
+                                FormHelperTextProps={{ style: { backgroundColor: 'transparent' } }}
                             />
                         )}
                     />

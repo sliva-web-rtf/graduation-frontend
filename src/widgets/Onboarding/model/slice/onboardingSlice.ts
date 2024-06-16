@@ -5,6 +5,8 @@ import { ScientificFormSchema } from '../types/scientificFormSchema';
 import { StudentSearchingStatus } from '../types/studentStatus';
 import { STATUS } from '@/shared/api/status';
 import { ProfessorPersonalInfoFormSchema } from '../types/professorInfoFormSchema';
+import { ProfessorScientificFormSchema } from '../types/professorScientificFormSchema';
+import { ProfessorSearchingStatus } from '../types/professorStatus';
 
 const initialState: OnboardingSchema = {
     isProfileLoading: STATUS.initial,
@@ -25,6 +27,12 @@ export const onboardingSlice = createSlice({
         },
         setStudentStudentStatus: (state, action: PayloadAction<StudentSearchingStatus | undefined>) => {
             state.studentStatus = action.payload;
+        },
+        setProfessorSearchingStatus: (state, action: PayloadAction<ProfessorSearchingStatus | undefined>) => {
+            state.professorSearhingStatus = action.payload;
+        },
+        setProfessorScientificPortfolio: (state, action: PayloadAction<ProfessorScientificFormSchema | undefined>) => {
+            state.professorScientificInfo = action.payload;
         },
         setLoadingState: (state, action: PayloadAction<STATUS>) => {
             state.isProfileLoading = action.payload;

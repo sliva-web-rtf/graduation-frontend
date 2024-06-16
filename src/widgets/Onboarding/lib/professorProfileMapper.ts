@@ -10,5 +10,20 @@ export function professorProfileFromDto(dto: ProfessorProfileDto): ProfessorProf
             email: dto.email,
             phone: dto.phoneNumber,
         },
+        scientificPorfolio: {
+            educationLevel: dto.degree,
+            workExperienceYears: dto.workExperienceYears,
+            // TODO: пофиксить это и попросить бек присылать везде одинаковые объекты
+            scienceArea: [],
+            scienceInterests: dto.scientificInterests,
+            about: dto.about,
+            scopus: dto.scopusUri,
+            rinc: dto.riscUri,
+            urfuResearchPortal: dto.urpUri,
+        },
+        professorStatus: {
+            status: dto.searchStatus,
+            studentsCount: dto.limit,
+        },
     };
 }

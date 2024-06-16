@@ -113,13 +113,13 @@ export const CreateScientificWorkModal = memo(() => {
                                     control={control}
                                     name="scientificInterests"
                                     render={({ field: { onChange, onBlur, value } }) => (
-                                        <ScientificAreasAutocomplete
+                                        <ScientificInterestsAutocomplete
                                             multiple
                                             onChange={(_, targetValue) => onChange(targetValue)}
                                             onBlur={onBlur}
                                             value={value ?? []}
                                             limitTags={1}
-                                            placeholder="Сферы научных интересов"
+                                            placeholder="Сферы научных интересов *"
                                             error={Boolean(errors.scientificInterests)}
                                             helperText={
                                                 errors.scientificInterests ? errors.scientificInterests?.message : ' '
