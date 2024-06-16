@@ -1,42 +1,43 @@
-import { Checkbox, FormControlLabel, FormGroup, Radio, RadioGroup, Stack, Typography } from '@mui/material';
+import {
+    FormControl,
+    FormControlLabel,
+    InputLabel,
+    MenuItem,
+    Radio,
+    RadioGroup,
+    Stack,
+    Typography,
+} from '@mui/material';
 import { FormEvent, memo, useCallback, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { completeRegistration, updateStudentStatusSearching } from '../../api/onboardingApi';
+import { completeRegistration, updateProfessorStatusSearching } from '../../api/onboardingApi';
 import { SearchingStatus } from '@/shared/lib/types/searchingStatus';
-import { StudentSearchingStatus } from '../../model/types/studentStatus';
 import { refreshToken } from '@/entities/User/api/userApi';
 import { UserSecretStorageService } from '@/shared/lib/helpers/userSecretStorage';
 import { userActions } from '@/entities/User';
+import { ProfessorSearchingStatus } from '../../model/types/professorStatus';
+import { StyledSelect } from '@/shared/ui';
 
-type StudentSearching = {
-    isTeamSearching: boolean;
-    isProfessorSearching: boolean;
-};
-
-interface StudentSearchStatusFormProps {
+interface ProfessorSearchStatusFormProps {
     id: string;
     onSuccess?: () => void;
     onRequestStart?: () => void;
     onError?: () => void;
-    initialValues?: StudentSearchingStatus;
+    initialValues?: ProfessorSearchingStatus;
 }
 
-export const StudentSearchStatusForm = memo(
-    ({ onError, onSuccess, onRequestStart, id, initialValues }: StudentSearchStatusFormProps) => {
+export const ProfessorSearchStatusForm = memo(
+    ({ onError, onSuccess, onRequestStart, id, initialValues }: ProfessorSearchStatusFormProps) => {
         const dispatch = useAppDispatch();
 
-        const [studentSearching, setStudentSearching] = useState<StudentSearching>({
-            isTeamSearching: initialValues?.isTeamSearching ?? false,
-            isProfessorSearching: initialValues?.isTeamSearching ?? false,
-        });
         const [searchingType, setSearchingType] = useState<SearchingStatus>(
             initialValues?.status ?? SearchingStatus.DoNotSearch,
         );
+        const [studentsCount, setStudentsCount] = useState(initialValues?.studentsCount ?? 0);
 
-        const [updatedSearchingStatus, { error }] = updateStudentStatusSearching();
+        const [updatedSearchingStatus, { error }] = updateProfessorStatusSearching();
         const [completeStudentRegistration] = completeRegistration();
         const [refreshAccessToken] = refreshToken();
 
@@ -44,10 +45,9 @@ export const StudentSearchStatusForm = memo(
             async (event: FormEvent<HTMLFormElement>) => {
                 event.preventDefault();
                 onRequestStart?.();
-                const values: StudentSearchingStatus = {
+                const values: ProfessorSearchingStatus = {
+                    studentsCount,
                     status: searchingType,
-                    isProfessorSearching: studentSearching.isProfessorSearching,
-                    isTeamSearching: studentSearching.isTeamSearching,
                 };
                 const updateSearchingStatusResponse = await updatedSearchingStatus(values);
                 // TODO: переделать в отдельный action всю пачку запросов
@@ -85,31 +85,6 @@ export const StudentSearchStatusForm = memo(
             // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [error]);
 
-        useEffect(() => {
-            if (
-                searchingType === SearchingStatus.Seaching &&
-                !studentSearching.isProfessorSearching &&
-                !studentSearching.isTeamSearching
-            ) {
-                setStudentSearching({
-                    isTeamSearching: true,
-                    isProfessorSearching: true,
-                });
-            } else if (searchingType !== SearchingStatus.Seaching) {
-                setStudentSearching({
-                    isTeamSearching: false,
-                    isProfessorSearching: false,
-                });
-            }
-            // eslint-disable-next-line react-hooks/exhaustive-deps
-        }, [searchingType]);
-
-        useEffect(() => {
-            if (studentSearching.isProfessorSearching || studentSearching.isTeamSearching) {
-                setSearchingType(SearchingStatus.Seaching);
-            }
-        }, [studentSearching]);
-
         return (
             <form id={id} onSubmit={onSubmitHandler}>
                 <Typography variant="h2" mb={3}>
@@ -127,36 +102,24 @@ export const StudentSearchStatusForm = memo(
                                 label="Активно ищу научную деятельность"
                             />
                             <Stack pl={2}>
-                                <FormGroup>
-                                    <FormControlLabel
-                                        label="Ищу научного руководителя"
-                                        control={
-                                            <Checkbox
-                                                checked={studentSearching.isProfessorSearching}
-                                                onChange={(_, value) =>
-                                                    setStudentSearching({
-                                                        ...studentSearching,
-                                                        isProfessorSearching: value,
-                                                    })
-                                                }
-                                            />
-                                        }
-                                    />
-                                    <FormControlLabel
-                                        label="Ищу команду для исследований"
-                                        control={
-                                            <Checkbox
-                                                checked={studentSearching.isTeamSearching}
-                                                onChange={(_, value) =>
-                                                    setStudentSearching({
-                                                        ...studentSearching,
-                                                        isTeamSearching: value,
-                                                    })
-                                                }
-                                            />
-                                        }
-                                    />
-                                </FormGroup>
+                                <FormControl fullWidth>
+                                    <InputLabel id="students-count">
+                                        Лимит студентов, которых можете взять под руководство *
+                                    </InputLabel>
+                                    <StyledSelect
+                                        disabled={searchingType !== SearchingStatus.Seaching}
+                                        value={studentsCount}
+                                        onChange={(e) => setStudentsCount(e.target.value as number)}
+                                        label="Лимит студентов, которых можете взять под руководство *"
+                                        labelId="students-count"
+                                    >
+                                        {Array.from(Array(10).keys()).map((option) => (
+                                            <MenuItem key={option} value={option}>
+                                                {option}
+                                            </MenuItem>
+                                        ))}
+                                    </StyledSelect>
+                                </FormControl>
                             </Stack>
                             <FormControlLabel
                                 value={SearchingStatus.ConsideringIncomingOffers}
