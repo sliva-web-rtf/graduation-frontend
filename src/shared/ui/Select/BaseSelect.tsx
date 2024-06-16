@@ -2,7 +2,7 @@ import { FormControl, FormHelperText, InputLabel, MenuItem, Select, SelectProps,
 import { Controller } from 'react-hook-form';
 import { memo } from 'react';
 
-const StyledSelect = styled(Select)<SelectProps>(({ theme }) => ({
+export const StyledSelect = styled(Select)<SelectProps>(({ theme }) => ({
     '&': {
         borderRadius: theme.spacing(2),
         backgroundColor: theme.palette.background.paper,

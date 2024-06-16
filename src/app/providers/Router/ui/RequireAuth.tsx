@@ -30,7 +30,6 @@ export const RequireAuth: FC<RequireAuthProps> = (props) => {
             return hasRole;
         });
     }, [roles, userRoles]);
-
     if (!auth && isAuth) {
         return <Navigate to={RoutePath.Login} state={{ from: location }} replace />;
     }

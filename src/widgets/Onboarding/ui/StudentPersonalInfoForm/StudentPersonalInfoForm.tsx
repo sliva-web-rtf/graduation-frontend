@@ -16,7 +16,7 @@ import {
     personalInfoFormSchema,
 } from '@/widgets/Onboarding/model/types/personalInfoFormSchema';
 
-interface PersonalInfoFormProps {
+interface StudentPersonalInfoFormProps {
     id: string;
     onSuccess?: () => void;
     onRequestStart?: () => void;
@@ -25,8 +25,8 @@ interface PersonalInfoFormProps {
     initialValues?: PersonalInfoFormSchema;
 }
 
-export const PersonalInfoForm = memo(
-    ({ onError, onSuccess, onRequestStart, initialValues, isDisabled, id }: PersonalInfoFormProps) => {
+export const StudentPersonalInfoForm = memo(
+    ({ onError, onSuccess, onRequestStart, initialValues, isDisabled, id }: StudentPersonalInfoFormProps) => {
         const profileInfo = useSelector(getProfileInfo);
         const [updatedProfileInfo, { error }] = updateProfile();
         const dispatch = useAppDispatch();

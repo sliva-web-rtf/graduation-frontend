@@ -5,5 +5,5 @@ import { StudentSearchingStatus } from './studentStatus';
 export interface StudentProfile {
     personalInfo: PersonalInfoFormSchema;
     scientificPorfolio?: ScientificFormSchema;
-    StudentStatus?: StudentSearchingStatus;
+    studentStatus?: StudentSearchingStatus;
 }

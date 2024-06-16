@@ -17,7 +17,6 @@ export const BaseAutocomplete = memo(
                 loading={loading}
                 freeSolo
                 forcePopupIcon
-                multiple
                 fullWidth
                 noOptionsText="Пусто"
                 loadingText="Загрузка..."

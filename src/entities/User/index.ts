@@ -6,3 +6,4 @@ export { validationLoginErrorsFromDto } from './lib/loginMapper';
 export { type Login } from './model/types/login';
 export { getUserInited } from './model/selectors/getUserIsInited/getUserIsInited';
 export { Role } from './model/types/role';
+export { refreshToken } from './api/userApi';
