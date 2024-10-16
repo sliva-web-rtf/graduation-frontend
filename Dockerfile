@@ -26,8 +26,5 @@ RUN yarn global add serve
 # Копируем собранный проект из стадии сборки
 COPY --from=build /app/build /app/build
 
-# Указываем порт для сервера
-EXPOSE 3000
-
 # Команда для запуска сервера статики
 CMD ["serve", "-s", "build", "-l", "3000"]
