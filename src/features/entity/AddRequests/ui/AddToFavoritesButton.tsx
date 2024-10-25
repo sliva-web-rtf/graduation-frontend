@@ -1,5 +1,5 @@
 import StarOutlineRoundedIcon from '@mui/icons-material/StarOutlineRounded';
-import React, { memo, useState } from 'react';
+import React, { memo, SyntheticEvent, useState } from 'react';
 import { useSelector } from 'react-redux';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import { isUserProfessor } from '@/entities/User/model/selectors/getUserRoles/getUserRoles';
@@ -21,9 +21,10 @@ export const AddToFavoritesButton = memo((props: AddToFavoritesButtonProps) => {
 
     const [addToFavorites, { isLoading }] = useAddToFavoritesMutation();
 
-    const handleClick = () => {
+    const handleClick = (e: SyntheticEvent) => {
         addToFavorites({ id, option, isProfessor, isFavorite });
         setFavorite((prev) => !prev);
+        e.stopPropagation();
     };
 
     return (

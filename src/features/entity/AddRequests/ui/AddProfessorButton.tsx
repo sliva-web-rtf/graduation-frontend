@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { memo, SyntheticEvent, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { BaseButton } from '@/shared/ui/Button/Button';
 import { getUserAuthData } from '@/entities/User';
@@ -19,7 +19,8 @@ export const AddProfessorButton = memo((props: AddProfessorButtonProps) => {
 
     const [addToOrFromProfessor, { isLoading }] = useAddProfessorMutation();
 
-    const toggleOpen = () => {
+    const toggleOpen = (e?: SyntheticEvent) => {
+        e?.stopPropagation();
         setOpen((prev) => !prev);
         setScientificWorkId('');
     };

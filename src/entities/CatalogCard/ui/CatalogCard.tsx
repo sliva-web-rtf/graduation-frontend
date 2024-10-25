@@ -1,6 +1,6 @@
 import { memo, useMemo } from 'react';
 import { Avatar, Paper, Stack, Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { BaseChip } from '@/shared/ui/Chip/Chip';
 import { LimitInfo } from '@/shared/ui/LimitInfo/LimitInfo';
 import {
@@ -38,9 +38,10 @@ export const CatalogCard = memo((props: ICatalogCard) => {
     } = props;
 
     const parentLink = useMemo(() => getParentLink(option), [option]);
-
+    const navigate = useNavigate();
+    const handleClick = () => navigate(`/${parentLink}/${id}`);
     return (
-        <Paper className={styles.card} sx={{ borderRadius: 4 }}>
+        <Paper className={styles.card} sx={{ borderRadius: 4, cursor: 'pointer' }} onClick={handleClick}>
             <Avatar
                 src={workStatus ? scientificWorkImage : __API__ + avatarImagePath}
                 alt={title}
@@ -61,11 +62,9 @@ export const CatalogCard = memo((props: ICatalogCard) => {
                             {subtitle}
                         </Typography>
                     )}
-                    <Link to={`/${parentLink}/${id}`} color="inherit">
-                        <Typography variant="h3" className={styles.title}>
-                            {title}
-                        </Typography>
-                    </Link>
+                    <Typography variant="h3" className={styles.title}>
+                        {title}
+                    </Typography>
                 </Stack>
                 <ChipsGroup chips={chips} />
             </Stack>

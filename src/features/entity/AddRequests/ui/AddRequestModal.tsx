@@ -1,6 +1,6 @@
 import { Box, FormControl, Modal, Paper, RadioGroup, Stack, Typography } from '@mui/material';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import React, { ChangeEvent, memo } from 'react';
+import React, { ChangeEvent, memo, SyntheticEvent } from 'react';
 import { BaseButton } from '@/shared/ui/Button/Button';
 import { ScientificWork, ScientificWorkRadio, useGetUsersScientificWorksQuery } from '@/entities/ScientificWork';
 import { CreateScientificWorkModal } from '@/features/scientificWork/CreateScientificWork';
@@ -66,6 +66,7 @@ export const AddRequestModal = memo((props: AddRequestModalProps) => {
                                 spacing={4}
                                 elevation={0}
                                 sx={{ borderRadius: 4 }}
+                                onClick={(e) => e.stopPropagation()}
                             >
                                 <Stack spacing={2}>
                                     <Typography variant="h2">Оформление заявки</Typography>
