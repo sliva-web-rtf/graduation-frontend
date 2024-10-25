@@ -38,10 +38,13 @@ export const CatalogCard = memo((props: ICatalogCard) => {
     } = props;
 
     const parentLink = useMemo(() => getParentLink(option), [option]);
-    const navigate = useNavigate();
-    const handleClick = () => navigate(`/${parentLink}/${id}`);
     return (
-        <Paper className={styles.card} sx={{ borderRadius: 4, cursor: 'pointer' }} onClick={handleClick}>
+        <Paper
+            component={Link}
+            to={`/${parentLink}/${id}`}
+            className={styles.card}
+            sx={{ borderRadius: 4, '&:hover': { textDecoration: 'none' } }}
+        >
             <Avatar
                 src={workStatus ? scientificWorkImage : __API__ + avatarImagePath}
                 alt={title}
@@ -70,7 +73,7 @@ export const CatalogCard = memo((props: ICatalogCard) => {
             </Stack>
             <Stack spacing={4} justifyContent="space-between" alignSelf="center">
                 <LimitInfo limit={limit} fullness={fullness} />
-                <Stack spacing={1}>
+                <Stack spacing={1} onClick={(e) => e.preventDefault()}>
                     {option === CatalogOption.Professors ? (
                         <AddProfessorButton id={id} canJoin={Boolean(canJoin)} />
                     ) : option === CatalogOption.Students ? (

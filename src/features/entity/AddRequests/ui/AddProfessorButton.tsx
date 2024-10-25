@@ -19,8 +19,7 @@ export const AddProfessorButton = memo((props: AddProfessorButtonProps) => {
 
     const [addToOrFromProfessor, { isLoading }] = useAddProfessorMutation();
 
-    const toggleOpen = (e?: SyntheticEvent) => {
-        e?.stopPropagation();
+    const toggleOpen = () => {
         setOpen((prev) => !prev);
         setScientificWorkId('');
     };

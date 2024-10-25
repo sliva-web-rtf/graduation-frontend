@@ -24,8 +24,7 @@ export const AddStudentButton = memo((props: AddStudentButtonProps) => {
     const [addToOrFromProfessor, { isLoading: isLoading1 }] = useAddProfessorMutation();
     const [addStudentFromStudent, { isLoading: isLoading2 }] = useAddStudentMutation();
 
-    const toggleOpen = (e?: SyntheticEvent) => {
-        e?.stopPropagation();
+    const toggleOpen = () => {
         setOpen((prev) => !prev);
         setScientificWorkId('');
     };

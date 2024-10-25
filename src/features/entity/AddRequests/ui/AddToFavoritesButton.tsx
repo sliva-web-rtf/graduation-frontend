@@ -21,10 +21,9 @@ export const AddToFavoritesButton = memo((props: AddToFavoritesButtonProps) => {
 
     const [addToFavorites, { isLoading }] = useAddToFavoritesMutation();
 
-    const handleClick = (e: SyntheticEvent) => {
+    const handleClick = () => {
         addToFavorites({ id, option, isProfessor, isFavorite });
         setFavorite((prev) => !prev);
-        e.stopPropagation();
     };
 
     return (
