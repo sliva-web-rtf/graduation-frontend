@@ -1,4 +1,4 @@
-import { memo, SyntheticEvent, useState } from 'react';
+import { memo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { BaseButton } from '@/shared/ui/Button/Button';
 import { getUserAuthData } from '@/entities/User';

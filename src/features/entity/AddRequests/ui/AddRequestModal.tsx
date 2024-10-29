@@ -1,6 +1,6 @@
 import { Box, FormControl, Modal, Paper, RadioGroup, Stack, Typography } from '@mui/material';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import React, { ChangeEvent, memo, SyntheticEvent } from 'react';
+import React, { ChangeEvent, memo } from 'react';
 import { BaseButton } from '@/shared/ui/Button/Button';
 import { ScientificWork, ScientificWorkRadio, useGetUsersScientificWorksQuery } from '@/entities/ScientificWork';
 import { CreateScientificWorkModal } from '@/features/scientificWork/CreateScientificWork';
