@@ -1,0 +1,37 @@
+.container {
+  position: relative;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.formWrapper {
+  width: var(--login-form-width);
+  background-color: var(--bg-color);
+  padding: calc(2 * var(--space-l));
+  border-radius: calc(1.5 * var(--border-radius));
+  z-index: 1;
+  align-items: center;
+}
+
+.form {
+  width: 100%;
+}
+
+.fig1,
+.fig2 {
+  position: absolute;
+}
+
+.fig1 {
+  top: 50%;
+  right: 50%;
+  transform: translate(250px, -300px);
+  z-index: 100;
+}
+
+.fig2 {
+  top: 45%;
+  right: 45%;
+  z-index: 0;
+}

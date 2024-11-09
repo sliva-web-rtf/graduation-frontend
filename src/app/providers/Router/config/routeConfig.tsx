@@ -11,6 +11,7 @@ import { StudentPage } from '@/pages/StudentPage';
 import { ScientificWorkPage } from '@/pages/ScientificWorkPage';
 import { ManualPage } from '@/pages/ManualPage';
 import { ManualArticlePage } from '@/pages/ManuaArticlelPage';
+import { SignupPage } from '@/pages/SignupPage';
 
 export type AppRoutesProps = RouteProps & {
     authOnly?: boolean;
@@ -31,6 +32,7 @@ export enum AppRoutes {
     // About = 'About',
     // Tasks = 'Tasks',
     Onboarding = 'Onboarding',
+    Signup = 'Signup',
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
@@ -43,6 +45,7 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.Forbidden]: '/forbidden',
     [AppRoutes.Onboarding]: '/onboarding',
     [AppRoutes.NotFound]: '*',
+    [AppRoutes.Signup]: '/signup',
     // [AppRoutes.ManualArticle]: '/manual/:id',
     // [AppRoutes.About]: '/about',
     // [AppRoutes.Tasks]: '/tasks',
@@ -101,6 +104,11 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         element: <OnboardingPage />,
         authOnly: true,
         hasLayout: false,
+    },
+    [AppRoutes.Signup]: {
+        path: `${RoutePath.Signup}`,
+        element: <SignupPage />,
+        authOnly: false,
     },
     // [AppRoutes.ManualArticle]: {
     //     path: RoutePath.ManualArticle,
