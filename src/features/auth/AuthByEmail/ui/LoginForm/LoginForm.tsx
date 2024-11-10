@@ -1,10 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { IconButton, InputAdornment, Stack, Typography } from '@mui/material';
+import { IconButton, InputAdornment, Link, Stack, Typography } from '@mui/material';
 import classNames from 'classnames';
 import { ChangeEvent, memo, useCallback, useEffect, useState } from 'react';
 import { Path, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { Link as RouterLink } from 'react-router-dom';
 import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { BaseField, BaseLoadingButton } from '@/shared/ui';
@@ -124,20 +125,32 @@ const LoginForm = memo((props: LoginFormProps) => {
                                 ),
                             }}
                         />
-                        <Typography variant="body1" color="primary" alignSelf="flex-end">
-                            Забыли пароль?
-                        </Typography>
                     </Stack>
-                    <BaseLoadingButton
-                        fullWidth
-                        type="submit"
-                        variant="contained"
-                        loading={status === STATUS.request}
-                        sx={(theme) => ({ padding: theme.spacing(1.5) })}
-                    >
-                        Войти
-                    </BaseLoadingButton>
                     {Boolean(errors.root?.message) && <Typography color="error">{errors.root!.message}</Typography>}
+                    <Stack spacing={2} width="100%">
+                        <BaseLoadingButton
+                            fullWidth
+                            type="submit"
+                            variant="contained"
+                            loading={status === STATUS.request}
+                            sx={(theme) => ({ padding: theme.spacing(1.5) })}
+                        >
+                            Войти
+                        </BaseLoadingButton>
+                        <Stack flexDirection="row" justifyContent="space-between">
+                            <Typography variant="body1" color="primary">
+                                Забыли пароль?
+                            </Typography>
+                            <Link
+                                component={RouterLink}
+                                to="/signup"
+                                underline="none"
+                                sx={{ '&:hover': { textDecoration: 'none' } }}
+                            >
+                                Создать аккаунт
+                            </Link>
+                        </Stack>
+                    </Stack>
                 </Stack>
             </form>
         </DynamicModuleLoader>
