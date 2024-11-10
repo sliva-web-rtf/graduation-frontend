@@ -1,29 +1,72 @@
 import { memo, useCallback, useState } from 'react';
-import { IconButton, InputAdornment, Link, MenuItem, Stack } from '@mui/material';
+import { Box, IconButton, InputAdornment, Link, MenuItem, Stack, Typography } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 import classNames from 'classnames';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import CancelIcon from '@mui/icons-material/Cancel';
 import { BaseAccordion, BaseField, BaseLoadingButton, BaseSelect } from '@/shared/ui';
+import { signupFormSchema, SignupFormSchema } from '../../model/types/signupFormSchema';
 
 export interface SignupProps {
     className?: string;
 }
 const SignupForm = memo((props: SignupProps) => {
-    const { control } = useForm();
-    const [showPassword, setShowPassword] = useState(false);
-    const handleClickShowPassword = useCallback(() => setShowPassword(!showPassword), [showPassword]);
     const { className } = props;
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleClickShowPassword = useCallback(() => setShowPassword(!showPassword), [showPassword]);
+
+    const {
+        formState: { errors },
+        control,
+        handleSubmit,
+        register,
+    } = useForm<SignupFormSchema>({
+        resolver: zodResolver(signupFormSchema),
+    });
+    const onSubmitHandler = () => {};
     return (
-        <form className={classNames(className)}>
+        <form onSubmit={handleSubmit(onSubmitHandler)} className={classNames(className)}>
             <Stack spacing={3}>
                 <Stack spacing={2} width="100%">
-                    <BaseField autoFocus label="Почта" fullWidth autoComplete="false" />
+                    <BaseField
+                        autoFocus
+                        label="Почта"
+                        fullWidth
+                        autoComplete="false"
+                        {...register('email')}
+                        error={Boolean(errors.email)}
+                        helperText={
+                            errors.email ? (
+                                <Box display="flex" alignItems="center" gap={0.5}>
+                                    <CancelIcon style={{ width: 12, height: 12 }} />
+                                    <Typography variant="bodyXS">{errors.email?.message}</Typography>
+                                </Box>
+                            ) : (
+                                ''
+                            )
+                        }
+                    />
                     <BaseField
                         autoFocus
                         label="Пароль"
                         fullWidth
                         autoComplete="false"
+                        {...register('password')}
                         type={showPassword ? 'text' : 'password'}
+                        error={Boolean(errors.password)}
+                        helperText={
+                            errors.password ? (
+                                <Box display="flex" alignItems="center" gap={0.5}>
+                                    <CancelIcon style={{ width: 12, height: 12 }} />
+                                    <Typography variant="bodyXS">{errors.password?.message}</Typography>
+                                </Box>
+                            ) : (
+                                ''
+                            )
+                        }
                         InputProps={{
                             disableUnderline: true,
                             endAdornment: (
@@ -52,7 +95,12 @@ const SignupForm = memo((props: SignupProps) => {
                     >
                         Зарегистрироваться
                     </BaseLoadingButton>
-                    <Link href="/login" sx={{ textDecoration: 'none', '&:hover': { textDecoration: 'none' } }}>
+                    <Link
+                        component={RouterLink}
+                        to="/login"
+                        underline="none"
+                        sx={{ '&:hover': { textDecoration: 'none' } }}
+                    >
                         Я уже зарегистрирован
                     </Link>
                 </Stack>
