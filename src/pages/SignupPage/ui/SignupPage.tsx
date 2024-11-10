@@ -4,6 +4,7 @@ import figure1 from '@/shared/assets/images/login-fig-1.png';
 import figure2 from '@/shared/assets/images/login-fig-2.png';
 import Logo from '@/shared/ui/Logo/Logo';
 import classNames from './SignupPage.module.scss';
+import { SignupForm } from '@/features/reg';
 
 const SignupPage = () => (
     <>
@@ -15,6 +16,7 @@ const SignupPage = () => (
             <img className={classNames.fig2} src={figure2} alt="" />
             <Stack component={Paper} className={classNames.formWrapper} spacing={3}>
                 <Logo />
+                <SignupForm className={classNames.form} />
             </Stack>
         </Stack>
     </>
