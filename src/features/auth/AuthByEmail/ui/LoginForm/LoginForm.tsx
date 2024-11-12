@@ -126,7 +126,6 @@ const LoginForm = memo((props: LoginFormProps) => {
                             }}
                         />
                     </Stack>
-                    {Boolean(errors.root?.message) && <Typography color="error">{errors.root!.message}</Typography>}
                     <Stack spacing={2} width="100%">
                         <BaseLoadingButton
                             fullWidth
@@ -137,6 +136,7 @@ const LoginForm = memo((props: LoginFormProps) => {
                         >
                             Войти
                         </BaseLoadingButton>
+                        {Boolean(errors.root?.message) && <Typography color="error">{errors.root!.message}</Typography>}
                         <Stack flexDirection="row" justifyContent="space-between">
                             <Typography variant="body1" color="primary">
                                 Забыли пароль?

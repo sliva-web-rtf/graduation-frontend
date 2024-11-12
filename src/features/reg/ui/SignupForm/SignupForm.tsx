@@ -6,7 +6,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import CancelIcon from '@mui/icons-material/Cancel';
-import { BaseAccordion, BaseField, BaseLoadingButton, BaseSelect } from '@/shared/ui';
+import { BaseAccordion, BaseField, BaseLoadingButton, BaseSelect, HelperText } from '@/shared/ui';
 import { signupFormSchema, SignupFormSchema } from '../../model/types/signupFormSchema';
 
 export interface SignupProps {
@@ -38,35 +38,16 @@ const SignupForm = memo((props: SignupProps) => {
                         autoComplete="false"
                         {...register('email')}
                         error={Boolean(errors.email)}
-                        helperText={
-                            errors.email ? (
-                                <Box display="flex" alignItems="center" gap={0.5}>
-                                    <CancelIcon style={{ width: 12, height: 12 }} />
-                                    <Typography variant="bodyXS">{errors.email?.message}</Typography>
-                                </Box>
-                            ) : (
-                                ''
-                            )
-                        }
+                        helperText={<HelperText error={errors.email} />}
                     />
                     <BaseField
-                        autoFocus
                         label="Пароль"
                         fullWidth
                         autoComplete="false"
                         {...register('password')}
                         type={showPassword ? 'text' : 'password'}
                         error={Boolean(errors.password)}
-                        helperText={
-                            errors.password ? (
-                                <Box display="flex" alignItems="center" gap={0.5}>
-                                    <CancelIcon style={{ width: 12, height: 12 }} />
-                                    <Typography variant="bodyXS">{errors.password?.message}</Typography>
-                                </Box>
-                            ) : (
-                                ''
-                            )
-                        }
+                        helperText={<HelperText error={errors.password} />}
                         InputProps={{
                             disableUnderline: true,
                             endAdornment: (
