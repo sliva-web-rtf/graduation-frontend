@@ -1,9 +1,29 @@
 import { z } from 'zod';
 
 export const signupFormSchema = z.object({
-    email: z.string().min(1, { message: 'Почта обязательна' }).email({
-        message: 'Невалидная почта',
-    }),
+    email: z
+        .string()
+        .min(1, { message: 'Почта обязательна' })
+        .email({ message: 'Невалидная почта' })
+        .refine(
+            (email) => {
+                const allowedDomains = [
+                    'gmail.com',
+                    'yahoo.com',
+                    'hotmail.com',
+                    'outlook.com',
+                    'aol.com',
+                    'icloud.com',
+                    'mail.ru',
+                    'yandex.ru',
+                    'urfu.ru',
+                    'urfu.me',
+                ];
+                const domain = email.split('@')[1];
+                return allowedDomains.includes(domain);
+            },
+            { message: 'Невалидная почта' },
+        ),
     password: z
         .string()
         .min(8, { message: 'Минимум 8 символов' })
