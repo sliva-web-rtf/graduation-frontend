@@ -11,6 +11,8 @@ import { StudentPage } from '@/pages/StudentPage';
 import { ScientificWorkPage } from '@/pages/ScientificWorkPage';
 import { ManualPage } from '@/pages/ManualPage';
 import { ManualArticlePage } from '@/pages/ManuaArticlelPage';
+import { SignupPage } from '@/pages/SignupPage';
+import { ProfilePage } from '@/pages/ProfilePage';
 
 export type AppRoutesProps = RouteProps & {
     authOnly?: boolean;
@@ -31,6 +33,8 @@ export enum AppRoutes {
     // About = 'About',
     // Tasks = 'Tasks',
     Onboarding = 'Onboarding',
+    Signup = 'Signup',
+    Profile = 'Profile',
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
@@ -43,6 +47,8 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.Forbidden]: '/forbidden',
     [AppRoutes.Onboarding]: '/onboarding',
     [AppRoutes.NotFound]: '*',
+    [AppRoutes.Signup]: '/signup',
+    [AppRoutes.Profile]: '/profile',
     // [AppRoutes.ManualArticle]: '/manual/:id',
     // [AppRoutes.About]: '/about',
     // [AppRoutes.Tasks]: '/tasks',
@@ -63,6 +69,12 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     [AppRoutes.Catalog]: {
         path: RoutePath.Catalog,
         element: <CatalogPage />,
+        hasLayout: true,
+        authOnly: true,
+    },
+    [AppRoutes.Profile]: {
+        path: RoutePath.Profile,
+        element: <ProfilePage />,
         hasLayout: true,
         authOnly: true,
     },
@@ -101,6 +113,11 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         element: <OnboardingPage />,
         authOnly: true,
         hasLayout: false,
+    },
+    [AppRoutes.Signup]: {
+        path: `${RoutePath.Signup}`,
+        element: <SignupPage />,
+        authOnly: false,
     },
     // [AppRoutes.ManualArticle]: {
     //     path: RoutePath.ManualArticle,
