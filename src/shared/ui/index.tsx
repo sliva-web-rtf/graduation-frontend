@@ -6,8 +6,6 @@ export { BaseButton, BaseLoadingButton } from './Button/Button';
 export { FAQAccordion } from './FAQ/FAQAccordion';
 export { FAQDetails } from './FAQ/FAQDetails';
 export { FAQSummary } from './FAQ/FAQSummary';
-export { HelperText } from './HelperText/HelperText';
-export { ConditionComponent } from './ConditionComponent/ConditionComponent';
 export * from './ToggleButtons/ToggleButtons';
 export * from './AppBar/AppBar';
 export * from './Chip/Chip';

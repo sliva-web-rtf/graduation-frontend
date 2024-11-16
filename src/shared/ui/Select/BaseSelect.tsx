@@ -27,7 +27,7 @@ export type BaseSelectProps = SelectProps & {
     readonly name: string;
     readonly control: any;
     readonly options: Array<string | number>;
-    readonly helperText?: string;
+    readonly helperText: string | undefined;
 };
 
 export const BaseSelect = memo((props: BaseSelectProps) => {
