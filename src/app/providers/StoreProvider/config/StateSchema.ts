@@ -9,6 +9,7 @@ import { OnboardingSchema } from '@/widgets/Onboarding/model/types/onboardingSch
 import { ProfessorInfoSchema } from '@/widgets/ProfessorInfo';
 import { StudentInfoSchema } from '@/widgets/StudentInfo';
 import { ManualSchema } from '@/widgets/Manual';
+import { type ProfileSchema } from '@/widgets/Profile/model/types/profileSchema';
 
 export interface StateSchema {
     user: UserSchema;
@@ -20,6 +21,7 @@ export interface StateSchema {
     student?: StudentInfoSchema;
     manual?: ManualSchema;
     onboarding?: OnboardingSchema;
+    profile?: ProfileSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;
