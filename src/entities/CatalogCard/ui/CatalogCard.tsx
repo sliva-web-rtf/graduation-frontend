@@ -1,6 +1,6 @@
 import { memo, useMemo } from 'react';
 import { Avatar, Paper, Stack, Typography } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { BaseChip } from '@/shared/ui/Chip/Chip';
 import { LimitInfo } from '@/shared/ui/LimitInfo/LimitInfo';
 import {
@@ -38,13 +38,9 @@ export const CatalogCard = memo((props: ICatalogCard) => {
     } = props;
 
     const parentLink = useMemo(() => getParentLink(option), [option]);
+
     return (
-        <Paper
-            component={Link}
-            to={`/${parentLink}/${id}`}
-            className={styles.card}
-            sx={{ borderRadius: 4, '&:hover': { textDecoration: 'none' } }}
-        >
+        <Paper className={styles.card} sx={{ borderRadius: 4 }}>
             <Avatar
                 src={workStatus ? scientificWorkImage : __API__ + avatarImagePath}
                 alt={title}
@@ -65,15 +61,17 @@ export const CatalogCard = memo((props: ICatalogCard) => {
                             {subtitle}
                         </Typography>
                     )}
-                    <Typography variant="h3" className={styles.title}>
-                        {title}
-                    </Typography>
+                    <Link to={`/${parentLink}/${id}`} color="inherit">
+                        <Typography variant="h3" className={styles.title}>
+                            {title}
+                        </Typography>
+                    </Link>
                 </Stack>
                 <ChipsGroup chips={chips} />
             </Stack>
             <Stack spacing={4} justifyContent="space-between" alignSelf="center">
                 <LimitInfo limit={limit} fullness={fullness} />
-                <Stack spacing={1} onClick={(e) => e.preventDefault()}>
+                <Stack spacing={1}>
                     {option === CatalogOption.Professors ? (
                         <AddProfessorButton id={id} canJoin={Boolean(canJoin)} />
                     ) : option === CatalogOption.Students ? (
