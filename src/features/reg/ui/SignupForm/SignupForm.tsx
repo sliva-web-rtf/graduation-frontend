@@ -62,7 +62,6 @@ const SignupForm = memo((props: SignupProps) => {
                     <BaseSelect
                         options={['Студент', 'Научный руководитель']}
                         name="Выбрать роль"
-                        helperText=""
                         control={control}
                         defaultValue="Студент"
                     />
