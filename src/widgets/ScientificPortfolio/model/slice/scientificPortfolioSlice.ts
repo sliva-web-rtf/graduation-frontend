@@ -4,6 +4,7 @@ import { ScientificPortfolioSchema } from '../types/scientificPortfolioSchema';
 export const initialState: ScientificPortfolioSchema = {
     scientificInterests: [],
 };
+
 export const scientificPortfolioSlice = createSlice({
     name: 'scientificPortfolio',
     initialState,

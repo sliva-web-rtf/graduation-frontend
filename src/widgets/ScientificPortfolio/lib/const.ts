@@ -1,6 +1,6 @@
 import { InputField } from '../model/types/InputField';
 
-export const COMMON_INPUTS: InputField[] = [
+export const commonInputs: InputField[] = [
     {
         id: 1,
         label: 'Области науки и технологии',
@@ -23,15 +23,16 @@ export const COMMON_INPUTS: InputField[] = [
     },
 ];
 
-export const STUDENTSPECIFICINPUTS: InputField[] = [
+export const studentSpecificInputs: InputField[] = [
     { id: 3, label: 'Уровень образования', defaultValue: 'Бакалавр' },
     { id: 4, label: 'Курс', defaultValue: '1' },
 ];
 
-export const PROFESSORSPECIFICINPUTS: InputField[] = [
+export const professorSpecificInputs: InputField[] = [
     { id: 5, label: 'Ученая степень, ученое звание, должность', defaultValue: 'Доцент, канд. пед. наук' },
     { id: 6, label: 'Профиль Urfu', defaultValue: 'Ссылка' },
     { id: 7, label: 'Профиль Scopus', defaultValue: 'Ссылка' },
     { id: 8, label: 'Профиль РИНЦ', defaultValue: 'Ссылка' },
 ];
-export const createOrderedInputs = (specificInputs: InputField[]) => [...specificInputs, ...COMMON_INPUTS];
+
+export const createOrderedInputs = (specificInputs: InputField[]) => [...specificInputs, ...commonInputs];

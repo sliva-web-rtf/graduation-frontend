@@ -1,14 +1,14 @@
-import { FormControl, InputLabel, Stack, TextField, Typography } from '@mui/material';
-import { memo } from 'react';
+import { Stack, Typography } from '@mui/material';
+import { memo, SyntheticEvent, useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import { BaseField, EditingField } from '@/shared/ui';
+import { EditingField } from '@/shared/ui';
 import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { ScientificInterestsAutocomplete } from '@/entities/ScietificInterests';
 import { getScientificInterests } from '../model/selectors/getScientificInterests/getScientificInterests';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { scientificPortfolioActions, scientificPortfolioReducer } from '../model/slice/scientificPortfolioSlice';
-import { isUserProfessor } from '@/entities/User/model/selectors/getUserRoles/getUserRoles';
-import { createOrderedInputs, PROFESSORSPECIFICINPUTS, STUDENTSPECIFICINPUTS } from '../lib/const';
+import { createOrderedInputs, professorSpecificInputs, studentSpecificInputs } from '../lib/const';
+import { isUserProfessor } from '@/entities/User';
 
 const initialReducers: ReducersList = {
     scientificPortfolio: scientificPortfolioReducer,
@@ -17,8 +17,13 @@ const initialReducers: ReducersList = {
 export const ScientificPortfolio = memo(() => {
     const dispatch = useAppDispatch();
     const isProfessor = useSelector(isUserProfessor);
-    const inputFields = createOrderedInputs(isProfessor ? PROFESSORSPECIFICINPUTS : STUDENTSPECIFICINPUTS);
     const interests = useSelector(getScientificInterests);
+    const inputFields = createOrderedInputs(isProfessor ? professorSpecificInputs : studentSpecificInputs);
+
+    const handleScientificInterestsChange = useCallback(
+        (_: SyntheticEvent, value: Array<string>) => dispatch(scientificPortfolioActions.setScientificInterests(value)),
+        [dispatch],
+    );
 
     return (
         <DynamicModuleLoader removeAfterUnmount reducers={initialReducers}>
@@ -42,7 +47,7 @@ export const ScientificPortfolio = memo(() => {
                             value={interests}
                             placeholder="Поиск по научным интересам или ключевым словам"
                             limitTags={1}
-                            onChange={(_, value) => dispatch(scientificPortfolioActions.setScientificInterests(value))}
+                            onChange={handleScientificInterestsChange}
                         />
                     </Stack>
                 </Stack>

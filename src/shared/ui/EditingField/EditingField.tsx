@@ -1,5 +1,5 @@
 import { InputAdornment, styled, TextField, TextFieldProps } from '@mui/material';
-import { EditOutlinedIcon } from '@/shared/assets/icons/EditOutlinedIcon';
+import { EditOutlinedIcon } from '@/shared/assets/icons';
 
 export const EditingField = styled((props: TextFieldProps) => (
     <TextField
