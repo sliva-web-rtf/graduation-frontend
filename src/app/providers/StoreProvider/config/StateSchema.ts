@@ -10,6 +10,7 @@ import { ProfessorInfoSchema } from '@/widgets/ProfessorInfo';
 import { StudentInfoSchema } from '@/widgets/StudentInfo';
 import { ManualSchema } from '@/widgets/Manual';
 import { type ProfileSchema } from '@/widgets/Profile/model/types/profileSchema';
+import { type ScientificPortfolioSchema } from '@/widgets/ScientificPortfolio/model/types/scientificPortfolioSchema';
 
 export interface StateSchema {
     user: UserSchema;
@@ -22,6 +23,7 @@ export interface StateSchema {
     manual?: ManualSchema;
     onboarding?: OnboardingSchema;
     profile?: ProfileSchema;
+    scientificPortfolio?: ScientificPortfolioSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;
