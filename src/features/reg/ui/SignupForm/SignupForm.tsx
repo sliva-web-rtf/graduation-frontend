@@ -1,6 +1,6 @@
 import { memo, useCallback, useState } from 'react';
 import { Box, IconButton, InputAdornment, Link, MenuItem, Stack, Typography } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useForm } from 'react-hook-form';
@@ -8,6 +8,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { BaseAccordion, BaseField, BaseLoadingButton, BaseSelect, HelperText } from '@/shared/ui';
 import { signupFormSchema, SignupFormSchema } from '../../model/types/signupFormSchema';
+import { useSignupUserMutation } from '@/entities/User/api/userApi';
+import { SignupSchema } from '../../model/types/signupSchema';
 
 export interface SignupProps {
     className?: string;
@@ -15,6 +17,7 @@ export interface SignupProps {
 const SignupForm = memo((props: SignupProps) => {
     const { className } = props;
     const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate();
 
     const handleClickShowPassword = useCallback(() => setShowPassword(!showPassword), [showPassword]);
 
@@ -23,10 +26,28 @@ const SignupForm = memo((props: SignupProps) => {
         control,
         handleSubmit,
         register,
+        setError,
     } = useForm<SignupFormSchema>({
         resolver: zodResolver(signupFormSchema),
     });
-    const onSubmitHandler = () => {};
+
+    const [signupUser, { isLoading, error }] = useSignupUserMutation();
+
+    const onSubmitHandler = async (data: SignupSchema) => {
+        const role = data.role === 'Студент' ? 'student' : 'professor';
+        try {
+            await signupUser({ ...data, role }).unwrap();
+            navigate('/login');
+        } catch (err: any) {
+            if (err?.status === 400 && (err.data as any)?.code === '409') {
+                setError('email', {
+                    type: 'server',
+                    message: 'Этот адрес электронной почты уже зарегистрирован.',
+                });
+            }
+        }
+    };
+
     return (
         <form onSubmit={handleSubmit(onSubmitHandler)} className={classNames(className)}>
             <Stack spacing={3}>
@@ -61,7 +82,7 @@ const SignupForm = memo((props: SignupProps) => {
                     />
                     <BaseSelect
                         options={['Студент', 'Научный руководитель']}
-                        name="Выбрать роль"
+                        name="role"
                         control={control}
                         defaultValue="Студент"
                     />
