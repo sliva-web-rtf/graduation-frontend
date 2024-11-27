@@ -45,14 +45,13 @@ const userApi = baseApi.injectEndpoints({
         }),
         signupUser: build.mutation<void, Signup>({
             query: (initialValues) => {
-                const endpoint =
-                    initialValues.role === 'student' ? '/api/auth/create-student' : '/api/auth/create-professor';
+                const { role, email, password } = initialValues;
                 return {
-                    url: endpoint,
+                    url: `/api/auth/create-${role}`,
                     method: 'POST',
                     body: {
-                        email: initialValues.email,
-                        password: initialValues.password,
+                        email,
+                        password,
                     },
                 };
             },

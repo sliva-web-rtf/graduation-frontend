@@ -9,13 +9,16 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import { BaseAccordion, BaseField, BaseLoadingButton, BaseSelect, HelperText } from '@/shared/ui';
 import { signupFormSchema, SignupFormSchema } from '../../model/types/signupFormSchema';
 import { useSignupUserMutation } from '@/entities/User/api/userApi';
-import { SignupSchema } from '../../model/types/signupSchema';
 
 export interface SignupProps {
     className?: string;
 }
 const SignupForm = memo((props: SignupProps) => {
     const { className } = props;
+    const SignupRoles = {
+        student: 'Студент',
+        professor: 'Научный руководитель',
+    };
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
@@ -33,8 +36,8 @@ const SignupForm = memo((props: SignupProps) => {
 
     const [signupUser, { isLoading, error }] = useSignupUserMutation();
 
-    const onSubmitHandler = async (data: SignupSchema) => {
-        const role = data.role === 'Студент' ? 'student' : 'professor';
+    const onSubmitHandler = async (data: SignupFormSchema) => {
+        const role = data.role === SignupRoles.student ? 'student' : 'professor';
         try {
             await signupUser({ ...data, role }).unwrap();
             navigate('/login');
@@ -81,7 +84,7 @@ const SignupForm = memo((props: SignupProps) => {
                         }}
                     />
                     <BaseSelect
-                        options={['Студент', 'Научный руководитель']}
+                        options={Object.values(SignupRoles)}
                         name="role"
                         control={control}
                         defaultValue="Студент"
