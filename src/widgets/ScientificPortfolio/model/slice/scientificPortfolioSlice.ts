@@ -1,16 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ScientificPortfolioSchema } from '../types/scientificPortfolioSchema';
+import { ProfessorScientificFormSchema } from '../types/professorScientificFormSchema';
+import { StudentScientificFormSchema } from '../types/studentScientificFormSchema';
 
-export const initialState: ScientificPortfolioSchema = {
-    scientificInterests: [],
-};
+export const initialState: ScientificPortfolioSchema = {};
 
 export const scientificPortfolioSlice = createSlice({
     name: 'scientificPortfolio',
     initialState,
     reducers: {
-        setScientificInterests: (state, action: PayloadAction<ScientificPortfolioSchema['scientificInterests']>) => {
-            state.scientificInterests = action.payload;
+        setProfessorScientificPortfolio: (state, action: PayloadAction<ProfessorScientificFormSchema | undefined>) => {
+            state.professorScientificInfo = action.payload;
+        },
+        setStudentScientificPortfolio: (state, action: PayloadAction<StudentScientificFormSchema | undefined>) => {
+            state.studentScientificInfo = action.payload;
         },
     },
 });
