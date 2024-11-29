@@ -7,7 +7,6 @@ import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/Dynam
 import { ScientificInterestsAutocomplete } from '@/entities/ScietificInterests';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { scientificPortfolioActions, scientificPortfolioReducer } from '../model/slice/scientificPortfolioSlice';
-import { createOrderedInputs, professorSpecificInputs, studentSpecificInputs } from '../lib/const';
 import { isUserProfessor } from '@/entities/User';
 import { ScientificAreasAutocomplete } from '@/entities/ScientificAreas';
 import { EducationLevelSelect } from '@/entities/EducationLevel';
