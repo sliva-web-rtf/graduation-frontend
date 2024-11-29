@@ -1,3 +1,7 @@
+import { ProfessorScientificFormSchema } from './professorScientificFormSchema';
+import { StudentScientificFormSchema } from './studentScientificFormSchema';
+
 export interface ScientificPortfolioSchema {
-    scientificInterests: Array<string>;
+    professorScientificInfo?: ProfessorScientificFormSchema;
+    studentScientificInfo?: StudentScientificFormSchema;
 }

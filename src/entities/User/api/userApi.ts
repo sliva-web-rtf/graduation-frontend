@@ -7,6 +7,7 @@ import { mapTokenDtoToModel } from '../lib/tokenMapper';
 import { mapUserDtoToModel } from '../lib/userMapper';
 import { Login } from '../model/types/login';
 import { loginToDto } from '../lib/loginMapper';
+import { Signup } from '../model/types/signup';
 
 const userApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
@@ -42,9 +43,23 @@ const userApi = baseApi.injectEndpoints({
                 return mapTokenDtoToModel(response);
             },
         }),
+        signupUser: build.mutation<void, Signup>({
+            query: (initialValues) => {
+                const { role, email, password } = initialValues;
+                return {
+                    url: `/api/auth/create-${role}`,
+                    method: 'POST',
+                    body: {
+                        email,
+                        password,
+                    },
+                };
+            },
+        }),
     }),
 });
 
 export const getUserQuery = userApi.endpoints.getUser.initiate;
 export const refreshToken = userApi.useRefreshTokenMutation;
 export const getTokenByEmail = userApi.endpoints.getTokenByEmail.initiate;
+export const { useSignupUserMutation } = userApi;
