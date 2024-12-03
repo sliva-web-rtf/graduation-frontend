@@ -11,7 +11,7 @@ const initialReducers: ReducersList = {
 
 const Profile = memo(() => (
     <DynamicModuleLoader removeAfterUnmount reducers={initialReducers}>
-        <Stack spacing={4} height="100%" display="block">
+        <Stack spacing={4} height="100%">
             <ToggleList />
             <ConditionComponent />
         </Stack>

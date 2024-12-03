@@ -18,5 +18,13 @@ export const ToggleList = memo(() => {
         },
         [dispatch],
     );
-    return <ToggleButtons exclusive onChange={handleChange} value={value} options={options} />;
+    return (
+        <ToggleButtons
+            exclusive
+            onChange={handleChange}
+            value={value}
+            options={options}
+            sx={{ alignSelf: 'flex-start' }}
+        />
+    );
 });

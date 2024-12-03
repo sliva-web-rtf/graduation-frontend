@@ -1,8 +1,9 @@
 import { useSelector } from 'react-redux';
-import { getProfileOption } from '@/widgets/Profile';
+import { getProfileOption, Profile } from '@/widgets/Profile';
 import { ProfileOption } from '@/widgets/Profile/model/types/profileOption';
 import { PersonalData } from '@/widgets/PersonalData';
 import { ScientificPortfolio } from '@/widgets/ScientificPortfolio';
+import { Favorites } from '@/widgets/Favorites';
 
 export const ConditionComponent = () => {
     const activeOption = useSelector(getProfileOption);
@@ -11,6 +12,9 @@ export const ConditionComponent = () => {
     }
     if (activeOption === ProfileOption.ScientificPortfolio) {
         return <ScientificPortfolio />;
+    }
+    if (activeOption === ProfileOption.Favorites) {
+        return <Favorites />;
     }
     return null;
 };
