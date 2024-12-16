@@ -9,13 +9,26 @@ export const ManualCard = memo((props: ManualCardModel) => {
     const { icon, title, url } = props;
 
     return (
-        <Stack className={styles.card} spacing={2} component={Paper} py={3} px={2} borderRadius={4}>
-            <Box className={styles.icon} color="primary">
-                {icon}
-            </Box>
-            <Link to={url} target="_blank">
-                <Typography variant="h4">{title}</Typography>
-            </Link>
-        </Stack>
+        <Paper
+            component={Link}
+            to={url}
+            target="_blank"
+            className={styles.card}
+            sx={{
+                borderRadius: 4,
+                padding: 2,
+                textDecoration: 'none',
+                '&:hover': { textDecoration: 'none' },
+            }}
+        >
+            <Stack spacing={2} py={1}>
+                <Box className={styles.icon} color="primary">
+                    {icon}
+                </Box>
+                <Typography variant="h4" className={styles.title}>
+                    {title}
+                </Typography>
+            </Stack>
+        </Paper>
     );
 });
