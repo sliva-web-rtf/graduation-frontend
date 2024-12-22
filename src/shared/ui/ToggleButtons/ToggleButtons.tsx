@@ -11,7 +11,7 @@ interface CustomToggleButtonProps extends ToggleButtonProps {
 
 const StyledToggleButtonGroup = styled(ToggleButtonGroup)<
     ToggleButtonGroupProps & { variant?: 'default' | 'underline' }
->(({ theme, variant = 'default' }) => ({
+>(({ theme, variant }) => ({
     '&': {
         columnGap: variant === 'default' ? theme.spacing(1) : '0px',
         borderRadius: theme.spacing(4),
@@ -20,7 +20,7 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)<
     },
 }));
 
-const StyledToggleButton = styled(ToggleButton)<CustomToggleButtonProps>(({ theme, variant = 'default' }) => ({
+const StyledToggleButton = styled(ToggleButton)<CustomToggleButtonProps>(({ theme, variant }) => ({
     '&': {
         fontWeight: 600,
         border: 0,
@@ -48,7 +48,7 @@ const StyledToggleButton = styled(ToggleButton)<CustomToggleButtonProps>(({ them
             : { backgroundColor: theme.palette.primary.main }),
     },
     '&.MuiToggleButton-root': {
-        borderRadius: variant === 'underline' ? 0 : theme.spacing(4),
+        borderRadius: variant === 'underline' ? 0 : `${theme.spacing(4)} !important`,
     },
 }));
 

@@ -1,7 +1,7 @@
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Stack, Typography } from '@mui/material';
-import { useCallback } from 'react';
+import { SyntheticEvent, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { isEqual } from 'lodash';
 import { personalInfoFormSchema, PersonalInfoFormSchema } from '../../model/types/personalInfoFormSchema';
@@ -27,18 +27,10 @@ export const StudentPersonalInfoForm = () => {
 
     const onSubmitHandler = useCallback(
         async (values: PersonalInfoFormSchema) => {
-            if (isEqual(values, profileInfo)) {
-                // onSuccess?.();
-            } else {
-                await updatedProfileInfo(values).then((response) => {
-                    if ('error' in response) {
-                        // onError?.();
-                    } else {
-                        dispatch(personalDataActions.setStudentUpdatedProfileInfo(values));
-                        // onSuccess?.();
-                    }
-                });
-            }
+            await updatedProfileInfo(values).then(() => {
+                console.log('dsadas');
+                dispatch(personalDataActions.setStudentUpdatedProfileInfo(values));
+            });
         },
         // eslint-disable-next-line react-hooks/exhaustive-deps
         [profileInfo, updatedProfileInfo],
@@ -104,12 +96,13 @@ export const StudentPersonalInfoForm = () => {
                     <Controller
                         control={control}
                         name="phone"
-                        render={({ field: { onChange, value } }) => (
+                        render={({ field: { onChange, onBlur, value = '79221750963' } }) => (
                             <BaseField
                                 fullWidth
                                 variant="standard"
                                 onChange={onChange}
                                 value={value}
+                                onBlur={onBlur}
                                 autoComplete="false"
                                 sx={(theme) => ({
                                     '& .MuiInputBase-root': {
