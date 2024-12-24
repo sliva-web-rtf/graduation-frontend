@@ -1,4 +1,4 @@
-import { Grid, Stack } from '@mui/material';
+import { Grid } from '@mui/material';
 import { UploadAvatar, useGetAvatar } from '@/features/avatar';
 import { StudentPersonalInfoForm } from './StudentPersonalInfoForm/StudentPersonalInfoForm';
 import { StudentStatusSearching } from './StudentStatusSearching/StudentStatusSearching';

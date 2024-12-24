@@ -9,7 +9,6 @@ import { ChangeProfessorStatusModal } from './ChangeProfessorStatusModal';
 
 export const ChangeStatusButton = () => {
     const [open, setOpen] = useState(false);
-    const id = 'string';
     const isProfessor = useSelector(isUserProfessor);
     const toggleOpen = () => {
         setOpen((prev) => !prev);
@@ -29,9 +28,9 @@ export const ChangeStatusButton = () => {
                 Изменить статус
             </BaseButton>
             {isProfessor ? (
-                <ChangeProfessorStatusModal open={open} onClose={toggleOpen} id={id} />
+                <ChangeProfessorStatusModal open={open} onClose={toggleOpen} id="1" />
             ) : (
-                <ChangeStudentStatusModal open={open} onClose={toggleOpen} id={id} />
+                <ChangeStudentStatusModal open={open} onClose={toggleOpen} />
             )}
         </Stack>
     );
