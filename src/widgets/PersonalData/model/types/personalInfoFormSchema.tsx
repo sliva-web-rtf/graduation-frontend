@@ -39,7 +39,7 @@ export const personalInfoFormSchema = z.object({
         .optional()
         .or(z.literal('')),
     contacts: z.string(),
-    lastPasswordChangedDate: z.string(),
+    lastPasswordChangedDate: z.date(),
 });
 
 export type PersonalInfoFormSchema = z.infer<typeof personalInfoFormSchema>;

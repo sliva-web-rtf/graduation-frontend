@@ -35,7 +35,7 @@ export const PersonalInfoForm = () => {
                 email: data.email,
                 phone: data.phone,
                 contacts: data.contacts,
-                lastPasswordChangedDate: data.lastPasswordChangedDate ?? '',
+                lastPasswordChangedDate: data.lastPasswordChangedDate.toLocaleString() ?? '',
             });
         }
     }, [data, reset]);

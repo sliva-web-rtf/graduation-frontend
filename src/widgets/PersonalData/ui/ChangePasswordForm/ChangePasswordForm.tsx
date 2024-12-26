@@ -7,8 +7,6 @@ import { changePasswordFormSchema, ChangePasswordFormSchema } from '../../model/
 import { BaseButton, BaseField, HelperText } from '@/shared/ui';
 import { updatePassword } from '../../api/personalDataApi';
 
-// @todo
-// 1. Обработать плохой ответ с запроса на изменение пароля
 export const ChangePasswordForm = () => {
     const [showPassword, setShowPassword] = useState({
         currentPassword: false,
@@ -25,6 +23,7 @@ export const ChangePasswordForm = () => {
         handleSubmit,
         register,
         reset,
+        setError,
     } = useForm<ChangePasswordFormSchema>({
         defaultValues: {
             currentPassword: '',
@@ -36,9 +35,23 @@ export const ChangePasswordForm = () => {
 
     const onSubmitHandler = useCallback(
         async (values: ChangePasswordFormSchema) => {
-            await updateSmbdyPassword(values);
+            await updateSmbdyPassword(values)
+                .then((response) => {
+                    if (!response.error?.data) {
+                        return Promise.reject();
+                    }
+                    return response.error.data;
+                })
+                .then((data) => {
+                    if (data.status === 400) {
+                        setError('currentPassword', {
+                            type: 'server',
+                            message: 'Неправильный пароль',
+                        });
+                    }
+                });
         },
-        [updateSmbdyPassword],
+        [setError, updateSmbdyPassword],
     );
 
     useEffect(() => {
