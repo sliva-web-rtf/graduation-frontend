@@ -28,6 +28,7 @@ export const PersonalInfoForm = () => {
 
     useEffect(() => {
         if (data) {
+            const date = new Date(data.lastPasswordChangedDate);
             reset({
                 firstName: data.firstName,
                 lastName: data.lastName,
@@ -35,7 +36,7 @@ export const PersonalInfoForm = () => {
                 email: data.email,
                 phone: data.phone,
                 contacts: data.contacts,
-                lastPasswordChangedDate: data.lastPasswordChangedDate.toLocaleString() ?? '',
+                lastPasswordChangedDate: date.toLocaleString() ?? '',
             });
         }
     }, [data, reset]);

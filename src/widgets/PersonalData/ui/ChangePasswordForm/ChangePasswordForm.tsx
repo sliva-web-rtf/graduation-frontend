@@ -35,21 +35,13 @@ export const ChangePasswordForm = () => {
 
     const onSubmitHandler = useCallback(
         async (values: ChangePasswordFormSchema) => {
-            await updateSmbdyPassword(values)
-                .then((response) => {
-                    if (!response.error?.data) {
-                        return Promise.reject();
-                    }
-                    return response.error.data;
-                })
-                .then((data) => {
-                    if (data.status === 400) {
-                        setError('currentPassword', {
-                            type: 'server',
-                            message: 'Неправильный пароль',
-                        });
-                    }
+            const response = await updateSmbdyPassword(values);
+            if ('error' in response && response.error) {
+                setError('currentPassword', {
+                    type: 'server',
+                    message: 'Неправильный пароль',
                 });
+            }
         },
         [setError, updateSmbdyPassword],
     );

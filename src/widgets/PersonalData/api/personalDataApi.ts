@@ -17,13 +17,6 @@ const personalDataApi = baseApi.injectEndpoints({
             query: () => ({
                 url: '/api/users/get-profile-info',
             }),
-            transformResponse: (response: PersonalInfoFormSchema) => {
-                const values = {
-                    ...response,
-                    lastPasswordChangedDate: new Date(),
-                };
-                return values;
-            },
         }),
         getStudentSearchingStatus: build.query<StudentSearchingStatus, void>({
             query: () => ({
