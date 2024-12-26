@@ -26,8 +26,8 @@ export const StudentStatusSearching = () => {
 
     return (
         <Stack sx={{ backgroundColor: 'white', padding: 3, borderRadius: 4 }}>
-            <h4 style={{ marginBottom: '8px' }}>Статус поиска</h4>
-            <Stack>
+            <h3 style={{ marginBottom: '8px' }}>Статус поиска</h3>
+            <Stack mb={1}>
                 <SearchingStatusText studentSearching={studentSearching} searchingType={searchingType} />
             </Stack>
             <ChangeStatusButton />

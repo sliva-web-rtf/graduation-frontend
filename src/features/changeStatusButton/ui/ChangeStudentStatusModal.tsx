@@ -27,23 +27,14 @@ export const ChangeStudentStatusModal = memo((props: ChangeStatusModalProps) => 
     const { open, onClose } = props;
 
     const { data } = getStudentSearchingStatus();
+    const [updatedSearchingStatus, { error }] = updateStudentStatusSearching();
+
     const [studentSearching, setStudentSearching] = useState<StudentSearching>({
         commandSearching: data?.commandSearching ?? false,
         professorSearching: data?.professorSearching ?? false,
     });
     const [searchingType, setSearchingType] = useState<SearchingStatus>(data?.status ?? SearchingStatus.DoNotSearch);
-    useEffect(() => {
-        if (data && !studentSearching.commandSearching && !studentSearching.professorSearching) {
-            setStudentSearching({
-                commandSearching: data.commandSearching,
-                professorSearching: data.professorSearching,
-            });
-            setSearchingType(data.status);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [data]);
 
-    const [updatedSearchingStatus, { error }] = updateStudentStatusSearching();
     const onSubmitHandler = useCallback(
         async (event: FormEvent<HTMLFormElement>) => {
             event.preventDefault();
@@ -56,6 +47,17 @@ export const ChangeStudentStatusModal = memo((props: ChangeStatusModalProps) => 
         },
         [searchingType, studentSearching.commandSearching, studentSearching.professorSearching, updatedSearchingStatus],
     );
+
+    useEffect(() => {
+        if (data && !studentSearching.commandSearching && !studentSearching.professorSearching) {
+            setStudentSearching({
+                commandSearching: data.commandSearching,
+                professorSearching: data.professorSearching,
+            });
+            setSearchingType(data.status);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [data]);
 
     useEffect(() => {
         if (

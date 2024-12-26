@@ -1,10 +1,10 @@
 import { Stack } from '@mui/material';
 import { PersonalInfoForm } from '../PersonalInfoForm/PersonalInfoForm';
+import { ChangePasswordForm } from '../ChangePasswordForm/ChangePasswordForm';
 
-// @todo
-// 3. Сделать отдельную форму для пароля(безопасность)
 export const StudentPersonalInfoForm = () => (
-    <Stack>
+    <Stack gap={2}>
         <PersonalInfoForm />
+        <ChangePasswordForm />
     </Stack>
 );

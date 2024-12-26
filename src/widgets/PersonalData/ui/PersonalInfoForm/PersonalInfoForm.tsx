@@ -2,13 +2,13 @@ import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useCallback, useEffect } from 'react';
 import { Stack, Typography } from '@mui/material';
-import { getStudentProfile, updateStudentProfileInfo } from '../../api/personalDataApi';
+import { getProfileInfo, updateProfileInfo } from '../../api/personalDataApi';
 import { personalInfoFormSchema, PersonalInfoFormSchema } from '../../model/types/personalInfoFormSchema';
 import { BaseButton, BaseField } from '@/shared/ui';
 
 export const PersonalInfoForm = () => {
-    const { data } = getStudentProfile();
-    const [updatedProfileInfo, { error }] = updateStudentProfileInfo();
+    const { data } = getProfileInfo();
+    const [updatingProfileInfo, { error }] = updateProfileInfo();
 
     const {
         formState: { errors },
@@ -21,9 +21,9 @@ export const PersonalInfoForm = () => {
 
     const onSubmitHandler = useCallback(
         async (values: PersonalInfoFormSchema) => {
-            await updatedProfileInfo(values);
+            await updatingProfileInfo(values);
         },
-        [updatedProfileInfo],
+        [updatingProfileInfo],
     );
 
     useEffect(() => {

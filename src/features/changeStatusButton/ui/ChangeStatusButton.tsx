@@ -28,7 +28,7 @@ export const ChangeStatusButton = () => {
                 Изменить статус
             </BaseButton>
             {isProfessor ? (
-                <ChangeProfessorStatusModal open={open} onClose={toggleOpen} id="1" />
+                <ChangeProfessorStatusModal open={open} onClose={toggleOpen} />
             ) : (
                 <ChangeStudentStatusModal open={open} onClose={toggleOpen} />
             )}
