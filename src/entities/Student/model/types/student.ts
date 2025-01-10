@@ -1,4 +1,4 @@
-import { StudentStatus } from './studentStatus';
+import { SearchingStatus } from '@/shared/lib/types/searchingStatus';
 import { ScientificAreaDto } from '@/entities/ScientificAreas/api/types';
 
 export interface Student {
@@ -14,7 +14,7 @@ export interface Student {
     readonly professorSearching: boolean;
     readonly scientificInterests: Array<string>;
     readonly scientificArea: ScientificAreaDto[];
-    readonly status: StudentStatus;
+    readonly status: SearchingStatus;
     readonly avatarImagePath?: string;
     readonly contacts?: string;
 }

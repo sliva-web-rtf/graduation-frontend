@@ -11,6 +11,8 @@ import { StudentInfoSchema } from '@/widgets/StudentInfo';
 import { ManualSchema } from '@/widgets/Manual';
 import { ProfileSchema } from '@/widgets/Profile';
 import { ScientificPortfolioSchema } from '@/widgets/ScientificPortfolio';
+import { RequestsSectionSchema } from '@/widgets/RequestsSection';
+import { PersonalDataSchema } from '@/widgets/PersonalData/model/types/personalDataSchema';
 
 export interface StateSchema {
     user: UserSchema;
@@ -22,8 +24,10 @@ export interface StateSchema {
     student?: StudentInfoSchema;
     manual?: ManualSchema;
     onboarding?: OnboardingSchema;
+    personalData?: PersonalDataSchema;
     profile?: ProfileSchema;
     scientificPortfolio?: ScientificPortfolioSchema;
+    requestsSection?: RequestsSectionSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;

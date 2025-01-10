@@ -27,6 +27,7 @@ const catalogApi = baseApi.injectEndpoints({
                 }
             },
             transformResponse: (response: CatalogDto) => mapCatalogDtoToModel(response),
+            providesTags: ['Catalog'],
         }),
     }),
 });

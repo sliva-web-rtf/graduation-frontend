@@ -1,7 +1,9 @@
 import { z } from 'zod';
+import { ErrorMessage } from '@/shared/lib/helpers/errorMessages';
 import { ALLOWED_DOMAINS } from '@/shared/lib/const/const';
 
-export const signupFormSchema = z.object({
+export const professorPersonalInfoFormSchema = z.object({
+    fullName: z.string().min(1, { message: ErrorMessage.getRequiredErrorFieldMessage() }),
     email: z
         .string()
         .min(1, { message: 'Почта обязательна' })
@@ -13,6 +15,17 @@ export const signupFormSchema = z.object({
             },
             { message: 'Невалидная почта' },
         ),
+    phone: z
+        .optional(
+            z
+                .string()
+                .min(11, { message: ErrorMessage.getPhoneErrorFieldMessage() })
+                .max(11, { message: ErrorMessage.getPhoneErrorFieldMessage() })
+                .refine((value) => !Number.isNaN(Number(value)), ErrorMessage.getPhoneErrorFieldMessage()),
+        )
+        .optional()
+        .or(z.literal('')),
+    contacts: z.string(),
     password: z
         .string()
         .min(8, { message: 'Минимум 8 символов' })
@@ -20,7 +33,6 @@ export const signupFormSchema = z.object({
         .regex(/[A-Z]/, { message: 'Пароль должен содержать хотя бы одну заглавную букву' })
         .regex(/[0-9]/, { message: 'Пароль должен содержать хотя бы одну цифру' })
         .regex(/[\W_]/, { message: 'Пароль должен содержать хотя бы один специальный символ' }),
-    role: z.enum(['Студент', 'Научный руководитель']),
 });
 
-export type SignupFormSchema = z.infer<typeof signupFormSchema>;
+export type ProfessorPersonalInfoFormSchema = z.infer<typeof professorPersonalInfoFormSchema>;
