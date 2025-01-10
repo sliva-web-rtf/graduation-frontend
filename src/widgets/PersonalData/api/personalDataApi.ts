@@ -58,10 +58,12 @@ const personalDataApi = baseApi.injectEndpoints({
     }),
 });
 
-export const updatePassword = personalDataApi.useUpdatePasswordMutation;
-export const updateProfileInfo = personalDataApi.useUpdateProfileInfoMutation;
-export const getProfileInfo = personalDataApi.useGetProfileInfoQuery;
-export const getStudentSearchingStatus = personalDataApi.useGetStudentSearchingStatusQuery;
-export const updateStudentStatusSearching = personalDataApi.useUpdateStudentStatusSearchingMutation;
-export const getProfessorSearchingStatus = personalDataApi.useGetProfessorSearchingStatusQuery;
-export const updateProfessorStatusSearching = personalDataApi.useUpdateProfessorStatusSearchingMutation;
+export const {
+    useUpdatePasswordMutation: updatePassword,
+    useUpdateProfileInfoMutation: updateProfileInfo,
+    useGetProfileInfoQuery: getProfileInfo,
+    useGetStudentSearchingStatusQuery: getStudentSearchingStatus,
+    useUpdateStudentStatusSearchingMutation: updateStudentStatusSearching,
+    useGetProfessorSearchingStatusQuery: getProfessorSearchingStatus,
+    useUpdateProfessorStatusSearchingMutation: updateProfessorStatusSearching,
+} = personalDataApi;

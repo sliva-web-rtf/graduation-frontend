@@ -3,7 +3,7 @@ import { Stack } from '@mui/material';
 import { SearchingStatus } from '@/shared/lib/types/searchingStatus';
 import { getProfessorSearchingStatus } from '../../api/personalDataApi';
 import { SearchingStatusText } from '../SearchingStatusText/SearchingStatusText';
-import { ChangeStatusButton } from '@/features/changeStatusButton';
+import { ChangeStatusButton } from '@/widgets/PersonalData/ui/changeStatusButton';
 
 export const ProfessorStatusSearching = () => {
     const { data } = getProfessorSearchingStatus();

@@ -8,7 +8,7 @@ import { BaseButton, BaseField } from '@/shared/ui';
 
 export const PersonalInfoForm = () => {
     const { data } = getProfileInfo();
-    const [updatingProfileInfo, { error }] = updateProfileInfo();
+    const [updatingProfileInfo, { isLoading, error }] = updateProfileInfo();
 
     const {
         formState: { errors },
@@ -63,7 +63,6 @@ export const PersonalInfoForm = () => {
                                 variant="standard"
                                 onChange={onChange}
                                 value={value}
-                                autoComplete="false"
                                 sx={(theme) => ({
                                     '& .MuiInputBase-root': {
                                         padding: [theme.spacing(1.4), theme.spacing(1)].join(' '),
@@ -86,7 +85,6 @@ export const PersonalInfoForm = () => {
                                 variant="standard"
                                 onChange={onChange}
                                 value={value}
-                                autoComplete="false"
                                 sx={(theme) => ({
                                     '& .MuiInputBase-root': {
                                         padding: [theme.spacing(1.4), theme.spacing(1)].join(' '),
@@ -109,7 +107,6 @@ export const PersonalInfoForm = () => {
                                 variant="standard"
                                 onChange={onChange}
                                 value={value}
-                                autoComplete="false"
                                 sx={(theme) => ({
                                     '& .MuiInputBase-root': {
                                         padding: [theme.spacing(1.4), theme.spacing(1)].join(' '),
@@ -132,7 +129,6 @@ export const PersonalInfoForm = () => {
                                 variant="standard"
                                 onChange={onChange}
                                 value={value}
-                                autoComplete="false"
                                 sx={(theme) => ({
                                     '& .MuiInputBase-root': {
                                         padding: [theme.spacing(1.4), theme.spacing(1)].join(' '),
@@ -155,7 +151,6 @@ export const PersonalInfoForm = () => {
                                 variant="standard"
                                 onChange={onChange}
                                 value={value}
-                                autoComplete="false"
                                 sx={(theme) => ({
                                     '& .MuiInputBase-root': {
                                         padding: [theme.spacing(1.4), theme.spacing(1)].join(' '),
@@ -178,7 +173,6 @@ export const PersonalInfoForm = () => {
                                 variant="standard"
                                 onChange={onChange}
                                 value={value}
-                                autoComplete="false"
                                 sx={(theme) => ({
                                     '& .MuiInputBase-root': {
                                         padding: [theme.spacing(1.4), theme.spacing(1)].join(' '),
@@ -203,7 +197,6 @@ export const PersonalInfoForm = () => {
                                     variant="standard"
                                     value={value}
                                     onChange={onChange}
-                                    autoComplete="false"
                                     sx={(theme) => ({
                                         '& .MuiInputBase-root': {
                                             padding: [theme.spacing(1.4), theme.spacing(1)].join(' '),
@@ -215,7 +208,12 @@ export const PersonalInfoForm = () => {
                     </Stack>
                 )}
             </Stack>
-            <BaseButton type="submit" variant="contained" sx={() => ({ alignSelf: 'center', marginTop: 2 })}>
+            <BaseButton
+                disabled={isLoading}
+                type="submit"
+                variant="contained"
+                sx={() => ({ alignSelf: 'center', marginTop: 2 })}
+            >
                 Изменить
             </BaseButton>
         </form>

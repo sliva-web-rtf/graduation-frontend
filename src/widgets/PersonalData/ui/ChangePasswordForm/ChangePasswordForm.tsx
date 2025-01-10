@@ -17,7 +17,7 @@ export const ChangePasswordForm = () => {
         setShowPassword((prevState) => ({ ...prevState, [field]: !prevState[field] }));
     };
 
-    const [updateSmbdyPassword, { error }] = updatePassword();
+    const [updateSmbdyPassword, { error, isLoading }] = updatePassword();
     const {
         formState: { errors, isSubmitSuccessful },
         handleSubmit,
@@ -65,7 +65,6 @@ export const ChangePasswordForm = () => {
                     <BaseField
                         label="Текущий пароль"
                         fullWidth
-                        autoComplete="false"
                         {...register('currentPassword')}
                         type={showPassword.currentPassword ? 'text' : 'password'}
                         error={Boolean(errors.currentPassword)}
@@ -86,7 +85,6 @@ export const ChangePasswordForm = () => {
                     <BaseField
                         label="Повторите пароль"
                         fullWidth
-                        autoComplete="false"
                         type={showPassword.repeatCurrentPassword ? 'text' : 'password'}
                         {...register('repeatCurrentPassword')}
                         error={Boolean(errors.repeatCurrentPassword)}
@@ -107,7 +105,6 @@ export const ChangePasswordForm = () => {
                     <BaseField
                         label="Новый пароль"
                         fullWidth
-                        autoComplete="false"
                         {...register('newPassword')}
                         type={showPassword.newPassword ? 'text' : 'password'}
                         error={Boolean(errors.newPassword)}
@@ -125,7 +122,12 @@ export const ChangePasswordForm = () => {
                     />
                 </Stack>
             </Stack>
-            <BaseButton type="submit" variant="contained" sx={() => ({ alignSelf: 'center', marginTop: 2 })}>
+            <BaseButton
+                disabled={isLoading}
+                type="submit"
+                variant="contained"
+                sx={() => ({ alignSelf: 'center', marginTop: 2 })}
+            >
                 Изменить
             </BaseButton>
         </form>

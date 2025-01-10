@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Stack } from '@mui/material';
-import { ChangeStatusButton } from '@/features/changeStatusButton';
+import { ChangeStatusButton } from '@/widgets/PersonalData/ui/changeStatusButton';
 import { getStudentSearchingStatus } from '../../api/personalDataApi';
 import { SearchingStatus } from '@/shared/lib/types/searchingStatus';
 import { StudentSearching } from '../../model/types/StudentSearching';

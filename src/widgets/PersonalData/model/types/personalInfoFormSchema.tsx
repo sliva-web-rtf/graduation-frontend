@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { ErrorMessage } from '@/shared/lib/helpers/errorMessages';
+import { ALLOWED_DOMAINS } from '@/shared/lib/const/const';
 
 export const personalInfoFormSchema = z.object({
     firstName: z.string().min(1, { message: ErrorMessage.getRequiredErrorFieldMessage() }),
@@ -11,20 +12,8 @@ export const personalInfoFormSchema = z.object({
         .email({ message: 'Невалидная почта' })
         .refine(
             (email) => {
-                const allowedDomains = [
-                    'gmail.com',
-                    'yahoo.com',
-                    'hotmail.com',
-                    'outlook.com',
-                    'aol.com',
-                    'icloud.com',
-                    'mail.ru',
-                    'yandex.ru',
-                    'urfu.ru',
-                    'urfu.me',
-                ];
                 const domain = email.split('@')[1];
-                return allowedDomains.includes(domain);
+                return ALLOWED_DOMAINS.includes(domain);
             },
             { message: 'Невалидная почта' },
         ),
