@@ -1,1 +1,1 @@
-export { OneTimeCodeForm } from './ui/OneTimeCodeForm';
+export { OneTimeCodeForm } from './ui/oneTimeCodeForm';
