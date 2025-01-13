@@ -12,9 +12,14 @@ import { useSignupUserMutation } from '@/entities/User/api/userApi';
 
 export interface SignupProps {
     className?: string;
+    onNext: () => void;
 }
+
+// @todo
+// Как бэк будет готов, нужно сделать нормальный onSubmitHandler
+
 const SignupForm = memo((props: SignupProps) => {
-    const { className } = props;
+    const { className, onNext } = props;
     const SignupRoles = {
         student: 'Студент',
         professor: 'Научный руководитель',
@@ -39,8 +44,9 @@ const SignupForm = memo((props: SignupProps) => {
     const onSubmitHandler = async (data: SignupFormSchema) => {
         const role = data.role === SignupRoles.student ? 'student' : 'professor';
         try {
-            await signupUser({ ...data, role }).unwrap();
-            navigate('/login');
+            onNext();
+            // await signupUser({ ...data, role }).unwrap();
+            // navigate('/login');
         } catch (err: any) {
             if (err?.status === 400 && (err.data as any)?.code === '409') {
                 setError('email', {
