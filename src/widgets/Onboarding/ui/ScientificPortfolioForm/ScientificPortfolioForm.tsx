@@ -97,7 +97,7 @@ export const StudentScientificPorfolioForm = memo(
                         <EducationLevelSelect
                             name="educationLevel"
                             control={control}
-                            label="Фамилия *"
+                            label="Уровень образования *"
                             disabled={isDisabled}
                             error={Boolean(errors.educationLevel)}
                             helperText={errors.educationLevel ? errors.educationLevel?.message : ' '}

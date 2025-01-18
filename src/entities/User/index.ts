@@ -7,3 +7,5 @@ export { type Login } from './model/types/login';
 export { getUserInited } from './model/selectors/getUserIsInited/getUserIsInited';
 export { Role } from './model/types/role';
 export { refreshToken } from './api/userApi';
+export { isUserProfessor } from './model/selectors/getUserRoles/getUserRoles';
+export { type Signup } from './model/types/signup';

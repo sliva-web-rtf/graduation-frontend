@@ -1,16 +1,17 @@
 import { RouteProps } from 'react-router-dom';
-import { Typography } from '@mui/material';
-import { OnboardingPage } from '@/pages/OnboardingPage';
-import { LoginPage } from '@/pages/LoginPage';
-import { CatalogPage } from '@/pages/CatalogPage';
-import { NotFoundPage } from '@/pages/NotFoundPage';
-import { ForbiddenPage } from '@/pages/ForbiddenPage';
 import { type Role } from '@/entities/User/model/types/role';
-import { ProfessorPage } from '@/pages/ProfessorPage';
-import { StudentPage } from '@/pages/StudentPage';
-import { ScientificWorkPage } from '@/pages/ScientificWorkPage';
+import { CatalogPage } from '@/pages/CatalogPage';
+import { ConfirmEmailPage } from '@/pages/ConfirmEmailPage';
+import { ForbiddenPage } from '@/pages/ForbiddenPage';
+import { LoginPage } from '@/pages/LoginPage';
 import { ManualPage } from '@/pages/ManualPage';
-import { ManualArticlePage } from '@/pages/ManuaArticlelPage';
+import { NotFoundPage } from '@/pages/NotFoundPage';
+import { OnboardingPage } from '@/pages/OnboardingPage';
+import { ProfessorPage } from '@/pages/ProfessorPage';
+import { ProfilePage } from '@/pages/ProfilePage';
+import { ScientificWorkPage } from '@/pages/ScientificWorkPage';
+import { SignupPage } from '@/pages/SignupPage';
+import { StudentPage } from '@/pages/StudentPage';
 
 export type AppRoutesProps = RouteProps & {
     authOnly?: boolean;
@@ -31,6 +32,9 @@ export enum AppRoutes {
     // About = 'About',
     // Tasks = 'Tasks',
     Onboarding = 'Onboarding',
+    Signup = 'Signup',
+    Profile = 'Profile',
+    ConfirmEmail = 'ConfirmEmail',
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
@@ -43,6 +47,9 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.Forbidden]: '/forbidden',
     [AppRoutes.Onboarding]: '/onboarding',
     [AppRoutes.NotFound]: '*',
+    [AppRoutes.Signup]: '/signup',
+    [AppRoutes.Profile]: '/profile',
+    [AppRoutes.ConfirmEmail]: '/signup/confirm-email',
     // [AppRoutes.ManualArticle]: '/manual/:id',
     // [AppRoutes.About]: '/about',
     // [AppRoutes.Tasks]: '/tasks',
@@ -63,6 +70,12 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     [AppRoutes.Catalog]: {
         path: RoutePath.Catalog,
         element: <CatalogPage />,
+        hasLayout: true,
+        authOnly: true,
+    },
+    [AppRoutes.Profile]: {
+        path: RoutePath.Profile,
+        element: <ProfilePage />,
         hasLayout: true,
         authOnly: true,
     },
@@ -101,6 +114,16 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         element: <OnboardingPage />,
         authOnly: true,
         hasLayout: false,
+    },
+    [AppRoutes.Signup]: {
+        path: `${RoutePath.Signup}`,
+        element: <SignupPage />,
+        authOnly: false,
+    },
+    [AppRoutes.ConfirmEmail]: {
+        path: `${RoutePath.ConfirmEmail}`,
+        element: <ConfirmEmailPage />,
+        authOnly: false,
     },
     // [AppRoutes.ManualArticle]: {
     //     path: RoutePath.ManualArticle,

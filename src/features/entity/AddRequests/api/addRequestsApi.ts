@@ -23,6 +23,7 @@ const addRequestsApi = baseApi.injectEndpoints({
                     },
                 };
             },
+            invalidatesTags: ['Catalog'],
         }),
         addProfessor: build.mutation<void, AddProfessorRequest>({
             query: (body) => ({

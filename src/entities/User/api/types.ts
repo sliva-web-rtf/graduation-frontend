@@ -7,6 +7,7 @@ export interface UserDto {
     email?: string;
     lastLogin?: string;
     isRegistrationComplete: boolean;
+    emailConfirmed: boolean;
 }
 
 export interface TokenDto {
