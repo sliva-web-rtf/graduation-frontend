@@ -6,7 +6,7 @@ import { ProfessorSearchingStatus } from '../model/types/professorSearchingStatu
 
 const personalDataApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
-        updateProfileInfo: build.mutation<void, PersonalInfoFormSchema>({
+        updateProfileInfoPD: build.mutation<void, PersonalInfoFormSchema>({
             query: (initialValues) => ({
                 url: '/api/users/update-profile-info',
                 method: 'PUT',
@@ -30,7 +30,7 @@ const personalDataApi = baseApi.injectEndpoints({
             }),
             providesTags: ['ProfessorSearchingStatus'],
         }),
-        updateProfessorStatusSearching: build.mutation<void, ProfessorSearchingStatus>({
+        updateProfessorStatusSearchingPD: build.mutation<void, ProfessorSearchingStatus>({
             query: (initialValues) => ({
                 url: '/api/users/professor-status',
                 method: 'PUT',
@@ -38,7 +38,7 @@ const personalDataApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ['ProfessorSearchingStatus'],
         }),
-        updateStudentStatusSearching: build.mutation<void, StudentSearchingStatus>({
+        updateStudentStatusSearchingPD: build.mutation<void, StudentSearchingStatus>({
             query: (initialValues) => ({
                 url: '/api/users/update-status',
                 method: 'PUT',
@@ -60,10 +60,10 @@ const personalDataApi = baseApi.injectEndpoints({
 
 export const {
     useUpdatePasswordMutation: updatePassword,
-    useUpdateProfileInfoMutation: updateProfileInfo,
+    useUpdateProfileInfoPDMutation: updateProfileInfoPD,
     useGetProfileInfoQuery: getProfileInfo,
     useGetStudentSearchingStatusQuery: getStudentSearchingStatus,
-    useUpdateStudentStatusSearchingMutation: updateStudentStatusSearching,
+    useUpdateStudentStatusSearchingPDMutation: updateStudentStatusSearchingPD,
     useGetProfessorSearchingStatusQuery: getProfessorSearchingStatus,
-    useUpdateProfessorStatusSearchingMutation: updateProfessorStatusSearching,
+    useUpdateProfessorStatusSearchingPDMutation: updateProfessorStatusSearchingPD,
 } = personalDataApi;

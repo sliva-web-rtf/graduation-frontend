@@ -10,7 +10,7 @@ export function updateProfileToDto(model: PersonalInfoFormSchema): PersonalInfoF
         lastName: model.lastName,
         patronymic: model.middleName,
         email: model.email,
-        contacts: model.contacts,
+        contactsTg: model.contacts ?? '',
         phone: model.phone,
     };
 }
@@ -24,6 +24,6 @@ export function validationUpdateProfileErrorsFromDto(
         lastName: extractErrorMessage('lastName', errorDto),
         middleName: extractErrorMessage('patronymic', errorDto),
         phone: extractErrorMessage('phone', errorDto),
-        contacts: extractErrorMessage('contacts', errorDto),
+        contacts: extractErrorMessage('contactsTg', errorDto),
     };
 }

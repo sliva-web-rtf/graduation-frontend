@@ -7,7 +7,7 @@ import { ProfessorSearchingStatus } from '../model/types/professorStatus';
 export function updateProfessorStatusToDto(model: ProfessorSearchingStatus): ProfessorStatusDto {
     return {
         limit: model.studentsCount,
-        searchStatus: model.status,
+        status: model.status,
     };
 }
 
@@ -16,6 +16,6 @@ export function validationUpdateProfessorStatusErrorsFromDto(
 ): EntityValidationErrors<ProfessorSearchingStatus> {
     return {
         studentsCount: extractErrorMessage('limit', errorDto),
-        status: extractErrorMessage('searchStatus', errorDto),
+        status: extractErrorMessage('status', errorDto),
     };
 }

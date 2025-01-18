@@ -16,7 +16,7 @@ import styles from './Modal.module.scss';
 import { BaseButton, StyledSelect } from '@/shared/ui';
 import {
     getProfessorSearchingStatus,
-    updateProfessorStatusSearching,
+    updateProfessorStatusSearchingPD,
 } from '@/widgets/PersonalData/api/personalDataApi';
 import { SearchingStatus } from '@/shared/lib/types/searchingStatus';
 import { ProfessorSearchingStatus } from '@/widgets/PersonalData/model/types/professorSearchingStatus';
@@ -30,7 +30,7 @@ export const ChangeProfessorStatusModal = memo((props: ChangeStatusModalProps) =
     const { open, onClose } = props;
 
     const { data } = getProfessorSearchingStatus();
-    const [updatedProfessorSearchingStatus, { error }] = updateProfessorStatusSearching();
+    const [updatedProfessorSearchingStatus, { error }] = updateProfessorStatusSearchingPD();
 
     const [searchingType, setSearchingType] = useState<SearchingStatus>(data?.status ?? SearchingStatus.DoNotSearch);
     const [studentsCount, setStudentsCount] = useState<number>(data?.limit ?? 0);
