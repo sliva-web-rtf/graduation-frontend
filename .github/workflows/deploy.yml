@@ -59,7 +59,7 @@ jobs:
                   script: |
                       sudo docker stop sci-join-front || true
                       sudo docker rm sci-join-front || true
-                      sudo docker run -d --restart unless-stopped --name sci-join-front \
+                      sudo docker run -d --restart unless-stopped --name sci-join-front --network sci-join \
                         cr.yandex/${{vars.CR_ID }}/app:${{github.event.inputs.version }}_latest
 
             - name: Remove old Docker image
