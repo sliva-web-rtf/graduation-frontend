@@ -57,8 +57,8 @@ jobs:
                   key: ${{ secrets.SSH_PRIVATE_KEY_PROD }}
                   port: 22
                   script: |
-                      sudo docker stop app || true
-                      sudo docker rm app &&
+                      sudo docker stop sci-join-front || true
+                      sudo docker rm sci-join-front || true
                       sudo docker run -d --restart unless-stopped --name sci-join-front \
                         cr.yandex/${{vars.CR_ID }}/app:${{github.event.inputs.version }}_latest"
 
