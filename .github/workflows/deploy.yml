@@ -57,9 +57,10 @@ jobs:
                   key: ${{ secrets.SSH_PRIVATE_KEY_PROD }}
                   port: 22
                   script: |
-                      sudo docker stop app || true
-                      sudo docker rm app &&
-                      sudo docker run -d --restart unless-stopped --name app -p cr.yandex/${{vars.CR_ID }}/app:${{github.event.inputs.version }}_latest"
+                      sudo docker stop sci-join-front || true
+                      sudo docker rm sci-join-front || true
+                      sudo docker run -d --restart unless-stopped --name sci-join-front --network sci-join \
+                        cr.yandex/${{vars.CR_ID }}/app:${{github.event.inputs.version }}_latest
 
             - name: Remove old Docker image
               uses: appleboy/ssh-action@v0.1.6

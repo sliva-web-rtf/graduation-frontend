@@ -1,6 +1,6 @@
 import { FormControl, FormHelperText, InputLabel, MenuItem, Select, SelectProps, styled } from '@mui/material';
-import { Controller } from 'react-hook-form';
 import { memo } from 'react';
+import { Controller } from 'react-hook-form';
 
 export const StyledSelect = styled(Select)<SelectProps>(({ theme }) => ({
     '&': {

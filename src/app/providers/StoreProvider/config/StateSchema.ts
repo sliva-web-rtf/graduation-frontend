@@ -1,18 +1,18 @@
 import { AnyAction, EnhancedStore, Reducer, ReducersMapObject } from '@reduxjs/toolkit';
 import { CombinedState } from 'redux';
 
-import { type LoginSchema } from '@/features/auth/AuthByEmail/model/types/loginSchema';
 import { UserSchema } from '@/entities/User';
-import { type CatalogSchema } from '@/widgets/Catalog/model/types/catalogSchema';
+import { type LoginSchema } from '@/features/auth/AuthByEmail/model/types/loginSchema';
 import { baseApi } from '@/shared/api';
-import { OnboardingSchema } from '@/widgets/Onboarding/model/types/onboardingSchema';
-import { ProfessorInfoSchema } from '@/widgets/ProfessorInfo';
-import { StudentInfoSchema } from '@/widgets/StudentInfo';
+import { type CatalogSchema } from '@/widgets/Catalog/model/types/catalogSchema';
 import { ManualSchema } from '@/widgets/Manual';
-import { ProfileSchema } from '@/widgets/Profile';
-import { ScientificPortfolioSchema } from '@/widgets/ScientificPortfolio';
-import { RequestsSectionSchema } from '@/widgets/RequestsSection';
+import { OnboardingSchema } from '@/widgets/Onboarding/model/types/onboardingSchema';
 import { PersonalDataSchema } from '@/widgets/PersonalData/model/types/personalDataSchema';
+import { ProfessorInfoSchema } from '@/widgets/ProfessorInfo';
+import { ProfileSchema } from '@/widgets/Profile';
+import { RequestsSectionSchema } from '@/widgets/RequestsSection';
+import { ScientificPortfolioSchema } from '@/widgets/ScientificPortfolio';
+import { StudentInfoSchema } from '@/widgets/StudentInfo';
 
 export interface StateSchema {
     user: UserSchema;

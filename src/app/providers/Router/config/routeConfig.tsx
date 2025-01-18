@@ -1,19 +1,17 @@
 import { RouteProps } from 'react-router-dom';
-import { Typography } from '@mui/material';
-import { OnboardingPage } from '@/pages/OnboardingPage';
-import { LoginPage } from '@/pages/LoginPage';
-import { CatalogPage } from '@/pages/CatalogPage';
-import { NotFoundPage } from '@/pages/NotFoundPage';
-import { ForbiddenPage } from '@/pages/ForbiddenPage';
 import { type Role } from '@/entities/User/model/types/role';
-import { ProfessorPage } from '@/pages/ProfessorPage';
-import { StudentPage } from '@/pages/StudentPage';
-import { ScientificWorkPage } from '@/pages/ScientificWorkPage';
-import { ManualPage } from '@/pages/ManualPage';
-import { ManualArticlePage } from '@/pages/ManuaArticlelPage';
-import { SignupPage } from '@/pages/SignupPage';
-import { ProfilePage } from '@/pages/ProfilePage';
+import { CatalogPage } from '@/pages/CatalogPage';
 import { ConfirmEmailPage } from '@/pages/ConfirmEmailPage';
+import { ForbiddenPage } from '@/pages/ForbiddenPage';
+import { LoginPage } from '@/pages/LoginPage';
+import { ManualPage } from '@/pages/ManualPage';
+import { NotFoundPage } from '@/pages/NotFoundPage';
+import { OnboardingPage } from '@/pages/OnboardingPage';
+import { ProfessorPage } from '@/pages/ProfessorPage';
+import { ProfilePage } from '@/pages/ProfilePage';
+import { ScientificWorkPage } from '@/pages/ScientificWorkPage';
+import { SignupPage } from '@/pages/SignupPage';
+import { StudentPage } from '@/pages/StudentPage';
 
 export type AppRoutesProps = RouteProps & {
     authOnly?: boolean;
