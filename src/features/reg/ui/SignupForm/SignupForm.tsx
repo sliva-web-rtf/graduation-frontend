@@ -9,23 +9,23 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import { BaseAccordion, BaseField, BaseLoadingButton, BaseSelect, HelperText } from '@/shared/ui';
 import { signupFormSchema, SignupFormSchema } from '../../model/types/signupFormSchema';
 import { useSignupUserMutation } from '@/entities/User/api/userApi';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+import { getCookie } from '@/shared/lib/helpers/getCookie';
+import { waitForCookie } from '@/shared/lib/helpers/waitForCookie';
 
 export interface SignupProps {
     className?: string;
-    onNext: () => void;
 }
 
-// @todo
-// Как бэк будет готов, нужно сделать нормальный onSubmitHandler
-
 const SignupForm = memo((props: SignupProps) => {
-    const { className, onNext } = props;
+    const { className } = props;
+    const navigate = useNavigate();
     const SignupRoles = {
         student: 'Студент',
         professor: 'Научный руководитель',
     };
     const [showPassword, setShowPassword] = useState(false);
-    const navigate = useNavigate();
 
     const handleClickShowPassword = useCallback(() => setShowPassword(!showPassword), [showPassword]);
 
@@ -44,9 +44,12 @@ const SignupForm = memo((props: SignupProps) => {
     const onSubmitHandler = async (data: SignupFormSchema) => {
         const role = data.role === SignupRoles.student ? 'student' : 'professor';
         try {
-            onNext();
-            // await signupUser({ ...data, role }).unwrap();
-            // navigate('/login');
+            const response = await signupUser({ ...data, role }).unwrap();
+            document.cookie = `userData=${encodeURIComponent(
+                JSON.stringify({ userId: response.userId, email: data.email, role }),
+            )}; path=/signup; expires=Fri, 31 Dec 2025 23:59:59 GMT`;
+            await waitForCookie('userData');
+            navigate('/signup/confirm-email');
         } catch (err: any) {
             if (err?.status === 400 && (err.data as any)?.code === '409') {
                 setError('email', {
@@ -98,6 +101,7 @@ const SignupForm = memo((props: SignupProps) => {
                 </Stack>
                 <Stack spacing={1} justifyContent="center" alignItems="center">
                     <BaseLoadingButton
+                        disabled={isLoading}
                         fullWidth
                         type="submit"
                         variant="contained"

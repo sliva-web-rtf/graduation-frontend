@@ -10,7 +10,7 @@ import { BaseButton } from '@/shared/ui';
 import { getStudent } from '@/widgets/Onboarding/model/selectors/getStudent';
 import { getLazyStudentProfile } from '@/widgets/Onboarding/api/onboardingApi';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { getStudentSearchingStatus, updateStudentStatusSearching } from '@/widgets/PersonalData/api/personalDataApi';
+import { getStudentSearchingStatus, updateStudentStatusSearchingPD } from '@/widgets/PersonalData/api/personalDataApi';
 import { personalDataActions } from '@/widgets/PersonalData/model/slice/personalDataSlice';
 
 interface ChangeStatusModalProps {
@@ -27,7 +27,7 @@ export const ChangeStudentStatusModal = memo((props: ChangeStatusModalProps) => 
     const { open, onClose } = props;
 
     const { data } = getStudentSearchingStatus();
-    const [updatedSearchingStatus, { error }] = updateStudentStatusSearching();
+    const [updatedSearchingStatusPD, { error }] = updateStudentStatusSearchingPD();
 
     const [studentSearching, setStudentSearching] = useState<StudentSearching>({
         commandSearching: data?.commandSearching ?? false,
@@ -43,9 +43,14 @@ export const ChangeStudentStatusModal = memo((props: ChangeStatusModalProps) => 
                 commandSearching: studentSearching.commandSearching,
                 professorSearching: studentSearching.professorSearching,
             };
-            await updatedSearchingStatus(values);
+            await updatedSearchingStatusPD(values);
         },
-        [searchingType, studentSearching.commandSearching, studentSearching.professorSearching, updatedSearchingStatus],
+        [
+            searchingType,
+            studentSearching.commandSearching,
+            studentSearching.professorSearching,
+            updatedSearchingStatusPD,
+        ],
     );
 
     useEffect(() => {

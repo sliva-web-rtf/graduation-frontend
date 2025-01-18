@@ -2,13 +2,13 @@ import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useCallback, useEffect } from 'react';
 import { Stack, Typography } from '@mui/material';
-import { getProfileInfo, updateProfileInfo } from '../../api/personalDataApi';
+import { getProfileInfo, updateProfileInfoPD } from '../../api/personalDataApi';
 import { personalInfoFormSchema, PersonalInfoFormSchema } from '../../model/types/personalInfoFormSchema';
 import { BaseButton, BaseField } from '@/shared/ui';
 
 export const PersonalInfoForm = () => {
     const { data } = getProfileInfo();
-    const [updatingProfileInfo, { isLoading, error }] = updateProfileInfo();
+    const [updatingProfileInfo, { isLoading, error }] = updateProfileInfoPD();
 
     const {
         formState: { errors },

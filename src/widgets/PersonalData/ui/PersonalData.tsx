@@ -6,6 +6,9 @@ import { StudentStatusSearching } from './StudentStatusSearching/StudentStatusSe
 import { isUserProfessor } from '@/entities/User';
 import { ProfessorStatusSearching } from './ProfessorStatusSearching/ProfessorStatusSearching';
 
+// @todo
+// поменять название вместо StudentPersonalInfoForm на что-то общее(студент+профессор)
+
 export const PersonalData = () => {
     const { data: avatarUrl, isLoading: isAvatarLoading } = useGetAvatar();
     const isProfessor = useSelector(isUserProfessor);

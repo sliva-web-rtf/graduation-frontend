@@ -13,6 +13,7 @@ import { ManualPage } from '@/pages/ManualPage';
 import { ManualArticlePage } from '@/pages/ManuaArticlelPage';
 import { SignupPage } from '@/pages/SignupPage';
 import { ProfilePage } from '@/pages/ProfilePage';
+import { ConfirmEmailPage } from '@/pages/ConfirmEmailPage';
 
 export type AppRoutesProps = RouteProps & {
     authOnly?: boolean;
@@ -35,6 +36,7 @@ export enum AppRoutes {
     Onboarding = 'Onboarding',
     Signup = 'Signup',
     Profile = 'Profile',
+    ConfirmEmail = 'ConfirmEmail',
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
@@ -49,6 +51,7 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.NotFound]: '*',
     [AppRoutes.Signup]: '/signup',
     [AppRoutes.Profile]: '/profile',
+    [AppRoutes.ConfirmEmail]: '/signup/confirm-email',
     // [AppRoutes.ManualArticle]: '/manual/:id',
     // [AppRoutes.About]: '/about',
     // [AppRoutes.Tasks]: '/tasks',
@@ -117,6 +120,11 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     [AppRoutes.Signup]: {
         path: `${RoutePath.Signup}`,
         element: <SignupPage />,
+        authOnly: false,
+    },
+    [AppRoutes.ConfirmEmail]: {
+        path: `${RoutePath.ConfirmEmail}`,
+        element: <ConfirmEmailPage />,
         authOnly: false,
     },
     // [AppRoutes.ManualArticle]: {

@@ -5,7 +5,7 @@ export type PersonalInfoFormSchemaDto = {
     lastName: string;
     patronymic: string;
     email: string;
-    contacts?: string;
+    contactsTg?: string;
     phone?: string;
 };
 
@@ -83,5 +83,5 @@ export type ProfessorScientificInfoDto = {
 
 export type ProfessorStatusDto = {
     limit: number;
-    searchStatus: SearchingStatus;
+    status: SearchingStatus;
 };
