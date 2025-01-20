@@ -126,7 +126,7 @@ const LoginForm = memo((props: LoginFormProps) => {
                             }}
                         />
                         <Stack flexDirection="row" justifyContent="space-between">
-                            <Typography variant="body1" color="primary">
+                            <Typography variant="body1" color="secondary">
                                 Забыли пароль?
                             </Typography>
                             <Link
