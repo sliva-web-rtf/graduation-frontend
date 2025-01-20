@@ -3,6 +3,7 @@ import { Stack, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { isUserProfessor } from '@/entities/User';
 import {
     useConfirmEmailMutation,
@@ -15,7 +16,20 @@ import { BaseButton, BaseField, BaseLoadingButton, HelperText } from '@/shared/u
 import { oneTimeCodeFormSchema, OneTimeCodeFormSchema } from '../model/types/oneTimeCodeFormSchema';
 
 export const OneTimeCodeForm = () => {
-    const { userId, email, role: dataRole } = getCookie('userData') ?? {};
+    const [userData] = useState(getCookie('userData'));
+
+    const [userId, setUserId] = useState(null);
+    const [email, setEmail] = useState(null);
+    const [dataRole, setDataRole] = useState(null);
+
+    useEffect(() => {
+        if (userData) {
+            setUserId(userData.userId);
+            setEmail(userData.email);
+            setDataRole(userData.role);
+        }
+    }, [userData]);
+
     const navigate = useNavigate();
 
     const isProfessor = useSelector(isUserProfessor) || dataRole === 'professor';
@@ -39,6 +53,14 @@ export const OneTimeCodeForm = () => {
     });
 
     const onClickRepeatConfirm = async () => {
+        if (!userId || !email) {
+            setError('code', {
+                type: 'server',
+                message: 'Не удалось найти идентификатор пользователя или обнаружить почту. Просим обновить страницу.',
+            });
+            return;
+        }
+
         const curData = isProfessor ? { professorId: userId, email } : { studentId: userId, email };
 
         try {
