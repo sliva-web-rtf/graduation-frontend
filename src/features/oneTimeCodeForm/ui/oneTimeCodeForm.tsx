@@ -16,19 +16,20 @@ import { BaseButton, BaseField, BaseLoadingButton, HelperText } from '@/shared/u
 import { oneTimeCodeFormSchema, OneTimeCodeFormSchema } from '../model/types/oneTimeCodeFormSchema';
 
 export const OneTimeCodeForm = () => {
-    const [userData] = useState(getCookie('userData'));
-
-    const [userId, setUserId] = useState(null);
-    const [email, setEmail] = useState(null);
-    const [dataRole, setDataRole] = useState(null);
+    const [userData, setUserData] = useState(getCookie('userData'));
 
     useEffect(() => {
-        if (userData) {
-            setUserId(userData.userId);
-            setEmail(userData.email);
-            setDataRole(userData.role);
-        }
+        const intervalId = setInterval(() => {
+            const updatedData = getCookie('userData');
+            if (JSON.stringify(updatedData) !== JSON.stringify(userData)) {
+                setUserData(updatedData);
+            }
+        }, 1000);
+
+        return () => clearInterval(intervalId);
     }, [userData]);
+
+    const { userId, email, role: dataRole } = userData;
 
     const navigate = useNavigate();
 
