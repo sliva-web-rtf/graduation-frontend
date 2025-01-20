@@ -1,18 +1,18 @@
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Stack, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { FC, useEffect, useState } from 'react';
-import { BaseButton, BaseField, BaseLoadingButton, HelperText } from '@/shared/ui';
-import { oneTimeCodeFormSchema, OneTimeCodeFormSchema } from '../model/types/oneTimeCodeFormSchema';
-import { getUserAuthData, isUserProfessor } from '@/entities/User';
+import { isUserProfessor } from '@/entities/User';
 import {
     useConfirmEmailMutation,
     useRepeatConfirmEmailProfessorMutation,
     useRepeatConfirmEmailStudentMutation,
 } from '@/entities/User/api/userApi';
+import { CookieService } from '@/shared/lib/helpers/cookieService';
 import { getCookie } from '@/shared/lib/helpers/getCookie';
+import { BaseButton, BaseField, BaseLoadingButton, HelperText } from '@/shared/ui';
+import { oneTimeCodeFormSchema, OneTimeCodeFormSchema } from '../model/types/oneTimeCodeFormSchema';
 
 export const OneTimeCodeForm = () => {
     const { userId, email, role: dataRole } = getCookie('userData') ?? {};
@@ -45,7 +45,6 @@ export const OneTimeCodeForm = () => {
             const response = await repeatConfirmEmail(curData).unwrap();
             if (response.succeeded) {
                 reset();
-                document.cookie = 'userData=; Path=/signup; Max-Age=-1;';
             } else {
                 setError('code', {
                     type: 'server',
@@ -78,6 +77,8 @@ export const OneTimeCodeForm = () => {
                 userId,
             }).unwrap();
             if (response.succeeded) {
+                CookieService.clear();
+
                 navigate('/login');
             } else {
                 setError('code', {

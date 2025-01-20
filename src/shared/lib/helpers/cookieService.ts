@@ -13,4 +13,11 @@ export namespace CookieService {
             resolve();
         });
     }
+    export function clear(key = 'userData'): Promise<void> {
+        return new Promise((resolve) => {
+            document.cookie = `${key}=; Path=/signup; Max-Age=-1;`;
+
+            resolve();
+        });
+    }
 }
