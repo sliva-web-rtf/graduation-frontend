@@ -87,7 +87,7 @@ export const ProfessorScientificPortfolioForm = memo(() => {
                 />
                 <BaseField label="Профиль Scopus" {...register('scopusUri')} defaultValue={portfolio?.riscUri} />
                 <BaseField label="Профиль РИНЦ" {...register('riscUri')} defaultValue={portfolio?.riscUri} />
-                <BaseField label="О себе" {...register('about')} defaultValue={portfolio?.about} />
+                <BaseField label="О себе" multiline rows={4} {...register('about')} defaultValue={portfolio?.about} />
             </Stack>
         </DynamicModuleLoader>
     );

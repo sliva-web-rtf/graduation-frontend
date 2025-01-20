@@ -1,9 +1,10 @@
 import { Stack } from '@mui/material';
-import { PersonalInfoForm } from '../PersonalInfoForm/PersonalInfoForm';
 import { ChangePasswordForm } from '../ChangePasswordForm/ChangePasswordForm';
+import { PersonalInfoForm } from '../PersonalInfoForm/PersonalInfoForm';
 
+// @todo поменять название вместо StudentPersonalInfoForm на что-то общее(студент+профессор)
 export const StudentPersonalInfoForm = () => (
-    <Stack gap={2}>
+    <Stack spacing={6}>
         <PersonalInfoForm />
         <ChangePasswordForm />
     </Stack>

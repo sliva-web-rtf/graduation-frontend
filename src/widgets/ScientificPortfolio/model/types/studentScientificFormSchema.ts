@@ -2,9 +2,9 @@ import { z } from 'zod';
 import { ErrorMessage } from '@/shared/lib/helpers/errorMessages';
 
 export const studentScientificFormSchema = z.object({
-    educationLevel: z.string().min(1, { message: ErrorMessage.getRequiredErrorFieldMessage() }),
-    course: z.number().min(1, { message: ErrorMessage.getRequiredErrorFieldMessage() }),
-    scienceArea: z
+    degree: z.string().min(1, { message: ErrorMessage.getRequiredErrorFieldMessage() }),
+    year: z.number().min(1, { message: ErrorMessage.getRequiredErrorFieldMessage() }),
+    scientificArea: z
         .array(
             z.object({
                 section: z.string(),
@@ -12,7 +12,7 @@ export const studentScientificFormSchema = z.object({
             }),
         )
         .min(1, { message: ErrorMessage.getRequiredErrorFieldMessage() }),
-    scienceInterests: z.string().array().min(1, { message: ErrorMessage.getRequiredErrorFieldMessage() }),
+    scientificInterests: z.string().array().min(1, { message: ErrorMessage.getRequiredErrorFieldMessage() }),
     about: z
         .optional(z.string().max(1000, { message: ErrorMessage.getMaxErrorFieldMessage(1000) }))
         .optional()
