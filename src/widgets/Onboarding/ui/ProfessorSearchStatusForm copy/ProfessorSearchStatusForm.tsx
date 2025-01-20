@@ -41,41 +41,37 @@ export const ProfessorSearchStatusForm = memo(
         const [completeStudentRegistration] = completeRegistration();
         const [refreshAccessToken] = refreshToken();
 
-        const onSubmitHandler = useCallback(
-            async (event: FormEvent<HTMLFormElement>) => {
-                event.preventDefault();
-                onRequestStart?.();
-                const values: ProfessorSearchingStatus = {
-                    studentsCount,
-                    status: searchingType,
-                };
-                const updateSearchingStatusResponse = await updatedSearchingStatus(values);
-                // TODO: переделать в отдельный action всю пачку запросов
-                if ('error' in updateSearchingStatusResponse) {
+        const onSubmitHandler = async (event: FormEvent<HTMLFormElement>) => {
+            event.preventDefault();
+            onRequestStart?.();
+            const values: ProfessorSearchingStatus = {
+                studentsCount,
+                status: searchingType,
+            };
+            const updateSearchingStatusResponse = await updatedSearchingStatus(values);
+            // TODO: переделать в отдельный action всю пачку запросов
+            if ('error' in updateSearchingStatusResponse) {
+                onError?.();
+            } else {
+                const registrationCompeteResponse = await completeStudentRegistration();
+                if ('error' in registrationCompeteResponse) {
                     onError?.();
                 } else {
-                    const registrationCompeteResponse = await completeStudentRegistration();
-                    if ('error' in registrationCompeteResponse) {
-                        onError?.();
-                    } else {
-                        const token = await UserSecretStorageService.get();
-                        if (token) {
-                            const refreshResponse = await refreshAccessToken(token);
-                            if ('error' in refreshResponse) {
-                                onError?.();
-                            } else {
-                                dispatch(userActions.changeRegistration(true));
-                                onSuccess?.();
-                            }
-                        } else {
+                    const token = await UserSecretStorageService.get();
+                    if (token) {
+                        const refreshResponse = await refreshAccessToken(token);
+                        if ('error' in refreshResponse) {
                             onError?.();
+                        } else {
+                            dispatch(userActions.changeRegistration(true));
+                            onSuccess?.();
                         }
+                    } else {
+                        onError?.();
                     }
                 }
-            },
-            // eslint-disable-next-line react-hooks/exhaustive-deps
-            [updatedSearchingStatus],
-        );
+            }
+        };
 
         useEffect(() => {
             if (error) {

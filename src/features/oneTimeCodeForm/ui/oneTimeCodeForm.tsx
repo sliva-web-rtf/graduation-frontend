@@ -45,6 +45,7 @@ export const OneTimeCodeForm = () => {
             const response = await repeatConfirmEmail(curData).unwrap();
             if (response.succeeded) {
                 reset();
+                document.cookie = 'userData=; Path=/signup; Max-Age=-1;';
             } else {
                 setError('code', {
                     type: 'server',

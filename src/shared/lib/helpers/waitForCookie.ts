@@ -1,6 +1,6 @@
 import { getCookie } from './getCookie';
 
-export const waitForCookie = async (name: string, timeout = 5000, interval = 50) => {
+export const waitForCookie = async (name: string, timeout = 10000, interval = 50) => {
     const startTime = Date.now();
 
     const checkCookie = async (): Promise<any> => {

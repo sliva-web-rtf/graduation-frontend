@@ -24,7 +24,7 @@ export const transformDtoForCatalogCard = (dto: Professor | ScientificWork | Stu
     professorSearching: 'professorSearching' in dto ? dto.professorSearching : undefined,
     option: getCatalogOption(dto),
     avatarImagePath: 'avatarImagePath' in dto ? dto.avatarImagePath : undefined,
-    subtitle: 'degree' in dto ? `${dto.degree} ${'post' in dto ? dto.post : ''}` : undefined,
+    subtitle: 'degree' in dto ? `${dto.degree}` : undefined,
     status: 'status' in dto ? dto.status : undefined,
     limit: 'limit' in dto ? dto.limit : undefined,
     fullness: 'fullness' in dto ? dto.fullness : undefined,
