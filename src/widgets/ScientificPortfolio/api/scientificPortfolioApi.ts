@@ -1,6 +1,7 @@
+import { transformScientificAreaFromDto } from '@/entities/ScientificAreas/lib/scientificAreasMapper';
 import { baseApi } from '@/shared/api';
-import { StudentScientificFormSchema } from '../model/types/studentScientificFormSchema';
 import { ProfessorScientificFormSchema } from '../model/types/professorScientificFormSchema';
+import { StudentScientificFormSchema } from '../model/types/studentScientificFormSchema';
 
 const scientificPortfolioApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
@@ -8,16 +9,22 @@ const scientificPortfolioApi = baseApi.injectEndpoints({
             query: () => ({
                 url: '/api/student/student-scientific-portfolio',
             }),
+            transformResponse: (response: any) => ({
+                ...response,
+                scientificArea: transformScientificAreaFromDto(response?.scientificArea),
+            }),
         }),
         getProfessorScientificPortfolio: build.query<ProfessorScientificFormSchema, void>({
             query: () => ({
                 url: '/api/professor/professor-scientific-portfolio',
             }),
+            transformResponse: (response: any) => ({
+                ...response,
+                scientificArea: transformScientificAreaFromDto(response?.scientificArea),
+            }),
         }),
     }),
 });
 
-export const {
-    useGetStudentScientificPortfolioQuery: getStudentScientificPortfolio,
-    useGetProfessorScientificPortfolioQuery: getProfessorScientificPortfolio,
-} = scientificPortfolioApi;
+export const { useGetStudentScientificPortfolioQuery, useGetProfessorScientificPortfolioQuery } =
+    scientificPortfolioApi;
