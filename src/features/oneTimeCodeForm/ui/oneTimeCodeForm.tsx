@@ -88,7 +88,7 @@ export const OneTimeCodeForm = () => {
         if (!userId) {
             setError('code', {
                 type: 'server',
-                message: 'Не удалось найти идентификатор пользователя',
+                message: 'Не удалось найти идентификатор пользователя. Просим обновить страницу.',
             });
             return;
         }
