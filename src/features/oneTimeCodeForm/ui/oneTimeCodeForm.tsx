@@ -29,7 +29,7 @@ export const OneTimeCodeForm = () => {
         return () => clearInterval(intervalId);
     }, [userData]);
 
-    const { userId, email, role: dataRole } = userData;
+    const { userId, email, role: dataRole } = userData ?? {};
 
     const navigate = useNavigate();
 
