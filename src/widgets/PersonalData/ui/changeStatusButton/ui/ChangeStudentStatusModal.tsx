@@ -6,7 +6,7 @@ import { getUserAuthData } from '@/entities/User';
 import { useGetStudentQuery } from '@/entities/Student';
 import { SearchingStatus } from '@/shared/lib/types/searchingStatus';
 import { StudentSearchingStatus } from '../model/types/studentSearchingStatus';
-import { BaseButton } from '@/shared/ui';
+import { BaseButton, BaseLoadingButton } from '@/shared/ui';
 import { getStudent } from '@/widgets/Onboarding/model/selectors/getStudent';
 import { getLazyStudentProfile } from '@/widgets/Onboarding/api/onboardingApi';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
@@ -27,7 +27,7 @@ export const ChangeStudentStatusModal = memo((props: ChangeStatusModalProps) => 
     const { open, onClose } = props;
 
     const { data } = getStudentSearchingStatus();
-    const [updatedSearchingStatusPD, { error }] = updateStudentStatusSearchingPD();
+    const [updatedSearchingStatusPD, { error, isLoading }] = updateStudentStatusSearchingPD();
 
     const [studentSearching, setStudentSearching] = useState<StudentSearching>({
         commandSearching: data?.commandSearching ?? false,
@@ -44,8 +44,10 @@ export const ChangeStudentStatusModal = memo((props: ChangeStatusModalProps) => 
                 professorSearching: studentSearching.professorSearching,
             };
             await updatedSearchingStatusPD(values);
+            onClose();
         },
         [
+            onClose,
             searchingType,
             studentSearching.commandSearching,
             studentSearching.professorSearching,
@@ -152,9 +154,14 @@ export const ChangeStudentStatusModal = memo((props: ChangeStatusModalProps) => 
                             </RadioGroup>
                         </Stack>
                     </Stack>
-                    <BaseButton sx={{ alignSelf: 'center', mt: 2 }} variant="contained" type="submit">
+                    <BaseLoadingButton
+                        sx={{ alignSelf: 'center', mt: 2 }}
+                        variant="contained"
+                        type="submit"
+                        loading={isLoading}
+                    >
                         Применить
-                    </BaseButton>
+                    </BaseLoadingButton>
                 </form>
             </Stack>
         </Modal>
