@@ -19,7 +19,7 @@ export const transformDtoForCatalogCard = (dto: Professor | ScientificWork | Stu
     title: 'name' in dto ? dto.name : `${dto.lastName} ${dto.firstName} ${dto.patronymic}`,
     chips: dto.scientificInterests,
     isFavorite: dto.isFavorite,
-    canJoin: 'canJoin' in dto ? dto.canJoin : undefined,
+    canJoin: 'canJoin' in dto ? dto.canJoin : true,
     commandSearching: 'commandSearching' in dto ? dto.commandSearching : undefined,
     professorSearching: 'professorSearching' in dto ? dto.professorSearching : undefined,
     option: getCatalogOption(dto),

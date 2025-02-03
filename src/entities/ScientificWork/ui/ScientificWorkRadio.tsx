@@ -13,7 +13,7 @@ export const ScientificWorkRadio = memo((props: ScientificWorkRadioProps) => {
     const { id, name, fullness, limit } = props;
 
     return (
-        <Stack direction="row" spacing={1}>
+        <Stack direction="row" spacing={1} onClick={(e) => e.stopPropagation()}>
             <Radio value={id} />
             <Paper
                 sx={(theme) => ({

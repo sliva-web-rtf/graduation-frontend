@@ -40,7 +40,15 @@ export const AddProfessorButton = memo((props: AddProfessorButtonProps) => {
 
     return (
         <>
-            <BaseButton variant="contained" onClick={toggleOpen} disabled={!canJoin}>
+            <BaseButton
+                variant="contained"
+                onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    toggleOpen();
+                }}
+                disabled={canJoin}
+            >
                 Оформить заявку
             </BaseButton>
             <AddRequestModal

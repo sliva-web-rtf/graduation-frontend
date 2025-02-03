@@ -47,7 +47,7 @@ const addRequestsApi = baseApi.injectEndpoints({
         }),
         addScientificWork: build.mutation<void, AddScientificWorkRequest>({
             query: (body) => ({
-                url: `/api/scientificWork/enter-scientific-work`,
+                url: `/api/scientificWork/enter`,
                 method: 'POST',
                 body,
             }),

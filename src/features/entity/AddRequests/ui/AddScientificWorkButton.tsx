@@ -14,7 +14,16 @@ export const AddScientificWorkButton = memo((props: AddScientificWorkButtonProps
     const handleSubmit = () => addScientificWork({ scientificWorkId: id });
 
     return (
-        <BaseLoadingButton variant="contained" disabled={!canJoin} loading={isLoading} onClick={handleSubmit}>
+        <BaseLoadingButton
+            variant="contained"
+            disabled={!canJoin}
+            loading={isLoading}
+            onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                handleSubmit();
+            }}
+        >
             Оформить заявку
         </BaseLoadingButton>
     );

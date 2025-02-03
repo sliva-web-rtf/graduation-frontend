@@ -74,7 +74,7 @@ export const CatalogCard = memo((props: ICatalogCard) => {
             </Stack>
             <Stack spacing={4} justifyContent="space-between" alignSelf="center">
                 <LimitInfo limit={limit} fullness={fullness} />
-                <Stack spacing={1} onClick={(e) => e.preventDefault()}>
+                <Stack spacing={1}>
                     {option === CatalogOption.Professors ? (
                         <AddProfessorButton id={id} canJoin={Boolean(canJoin)} />
                     ) : option === CatalogOption.Students ? (
@@ -82,6 +82,7 @@ export const CatalogCard = memo((props: ICatalogCard) => {
                             id={id}
                             commandSearching={Boolean(commandSearching)}
                             professorSearching={Boolean(professorSearching)}
+                            canJoin={Boolean(canJoin)}
                         />
                     ) : (
                         <AddScientificWorkButton id={id} canJoin={Boolean(canJoin)} />
