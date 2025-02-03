@@ -47,7 +47,7 @@ const personalDataApi = baseApi.injectEndpoints({
             invalidatesTags: ['StudentSearchingStatus'],
         }),
         updatePassword: build.mutation<void, ChangePasswordFormSchema>({
-            query: ({ repeatCurrentPassword, ...rest }) => ({
+            query: ({ repeatNewPassword, ...rest }) => ({
                 url: '/api/users/update-user-password',
                 method: 'PUT',
                 body: {
