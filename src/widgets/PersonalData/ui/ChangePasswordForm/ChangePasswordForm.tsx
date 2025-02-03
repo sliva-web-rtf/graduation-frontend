@@ -10,11 +10,11 @@ import { changePasswordFormSchema, ChangePasswordFormSchema } from '../../model/
 export const ChangePasswordForm = () => {
     const [showPassword, setShowPassword] = useState({
         currentPassword: false,
-        repeatCurrentPassword: false,
         newPassword: false,
+        repeatNewPassword: false,
     });
 
-    const handleClickShowPassword = (field: 'currentPassword' | 'repeatCurrentPassword' | 'newPassword') => {
+    const handleClickShowPassword = (field: 'currentPassword' | 'repeatNewPassword' | 'newPassword') => {
         setShowPassword((prevState) => ({ ...prevState, [field]: !prevState[field] }));
     };
 
@@ -70,23 +70,6 @@ export const ChangePasswordForm = () => {
                     }}
                 />
                 <BaseField
-                    label="Повторите пароль"
-                    type={showPassword.repeatCurrentPassword ? 'text' : 'password'}
-                    {...register('repeatCurrentPassword')}
-                    error={Boolean(errors.repeatCurrentPassword)}
-                    helperText={<HelperText error={errors.repeatCurrentPassword} />}
-                    InputProps={{
-                        disableUnderline: true,
-                        endAdornment: (
-                            <InputAdornment position="end">
-                                <IconButton onClick={() => handleClickShowPassword('repeatCurrentPassword')}>
-                                    {showPassword.repeatCurrentPassword ? <VisibilityOff /> : <Visibility />}
-                                </IconButton>
-                            </InputAdornment>
-                        ),
-                    }}
-                />
-                <BaseField
                     label="Новый пароль"
                     {...register('newPassword')}
                     type={showPassword.newPassword ? 'text' : 'password'}
@@ -98,6 +81,23 @@ export const ChangePasswordForm = () => {
                             <InputAdornment position="end">
                                 <IconButton onClick={() => handleClickShowPassword('newPassword')}>
                                     {showPassword.newPassword ? <VisibilityOff /> : <Visibility />}
+                                </IconButton>
+                            </InputAdornment>
+                        ),
+                    }}
+                />
+                <BaseField
+                    label="Повторите пароль"
+                    type={showPassword.repeatNewPassword ? 'text' : 'password'}
+                    {...register('repeatNewPassword')}
+                    error={Boolean(errors.repeatNewPassword)}
+                    helperText={<HelperText error={errors.repeatNewPassword} />}
+                    InputProps={{
+                        disableUnderline: true,
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <IconButton onClick={() => handleClickShowPassword('repeatNewPassword')}>
+                                    {showPassword.repeatNewPassword ? <VisibilityOff /> : <Visibility />}
                                 </IconButton>
                             </InputAdornment>
                         ),
