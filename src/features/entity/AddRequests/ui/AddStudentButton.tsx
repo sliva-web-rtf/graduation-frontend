@@ -11,10 +11,11 @@ interface AddStudentButtonProps {
     readonly id: string;
     readonly commandSearching: boolean;
     readonly professorSearching: boolean;
+    readonly canJoin?: boolean;
 }
 
 export const AddStudentButton = memo((props: AddStudentButtonProps) => {
-    const { id: studentId, commandSearching, professorSearching } = props;
+    const { id: studentId, commandSearching, professorSearching, canJoin } = props;
     const isProfessor = useSelector(isUserProfessor);
     const id = useSelector(getUserAuthData)?.id;
     const [scientificWorkId, setScientificWorkId] = useState('');
@@ -54,7 +55,15 @@ export const AddStudentButton = memo((props: AddStudentButtonProps) => {
 
     return (
         <>
-            <BaseButton variant="contained" onClick={toggleOpen} disabled={disabled}>
+            <BaseButton
+                variant="contained"
+                onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    toggleOpen();
+                }}
+                disabled={canJoin === undefined ? false : !canJoin}
+            >
                 Оформить заявку
             </BaseButton>
             <AddRequestModal

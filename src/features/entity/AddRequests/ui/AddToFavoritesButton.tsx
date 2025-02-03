@@ -28,7 +28,11 @@ export const AddToFavoritesButton = memo((props: AddToFavoritesButtonProps) => {
 
     return (
         <BaseButton
-            onClick={handleClick}
+            onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                handleClick();
+            }}
             variant="text"
             startIcon={isFavorite ? <StarRoundedIcon color="primary" /> : <StarOutlineRoundedIcon />}
             sx={(theme) => ({
