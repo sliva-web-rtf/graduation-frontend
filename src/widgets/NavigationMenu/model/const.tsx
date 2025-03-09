@@ -4,7 +4,6 @@ import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import { RoutePath } from '@/app/providers/Router/config/routeConfig';
 
 export const TABS = [
-    { label: 'Личный кабинет', path: RoutePath.Profile, startIcon: <PersonOutlineIcon /> },
     {
         label: 'Справочник',
         path: RoutePath.Manual,
