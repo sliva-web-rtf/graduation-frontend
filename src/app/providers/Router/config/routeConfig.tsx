@@ -1,17 +1,18 @@
 import { RouteProps } from 'react-router-dom';
 import { type Role } from '@/entities/User/model/types/role';
 import { CatalogPage } from '@/pages/CatalogPage';
-import { ConfirmEmailPage } from '@/pages/ConfirmEmailPage';
 import { ForbiddenPage } from '@/pages/ForbiddenPage';
 import { LoginPage } from '@/pages/LoginPage';
-import { ManualPage } from '@/pages/ManualPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
-import { OnboardingPage } from '@/pages/OnboardingPage';
 import { ProfessorPage } from '@/pages/ProfessorPage';
 import { ProfilePage } from '@/pages/ProfilePage';
 import { ScientificWorkPage } from '@/pages/ScientificWorkPage';
 import { SignupPage } from '@/pages/SignupPage';
 import { StudentPage } from '@/pages/StudentPage';
+import { TestPage } from '@/pages/TestPage';
+// import { ConfirmEmailPage } from '@/pages/ConfirmEmailPage';
+// import { ManualPage } from '@/pages/ManualPage';
+// import { OnboardingPage } from '@/pages/OnboardingPage';
 
 export type AppRoutesProps = RouteProps & {
     authOnly?: boolean;
@@ -22,37 +23,33 @@ export type AppRoutesProps = RouteProps & {
 export enum AppRoutes {
     Login = 'Login',
     Catalog = 'Catalog',
-    NotFound = 'NotFound',
-    Forbidden = 'Forbidden',
-    Professors = 'Professors',
-    ScientificWork = 'ScientificWork',
+    Managers = 'Managers',
+    Topics = 'Topics',
     Students = 'Students',
-    Manual = 'Manual',
-    // ManualArticle = 'ManualArticle',
-    // About = 'About',
-    // Tasks = 'Tasks',
-    Onboarding = 'Onboarding',
     Signup = 'Signup',
     Profile = 'Profile',
-    ConfirmEmail = 'ConfirmEmail',
+    Forbidden = 'Forbidden',
+    NotFound = 'NotFound',
+    Test = 'Test',
+    // ConfirmEmail = 'ConfirmEmail',
+    // Manual = 'Manual',
+    // ManualArticle = 'ManualArticle',
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.Login]: '/login',
-    [AppRoutes.Catalog]: '/',
-    [AppRoutes.Professors]: '/professors/:id',
-    [AppRoutes.ScientificWork]: '/themes/:id',
-    [AppRoutes.Students]: '/students/:id',
-    [AppRoutes.Manual]: '/manual',
-    [AppRoutes.Forbidden]: '/forbidden',
-    [AppRoutes.Onboarding]: '/onboarding',
-    [AppRoutes.NotFound]: '*',
     [AppRoutes.Signup]: '/signup',
+    [AppRoutes.Managers]: '/manager/:id',
+    [AppRoutes.Topics]: '/topics/:id',
+    [AppRoutes.Students]: '/students/:id',
     [AppRoutes.Profile]: '/profile',
-    [AppRoutes.ConfirmEmail]: '/signup/confirm-email',
+    [AppRoutes.Test]: '/test',
+    [AppRoutes.Catalog]: '/',
+    [AppRoutes.Forbidden]: '/forbidden',
+    [AppRoutes.NotFound]: '*',
+    // [AppRoutes.ConfirmEmail]: '/signup/confirm-email',
+    // [AppRoutes.Manual]: '/manual',
     // [AppRoutes.ManualArticle]: '/manual/:id',
-    // [AppRoutes.About]: '/about',
-    // [AppRoutes.Tasks]: '/tasks',
 };
 
 export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
@@ -60,12 +57,6 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         path: RoutePath.Login,
         element: <LoginPage />,
         authOnly: false,
-    },
-    [AppRoutes.Manual]: {
-        path: RoutePath.Manual,
-        element: <ManualPage />,
-        hasLayout: true,
-        authOnly: true,
     },
     [AppRoutes.Catalog]: {
         path: RoutePath.Catalog,
@@ -79,14 +70,14 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         hasLayout: true,
         authOnly: true,
     },
-    [AppRoutes.Professors]: {
-        path: RoutePath.Professors,
+    [AppRoutes.Managers]: {
+        path: RoutePath.Managers,
         element: <ProfessorPage />,
         hasLayout: true,
         authOnly: true,
     },
-    [AppRoutes.ScientificWork]: {
-        path: RoutePath.ScientificWork,
+    [AppRoutes.Topics]: {
+        path: RoutePath.Topics,
         element: <ScientificWorkPage />,
         hasLayout: true,
         authOnly: true,
@@ -109,38 +100,15 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         authOnly: true,
         hasLayout: true,
     },
-    [AppRoutes.Onboarding]: {
-        path: `${RoutePath.Onboarding}`,
-        element: <OnboardingPage />,
+    // [AppRoutes.Signup]: {
+    //     path: `${RoutePath.Signup}`,
+    //     element: <SignupPage />,
+    //     authOnly: false,
+    // },
+    [AppRoutes.Test]: {
+        path: RoutePath.Test,
+        element: <TestPage />,
+        hasLayout: true,
         authOnly: true,
-        hasLayout: false,
     },
-    [AppRoutes.Signup]: {
-        path: `${RoutePath.Signup}`,
-        element: <SignupPage />,
-        authOnly: false,
-    },
-    [AppRoutes.ConfirmEmail]: {
-        path: `${RoutePath.ConfirmEmail}`,
-        element: <ConfirmEmailPage />,
-        authOnly: false,
-    },
-    // [AppRoutes.ManualArticle]: {
-    //     path: RoutePath.ManualArticle,
-    //     element: <ManualArticlePage />,
-    //     hasLayout: true,
-    //     authOnly: true,
-    // },
-    // [AppRoutes.About]: {
-    //     path: RoutePath.About,
-    //     element: <Typography variant="h1">Об исследовании</Typography>,
-    //     hasLayout: true,
-    //     authOnly: true,
-    // },
-    // [AppRoutes.Tasks]: {
-    //     path: RoutePath.Tasks,
-    //     element: <Typography variant="h1">Задачи</Typography>,
-    //     hasLayout: true,
-    //     authOnly: true,
-    // },
 };

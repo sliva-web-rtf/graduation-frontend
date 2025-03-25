@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { Grid, Stack, Typography } from '@mui/material';
 import { InfoCard, InfoInterests } from '@/shared/ui';
 import { getFormattedScientificArea } from '@/shared/lib/helpers/getFormattedScientificArea';
-import { ScientificAreaDto } from '@/entities/ScientificAreas/api/types';
+import { ScientificAreaDto } from '@/entities/Directions/api/types';
 
 interface ProfessorPortfolioProps {
     readonly about: string;

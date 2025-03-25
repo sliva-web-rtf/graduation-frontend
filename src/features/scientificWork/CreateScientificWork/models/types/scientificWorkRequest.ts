@@ -1,4 +1,4 @@
-import { ScientificArea } from '@/entities/ScientificAreas';
+import { ScientificArea } from '@/entities/Directions';
 
 export interface ScientificWorkRequest {
     readonly name: string;

@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ALLOWED_DOMAINS } from '@/shared/lib/const/const';
+import { ALLOWED_DOMAINS } from '@/shared/lib/const';
 
 export const signupFormSchema = z.object({
     email: z

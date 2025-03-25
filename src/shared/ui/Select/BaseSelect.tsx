@@ -32,6 +32,7 @@ export type BaseSelectProps = SelectProps & {
 
 export const BaseSelect = memo((props: BaseSelectProps) => {
     const { name, control, options, label, helperText, defaultValue, ...otherProps } = props;
+
     return (
         <FormControl fullWidth>
             <InputLabel id={`${name}-label`}>{label}</InputLabel>

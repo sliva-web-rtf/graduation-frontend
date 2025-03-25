@@ -11,7 +11,6 @@ import { isUserProfessor } from '@/entities/User/model/selectors/getUserRoles/ge
 import styles from './CreateScientificWorkModal.module.scss';
 import { AddScientificWorkFormSchema, addScientificWorkFormSchema } from '../models/types/addScientificWorkSchema';
 import { useAddNewScientificWorkMutation } from '../api/newScientificWorkApi';
-import { ScientificArea, ScientificAreasAutocomplete } from '@/entities/ScientificAreas';
 import { ScientificInterestsAutocomplete } from '@/entities/ScietificInterests';
 
 export const CreateScientificWorkModal = memo(() => {
@@ -88,26 +87,6 @@ export const CreateScientificWorkModal = memo(() => {
                                     rows={3}
                                     error={Boolean(errors.result)}
                                     helperText={errors.result?.message}
-                                />
-                                <Controller
-                                    control={control}
-                                    name="scientificAreaSubsections"
-                                    render={({ field: { onChange, onBlur, value } }) => (
-                                        <ScientificAreasAutocomplete
-                                            multiple
-                                            onChange={(_, targetValue) => onChange(targetValue)}
-                                            onBlur={onBlur}
-                                            value={value ?? []}
-                                            limitTags={1}
-                                            placeholder="Области науки и технологий"
-                                            error={Boolean(errors.scientificAreaSubsections)}
-                                            helperText={
-                                                errors.scientificAreaSubsections
-                                                    ? errors.scientificAreaSubsections?.message
-                                                    : ' '
-                                            }
-                                        />
-                                    )}
                                 />
                                 <Controller
                                     control={control}

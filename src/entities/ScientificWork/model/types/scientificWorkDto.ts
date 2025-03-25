@@ -1,7 +1,7 @@
 import { WorkStatus } from '@/entities/ScientificWork';
 import { Professor } from '@/entities/Professor';
 import { Student } from '@/entities/Student';
-import { ScientificAreaDto } from '@/entities/ScientificAreas/api/types';
+import { ScientificAreaDto } from '@/entities/Directions/api/types';
 
 export interface ScientificWorkDto {
     readonly id: string;

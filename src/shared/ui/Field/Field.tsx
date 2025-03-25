@@ -9,18 +9,18 @@ export const BaseField = styled(TextField)<TextFieldProps>(({ theme }) => ({
     '& .MuiInputBase-root:hover, .Mui-focused.MuiFilledInput-root': {
         background: '#fff',
     },
-    // '& .MuiOutlinedInput-notchedOutline': {
-    //     border: 'none',
-    //     borderRadius: '16px',
-    // },
-    // '& .Mui-focused .MuiOutlinedInput-notchedOutline': {
-    //     border: `2px solid ${theme.palette.primary.main}`,
-    // },
-    // '& .MuiInputBase-root.Mui-error': {
-    //     boxShadow: theme.shadows['0'],
-    //     borderColor: theme.palette.error.main,
-    //     border: `2px solid ${theme.palette.error.main}`,
-    // },
+    '& .MuiOutlinedInput-notchedOutline': {
+        border: 'none',
+        borderRadius: '16px',
+    },
+    '& .Mui-focused .MuiOutlinedInput-notchedOutline': {
+        border: `2px solid ${theme.palette.primary.main}`,
+    },
+    '& .MuiInputBase-root.Mui-error': {
+        boxShadow: theme.shadows['0'],
+        borderColor: theme.palette.error.main,
+        border: `2px solid ${theme.palette.error.main}`,
+    },
     // '& .Mui-error.Mui-focused .MuiOutlinedInput-notchedOutline': {
     //     border: 'none',
     // },

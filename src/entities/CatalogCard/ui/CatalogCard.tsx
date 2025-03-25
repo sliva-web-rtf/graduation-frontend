@@ -1,41 +1,15 @@
-import { Avatar, Paper, Stack, Typography } from '@mui/material';
+import { Paper, Stack, Typography } from '@mui/material';
 import { memo, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { getParentLink } from '@/entities/CatalogCard/lib/helpers/getParentLink';
-import { WorkStatusRus } from '@/entities/ScientificWork/model/types/workStatus';
-import {
-    AddProfessorButton,
-    AddScientificWorkButton,
-    AddStudentButton,
-    AddToFavoritesButton,
-} from '@/features/entity/AddRequests';
-import scientificWorkImage from '@/shared/assets/images/scientificWork.png';
-import { getChipColorByWorkStatus } from '@/shared/lib/helpers/getChipColorByStatus';
-import { ChipsGroup } from '@/shared/ui';
-import { BaseChip } from '@/shared/ui/Chip/Chip';
-import { LimitInfo } from '@/shared/ui/LimitInfo/LimitInfo';
-import { CatalogOption } from '@/widgets/Catalog';
+import { RequestButton } from '@/features/entity/AddRequests';
 import { type ICatalogCard } from '../model/types/ICatalogCard';
 import styles from './CatalogCard.module.scss';
 
 /* eslint-disable no-nested-ternary */
 
 export const CatalogCard = memo((props: ICatalogCard) => {
-    const {
-        id,
-        title,
-        chips,
-        subtitle,
-        avatarImagePath,
-        limit,
-        fullness,
-        workStatus,
-        option,
-        isFavorite,
-        canJoin,
-        commandSearching,
-        professorSearching,
-    } = props;
+    const { id, title, subtitle, option, canJoin, commandSearching, professorSearching } = props;
 
     const parentLink = useMemo(() => getParentLink(option), [option]);
 
@@ -44,51 +18,31 @@ export const CatalogCard = memo((props: ICatalogCard) => {
             component={Link}
             to={`/${parentLink}/${id}`}
             className={styles.card}
-            sx={{ borderRadius: 4, '&:hover': { textDecoration: 'none' } }}
+            sx={{ borderRadius: 3, '&:hover': { textDecoration: 'none' } }}
         >
-            <Avatar
-                src={workStatus ? scientificWorkImage : __API__ + avatarImagePath}
-                alt={title}
-                sx={{ width: 1, height: 1, borderRadius: 3 }}
-            />
-            <Stack spacing={2} justifyContent="space-between" overflow="hidden">
+            <Stack spacing={3}>
                 <Stack spacing={1}>
-                    {workStatus ? (
-                        <BaseChip
-                            label={WorkStatusRus[workStatus]}
-                            sx={{
-                                alignSelf: 'flex-start',
-                                backgroundColor: getChipColorByWorkStatus(workStatus),
-                            }}
-                        />
-                    ) : (
-                        <Typography variant="subtitle1" color="secondary">
-                            {subtitle}
-                        </Typography>
-                    )}
+                    <Typography variant="subtitle1" color="secondary">
+                        {subtitle || 'Текст'}
+                    </Typography>
                     <Typography variant="h3" className={styles.title}>
-                        {title}
+                        {title || 'Текст'}
                     </Typography>
                 </Stack>
-                <ChipsGroup chips={chips} />
+                <Typography variant="subtitle1" fontFamily="Manrope" fontWeight={500} className={styles.description}>
+                    Разработка эффективных численных методов, параллельных алгоритмов и программ решения задач
+                    математической физики на многопроцессорных вычислительных системах, разработка методов глубокого
+                    обучения и обработка радиолокационных данных для построения цифровых моделей рельефа земной
+                    поверхности.
+                </Typography>
             </Stack>
-            <Stack spacing={4} justifyContent="space-between" alignSelf="center">
-                <LimitInfo limit={limit} fullness={fullness} />
-                <Stack spacing={1}>
-                    {option === CatalogOption.Professors ? (
-                        <AddProfessorButton id={id} canJoin={Boolean(canJoin)} />
-                    ) : option === CatalogOption.Students ? (
-                        <AddStudentButton
-                            id={id}
-                            commandSearching={Boolean(commandSearching)}
-                            professorSearching={Boolean(professorSearching)}
-                            canJoin={Boolean(canJoin)}
-                        />
-                    ) : (
-                        <AddScientificWorkButton id={id} canJoin={Boolean(canJoin)} />
-                    )}
-                    <AddToFavoritesButton id={id} isFavorite={isFavorite} option={option} />
-                </Stack>
+            <Stack alignSelf="center">
+                <RequestButton
+                    id={id}
+                    commandSearching={Boolean(commandSearching)}
+                    professorSearching={Boolean(professorSearching)}
+                    canJoin={Boolean(canJoin)}
+                />
             </Stack>
         </Paper>
     );

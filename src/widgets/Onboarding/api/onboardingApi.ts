@@ -46,6 +46,7 @@ const onboardingApi = baseApi.injectEndpoints({
                     );
                     return appError;
                 }
+
                 return error;
             },
         }),
@@ -65,6 +66,7 @@ const onboardingApi = baseApi.injectEndpoints({
                     );
                     return appError;
                 }
+
                 return error;
             },
         }),
@@ -84,6 +86,7 @@ const onboardingApi = baseApi.injectEndpoints({
                     );
                     return appError;
                 }
+
                 return error;
             },
         }),
@@ -103,6 +106,7 @@ const onboardingApi = baseApi.injectEndpoints({
                     );
                     return appError;
                 }
+
                 return error;
             },
         }),
@@ -122,6 +126,7 @@ const onboardingApi = baseApi.injectEndpoints({
                     );
                     return appError;
                 }
+
                 return error;
             },
         }),
@@ -141,6 +146,7 @@ const onboardingApi = baseApi.injectEndpoints({
                     );
                     return appError;
                 }
+
                 return error;
             },
         }),

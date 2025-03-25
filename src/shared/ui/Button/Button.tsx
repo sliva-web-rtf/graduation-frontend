@@ -9,6 +9,7 @@ export const BaseButton = styled(Button)<ButtonProps>(() => ({
         minWidth: 0,
         fontFamily: 'Manrope',
         fontWeight: '600',
+        padding: '10px 20px',
     },
     '&.MuiButton-outlined': {
         borderColor: grey['500'],

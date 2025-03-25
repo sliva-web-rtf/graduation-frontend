@@ -4,7 +4,6 @@ import scientificWorkImage from '@/shared/assets/images/scientificWork.png';
 import { ProfessorSummary } from '@/entities/Professor';
 import { BaseChip } from '@/shared/ui';
 import { WorkStatusRus } from '@/entities/ScientificWork';
-import { getChipColorByWorkStatus } from '@/shared/lib/helpers/getChipColorByStatus';
 import { ScientificWork } from '../model/types/scientificWork';
 
 export const ScientificWorkCard = memo((props: ScientificWork) => {
@@ -37,7 +36,6 @@ export const ScientificWorkCard = memo((props: ScientificWork) => {
                             label={WorkStatusRus[workStatus]}
                             sx={{
                                 alignSelf: 'flex-start',
-                                backgroundColor: getChipColorByWorkStatus(workStatus),
                             }}
                         />
                     </Stack>

@@ -9,6 +9,7 @@ export function removeEmptyValues<T extends Record<string, any>, R = Partial<Rem
         if (value === undefined || value === '' || value === null) {
             return acc;
         }
+
         return {
             ...acc,
             [key]: value,

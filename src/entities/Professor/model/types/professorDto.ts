@@ -1,4 +1,4 @@
-import { ScientificAreaDto } from '@/entities/ScientificAreas/api/types';
+import { ScientificAreaDto } from '@/entities/Directions/api/types';
 
 export interface ProfessorDto {
     readonly id: string;

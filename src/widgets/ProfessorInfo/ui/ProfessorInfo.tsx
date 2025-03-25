@@ -4,8 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { ProfessorCard, useGetProfessorQuery } from '@/entities/Professor';
 import { ToggleProfessorInfo } from '@/features/professor/ToggleInfo';
-import { AddProfessorButton, AddToFavoritesButton } from '@/features/entity/AddRequests';
-import { CatalogOption } from '@/widgets/Catalog';
+import { AddProfessorButton } from '@/features/entity/AddRequests';
 import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { professorInfoReducer } from '../model/slice/professorInfoSlice';
 import { ToggleOptions } from '../model/types/toggleOptions';
@@ -40,11 +39,6 @@ export const ProfessorInfo = memo(() => {
                         <ProfessorCard {...data} />
                         <Stack spacing={1} alignItems="center">
                             <AddProfessorButton id={id!} canJoin={data.canJoin} />
-                            <AddToFavoritesButton
-                                id={id!}
-                                isFavorite={data.isFavorite}
-                                option={CatalogOption.Professors}
-                            />
                         </Stack>
                     </Stack>
                 </Grid>

@@ -11,7 +11,6 @@ import { PersonalDataSchema } from '@/widgets/PersonalData/model/types/personalD
 import { ProfessorInfoSchema } from '@/widgets/ProfessorInfo';
 import { ProfileSchema } from '@/widgets/Profile';
 import { RequestsSectionSchema } from '@/widgets/RequestsSection';
-import { ScientificPortfolioSchema } from '@/widgets/ScientificPortfolio';
 import { StudentInfoSchema } from '@/widgets/StudentInfo';
 
 export interface StateSchema {
@@ -26,7 +25,6 @@ export interface StateSchema {
     onboarding?: OnboardingSchema;
     personalData?: PersonalDataSchema;
     profile?: ProfileSchema;
-    scientificPortfolio?: ScientificPortfolioSchema;
     requestsSection?: RequestsSectionSchema;
 }
 

@@ -1,5 +1,4 @@
 import { CatalogOption } from './catalogOption';
-import { ScientificArea } from '@/entities/ScientificAreas';
 
 export interface CatalogSchema {
     option: CatalogOption;
@@ -7,7 +6,7 @@ export interface CatalogSchema {
     page: number;
     pageSize: number;
     pagesCount: Record<CatalogOption, number>;
-    scientificInterests: Array<string>;
-    scientificAreas: Array<ScientificArea>;
+    scientificInterests: string[];
+    directions: string[];
     isFavoriteFilterOnly: boolean;
 }

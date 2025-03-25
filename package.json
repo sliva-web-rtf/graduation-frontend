@@ -28,7 +28,7 @@
             "yarn prettier",
             "yarn lint:ts:fix"
         ],
-        "**/*.{scss}": [
+        "**/*.scss": [
             "yarn lint:scss:fix"
         ]
     },

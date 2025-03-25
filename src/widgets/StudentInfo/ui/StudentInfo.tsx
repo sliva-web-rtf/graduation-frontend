@@ -5,13 +5,12 @@ import { useSelector } from 'react-redux';
 import { getStudentInfoOption } from '../model/selectors/getStudentInfoOption/getStudentInfoOption';
 import { StudentCard, useGetStudentQuery } from '@/entities/Student';
 import { ToggleStudentInfo } from '@/features/student/ToggleInfo';
-import { AddStudentButton, AddToFavoritesButton } from '@/features/entity/AddRequests';
+import { AddStudentButton } from '@/features/entity/AddRequests';
 import { CatalogOption } from '@/widgets/Catalog';
 import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { studentInfoReducer } from '../model/slice/studentInfoSlice';
 import { ToggleOptions } from '../model/types/toggleOptions';
 import { StudentInfoSkeleton } from './StudentInfo.skeleton';
-import { StudentPortfolio } from './StudentPortfolio';
 import { StudentThemes } from './StudentThemes';
 
 const initialReducers: ReducersList = {
@@ -44,22 +43,13 @@ export const StudentInfo = memo(() => {
                                 commandSearching={data.commandSearching}
                                 professorSearching={data.professorSearching}
                             />
-                            <AddToFavoritesButton
-                                id={id!}
-                                isFavorite={data.isFavorite}
-                                option={CatalogOption.Students}
-                            />
                         </Stack>
                     </Stack>
                 </Grid>
                 <Grid item xs>
                     <Stack spacing={4} alignItems="flex-start">
                         <ToggleStudentInfo />
-                        {option === ToggleOptions.Portfolio ? (
-                            <StudentPortfolio {...data} />
-                        ) : (
-                            <StudentThemes id={id!} />
-                        )}
+                        <StudentThemes id={id!} />
                     </Stack>
                 </Grid>
             </Grid>

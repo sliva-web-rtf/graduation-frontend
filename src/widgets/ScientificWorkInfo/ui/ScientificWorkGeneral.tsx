@@ -4,7 +4,7 @@ import { InfoCard, InfoInterests } from '@/shared/ui';
 import { getFormattedScientificArea } from '@/shared/lib/helpers/getFormattedScientificArea';
 import { ScientificWorkStudents } from '@/widgets/ScientificWorkInfo/ui/ScientificWorkStudents';
 import { Student } from '@/entities/Student';
-import { ScientificAreaDto } from '@/entities/ScientificAreas/api/types';
+import { ScientificAreaDto } from '@/entities/Directions/api/types';
 
 interface ScientificWorkGeneralProps {
     readonly description: string;

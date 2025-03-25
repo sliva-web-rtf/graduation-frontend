@@ -1,20 +1,23 @@
 .card {
   display: grid;
-  grid-template-columns: var(--catalog-card-height) 1fr auto;
-  grid-template-rows: var(--catalog-card-height);
-  column-gap: var(--space-l);
-  padding: var(--space-m);
+  grid-template-columns: 1fr auto;
+  column-gap: calc(2 * var(--space-xl));
+  height: var(--catalog-card-height);
+  padding: var(--space-l);
 }
 
-.chips {
-  display: flex;
-  column-gap: var(--space-s);
-}
-
-.title {
-  display: box;
-  -webkit-line-clamp: 2;
+.title,
+.description {
+  display: box !important;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.title {
+  -webkit-line-clamp: 2;
+}
+
+.description {
+  -webkit-line-clamp: 3;
 }
