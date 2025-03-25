@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import { FormEvent, memo, useCallback, useEffect, useState } from 'react';
 import styles from './Modal.module.scss';
-import { BaseButton, StyledSelect } from '@/shared/ui';
+import { BaseButton, BaseLoadingButton, StyledSelect } from '@/shared/ui';
 import {
     getProfessorSearchingStatus,
     updateProfessorStatusSearchingPD,
@@ -30,7 +30,7 @@ export const ChangeProfessorStatusModal = memo((props: ChangeStatusModalProps) =
     const { open, onClose } = props;
 
     const { data } = getProfessorSearchingStatus();
-    const [updatedProfessorSearchingStatus, { error }] = updateProfessorStatusSearchingPD();
+    const [updatedProfessorSearchingStatus, { error, isLoading }] = updateProfessorStatusSearchingPD();
 
     const [searchingType, setSearchingType] = useState<SearchingStatus>(data?.status ?? SearchingStatus.DoNotSearch);
     const [studentsCount, setStudentsCount] = useState<number>(data?.limit ?? 0);
@@ -43,8 +43,9 @@ export const ChangeProfessorStatusModal = memo((props: ChangeStatusModalProps) =
                 limit: studentsCount,
             };
             await updatedProfessorSearchingStatus(values);
+            onClose();
         },
-        [searchingType, studentsCount, updatedProfessorSearchingStatus],
+        [onClose, searchingType, studentsCount, updatedProfessorSearchingStatus],
     );
 
     useEffect(() => {
@@ -101,9 +102,14 @@ export const ChangeProfessorStatusModal = memo((props: ChangeStatusModalProps) =
                             label="Не ищу научную деятельность"
                         />
                     </RadioGroup>
-                    <BaseButton sx={{ alignSelf: 'center', mt: 2 }} variant="contained" type="submit">
+                    <BaseLoadingButton
+                        sx={{ alignSelf: 'center', mt: 2 }}
+                        variant="contained"
+                        type="submit"
+                        loading={isLoading}
+                    >
                         Применить
-                    </BaseButton>
+                    </BaseLoadingButton>
                 </form>
             </Stack>
         </Modal>

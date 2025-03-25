@@ -52,7 +52,15 @@ export const AddRequestModal = memo((props: AddRequestModalProps) => {
     };
 
     return (
-        <Modal open={open} onClose={onClose} className={styles.backdrop}>
+        <Modal
+            open={open}
+            onClose={onClose}
+            className={styles.backdrop}
+            onClick={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+            }}
+        >
             <Stack direction="row" spacing={3} alignItems="flex-start" className={styles.modal}>
                 <BaseButton variant="contained" sx={{ p: 1 }} onClick={onClose}>
                     <CloseRoundedIcon />

@@ -1,11 +1,25 @@
-import { memo } from 'react';
+import { Stack, Typography } from '@mui/material';
+import { forwardRef, memo } from 'react';
 import { BaseAutocomplete, BaseAutocompleteProps } from '@/shared/ui/Autocomplete/Autocomplete';
 import { getScientificInterests } from '../../api/scientificInterestsApi';
 
 type ScientificInterestsAutocompleteProps = Omit<BaseAutocompleteProps, 'ref' | 'options'>;
 
-export const ScientificInterestsAutocomplete = memo((props: ScientificInterestsAutocompleteProps) => {
-    const { isFetching, data } = getScientificInterests();
+export const ScientificInterestsAutocomplete = memo(
+    forwardRef((props: ScientificInterestsAutocompleteProps, ref: React.Ref<any>) => {
+        const { label, ...otherProps } = props;
+        const { isFetching, data } = getScientificInterests();
 
-    return <BaseAutocomplete {...props} loading={isFetching} options={data || []} />;
-});
+        return (
+            <Stack spacing={1}>
+                {label && (
+                    <Typography variant="bodyXS" color="#00000099">
+                        {label}
+                    </Typography>
+                )}
+
+                <BaseAutocomplete ref={ref} limitTags={1} loading={isFetching} options={data || []} {...otherProps} />
+            </Stack>
+        );
+    }),
+);

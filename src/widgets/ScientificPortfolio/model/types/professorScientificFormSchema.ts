@@ -2,12 +2,12 @@ import { z } from 'zod';
 import { ErrorMessage } from '@/shared/lib/helpers/errorMessages';
 
 export const professorScientificFormSchema = z.object({
-    educationLevel: z.string().min(1, { message: ErrorMessage.getRequiredErrorFieldMessage() }),
+    degree: z.string().min(1, { message: ErrorMessage.getRequiredErrorFieldMessage() }),
     urfuResearchPortal: z.string().min(1, { message: ErrorMessage.getRequiredErrorFieldMessage() }),
-    scopus: z.string().min(1, { message: ErrorMessage.getRequiredErrorFieldMessage() }),
-    rinc: z.string().min(1, { message: ErrorMessage.getRequiredErrorFieldMessage() }),
+    scopusUri: z.string().min(1, { message: ErrorMessage.getRequiredErrorFieldMessage() }),
+    riscUri: z.string().min(1, { message: ErrorMessage.getRequiredErrorFieldMessage() }),
     workExperienceYears: z.number().min(1, { message: ErrorMessage.getRequiredErrorFieldMessage() }),
-    scienceArea: z
+    scientificArea: z
         .array(
             z.object({
                 section: z.string(),
@@ -15,7 +15,7 @@ export const professorScientificFormSchema = z.object({
             }),
         )
         .min(1, { message: ErrorMessage.getRequiredErrorFieldMessage() }),
-    scienceInterests: z.string().array().min(1, { message: ErrorMessage.getRequiredErrorFieldMessage() }),
+    scientificInterests: z.string().array().min(1, { message: ErrorMessage.getRequiredErrorFieldMessage() }),
     about: z
         .optional(z.string().max(1000, { message: ErrorMessage.getMaxErrorFieldMessage(1000) }))
         .optional()

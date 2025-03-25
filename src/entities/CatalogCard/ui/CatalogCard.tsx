@@ -1,22 +1,22 @@
-import { memo, useMemo } from 'react';
 import { Avatar, Paper, Stack, Typography } from '@mui/material';
+import { memo, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { BaseChip } from '@/shared/ui/Chip/Chip';
-import { LimitInfo } from '@/shared/ui/LimitInfo/LimitInfo';
+import { getParentLink } from '@/entities/CatalogCard/lib/helpers/getParentLink';
+import { WorkStatusRus } from '@/entities/ScientificWork/model/types/workStatus';
 import {
     AddProfessorButton,
     AddScientificWorkButton,
     AddStudentButton,
     AddToFavoritesButton,
 } from '@/features/entity/AddRequests';
-import { WorkStatusRus } from '@/entities/ScientificWork/model/types/workStatus';
-import { getParentLink } from '@/entities/CatalogCard/lib/helpers/getParentLink';
 import scientificWorkImage from '@/shared/assets/images/scientificWork.png';
-import { ChipsGroup } from '@/shared/ui';
 import { getChipColorByWorkStatus } from '@/shared/lib/helpers/getChipColorByStatus';
+import { ChipsGroup } from '@/shared/ui';
+import { BaseChip } from '@/shared/ui/Chip/Chip';
+import { LimitInfo } from '@/shared/ui/LimitInfo/LimitInfo';
+import { CatalogOption } from '@/widgets/Catalog';
 import { type ICatalogCard } from '../model/types/ICatalogCard';
 import styles from './CatalogCard.module.scss';
-import { CatalogOption } from '@/widgets/Catalog';
 
 /* eslint-disable no-nested-ternary */
 
@@ -40,7 +40,12 @@ export const CatalogCard = memo((props: ICatalogCard) => {
     const parentLink = useMemo(() => getParentLink(option), [option]);
 
     return (
-        <Paper className={styles.card} sx={{ borderRadius: 4 }}>
+        <Paper
+            component={Link}
+            to={`/${parentLink}/${id}`}
+            className={styles.card}
+            sx={{ borderRadius: 4, '&:hover': { textDecoration: 'none' } }}
+        >
             <Avatar
                 src={workStatus ? scientificWorkImage : __API__ + avatarImagePath}
                 alt={title}
@@ -61,11 +66,9 @@ export const CatalogCard = memo((props: ICatalogCard) => {
                             {subtitle}
                         </Typography>
                     )}
-                    <Link to={`/${parentLink}/${id}`} color="inherit">
-                        <Typography variant="h3" className={styles.title}>
-                            {title}
-                        </Typography>
-                    </Link>
+                    <Typography variant="h3" className={styles.title}>
+                        {title}
+                    </Typography>
                 </Stack>
                 <ChipsGroup chips={chips} />
             </Stack>
@@ -79,6 +82,7 @@ export const CatalogCard = memo((props: ICatalogCard) => {
                             id={id}
                             commandSearching={Boolean(commandSearching)}
                             professorSearching={Boolean(professorSearching)}
+                            canJoin={Boolean(canJoin)}
                         />
                     ) : (
                         <AddScientificWorkButton id={id} canJoin={Boolean(canJoin)} />

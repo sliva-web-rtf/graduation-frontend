@@ -1,18 +1,15 @@
-import { memo, useCallback, useState } from 'react';
-import { Box, IconButton, InputAdornment, Link, MenuItem, Stack, Typography } from '@mui/material';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import classNames from 'classnames';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import CancelIcon from '@mui/icons-material/Cancel';
-import { BaseAccordion, BaseField, BaseLoadingButton, BaseSelect, HelperText } from '@/shared/ui';
-import { signupFormSchema, SignupFormSchema } from '../../model/types/signupFormSchema';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { IconButton, InputAdornment, Link, Stack } from '@mui/material';
+import classNames from 'classnames';
+import { memo, useCallback, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { BaseField, BaseLoadingButton, BaseSelect, HelperText } from '@/shared/ui';
+import { CookieService } from '@/shared/lib/helpers/cookieService';
 import { useSignupUserMutation } from '@/entities/User/api/userApi';
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import { getCookie } from '@/shared/lib/helpers/getCookie';
-import { waitForCookie } from '@/shared/lib/helpers/waitForCookie';
+import { RoutePath } from '@/app/providers/Router/config/routeConfig';
+import { signupFormSchema, SignupFormSchema } from '../../model/types/signupFormSchema';
 
 export interface SignupProps {
     className?: string;
@@ -45,11 +42,11 @@ const SignupForm = memo((props: SignupProps) => {
         const role = data.role === SignupRoles.student ? 'student' : 'professor';
         try {
             const response = await signupUser({ ...data, role }).unwrap();
-            document.cookie = `userData=${encodeURIComponent(
-                JSON.stringify({ userId: response.userId, email: data.email, role }),
-            )}; path=/signup; expires=Fri, 31 Dec 2025 23:59:59 GMT`;
-            await waitForCookie('userData');
-            navigate('/signup/confirm-email');
+
+            CookieService.set({ userId: response.userId, email: data.email, role });
+
+            // await waitForCookie('userData');
+            navigate(RoutePath.ConfirmEmail, { replace: true });
         } catch (err: any) {
             if (err?.status === 400 && (err.data as any)?.code === '409') {
                 setError('email', {

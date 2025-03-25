@@ -1,21 +1,36 @@
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Stack, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { FC, useEffect, useState } from 'react';
-import { BaseButton, BaseField, BaseLoadingButton, HelperText } from '@/shared/ui';
-import { oneTimeCodeFormSchema, OneTimeCodeFormSchema } from '../model/types/oneTimeCodeFormSchema';
-import { getUserAuthData, isUserProfessor } from '@/entities/User';
+import { useEffect, useState } from 'react';
+import { isUserProfessor } from '@/entities/User';
 import {
     useConfirmEmailMutation,
     useRepeatConfirmEmailProfessorMutation,
     useRepeatConfirmEmailStudentMutation,
 } from '@/entities/User/api/userApi';
+import { CookieService } from '@/shared/lib/helpers/cookieService';
 import { getCookie } from '@/shared/lib/helpers/getCookie';
+import { BaseButton, BaseField, BaseLoadingButton, HelperText } from '@/shared/ui';
+import { oneTimeCodeFormSchema, OneTimeCodeFormSchema } from '../model/types/oneTimeCodeFormSchema';
 
 export const OneTimeCodeForm = () => {
-    const { userId, email, role: dataRole } = getCookie('userData') ?? {};
+    const [userData, setUserData] = useState(getCookie('userData'));
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            const updatedData = getCookie('userData');
+            if (JSON.stringify(updatedData) !== JSON.stringify(userData)) {
+                setUserData(updatedData);
+            }
+        }, 1000);
+
+        return () => clearInterval(intervalId);
+    }, [userData]);
+
+    const { userId, email, role: dataRole } = userData ?? {};
+
     const navigate = useNavigate();
 
     const isProfessor = useSelector(isUserProfessor) || dataRole === 'professor';
@@ -39,6 +54,14 @@ export const OneTimeCodeForm = () => {
     });
 
     const onClickRepeatConfirm = async () => {
+        if (!userId || !email) {
+            setError('code', {
+                type: 'server',
+                message: 'Не удалось найти идентификатор пользователя или обнаружить почту. Просим обновить страницу.',
+            });
+            return;
+        }
+
         const curData = isProfessor ? { professorId: userId, email } : { studentId: userId, email };
 
         try {
@@ -65,7 +88,7 @@ export const OneTimeCodeForm = () => {
         if (!userId) {
             setError('code', {
                 type: 'server',
-                message: 'Не удалось найти идентификатор пользователя',
+                message: 'Не удалось найти идентификатор пользователя. Просим обновить страницу.',
             });
             return;
         }
@@ -77,6 +100,8 @@ export const OneTimeCodeForm = () => {
                 userId,
             }).unwrap();
             if (response.succeeded) {
+                CookieService.clear();
+
                 navigate('/login');
             } else {
                 setError('code', {

@@ -16,6 +16,7 @@ const newScientificWorkApi = baseApi.injectEndpoints({
             transformResponse: () => {
                 toast.success('Тема исследования успешно предложена');
             },
+            invalidatesTags: ['Catalog'],
         }),
     }),
 });
