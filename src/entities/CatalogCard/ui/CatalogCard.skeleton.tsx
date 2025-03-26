@@ -1,10 +1,9 @@
-import { memo, useCallback } from 'react';
-import { Paper, Skeleton, Stack, Typography } from '@mui/material';
-import { BaseList } from '@/shared/ui/List/List';
+import { memo } from 'react';
+import { Box, Skeleton, Stack, Typography } from '@mui/material';
 import styles from './CatalogCard.module.scss';
 
 export const CatalogCardSkeleton = memo(() => (
-    <Paper className={styles.card} sx={{ borderRadius: 3 }}>
+    <Box className={styles.card} sx={{ borderRadius: 3 }}>
         <Stack spacing={3} justifyContent="space-between">
             <Stack>
                 <Skeleton width="30%" />
@@ -23,5 +22,5 @@ export const CatalogCardSkeleton = memo(() => (
             </Stack>
         </Stack>
         <Skeleton width={120} height={40} sx={{ alignSelf: 'center' }} />
-    </Paper>
+    </Box>
 ));

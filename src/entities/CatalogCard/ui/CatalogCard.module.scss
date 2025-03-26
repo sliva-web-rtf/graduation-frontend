@@ -4,6 +4,8 @@
   column-gap: calc(2 * var(--space-xl));
   height: var(--catalog-card-height);
   padding: var(--space-l);
+  background-color: var(--light-background-color);
+  border: 1px solid var(--border-color);
 }
 
 .title,
@@ -15,9 +17,11 @@
 }
 
 .title {
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
 }
 
 .description {
   -webkit-line-clamp: 3;
+  line-clamp: 3;
 }

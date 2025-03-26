@@ -3,7 +3,9 @@ import { Role } from '../model/types/role';
 export interface UserDto {
     id: string;
     roles: Role[];
-    fullName?: string;
+    firstName?: string;
+    lastName?: string;
+    patronymic?: string;
     email?: string;
     lastLogin?: string;
     isRegistrationComplete: boolean;

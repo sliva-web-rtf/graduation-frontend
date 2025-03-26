@@ -1,4 +1,4 @@
-import { Paper, Stack, Typography } from '@mui/material';
+import { Box, Paper, Stack, Typography } from '@mui/material';
 import { memo, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { getParentLink } from '@/entities/CatalogCard/lib/helpers/getParentLink';
@@ -14,7 +14,7 @@ export const CatalogCard = memo((props: ICatalogCard) => {
     const parentLink = useMemo(() => getParentLink(option), [option]);
 
     return (
-        <Paper
+        <Box
             component={Link}
             to={`/${parentLink}/${id}`}
             className={styles.card}
@@ -44,6 +44,6 @@ export const CatalogCard = memo((props: ICatalogCard) => {
                     canJoin={Boolean(canJoin)}
                 />
             </Stack>
-        </Paper>
+        </Box>
     );
 });
