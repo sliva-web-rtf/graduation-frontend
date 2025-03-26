@@ -1,10 +1,11 @@
 import { Box, FormControl, Modal, Paper, RadioGroup, Stack, Typography } from '@mui/material';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import React, { ChangeEvent, memo } from 'react';
-import { BaseButton } from '@/shared/ui/Button/Button';
+import { BaseButton, BaseLoadingButton } from '@/shared/ui/Button/Button';
 import { ScientificWork, ScientificWorkRadio, useGetUsersScientificWorksQuery } from '@/entities/ScientificWork';
-import { CreateScientificWorkModal } from '@/features/scientificWork/CreateScientificWork';
+import { CreateTopicButton } from '@/features/topic/create-topic';
 import styles from './Modal.module.scss';
+import { BaseModal } from '@/shared/ui';
 
 interface AddRequestModalProps {
     readonly id: string;
@@ -19,7 +20,7 @@ interface AddRequestModalProps {
 
 const RadioList = memo(({ items }: { items?: Array<ScientificWork> }) => {
     if (!items?.length) {
-        return <Typography variant="body1">Исследований нет</Typography>;
+        return <Typography variant="body1">Темы отсутсвуют</Typography>;
     }
 
     return (
@@ -52,59 +53,42 @@ export const AddRequestModal = memo((props: AddRequestModalProps) => {
     };
 
     return (
-        <Modal
+        <BaseModal
+            title="Оформление заявки"
+            subtitle="Выберите тему ВКР для отправки запроса"
+            actionButton={
+                <BaseLoadingButton
+                    loading={!scientificWorkId || disabled}
+                    variant="contained"
+                    sx={{ alignSelf: 'flex-end' }}
+                    onClick={onSubmit}
+                >
+                    Оформить заявку
+                </BaseLoadingButton>
+            }
             open={open}
             onClose={onClose}
-            className={styles.backdrop}
             onClick={(e) => {
                 e.stopPropagation();
                 e.preventDefault();
             }}
         >
-            <Stack direction="row" spacing={3} alignItems="flex-start" className={styles.modal}>
-                <BaseButton variant="contained" sx={{ p: 1 }} onClick={onClose}>
-                    <CloseRoundedIcon />
-                </BaseButton>
-                <form>
-                    <FormControl>
-                        <RadioGroup name="scientificWorkId" value={scientificWorkId} onChange={handleRadioChange}>
-                            <Stack
-                                component={Paper}
-                                className={styles.content}
-                                spacing={4}
-                                elevation={0}
-                                sx={{ borderRadius: 4 }}
-                            >
-                                <Stack spacing={2}>
-                                    <Typography variant="h2">Оформление заявки</Typography>
-                                    <Typography variant="body1">
-                                        Выберите тему исследования для отправки запроса
-                                    </Typography>
-                                </Stack>
-                                <Stack spacing={2} width="100%">
-                                    <Typography variant="h3">Выбрать из тем пользователя</Typography>
-                                    <RadioList items={otherScientificWorks} />
-                                </Stack>
-                                <Stack spacing={2}>
-                                    <Typography variant="h3">Предложить из своих тем</Typography>
-                                    <RadioList items={usersScientificWorks} />
-                                    <Box alignSelf="flex-start">
-                                        <CreateScientificWorkModal />
-                                    </Box>
-                                </Stack>
-                                <BaseButton
-                                    disabled={!scientificWorkId || disabled}
-                                    variant="contained"
-                                    sx={{ alignSelf: 'flex-end' }}
-                                    onClick={onSubmit}
-                                >
-                                    Оформить заявку
-                                </BaseButton>
+            <form>
+                <FormControl>
+                    <RadioGroup name="scientificWorkId" value={scientificWorkId} onChange={handleRadioChange}>
+                        <Stack spacing={4}>
+                            <Stack spacing={2} width="100%">
+                                <Typography variant="h3">Выбрать из тем пользователя</Typography>
+                                <RadioList items={otherScientificWorks} />
                             </Stack>
-                        </RadioGroup>
-                    </FormControl>
-                </form>
-            </Stack>
-        </Modal>
+                            <Stack spacing={2}>
+                                <Typography variant="h3">Предложить из своих тем</Typography>
+                                <RadioList items={usersScientificWorks} />
+                            </Stack>
+                        </Stack>
+                    </RadioGroup>
+                </FormControl>
+            </form>
+        </BaseModal>
     );
 });

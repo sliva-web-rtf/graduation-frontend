@@ -7,7 +7,7 @@ import { ToggleList } from '@/features/catalog/ToggleList';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { catalogActions, catalogReducer } from '@/widgets/Catalog/model/slice/catalogSlice';
 import { CatalogList } from '@/entities/CatalogList';
-import { CreateScientificWorkModal } from '@/features/scientificWork/CreateScientificWork';
+import { CreateTopicButton } from '@/features/topic/create-topic';
 import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { CatalogOption } from '../model/types/catalogOption';
 import { getCatalogPage } from '../model/selectors/getCatalogPage/getCatalogPage';
@@ -36,7 +36,7 @@ const Catalog = memo(() => {
                     <Stack direction="row" justifyContent="space-between" alignItems="center">
                         <ToggleList />
                         <Stack direction="row" spacing={2}>
-                            {option === CatalogOption.Topics && <CreateScientificWorkModal />}
+                            {option === CatalogOption.Topics && <CreateTopicButton />}
                         </Stack>
                     </Stack>
                     <CatalogList />

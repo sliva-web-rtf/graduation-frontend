@@ -14,7 +14,7 @@ export const Search = memo(() => {
     return (
         <Stack direction="row" spacing={2}>
             <Box width="60%">
-                <BaseSearch />
+                <BaseSearch autoComplete="off" />
             </Box>
             <Box width="40%">
                 <DirectionsAutocomplete

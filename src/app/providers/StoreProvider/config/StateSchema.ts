@@ -8,24 +8,24 @@ import { type CatalogSchema } from '@/widgets/Catalog/model/types/catalogSchema'
 import { ManualSchema } from '@/widgets/Manual';
 import { OnboardingSchema } from '@/widgets/Onboarding/model/types/onboardingSchema';
 import { PersonalDataSchema } from '@/widgets/PersonalData/model/types/personalDataSchema';
-import { ProfessorInfoSchema } from '@/widgets/ProfessorInfo';
 import { ProfileSchema } from '@/widgets/Profile';
 import { RequestsSectionSchema } from '@/widgets/RequestsSection';
 import { StudentInfoSchema } from '@/widgets/StudentInfo';
+import { PersonInfoSchema } from '@/widgets/PersonInfo';
 
 export interface StateSchema {
-    user: UserSchema;
     [baseApi.reducerPath]: ReturnType<typeof baseApi.reducer>;
+    user: UserSchema;
 
     loginForm?: LoginSchema;
     catalog?: CatalogSchema;
-    professor?: ProfessorInfoSchema;
     student?: StudentInfoSchema;
     manual?: ManualSchema;
     onboarding?: OnboardingSchema;
     personalData?: PersonalDataSchema;
     profile?: ProfileSchema;
     requestsSection?: RequestsSectionSchema;
+    'person-info'?: PersonInfoSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;

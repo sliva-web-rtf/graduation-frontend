@@ -19,7 +19,7 @@ export const InfoCard = memo((props: InfoCardProps) => {
         >
             <Stack spacing={2}>
                 <Typography variant="h3">{title}</Typography>
-                <Typography variant="body1" whiteSpace={formatted ? 'pre' : 'normal'}>
+                <Typography variant="subtitle1" fontFamily="Monrope" whiteSpace={formatted ? 'pre' : 'normal'}>
                     {text || 'Пусто'}
                 </Typography>
             </Stack>
