@@ -5,6 +5,7 @@ type User = {
     patronymic?: string;
     about?: string;
     contacts?: string;
+    canJoin?: boolean;
 };
 
 export type Student = {
@@ -21,3 +22,10 @@ export type Manager = {
 };
 
 export type Person = User & Partial<Student> & Partial<Manager>;
+
+type Entity = 'student' | 'professor';
+
+export type PersonRequest = {
+    id: string;
+    entity: Entity;
+};

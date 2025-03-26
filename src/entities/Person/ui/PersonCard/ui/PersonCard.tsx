@@ -1,4 +1,4 @@
-import { Divider, Paper, Stack, Typography } from '@mui/material';
+import { Box, Divider, Stack, Typography } from '@mui/material';
 import { getFullName } from '@/shared/lib/helpers/getFullName';
 import { Person } from '../../../model';
 
@@ -36,10 +36,12 @@ export const PersonCard = (props: Person) => {
     const name = getFullName(firstName, lastName, patronymic);
 
     return (
-        <Paper
+        <Box
             sx={(theme) => ({
-                padding: [theme.spacing(3), theme.spacing(2)].join(' '),
-                borderRadius: theme.spacing(4),
+                padding: theme.spacing(2),
+                borderRadius: theme.spacing(2),
+                backgroundColor: 'white',
+                border: '1px solid var(--border-color)',
             })}
         >
             <Stack spacing={3}>
@@ -55,6 +57,6 @@ export const PersonCard = (props: Person) => {
                 <Divider />
                 <Typography>{contacts || 'Контакты не указаны'}</Typography>
             </Stack>
-        </Paper>
+        </Box>
     );
 };

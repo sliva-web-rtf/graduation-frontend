@@ -1,9 +1,9 @@
 import { Helmet } from 'react-helmet';
 import { Stack, Typography } from '@mui/material';
 import { BackButton } from '@/widgets/BackButton';
-import { ScientificWorkInfo } from '@/widgets/ScientificWorkInfo';
+import { TopicInfo } from '@/widgets/TopicInfo';
 
-const ScientificWorkPage = () => (
+const TopicPage = () => (
     <>
         <Helmet>
             <title>Исследование | SCI Join</title>
@@ -13,9 +13,9 @@ const ScientificWorkPage = () => (
                 <BackButton />
                 <Typography variant="h1">Исследование</Typography>
             </Stack>
-            <ScientificWorkInfo />
+            <TopicInfo />
         </Stack>
     </>
 );
 
-export default ScientificWorkPage;
+export default TopicPage;

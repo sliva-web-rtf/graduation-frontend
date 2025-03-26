@@ -14,7 +14,6 @@ export { BaseSearch } from './Search/Search';
 export { HelperText } from './HelperText/HelperText';
 export * from './Icons';
 export * from './InfoCard/InfoCard';
-export * from './InfoInterests/InfoInterests';
 export * from './Logo/Logo';
 export * from './Pagination/Pagination';
 export * from './Select/BaseSelect';

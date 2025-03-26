@@ -26,7 +26,7 @@ export const BaseModal = (props: BaseModalProps) => {
             <Stack direction="row" spacing={2} alignItems="flex-start" className={classNames.modal}>
                 <CloseButton onClick={onClose} />
                 <Stack spacing={4} className={classNames.content}>
-                    <Stack>
+                    <Stack spacing={1}>
                         <Typography variant="h2">{title}</Typography>
                         <Typography color="secondary">{subtitle}</Typography>
                     </Stack>

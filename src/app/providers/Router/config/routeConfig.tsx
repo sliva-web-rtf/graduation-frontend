@@ -6,10 +6,10 @@ import { LoginPage } from '@/pages/LoginPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 import { ProfessorPage } from '@/pages/ProfessorPage';
 import { ProfilePage } from '@/pages/ProfilePage';
-import { ScientificWorkPage } from '@/pages/ScientificWorkPage';
-import { SignupPage } from '@/pages/SignupPage';
+import { TopicPage } from '@/pages/TopicPage';
 import { StudentPage } from '@/pages/StudentPage';
 import { TestPage } from '@/pages/TestPage';
+// import { SignupPage } from '@/pages/SignupPage';
 // import { ConfirmEmailPage } from '@/pages/ConfirmEmailPage';
 // import { ManualPage } from '@/pages/ManualPage';
 // import { OnboardingPage } from '@/pages/OnboardingPage';
@@ -90,7 +90,7 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     },
     [AppRoutes.Topics]: {
         path: RoutePath.Topics,
-        element: <ScientificWorkPage />,
+        element: <TopicPage />,
         ...withLayoutAndAuth,
     },
     [AppRoutes.Students]: {

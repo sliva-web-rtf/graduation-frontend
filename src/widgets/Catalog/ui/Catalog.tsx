@@ -13,6 +13,7 @@ import { CatalogOption } from '../model/types/catalogOption';
 import { getCatalogPage } from '../model/selectors/getCatalogPage/getCatalogPage';
 import { getCatalogPagesCount } from '../model/selectors/getCatalogPagesCount/getCatalogPagesCount';
 import { getCatalogOption } from '../model/selectors/getCatalogOption/getCatalogOption';
+import { isUserStudent } from '@/entities/User';
 
 const initialReducers: ReducersList = {
     catalog: catalogReducer,
@@ -23,6 +24,7 @@ const Catalog = memo(() => {
     const option = useSelector(getCatalogOption);
     const page = useSelector(getCatalogPage);
     const pagesCount = useSelector(getCatalogPagesCount);
+    const isStudent = useSelector(isUserStudent);
 
     const handlePageChange = (_: ChangeEvent<unknown>, value: number) => {
         dispatch(catalogActions.setPage(value));
@@ -36,7 +38,7 @@ const Catalog = memo(() => {
                     <Stack direction="row" justifyContent="space-between" alignItems="center">
                         <ToggleList />
                         <Stack direction="row" spacing={2}>
-                            {option === CatalogOption.Topics && <CreateTopicButton />}
+                            {!isStudent && option === CatalogOption.Topics && <CreateTopicButton />}
                         </Stack>
                     </Stack>
                     <CatalogList />
