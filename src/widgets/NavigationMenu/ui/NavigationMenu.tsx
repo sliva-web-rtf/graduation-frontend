@@ -3,7 +3,7 @@ import { memo } from 'react';
 import { TabsProps } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { BaseTabs, BaseTab, TabLabel } from '@/shared/ui/Tabs/Tabs';
-import { getTabs, TABS } from '../model/const';
+import { getTabs } from '../model/const';
 import { getUserRoles } from '@/entities/User/model/selectors/getUserRoles/getUserRoles';
 
 export const NavigationMenu = memo((props: TabsProps) => {
