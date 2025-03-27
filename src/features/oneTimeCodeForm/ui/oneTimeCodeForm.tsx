@@ -1,18 +1,18 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Stack, Typography } from '@mui/material';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { isUserProfessor } from '@/entities/User';
+import { BaseButton, BaseField, BaseLoadingButton, HelperText } from '@/shared/ui';
+import { getCookie } from '@/shared/lib/helpers/getCookie';
+import { CookieService } from '@/shared/lib/helpers/cookieService';
 import {
     useConfirmEmailMutation,
     useRepeatConfirmEmailProfessorMutation,
     useRepeatConfirmEmailStudentMutation,
 } from '@/entities/User/api/userApi';
-import { CookieService } from '@/shared/lib/helpers/cookieService';
-import { getCookie } from '@/shared/lib/helpers/getCookie';
-import { BaseButton, BaseField, BaseLoadingButton, HelperText } from '@/shared/ui';
+import { isUserProfessor } from '@/entities/User';
 import { oneTimeCodeFormSchema, OneTimeCodeFormSchema } from '../model/types/oneTimeCodeFormSchema';
 
 export const OneTimeCodeForm = () => {
@@ -137,7 +137,7 @@ export const OneTimeCodeForm = () => {
                             helperText={<HelperText error={errors.code} />}
                             inputProps={{
                                 maxLength: 6,
-                                onInput: (e: React.ChangeEvent<HTMLInputElement>) => {
+                                onInput: (e: ChangeEvent<HTMLInputElement>) => {
                                     e.target.value = e.target.value.replace(/[^0-9]/g, '');
                                 },
                             }}

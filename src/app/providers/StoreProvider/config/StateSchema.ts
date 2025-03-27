@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { AnyAction, EnhancedStore, Reducer, ReducersMapObject } from '@reduxjs/toolkit';
 import { CombinedState } from 'redux';
 
@@ -6,9 +7,9 @@ import { type LoginSchema } from '@/features/auth/AuthByEmail/model/types/loginS
 import { baseApi } from '@/shared/api';
 import { type CatalogSchema } from '@/widgets/Catalog/model/types/catalogSchema';
 import { PersonalDataSchema } from '@/widgets/PersonalData/model/types/personalDataSchema';
+import { PersonInfoSchema } from '@/widgets/PersonInfo';
 import { ProfileSchema } from '@/widgets/Profile';
 import { RequestsSectionSchema } from '@/widgets/RequestsSection';
-import { PersonInfoSchema } from '@/widgets/PersonInfo';
 
 export interface StateSchema {
     [baseApi.reducerPath]: ReturnType<typeof baseApi.reducer>;

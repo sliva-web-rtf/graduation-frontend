@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Components, Theme } from '@mui/material';
 import { shadows } from './shadows';
 

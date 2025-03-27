@@ -1,11 +1,11 @@
 import { Stack, Typography } from '@mui/material';
-import { forwardRef, memo } from 'react';
+import { forwardRef, memo, Ref } from 'react';
 import { BaseAutocomplete, BaseAutocompleteProps } from '@/shared/ui/Autocomplete/Autocomplete';
 
 type ScientificAreasAutocompleteProps = Omit<BaseAutocompleteProps, 'ref'>;
 
 export const DirectionsAutocomplete = memo(
-    forwardRef((props: ScientificAreasAutocompleteProps, ref: React.Ref<any>) => {
+    forwardRef((props: ScientificAreasAutocompleteProps, ref: Ref<any>) => {
         const { label, options, ...otherProps } = props;
 
         return (

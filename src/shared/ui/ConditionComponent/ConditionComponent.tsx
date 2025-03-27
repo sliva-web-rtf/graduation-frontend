@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
-import { getProfileOption, Profile } from '@/widgets/Profile';
-import { ProfileOption } from '@/widgets/Profile/model/types/profileOption';
 import { PersonalData } from '@/widgets/PersonalData';
+import { getProfileOption } from '@/widgets/Profile';
+import { ProfileOption } from '@/widgets/Profile/model/types/profileOption';
 import { RequestsSection } from '@/widgets/RequestsSection';
 
 export const ConditionComponent = () => {

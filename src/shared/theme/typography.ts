@@ -1,16 +1,17 @@
 import { Palette } from '@mui/material';
 import { TypographyOptions } from '@mui/material/styles/createTypography';
+import { CSSProperties } from 'react';
 
 import '@mui/material/styles';
 import '@mui/material/Typography';
 
 declare module '@mui/material/styles' {
     interface TypographyVariants {
-        bodyXS: React.CSSProperties;
+        bodyXS: CSSProperties;
     }
 
     interface TypographyVariantsOptions {
-        bodyXS?: React.CSSProperties;
+        bodyXS?: CSSProperties;
     }
 }
 

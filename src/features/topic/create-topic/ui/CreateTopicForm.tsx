@@ -1,11 +1,11 @@
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Stack } from '@mui/material';
 import { memo } from 'react';
-import { Controller, useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { BaseField } from '@/shared/ui';
+import { useForm } from 'react-hook-form';
 import { BaseLoadingButton } from '@/shared/ui/Button/Button';
-import { AddScientificWorkFormSchema, addScientificWorkFormSchema } from '../models/types/addScientificWorkSchema';
+import { BaseField } from '@/shared/ui';
 import { useAddNewScientificWorkMutation } from '../api/newScientificWorkApi';
+import { AddScientificWorkFormSchema, addScientificWorkFormSchema } from '../models/types/addScientificWorkSchema';
 
 export const CreateTopicForm = memo(() => {
     const [addNewScientificWork, { isLoading: isCreating }] = useAddNewScientificWorkMutation();

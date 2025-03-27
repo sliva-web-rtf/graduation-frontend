@@ -1,11 +1,11 @@
+import { Box, Stack } from '@mui/material';
 import { memo } from 'react';
 import { useSelector } from 'react-redux';
-import { Box, Stack } from '@mui/material';
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { catalogActions } from '@/widgets/Catalog/model/slice/catalogSlice';
-import { getDirections, getCatalogInterests } from '@/widgets/Catalog';
 import { DirectionsAutocomplete } from '@/entities/Directions';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { BaseSearch } from '@/shared/ui';
+import { getDirections } from '@/widgets/Catalog';
+import { catalogActions } from '@/widgets/Catalog/model/slice/catalogSlice';
 
 export const Search = memo(() => {
     const dispatch = useAppDispatch();

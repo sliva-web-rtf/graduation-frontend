@@ -1,8 +1,6 @@
 import {
-    Checkbox,
     FormControl,
     FormControlLabel,
-    FormGroup,
     InputLabel,
     MenuItem,
     Modal,
@@ -12,14 +10,14 @@ import {
     Typography,
 } from '@mui/material';
 import { FormEvent, memo, useCallback, useEffect, useState } from 'react';
-import styles from './Modal.module.scss';
-import { BaseButton, BaseLoadingButton, StyledSelect } from '@/shared/ui';
+import { SearchingStatus } from '@/shared/lib/types/searchingStatus';
+import { BaseLoadingButton, StyledSelect } from '@/shared/ui';
 import {
     getProfessorSearchingStatus,
     updateProfessorStatusSearchingPD,
 } from '@/widgets/PersonalData/api/personalDataApi';
-import { SearchingStatus } from '@/shared/lib/types/searchingStatus';
 import { ProfessorSearchingStatus } from '@/widgets/PersonalData/model/types/professorSearchingStatus';
+import styles from './Modal.module.scss';
 
 interface ChangeStatusModalProps {
     open: boolean;

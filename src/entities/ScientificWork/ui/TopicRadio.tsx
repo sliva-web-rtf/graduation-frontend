@@ -1,6 +1,5 @@
+import { FormControlLabel, Radio } from '@mui/material';
 import { memo } from 'react';
-import { Avatar, FormControlLabel, Paper, Radio, Stack, Typography } from '@mui/material';
-import scientificWorkImage from '@/shared/assets/images/scientificWork.png';
 
 interface TopicRadioProps {
     readonly value: string;

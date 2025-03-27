@@ -1,11 +1,11 @@
+import { memo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import React, { memo, useState } from 'react';
-import { BaseButton } from '@/shared/ui/Button/Button';
-import { isUserProfessor } from '@/entities/User/model/selectors/getUserRoles/getUserRoles';
 import { getUserAuthData } from '@/entities/User';
+import { isUserProfessor } from '@/entities/User/model/selectors/getUserRoles/getUserRoles';
 import { useAddProfessorMutation, useAddStudentMutation } from '@/features/entity/AddRequests';
 import { RequestEnum } from '@/features/entity/AddRequests/model/types/requestEnum';
 import { AddRequestModal } from '@/features/entity/AddRequests/ui/AddRequestModal';
+import { BaseButton } from '@/shared/ui/Button/Button';
 
 interface AddStudentButtonProps {
     readonly id: string;

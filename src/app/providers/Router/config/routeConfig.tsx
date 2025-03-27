@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { RouteProps } from 'react-router-dom';
 import { type Role } from '@/entities/User/model/types/role';
 import { CatalogPage } from '@/pages/CatalogPage';
@@ -6,9 +7,9 @@ import { LoginPage } from '@/pages/LoginPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 import { ProfessorPage } from '@/pages/ProfessorPage';
 import { ProfilePage } from '@/pages/ProfilePage';
-import { TopicPage } from '@/pages/TopicPage';
 import { StudentPage } from '@/pages/StudentPage';
 import { TestPage } from '@/pages/TestPage';
+import { TopicPage } from '@/pages/TopicPage';
 
 export type AppRoutesProps = RouteProps & {
     authOnly?: boolean;

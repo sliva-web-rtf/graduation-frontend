@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Reducer } from '@reduxjs/toolkit';
 import { FC, ReactNode, useEffect } from 'react';
 import { useDispatch, useStore } from 'react-redux';

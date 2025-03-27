@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 declare module '*.scss' {
     interface ClassNames {
         [className: string]: string;

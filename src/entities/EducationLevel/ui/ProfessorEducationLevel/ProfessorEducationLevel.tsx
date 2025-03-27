@@ -1,12 +1,12 @@
 import { Stack, Typography } from '@mui/material';
-import { forwardRef, memo } from 'react';
+import { forwardRef, memo, Ref } from 'react';
 import { BaseAutocomplete, BaseAutocompleteProps } from '@/shared/ui/Autocomplete/Autocomplete';
 import { getProfessorEducationLevels } from '../../api/scientificInterestsApi';
 
 type ProfessorEducationLevelAutoCompleteProps = Omit<BaseAutocompleteProps, 'ref' | 'options'>;
 
 export const ProfessorEducationLevelAutoComplete = memo(
-    forwardRef((props: ProfessorEducationLevelAutoCompleteProps, ref: React.Ref<any>) => {
+    forwardRef((props: ProfessorEducationLevelAutoCompleteProps, ref: Ref<any>) => {
         const { label, ...otherProps } = props;
         const { isFetching, data } = getProfessorEducationLevels();
 

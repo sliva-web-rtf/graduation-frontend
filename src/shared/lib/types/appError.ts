@@ -5,6 +5,7 @@ export type EntityValidationErrors<T extends Record<string, any>> = {
     [P in keyof T]?: PropValidationMessage<T[P]>;
 };
 
+// eslint-disable-next-line no-unused-vars
 type PropValidationMessage<T> = string;
 
 export class AppError<TEntity extends Record<string, any> = never> extends Error {
