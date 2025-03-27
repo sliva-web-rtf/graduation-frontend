@@ -20,3 +20,8 @@ export const DIRECTIONS = [
     '09.03.06 Информационная безопасность',
     '09.03.07 Вычислительные машины, комплексы, системы и сети',
 ];
+export enum SortDirection {
+    DEFAULT = '',
+    ASC = 'asc',
+    DESC = 'desc',
+}
