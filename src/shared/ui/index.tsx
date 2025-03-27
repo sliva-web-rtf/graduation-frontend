@@ -20,3 +20,4 @@ export * from './Select/BaseSelect';
 export * from './TabsWithStatus/TabsWithStatus';
 export * from './ToggleButtons/ToggleButtons';
 export * from './Modal/Modal';
+export { SortButton } from './SortButton/SortButton';
