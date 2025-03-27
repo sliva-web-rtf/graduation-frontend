@@ -22,3 +22,4 @@ export * from './Pagination/Pagination';
 export * from './Select/BaseSelect';
 export * from './TabsWithStatus/TabsWithStatus';
 export * from './ToggleButtons/ToggleButtons';
+export { SortButton } from './SortButton/SortButton';
