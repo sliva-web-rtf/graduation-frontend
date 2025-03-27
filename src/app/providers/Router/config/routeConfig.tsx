@@ -9,10 +9,6 @@ import { ProfilePage } from '@/pages/ProfilePage';
 import { TopicPage } from '@/pages/TopicPage';
 import { StudentPage } from '@/pages/StudentPage';
 import { TestPage } from '@/pages/TestPage';
-// import { SignupPage } from '@/pages/SignupPage';
-// import { ConfirmEmailPage } from '@/pages/ConfirmEmailPage';
-// import { ManualPage } from '@/pages/ManualPage';
-// import { OnboardingPage } from '@/pages/OnboardingPage';
 
 export type AppRoutesProps = RouteProps & {
     authOnly?: boolean;
@@ -35,10 +31,6 @@ export enum AppRoutes {
     MyGuides = 'MyGuides',
     MyStudents = 'MyStudents',
     Commissions = 'Commissions',
-    // Signup = 'Signup',
-    // ConfirmEmail = 'ConfirmEmail',
-    // Manual = 'Manual',
-    // ManualArticle = 'ManualArticle',
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
@@ -138,9 +130,4 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         element: <TestPage />,
         ...withLayoutAndAuth,
     },
-    // [AppRoutes.Signup]: {
-    //     path: `${RoutePath.Signup}`,
-    //     element: <SignupPage />,
-    //     authOnly: false,
-    // },
 };

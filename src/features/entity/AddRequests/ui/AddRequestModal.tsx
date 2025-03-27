@@ -1,10 +1,7 @@
-import { Box, FormControl, Modal, Paper, RadioGroup, Stack, Typography } from '@mui/material';
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import React, { ChangeEvent, memo } from 'react';
-import { BaseButton, BaseLoadingButton } from '@/shared/ui/Button/Button';
-import { ScientificWork, ScientificWorkRadio, useGetUsersScientificWorksQuery } from '@/entities/ScientificWork';
-import { CreateTopicButton } from '@/features/topic/create-topic';
-import styles from './Modal.module.scss';
+import { FormControl, RadioGroup, Stack, Typography } from '@mui/material';
+import { ChangeEvent, memo } from 'react';
+import { BaseLoadingButton } from '@/shared/ui/Button/Button';
+import { ScientificWork, TopicRadio, useGetUsersScientificWorksQuery } from '@/entities/ScientificWork';
 import { BaseModal } from '@/shared/ui';
 
 interface AddRequestModalProps {
@@ -24,11 +21,11 @@ const RadioList = memo(({ items }: { items?: Array<ScientificWork> }) => {
     }
 
     return (
-        <>
+        <Stack>
             {items.map((item: ScientificWork) => (
-                <ScientificWorkRadio key={item.id} {...item} />
+                <TopicRadio value={item.id} label={item.name} />
             ))}
-        </>
+        </Stack>
     );
 });
 
@@ -77,7 +74,7 @@ export const AddRequestModal = memo((props: AddRequestModalProps) => {
                 <FormControl>
                     <RadioGroup name="scientificWorkId" value={scientificWorkId} onChange={handleRadioChange}>
                         <Stack spacing={4}>
-                            <Stack spacing={2} width="100%">
+                            <Stack spacing={2}>
                                 <Typography variant="h3">Выбрать из тем пользователя</Typography>
                                 <RadioList items={otherScientificWorks} />
                             </Stack>

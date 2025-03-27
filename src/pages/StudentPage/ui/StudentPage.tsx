@@ -1,7 +1,6 @@
 import { Helmet } from 'react-helmet';
 import { Stack, Typography } from '@mui/material';
 import { BackButton } from '@/widgets/BackButton';
-import { StudentInfo } from '@/widgets/StudentInfo';
 import { PersonInfo } from '@/widgets/PersonInfo';
 
 const StudentPage = () => (

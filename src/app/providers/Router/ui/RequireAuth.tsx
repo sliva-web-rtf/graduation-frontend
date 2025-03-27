@@ -42,14 +42,6 @@ export const RequireAuth: FC<RequireAuthProps> = (props) => {
         return <Navigate to={location.state?.from ?? RoutePath.Catalog} replace />;
     }
 
-    if (auth && !auth?.isRegistrationComplete && !location.pathname.includes(RoutePath.Onboarding)) {
-        return <Navigate to={RoutePath.Onboarding} replace />;
-    }
-
-    if (auth && auth.isRegistrationComplete && location.pathname.includes(RoutePath.Onboarding)) {
-        return <Navigate to={RoutePath.Catalog} replace />;
-    }
-
     return (
         // eslint-disable-next-line react/jsx-no-useless-fragment
         <>{children}</>

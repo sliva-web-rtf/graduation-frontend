@@ -1,17 +1,10 @@
 import { Checkbox, FormControlLabel, FormGroup, Modal, Radio, RadioGroup, Stack, Typography } from '@mui/material';
 import { FormEvent, memo, useCallback, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import styles from './Modal.module.scss';
-import { getUserAuthData } from '@/entities/User';
-import { useGetStudentQuery } from '@/entities/Student';
 import { SearchingStatus } from '@/shared/lib/types/searchingStatus';
 import { StudentSearchingStatus } from '../model/types/studentSearchingStatus';
-import { BaseButton, BaseLoadingButton } from '@/shared/ui';
-import { getStudent } from '@/widgets/Onboarding/model/selectors/getStudent';
-import { getLazyStudentProfile } from '@/widgets/Onboarding/api/onboardingApi';
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { BaseLoadingButton } from '@/shared/ui';
 import { getStudentSearchingStatus, updateStudentStatusSearchingPD } from '@/widgets/PersonalData/api/personalDataApi';
-import { personalDataActions } from '@/widgets/PersonalData/model/slice/personalDataSlice';
 
 interface ChangeStatusModalProps {
     open: boolean;

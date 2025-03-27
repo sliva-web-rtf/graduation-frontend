@@ -10,7 +10,6 @@ const newScientificWorkApi = baseApi.injectEndpoints({
                 method: 'POST',
                 body: {
                     ...data,
-                    scientificAreaSubsections: data.scientificAreaSubsections.map((value) => value.label),
                 },
             }),
             transformResponse: () => {

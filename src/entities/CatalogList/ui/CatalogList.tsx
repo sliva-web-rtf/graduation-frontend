@@ -43,6 +43,5 @@ export const CatalogList = memo(() => {
         return <Typography>Ничего не найдено</Typography>;
     }
 
-    // @ts-ignore
     return <BaseList className={styles.catalogList} items={data!.data} render={render} />;
 });

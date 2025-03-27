@@ -5,12 +5,9 @@ import { UserSchema } from '@/entities/User';
 import { type LoginSchema } from '@/features/auth/AuthByEmail/model/types/loginSchema';
 import { baseApi } from '@/shared/api';
 import { type CatalogSchema } from '@/widgets/Catalog/model/types/catalogSchema';
-import { ManualSchema } from '@/widgets/Manual';
-import { OnboardingSchema } from '@/widgets/Onboarding/model/types/onboardingSchema';
 import { PersonalDataSchema } from '@/widgets/PersonalData/model/types/personalDataSchema';
 import { ProfileSchema } from '@/widgets/Profile';
 import { RequestsSectionSchema } from '@/widgets/RequestsSection';
-import { StudentInfoSchema } from '@/widgets/StudentInfo';
 import { PersonInfoSchema } from '@/widgets/PersonInfo';
 
 export interface StateSchema {
@@ -19,9 +16,6 @@ export interface StateSchema {
 
     loginForm?: LoginSchema;
     catalog?: CatalogSchema;
-    student?: StudentInfoSchema;
-    manual?: ManualSchema;
-    onboarding?: OnboardingSchema;
     personalData?: PersonalDataSchema;
     profile?: ProfileSchema;
     requestsSection?: RequestsSectionSchema;

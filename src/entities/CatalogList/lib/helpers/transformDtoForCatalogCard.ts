@@ -18,16 +18,12 @@ const getCatalogOption = (dto: Professor | ScientificWork | Student) => {
 export const transformDtoForCatalogCard = (dto: Professor | ScientificWork | Student): ICatalogCard => ({
     id: dto.id,
     title: 'name' in dto ? dto.name : `${dto.lastName} ${dto.firstName} ${dto.patronymic}`,
-    chips: dto.scientificInterests,
-    isFavorite: dto.isFavorite,
     canJoin: 'canJoin' in dto ? dto.canJoin : true,
     commandSearching: 'commandSearching' in dto ? dto.commandSearching : undefined,
     professorSearching: 'professorSearching' in dto ? dto.professorSearching : undefined,
     option: getCatalogOption(dto),
-    avatarImagePath: 'avatarImagePath' in dto ? dto.avatarImagePath : undefined,
-    subtitle: 'degree' in dto ? `${dto.degree}` : undefined,
-    status: 'status' in dto ? dto.status : undefined,
+    subtitle: 'degree' in dto ? `${dto.degree}` : '',
     limit: 'limit' in dto ? dto.limit : undefined,
     fullness: 'fullness' in dto ? dto.fullness : undefined,
-    workStatus: 'workStatus' in dto ? dto.workStatus : undefined,
+    description: 'description' in dto ? dto.description : '',
 });
