@@ -7,9 +7,8 @@ import { ScientificWork } from '@/entities/ScientificWork';
 import { Student } from '@/entities/Student';
 import { CatalogCard } from '@/entities/CatalogCard';
 import {
-    getCatalogAreas,
+    getDirections,
     getCatalogInterests,
-    getCatalogIsFavoritesFilter,
     getCatalogOption,
     getCatalogPage,
     getCatalogPageSize,
@@ -21,12 +20,12 @@ import styles from './CatalogList.module.scss';
 
 export const CatalogList = memo(() => {
     const option = useSelector(getCatalogOption);
+    const pageSize = useSelector(getCatalogPageSize);
     const params = {
         page: useSelector(getCatalogPage),
-        pageSize: useSelector(getCatalogPageSize),
-        scientificAreaSubsections: useSelector(getCatalogAreas).map((area) => area.label),
+        pageSize,
+        directions: useSelector(getDirections),
         scientificInterests: useSelector(getCatalogInterests),
-        isFavoriteFilterOnly: useSelector(getCatalogIsFavoritesFilter),
     };
 
     const render = useCallback((item: Professor | ScientificWork | Student) => {
@@ -37,7 +36,7 @@ export const CatalogList = memo(() => {
     const { isFetching, data } = useGetCatalogQuery({ option, params });
 
     if (isFetching) {
-        return <CatalogListSkeleton count={3} />;
+        return <CatalogListSkeleton count={pageSize} />;
     }
 
     if (!data?.data?.length) {

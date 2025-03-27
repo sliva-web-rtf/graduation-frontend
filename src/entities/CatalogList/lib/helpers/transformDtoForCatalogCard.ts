@@ -6,11 +6,12 @@ import { CatalogOption } from '@/widgets/Catalog';
 
 const getCatalogOption = (dto: Professor | ScientificWork | Student) => {
     if ('workStatus' in dto) {
-        return CatalogOption.Themes;
+        return CatalogOption.Topics;
     }
     if ('fullness' in dto) {
-        return CatalogOption.Professors;
+        return CatalogOption.Managers;
     }
+
     return CatalogOption.Students;
 };
 

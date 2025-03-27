@@ -5,11 +5,11 @@
   --space-l: calc(var(--space-s) * 3);
   --space-xl: calc(var(--space-s) * 4);
   --border-radius: 16px;
-  --page-width: 1440px;
-  --sidebar-width: 240px;
+  --page-width: calc(100vw - var(--space-xl));
+  --sidebar-width: 250px;
   --sidebar-height: 765px;
   --onboarding-sidebar-description-width: 658px;
-  --catalog-card-height: 144px;
+  --catalog-card-height: 166px;
   --modal-width: 500px;
   --login-form-width: 400px;
   --manual-card-width: 258px;
@@ -25,9 +25,10 @@
   --primary-color: #408dff;
   --light-primary-color: #a6c8ff;
   --secondary-color: #878d96;
+  --border-color: #eae9e9;
   --tab-with-status-background-color: #fff;
   --text-color: #21272a;
   --success-color: #0f0;
   --error-color: #f44336;
-  --modal-backdrop-color: #c5daf4bf;
+  --modal-backdrop-color: #c5daf4c7;
 }

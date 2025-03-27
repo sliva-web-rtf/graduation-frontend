@@ -16,7 +16,7 @@ interface TabLabelProps {
 
 const BaseTabs = styled(Tabs)<BaseTabsProps>(() => ({
     '& .MuiTabs-indicator': {
-        width: '4px',
+        width: 0,
     },
 }));
 
@@ -25,11 +25,11 @@ const BaseTab = styled(Tab)<BaseTabProps>(({ theme }) => ({
         textTransform: 'none',
         alignItems: 'flex-start',
         justifyContent: 'center',
-        borderTopLeftRadius: theme.spacing(1),
-        borderBottomLeftRadius: theme.spacing(1),
+        borderRadius: theme.spacing(1),
     },
     '&.Mui-selected': {
-        background: theme.palette.secondary.light,
+        color: theme.palette.primary.contrastText,
+        background: theme.palette.primary.main,
     },
 }));
 

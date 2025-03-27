@@ -22,7 +22,7 @@ export const ProfessorSummary = memo((props: ProfessorSummaryProps) => {
             <Avatar variant="circular" src={__API__ + avatarImagePath} sx={{ width: 40, height: 40 }} />
             <Stack>
                 {id ? (
-                    <Link to={getInfoPagePath(AppRoutes.Professors, id)}>
+                    <Link to={getInfoPagePath(AppRoutes.Managers, id)}>
                         <Typography variant="h4">{name}</Typography>
                     </Link>
                 ) : (

@@ -5,10 +5,9 @@ import { Catalog } from '@/widgets/Catalog';
 const CatalogPage = () => (
     <>
         <Helmet>
-            <title>Каталог | SCI Join</title>
+            <title>Выбор темы</title>
         </Helmet>
         <Stack spacing={4} height="100%">
-            <Typography variant="h1">Каталог</Typography>
             <Catalog />
         </Stack>
     </>

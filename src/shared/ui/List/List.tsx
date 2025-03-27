@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { memo, ReactNode } from 'react';
 import { Box } from '@mui/material';
 
 interface ListProps<T> {
@@ -9,5 +9,6 @@ interface ListProps<T> {
 
 export function BaseList<T>(props: ListProps<T>) {
     const { items, render, className } = props;
+
     return <Box className={className}>{items.map((item) => render(item))}</Box>;
 }

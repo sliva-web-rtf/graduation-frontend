@@ -1,4 +1,4 @@
-import { Paper, Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import { memo } from 'react';
 
 interface InfoCardProps {
@@ -11,18 +11,20 @@ export const InfoCard = memo((props: InfoCardProps) => {
     const { title, text, formatted } = props;
 
     return (
-        <Paper
+        <Box
             sx={(theme) => ({
                 padding: theme.spacing(3),
-                borderRadius: theme.spacing(3),
+                borderRadius: theme.spacing(1),
+                backgroundColor: 'white',
+                border: '1px solid var(--border-color)',
             })}
         >
             <Stack spacing={2}>
                 <Typography variant="h3">{title}</Typography>
-                <Typography variant="body1" whiteSpace={formatted ? 'pre' : 'normal'}>
+                <Typography variant="subtitle1" fontFamily="Monrope" whiteSpace={formatted ? 'pre' : 'normal'}>
                     {text || 'Пусто'}
                 </Typography>
             </Stack>
-        </Paper>
+        </Box>
     );
 });

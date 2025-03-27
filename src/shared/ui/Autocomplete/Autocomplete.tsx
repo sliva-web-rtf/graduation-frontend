@@ -28,6 +28,7 @@ export const BaseAutocomplete = memo(
                 renderInput={(params) => (
                     <BaseField
                         {...params}
+                        variant="outlined"
                         placeholder={placeholder}
                         error={error}
                         helperText={helperText}

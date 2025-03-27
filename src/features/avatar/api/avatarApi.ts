@@ -34,6 +34,7 @@ const userAvatarApi = baseApi.injectEndpoints({
                 if (response.avatarImagePath && response.avatarImagePath !== '') {
                     return `${__API__}${response.avatarImagePath}`;
                 }
+
                 return '';
             },
             transformErrorResponse: (error: unknown) => {

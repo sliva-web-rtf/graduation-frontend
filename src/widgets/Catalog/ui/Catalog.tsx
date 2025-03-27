@@ -7,13 +7,13 @@ import { ToggleList } from '@/features/catalog/ToggleList';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { catalogActions, catalogReducer } from '@/widgets/Catalog/model/slice/catalogSlice';
 import { CatalogList } from '@/entities/CatalogList';
-import { FavoritesFilterCheckbox } from '@/features/catalog/Favorites';
-import { CreateScientificWorkModal } from '@/features/scientificWork/CreateScientificWork';
+import { CreateTopicButton } from '@/features/topic/create-topic';
 import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { CatalogOption } from '../model/types/catalogOption';
 import { getCatalogPage } from '../model/selectors/getCatalogPage/getCatalogPage';
 import { getCatalogPagesCount } from '../model/selectors/getCatalogPagesCount/getCatalogPagesCount';
 import { getCatalogOption } from '../model/selectors/getCatalogOption/getCatalogOption';
+import { isUserStudent } from '@/entities/User';
 
 const initialReducers: ReducersList = {
     catalog: catalogReducer,
@@ -24,6 +24,7 @@ const Catalog = memo(() => {
     const option = useSelector(getCatalogOption);
     const page = useSelector(getCatalogPage);
     const pagesCount = useSelector(getCatalogPagesCount);
+    const isStudent = useSelector(isUserStudent);
 
     const handlePageChange = (_: ChangeEvent<unknown>, value: number) => {
         dispatch(catalogActions.setPage(value));
@@ -37,8 +38,7 @@ const Catalog = memo(() => {
                     <Stack direction="row" justifyContent="space-between" alignItems="center">
                         <ToggleList />
                         <Stack direction="row" spacing={2}>
-                            <FavoritesFilterCheckbox />
-                            {option === CatalogOption.Themes && <CreateScientificWorkModal />}
+                            {!isStudent && option === CatalogOption.Topics && <CreateTopicButton />}
                         </Stack>
                     </Stack>
                     <CatalogList />

@@ -39,4 +39,14 @@ export const components: Components<Omit<Theme, 'components'>> | undefined = {
             },
         },
     },
+
+    MuiModal: {
+        styleOverrides: {
+            root: {
+                '.MuiBackdrop-root': {
+                    backgroundColor: 'rgba(197, 218, 244, 0.75)',
+                },
+            },
+        },
+    },
 };

@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { ErrorMessage } from '@/shared/lib/helpers/errorMessages';
-import { ALLOWED_DOMAINS } from '@/shared/lib/const/const';
+import { ALLOWED_DOMAINS } from '@/shared/lib/const';
 
 export const professorPersonalInfoFormSchema = z.object({
     fullName: z.string().min(1, { message: ErrorMessage.getRequiredErrorFieldMessage() }),

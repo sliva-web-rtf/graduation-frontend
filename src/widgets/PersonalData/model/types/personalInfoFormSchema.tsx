@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ALLOWED_DOMAINS } from '@/shared/lib/const/const';
+import { ALLOWED_DOMAINS } from '@/shared/lib/const';
 import { ErrorMessage } from '@/shared/lib/helpers/errorMessages';
 
 export const personalInfoFormSchema = z.object({

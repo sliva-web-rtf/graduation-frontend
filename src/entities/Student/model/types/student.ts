@@ -1,5 +1,5 @@
 import { SearchingStatus } from '@/shared/lib/types/searchingStatus';
-import { ScientificAreaDto } from '@/entities/ScientificAreas/api/types';
+import { ScientificAreaDto } from '@/entities/Directions/api/types';
 
 export interface Student {
     readonly id: string;
