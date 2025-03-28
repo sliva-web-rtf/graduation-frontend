@@ -1,18 +1,18 @@
 .backdrop {
-  background-color: var(--modal-backdrop-color);
+    background-color: var(--modal-backdrop-color);
 }
 
 .modal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .content {
-  padding: calc(2 * var(--space-l));
-  width: 660px;
-  height: 100%;
-  max-height: 90vh;
-  overflow-y: scroll;
+    padding: calc(2 * var(--space-l));
+    width: 660px;
+    height: 100%;
+    max-height: 90vh;
+    overflow-y: scroll;
 }

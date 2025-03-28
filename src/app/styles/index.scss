@@ -3,14 +3,14 @@
 @import "fonts";
 
 #root {
-  background-color: var(--bg-color);
+    background-color: var(--bg-color);
 }
 
 .page-wrapper {
-  width: var(--page-width);
-  min-height: 100vh;
-  display: grid;
-  grid-template-columns: var(--sidebar-width) 1fr;
-  column-gap: var(--space-xl);
-  color: var(--text-color);
+    width: var(--page-width);
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: var(--sidebar-width) 1fr;
+    column-gap: var(--space-xl);
+    color: var(--text-color);
 }
