@@ -21,3 +21,4 @@ export * from './TabsWithStatus/TabsWithStatus';
 export * from './ToggleButtons/ToggleButtons';
 export * from './Modal/Modal';
 export { SortButton } from './SortButton/SortButton';
+export { CommentCard } from './CommentCard/CommentCard';
