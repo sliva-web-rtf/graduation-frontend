@@ -27,6 +27,9 @@
         "**/*.{ts,tsx}": [
             "yarn prettier",
             "yarn lint:ts:fix"
+        ],
+        "**/*.scss": [
+            "yarn lint:scss:fix"
         ]
     },
     "keywords": [],

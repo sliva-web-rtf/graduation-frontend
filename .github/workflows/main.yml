@@ -26,4 +26,4 @@ jobs:
               run: npm run lint:ts
               if: always()
             - name: linting css
-              run: npm run lint:scss
+              run: npm run lint:scss:fix
