@@ -1,9 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { IconButton, InputAdornment, Stack, Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { BaseButton, BaseField, HelperText } from '@/shared/ui';
+import { BaseLoadingButton, HelperText, PasswordField } from '@/shared/ui';
 import { updatePassword } from '../../api/personalDataApi';
 import { changePasswordFormSchema, ChangePasswordFormSchema } from '../../model/types/changePasswordFormSchema';
 
@@ -18,7 +17,7 @@ export const ChangePasswordForm = () => {
         setShowPassword((prevState) => ({ ...prevState, [field]: !prevState[field] }));
     };
 
-    const [updateSmbdyPassword, { error, isLoading }] = updatePassword();
+    const [updateSmbdyPassword, { isLoading }] = updatePassword();
     const {
         formState: { errors, isSubmitSuccessful },
         handleSubmit,
@@ -49,64 +48,42 @@ export const ChangePasswordForm = () => {
     }, [isSubmitSuccessful, reset]);
 
     return (
-        <Stack component="form" spacing={3} onSubmit={handleSubmit(onSubmitHandler)}>
-            <Typography variant="h2">Изменить пароль</Typography>
+        <Stack component="form" spacing={4} onSubmit={handleSubmit(onSubmitHandler)}>
             <Stack spacing={2}>
-                <BaseField
+                <PasswordField
                     label="Текущий пароль"
                     {...register('currentPassword')}
-                    type={showPassword.currentPassword ? 'text' : 'password'}
                     error={Boolean(errors.currentPassword)}
                     helperText={<HelperText error={errors.currentPassword} />}
-                    InputProps={{
-                        disableUnderline: true,
-                        endAdornment: (
-                            <InputAdornment position="end">
-                                <IconButton onClick={() => handleClickShowPassword('currentPassword')}>
-                                    {showPassword.currentPassword ? <VisibilityOff /> : <Visibility />}
-                                </IconButton>
-                            </InputAdornment>
-                        ),
-                    }}
                 />
-                <BaseField
+                <PasswordField
                     label="Новый пароль"
                     {...register('newPassword')}
-                    type={showPassword.newPassword ? 'text' : 'password'}
                     error={Boolean(errors.newPassword)}
                     helperText={<HelperText error={errors.newPassword} />}
-                    InputProps={{
-                        disableUnderline: true,
-                        endAdornment: (
-                            <InputAdornment position="end">
-                                <IconButton onClick={() => handleClickShowPassword('newPassword')}>
-                                    {showPassword.newPassword ? <VisibilityOff /> : <Visibility />}
-                                </IconButton>
-                            </InputAdornment>
-                        ),
-                    }}
                 />
-                <BaseField
+                <PasswordField
                     label="Повторите пароль"
-                    type={showPassword.repeatNewPassword ? 'text' : 'password'}
+                    {...register('newPassword')}
                     {...register('repeatNewPassword')}
                     error={Boolean(errors.repeatNewPassword)}
                     helperText={<HelperText error={errors.repeatNewPassword} />}
-                    InputProps={{
-                        disableUnderline: true,
-                        endAdornment: (
-                            <InputAdornment position="end">
-                                <IconButton onClick={() => handleClickShowPassword('repeatNewPassword')}>
-                                    {showPassword.repeatNewPassword ? <VisibilityOff /> : <Visibility />}
-                                </IconButton>
-                            </InputAdornment>
-                        ),
-                    }}
                 />
+                <Stack>
+                    <Typography variant="bodyXS" color="#00000099">
+                        Последнее изменение пароля
+                    </Typography>
+                    <Typography color="primary">Не изменялся</Typography>
+                </Stack>
             </Stack>
-            <BaseButton disabled={isLoading} type="submit" variant="contained" sx={() => ({ alignSelf: 'center' })}>
+            <BaseLoadingButton
+                loading={isLoading}
+                type="submit"
+                variant="contained"
+                sx={() => ({ alignSelf: 'flex-start' })}
+            >
                 Изменить пароль
-            </BaseButton>
+            </BaseLoadingButton>
         </Stack>
     );
 };

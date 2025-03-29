@@ -26,7 +26,7 @@ export enum AppRoutes {
     Profile = 'Profile',
     Forbidden = 'Forbidden',
     NotFound = 'NotFound',
-
+    Test = 'Test',
     Requests = 'Requests',
     MyDiplom = 'MyDiplom',
     MyGuides = 'MyGuides',
@@ -35,6 +35,7 @@ export enum AppRoutes {
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
+    [AppRoutes.Test]: '/test',
     [AppRoutes.Login]: '/login',
     [AppRoutes.Managers]: '/manager/:id',
     [AppRoutes.Topics]: '/topics/:id',

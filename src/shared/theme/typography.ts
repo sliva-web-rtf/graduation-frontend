@@ -59,9 +59,9 @@ export const typography: TypographyOptions | ((palette: Palette) => TypographyOp
         letterSpacing: '0',
     },
     subtitle2: {
-        fontFamily: ['Geologica', 'sans-serif'].join(','),
+        fontFamily: ['Manrope', 'sans-serif'].join(','),
         fontSize: '14px',
-        fontWeight: '500',
+        fontWeight: '600',
         lineHeight: '110%',
         letterSpacing: '0',
     },
@@ -79,7 +79,7 @@ export const typography: TypographyOptions | ((palette: Palette) => TypographyOp
     },
     bodyXS: {
         fontSize: '12px',
-        fontWeight: '400',
+        fontWeight: '500',
         lineHeight: '140%',
         letterSpacing: '0',
     },

@@ -11,7 +11,7 @@ export const theme = createTheme({
             default: '#F4F9FD',
         },
         primary: {
-            main: blue['600'],
+            main: '#408DFF',
             light: blue['200'],
         },
         secondary: {

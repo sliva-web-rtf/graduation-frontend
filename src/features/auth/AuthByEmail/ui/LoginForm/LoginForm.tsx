@@ -1,12 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { IconButton, InputAdornment, Link, Stack, Typography } from '@mui/material';
+import { Link, Stack, Typography } from '@mui/material';
 import classNames from 'classnames';
 import { ChangeEvent, memo, useCallback, useEffect, useState } from 'react';
 import { Path, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
-import { BaseField, BaseLoadingButton } from '@/shared/ui';
+import { BaseField, BaseLoadingButton, PasswordField } from '@/shared/ui';
 import { EntityValidationErrors } from '@/shared/lib/types/appError';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
@@ -104,24 +103,13 @@ const LoginForm = memo((props: LoginFormProps) => {
                             error={Boolean(errors.email)}
                             helperText={errors.email?.message}
                         />
-                        <BaseField
+                        <PasswordField
                             label="Пароль"
                             fullWidth
                             {...register('password')}
-                            type={showPassword ? 'text' : 'password'}
                             onChange={onChangePassword}
                             error={Boolean(errors.password)}
                             helperText={errors.password?.message}
-                            InputProps={{
-                                disableUnderline: true,
-                                endAdornment: (
-                                    <InputAdornment position="end">
-                                        <IconButton onClick={handleClickShowPassword}>
-                                            {showPassword ? <VisibilityOff /> : <Visibility />}
-                                        </IconButton>
-                                    </InputAdornment>
-                                ),
-                            }}
                         />
                         <Stack flexDirection="row" justifyContent="space-between">
                             <Typography variant="body1" color="secondary">

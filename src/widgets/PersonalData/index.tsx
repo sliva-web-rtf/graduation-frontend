@@ -1,1 +1,2 @@
-export { PersonalData } from './ui/PersonalData';
+export { ChangePasswordForm } from './ui/ChangePasswordForm/ChangePasswordForm';
+export { PersonalInfoForm } from './ui/PersonalInfoForm/PersonalInfoForm';

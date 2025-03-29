@@ -1,14 +1,14 @@
+import { AppBarProps, Box, Stack, Toolbar, Tooltip, Typography } from '@mui/material';
 import { memo } from 'react';
-import { AppBarProps, Box, Stack, Toolbar, Typography } from '@mui/material';
-import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { BaseAppBar } from '@/shared/ui/AppBar/AppBar';
+import { NavLink } from 'react-router-dom';
 import { RoutePath } from '@/app/providers/Router/config/routeConfig';
+import { getUserAuthData, ROLES } from '@/entities/User';
 import { getUserRoles } from '@/entities/User/model/selectors/getUserRoles/getUserRoles';
 import { LogoutButton } from '@/features/logout';
-import classnames from './MenuBar.module.scss';
-import { getUserAuthData, ROLES } from '@/entities/User';
 import { getInitials } from '@/shared/lib/helpers/getInitials';
+import { BaseAppBar } from '@/shared/ui/AppBar/AppBar';
+import classnames from './MenuBar.module.scss';
 
 interface MenuBarProps extends AppBarProps {}
 
@@ -23,16 +23,18 @@ export const MenuBar = memo(({ sx, ...props }: MenuBarProps) => {
             <BaseAppBar position="static" {...props}>
                 <Toolbar sx={{ gap: 1 }}>
                     <Stack>
-                        <Typography
-                            variant="subtitle2"
-                            color="primary"
-                            component={NavLink}
-                            to={RoutePath.Profile}
-                            className={classnames.username}
-                        >
-                            {userInitials}
-                        </Typography>
-                        <Typography variant="subtitle1" color="secondary">
+                        <Tooltip title="Перейти в личный кабинет">
+                            <Typography
+                                variant="subtitle2"
+                                color="primary"
+                                component={NavLink}
+                                to={RoutePath.Profile}
+                                className={classnames.username}
+                            >
+                                {userInitials}
+                            </Typography>
+                        </Tooltip>
+                        <Typography variant="bodyXS" color="secondary">
                             {roles || 'Нет роли'}
                         </Typography>
                     </Stack>

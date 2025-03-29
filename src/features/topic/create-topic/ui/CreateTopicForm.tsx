@@ -46,13 +46,6 @@ export const CreateTopicForm = memo(() => {
                         helperText={errors.name?.message}
                     />
                     <BaseField
-                        {...register('description')}
-                        label="Направление"
-                        placeholder="Введите направление подготовки"
-                        error={Boolean(errors.description)}
-                        helperText={errors.description?.message}
-                    />
-                    <BaseField
                         {...register('result')}
                         label="Роль"
                         placeholder="Аналитик"

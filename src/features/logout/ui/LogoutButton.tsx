@@ -1,10 +1,10 @@
-import { IconButton } from '@mui/material';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
+import { IconButton, Tooltip } from '@mui/material';
 import { memo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { userActions } from '@/entities/User';
 import { RoutePath } from '@/app/providers/Router/config/routeConfig';
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 export const LogoutButton = memo(() => {
     const dispatch = useAppDispatch();
@@ -17,8 +17,10 @@ export const LogoutButton = memo(() => {
     }, [dispatch, navigate]);
 
     return (
-        <IconButton onClick={handleLogout}>
-            <LogoutRoundedIcon />
-        </IconButton>
+        <Tooltip title="Выйти из аккаунта">
+            <IconButton onClick={handleLogout} sx={{ padding: 0 }}>
+                <LogoutRoundedIcon />
+            </IconButton>
+        </Tooltip>
     );
 });
