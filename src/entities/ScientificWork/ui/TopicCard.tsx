@@ -1,7 +1,6 @@
 import { memo } from 'react';
 import { Avatar, Divider, Paper, Stack, Typography } from '@mui/material';
 import scientificWorkImage from '@/shared/assets/images/scientificWork.png';
-import { ProfessorSummary } from '@/entities/Professor';
 import { BaseChip } from '@/shared/ui';
 import { WorkStatusRus } from '@/entities/ScientificWork';
 import { ScientificWork } from '../model/types/scientificWork';
