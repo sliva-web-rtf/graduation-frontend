@@ -1,5 +1,5 @@
 import { styled, Tab, TabProps, Tabs, TabsProps, Typography } from '@mui/material';
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 
 interface BaseTabsProps extends TabsProps {
     children?: ReactNode;
@@ -25,7 +25,7 @@ const BaseTab = styled(Tab)<BaseTabProps>(({ theme }) => ({
         textTransform: 'none',
         alignItems: 'flex-start',
         justifyContent: 'center',
-        borderRadius: theme.spacing(1),
+        borderRadius: theme.spacing(2),
     },
     '&.Mui-selected': {
         color: theme.palette.primary.contrastText,
@@ -43,4 +43,4 @@ const TabLabel = ({ label, startIcon }: TabLabelProps) => (
     </Typography>
 );
 
-export { BaseTabs, BaseTab, TabLabel };
+export { BaseTab, BaseTabs, TabLabel };

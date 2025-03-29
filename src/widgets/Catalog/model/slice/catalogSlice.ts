@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { DIRECTIONS, SortDirection } from '@/shared/lib/const';
 import { CatalogSchema } from '@/widgets/Catalog/model/types/catalogSchema';
 import { CatalogOption } from '../types/catalogOption';
-import { DIRECTIONS } from '@/shared/lib/const';
 
 export const initialState: CatalogSchema = {
+    search: '',
     option: CatalogOption.Topics,
     options: Object.values(CatalogOption),
     page: 1,
@@ -13,15 +14,18 @@ export const initialState: CatalogSchema = {
         [CatalogOption.Topics]: 1,
         [CatalogOption.Students]: 1,
     },
-    scientificInterests: [],
+    direction: '',
     directions: DIRECTIONS,
-    isFavoriteFilterOnly: false,
+    order: SortDirection.DESC,
 };
 
 export const catalogSlice = createSlice({
     name: 'catalog',
     initialState,
     reducers: {
+        setSearch: (state, action: PayloadAction<CatalogSchema['search']>) => {
+            state.search = action.payload;
+        },
         setOption: (state, action: PayloadAction<CatalogSchema['option']>) => {
             state.option = action.payload;
         },
@@ -34,14 +38,11 @@ export const catalogSlice = createSlice({
         setPagesCount: (state, action: PayloadAction<number>) => {
             state.pagesCount[state.option] = action.payload;
         },
-        setScientificInterests: (state, action: PayloadAction<CatalogSchema['scientificInterests']>) => {
-            state.scientificInterests = action.payload;
+        setDirection: (state, action: PayloadAction<CatalogSchema['direction']>) => {
+            state.direction = action.payload;
         },
-        setDirections: (state, action: PayloadAction<CatalogSchema['directions']>) => {
-            state.directions = action.payload;
-        },
-        setIsFavoriteFilter: (state, action: PayloadAction<CatalogSchema['isFavoriteFilterOnly']>) => {
-            state.isFavoriteFilterOnly = action.payload;
+        setOrder: (state, action: PayloadAction<CatalogSchema['order']>) => {
+            state.order = action.payload;
         },
     },
 });

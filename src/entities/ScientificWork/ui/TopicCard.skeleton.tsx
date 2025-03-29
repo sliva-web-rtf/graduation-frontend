@@ -1,13 +1,8 @@
-import { memo } from 'react';
 import { Divider, Paper, Skeleton, Stack } from '@mui/material';
+import { memo } from 'react';
 
 export const TopicCardSkeleton = memo(() => (
-    <Paper
-        sx={(theme) => ({
-            padding: theme.spacing(3),
-            borderRadius: theme.spacing(4),
-        })}
-    >
+    <Paper sx={(theme) => ({ padding: theme.spacing(3), borderRadius: theme.spacing(2) })}>
         <Stack spacing={3}>
             <Stack>
                 <Skeleton width="20%" />

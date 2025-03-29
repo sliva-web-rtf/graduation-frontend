@@ -1,11 +1,11 @@
-import { Box, Paper, Stack, Typography } from '@mui/material';
+import { Paper, Stack, Typography } from '@mui/material';
 import { memo, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { getParentLink } from '@/entities/CatalogCard/lib/helpers/getParentLink';
 import { RequestButton } from '@/features/entity/AddRequests';
+import { LimitInfo } from '@/shared/ui/LimitInfo/LimitInfo';
 import { type ICatalogCard } from '../model/types/ICatalogCard';
 import styles from './CatalogCard.module.scss';
-import { LimitInfo } from '@/shared/ui/LimitInfo/LimitInfo';
 
 export const CatalogCard = memo((props: ICatalogCard) => {
     const { id, title, subtitle, description, option, canJoin, commandSearching, professorSearching, limit, fullness } =
@@ -18,11 +18,11 @@ export const CatalogCard = memo((props: ICatalogCard) => {
         'Разработка эффективных численных методов, параллельных алгоритмов и программ решения задач математической физики на многопроцессорных вычислительных системах, разработка методов глубокого обучения и обработка радиолокационных данных для построения цифровых моделей рельефа земной поверхности.';
 
     return (
-        <Box
+        <Paper
             component={Link}
             to={`/${parentLink}/${id}`}
             className={styles.card}
-            sx={{ borderRadius: 3, '&:hover': { textDecoration: 'none' } }}
+            sx={{ '&:hover': { textDecoration: 'none' } }}
         >
             <Stack spacing={3}>
                 <Stack spacing={1}>
@@ -46,6 +46,6 @@ export const CatalogCard = memo((props: ICatalogCard) => {
                     canJoin={Boolean(canJoin)}
                 />
             </Stack>
-        </Box>
+        </Paper>
     );
 });

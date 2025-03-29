@@ -1,4 +1,5 @@
 import { styled, ToggleButton, ToggleButtonGroup, ToggleButtonGroupProps, ToggleButtonProps } from '@mui/material';
+import { grey } from '@mui/material/colors';
 
 interface ToggleButtonsProps extends ToggleButtonGroupProps {
     options: any[];
@@ -15,8 +16,9 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)<
     '&': {
         columnGap: variant === 'default' ? theme.spacing(1) : '0px',
         borderRadius: theme.spacing(4),
+        border: variant === 'default' ? `1px solid ${grey[300]}` : 'none',
         background: variant === 'default' ? theme.palette.secondary.light : 'inherit',
-        padding: parseInt(theme.spacing(1), 10) / 2,
+        padding: theme.spacing(0.5),
     },
 }));
 

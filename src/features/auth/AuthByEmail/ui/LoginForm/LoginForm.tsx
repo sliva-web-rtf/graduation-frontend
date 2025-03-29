@@ -99,7 +99,6 @@ const LoginForm = memo((props: LoginFormProps) => {
                             autoFocus
                             label="Почта"
                             fullWidth
-                            autoComplete="false"
                             {...register('email')}
                             onChange={onChangeEmail}
                             error={Boolean(errors.email)}
@@ -108,7 +107,6 @@ const LoginForm = memo((props: LoginFormProps) => {
                         <BaseField
                             label="Пароль"
                             fullWidth
-                            autoComplete="false"
                             {...register('password')}
                             type={showPassword ? 'text' : 'password'}
                             onChange={onChangePassword}

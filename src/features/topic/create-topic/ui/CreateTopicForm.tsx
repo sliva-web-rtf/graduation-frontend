@@ -3,7 +3,7 @@ import { Stack } from '@mui/material';
 import { memo } from 'react';
 import { useForm } from 'react-hook-form';
 import { BaseLoadingButton } from '@/shared/ui/Button/Button';
-import { BaseField } from '@/shared/ui';
+import { BaseField, BaseSwitch } from '@/shared/ui';
 import { useAddNewScientificWorkMutation } from '../api/newScientificWorkApi';
 import { AddScientificWorkFormSchema, addScientificWorkFormSchema } from '../models/types/addScientificWorkSchema';
 
@@ -59,6 +59,26 @@ export const CreateTopicForm = memo(() => {
                         error={Boolean(errors.result)}
                         helperText={errors.result?.message}
                     />
+                    <Stack spacing={1}>
+                        <BaseSwitch label="Тема от предприятия" />
+                        <BaseField
+                            {...register('result')}
+                            label="Введите название предприятия"
+                            placeholder="ООО Рога и копыта"
+                            error={Boolean(errors.result)}
+                            helperText={errors.result?.message}
+                        />
+                    </Stack>
+                    <Stack spacing={1}>
+                        <BaseSwitch label="Руководитель от предприятия" />
+                        <BaseField
+                            {...register('result')}
+                            label="Руководитель/куратор от предприятия"
+                            placeholder="Иванов Иван Иванович"
+                            error={Boolean(errors.result)}
+                            helperText={errors.result?.message}
+                        />
+                    </Stack>
                 </Stack>
                 <Stack spacing={2} width="100%">
                     <BaseField
@@ -66,7 +86,7 @@ export const CreateTopicForm = memo(() => {
                         label="Описание темы"
                         placeholder="Кратко изложите о чем будет работа"
                         multiline
-                        rows={4}
+                        rows={5}
                         error={Boolean(errors.description)}
                         helperText={errors.description?.message}
                     />
@@ -75,7 +95,7 @@ export const CreateTopicForm = memo(() => {
                         label="Ожидаемые результаты"
                         placeholder="Опишите результаты, которые предполагается достичь в ходе работы"
                         multiline
-                        rows={4}
+                        rows={5}
                         error={Boolean(errors.description)}
                         helperText={errors.description?.message}
                     />

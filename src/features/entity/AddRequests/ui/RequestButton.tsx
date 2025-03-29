@@ -1,11 +1,10 @@
+import { memo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import React, { memo, useState } from 'react';
-import { BaseButton } from '@/shared/ui/Button/Button';
-import { isUserProfessor } from '@/entities/User/model/selectors/getUserRoles/getUserRoles';
 import { getUserAuthData } from '@/entities/User';
+import { isUserProfessor } from '@/entities/User/model/selectors/getUserRoles/getUserRoles';
 import { useAddProfessorMutation, useAddStudentMutation } from '@/features/entity/AddRequests';
-import { RequestEnum } from '@/features/entity/AddRequests/model/types/requestEnum';
 import { AddRequestModal } from '@/features/entity/AddRequests/ui/AddRequestModal';
+import { BaseButton } from '@/shared/ui/Button/Button';
 
 interface RequestButtonProps {
     readonly id: string;
@@ -47,7 +46,7 @@ export const RequestButton = memo((props: RequestButtonProps) => {
             //         requestEnum: RequestEnum.FromStudent,
             //     });
             // }
-            toggleOpen();
+            // toggleOpen();
         } catch (error) {
             /* empty */
         }
@@ -62,7 +61,7 @@ export const RequestButton = memo((props: RequestButtonProps) => {
                     e.stopPropagation();
                     toggleOpen();
                 }}
-                disabled={canJoin === undefined ? false : !canJoin}
+                disabled={!canJoin}
             >
                 Оформить заявку
             </BaseButton>

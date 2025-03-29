@@ -1,13 +1,11 @@
-import { InputAdornment, TextFieldProps } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import { InputAdornment, TextFieldProps } from '@mui/material';
 import { BaseField } from '../Field/Field';
 
 export const BaseSearch = (props: TextFieldProps) => (
     <BaseField
-        sx={{ width: '100%' }}
-        variant="outlined"
+        fullWidth
         InputProps={{
-            disableUnderline: true,
             startAdornment: (
                 <InputAdornment position="start">
                     <SearchIcon />

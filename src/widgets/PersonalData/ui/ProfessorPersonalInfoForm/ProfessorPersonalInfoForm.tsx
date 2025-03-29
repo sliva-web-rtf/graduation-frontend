@@ -1,6 +1,6 @@
-import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Stack, Typography } from '@mui/material';
+import { Controller, useForm } from 'react-hook-form';
 import { BaseField } from '@/shared/ui';
 import {
     professorPersonalInfoFormSchema,
@@ -30,7 +30,6 @@ export const ProfessorPersonalInfoForm = () => {
                                 variant="standard"
                                 onChange={onChange}
                                 value={value}
-                                autoComplete="false"
                                 sx={(theme) => ({
                                     '& .MuiInputBase-root': {
                                         padding: [theme.spacing(1.4), theme.spacing(1)].join(' '),
@@ -53,7 +52,6 @@ export const ProfessorPersonalInfoForm = () => {
                                 variant="standard"
                                 onChange={onChange}
                                 value={value}
-                                autoComplete="false"
                                 sx={(theme) => ({
                                     '& .MuiInputBase-root': {
                                         padding: [theme.spacing(1.4), theme.spacing(1)].join(' '),
@@ -76,7 +74,6 @@ export const ProfessorPersonalInfoForm = () => {
                                 variant="standard"
                                 onChange={onChange}
                                 value={value}
-                                autoComplete="false"
                                 sx={(theme) => ({
                                     '& .MuiInputBase-root': {
                                         padding: [theme.spacing(1.4), theme.spacing(1)].join(' '),
@@ -99,7 +96,6 @@ export const ProfessorPersonalInfoForm = () => {
                                 variant="standard"
                                 onChange={onChange}
                                 value={value}
-                                autoComplete="false"
                                 sx={(theme) => ({
                                     '& .MuiInputBase-root': {
                                         padding: [theme.spacing(1.4), theme.spacing(1)].join(' '),
@@ -122,7 +118,6 @@ export const ProfessorPersonalInfoForm = () => {
                                 variant="standard"
                                 onChange={onChange}
                                 value={value}
-                                autoComplete="false"
                                 sx={(theme) => ({
                                     '& .MuiInputBase-root': {
                                         padding: [theme.spacing(1.4), theme.spacing(1)].join(' '),

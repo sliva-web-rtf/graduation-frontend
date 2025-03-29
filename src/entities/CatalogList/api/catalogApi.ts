@@ -1,7 +1,8 @@
 import queryString from 'query-string';
+import { toast } from 'react-toastify';
 import { baseApi } from '@/shared/api';
-import { catalogActions } from '@/widgets/Catalog/model/slice/catalogSlice';
 import { calculatePagesCount } from '@/shared/lib/helpers/calculatePagesCount';
+import { catalogActions } from '@/widgets/Catalog/model/slice/catalogSlice';
 import { mapCatalogDtoToModel } from '../lib/helpers/catalogMapper';
 import { getUrl } from '../lib/helpers/getUrl';
 import { CatalogDto } from '../model/types/CatalogDto';
@@ -23,7 +24,7 @@ const catalogApi = baseApi.injectEndpoints({
                     const pagesCount = calculatePagesCount(data.length, arg.params.pageSize);
                     dispatch(catalogActions.setPagesCount(pagesCount));
                 } catch (err) {
-                    console.error('Ошибка при получения каталога:', err);
+                    toast.error(`Ошибка при получения каталога: ${err}`);
                 }
             },
             transformResponse: (response: CatalogDto) => mapCatalogDtoToModel(response),

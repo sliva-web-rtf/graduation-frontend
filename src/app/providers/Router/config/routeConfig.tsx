@@ -26,7 +26,7 @@ export enum AppRoutes {
     Profile = 'Profile',
     Forbidden = 'Forbidden',
     NotFound = 'NotFound',
-    Test = 'Test',
+
     Requests = 'Requests',
     MyDiplom = 'MyDiplom',
     MyGuides = 'MyGuides',
@@ -40,7 +40,6 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.Topics]: '/topics/:id',
     [AppRoutes.Students]: '/students/:id',
     [AppRoutes.Profile]: '/profile',
-    [AppRoutes.Test]: '/test',
     [AppRoutes.Requests]: '/requests',
     [AppRoutes.MyDiplom]: '/my-dimplom',
     [AppRoutes.MyGuides]: '/my-guides',
@@ -49,10 +48,6 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.Catalog]: '/',
     [AppRoutes.Forbidden]: '/forbidden',
     [AppRoutes.NotFound]: '*',
-    // [AppRoutes.Signup]: '/signup',
-    // [AppRoutes.ConfirmEmail]: '/signup/confirm-email',
-    // [AppRoutes.Manual]: '/manual',
-    // [AppRoutes.ManualArticle]: '/manual/:id',
 };
 
 const withLayoutAndAuth = {

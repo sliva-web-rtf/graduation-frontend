@@ -1,9 +1,7 @@
+import { Divider, Paper, Stack, Typography } from '@mui/material';
 import { memo } from 'react';
-import { Avatar, Divider, Paper, Stack, Typography } from '@mui/material';
-import scientificWorkImage from '@/shared/assets/images/scientificWork.png';
-import { ProfessorSummary } from '@/entities/Professor';
-import { BaseChip } from '@/shared/ui';
 import { WorkStatusRus } from '@/entities/ScientificWork';
+import { BaseChip } from '@/shared/ui';
 import { ScientificWork } from '../model/types/scientificWork';
 
 const Row = ({ left, right }: { left: string; right?: string }) => (
@@ -23,12 +21,7 @@ export const TopicCard = memo((props: ScientificWork) => {
     const { name, professor, workStatus } = props;
 
     return (
-        <Paper
-            sx={(theme) => ({
-                padding: theme.spacing(3),
-                borderRadius: theme.spacing(4),
-            })}
-        >
+        <Paper sx={(theme) => ({ padding: theme.spacing(3), borderRadius: theme.spacing(2) })}>
             <Stack spacing={3}>
                 <Stack spacing={1}>
                     <BaseChip label={WorkStatusRus[workStatus]} sx={{ alignSelf: 'flex-start' }} />

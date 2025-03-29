@@ -20,21 +20,14 @@ export const BaseAutocomplete = memo(
                 fullWidth
                 noOptionsText="Пусто"
                 loadingText="Загрузка..."
-                sx={(theme) => ({
-                    '& .MuiFilledInput-root': {
-                        padding: theme.spacing(1),
-                    },
-                })}
                 renderInput={(params) => (
                     <BaseField
                         {...params}
-                        variant="outlined"
                         placeholder={placeholder}
                         error={error}
                         helperText={helperText}
                         InputProps={{
                             ...params.InputProps,
-                            disableUnderline: true,
                             endAdornment: (
                                 <>
                                     {loading && <CircularProgress size={24} />}

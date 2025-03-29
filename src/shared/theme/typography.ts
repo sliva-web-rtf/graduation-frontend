@@ -67,13 +67,13 @@ export const typography: TypographyOptions | ((palette: Palette) => TypographyOp
     },
     body2: {
         fontSize: '18px',
-        fontWeight: '400',
+        fontWeight: '500',
         lineHeight: '140%',
         letterSpacing: '0',
     },
     body1: {
         fontSize: '16px',
-        fontWeight: '400',
+        fontWeight: '500',
         lineHeight: '140%',
         letterSpacing: '0',
     },
