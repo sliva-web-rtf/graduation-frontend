@@ -9,10 +9,10 @@ export const BaseField = styled(TextField)<TextFieldProps>(({ theme }) => ({
     '&:hover .MuiOutlinedInput-notchedOutline': {
         borderColor: '#1e88e5 !important',
     },
-    '& .Mui-focused .MuiOutlinedInput-notchedOutline': {
-        border: `2px solid ${theme.palette.primary.main} !important`,
+    '&:hover .Mui-error .MuiOutlinedInput-notchedOutline': {
+        borderColor: `${theme.palette.error.main} !important`,
     },
-    '& .MuiInputBase-root.Mui-error': {
-        borderColor: theme.palette.error.main,
+    '&:hover .Mui-error.Mui-focused .MuiOutlinedInput-notchedOutline': {
+        borderColor: `${theme.palette.error.main} !important`,
     },
 }));

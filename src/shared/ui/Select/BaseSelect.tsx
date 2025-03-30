@@ -1,25 +1,17 @@
 import { FormControl, FormHelperText, InputLabel, MenuItem, Select, SelectProps, styled } from '@mui/material';
-import { memo } from 'react';
 import { Controller } from 'react-hook-form';
 
 export const StyledSelect = styled(Select)<SelectProps>(({ theme }) => ({
     '&': {
         borderRadius: theme.spacing(2),
         backgroundColor: theme.palette.background.paper,
-        boxShadow: theme.shadows[1],
+        fontWeight: 500,
     },
-    '& .MuiOutlinedInput-notchedOutline': {
-        border: 'none',
+    '&:hover .MuiOutlinedInput-notchedOutline': {
+        borderColor: '#1e88e5 !important',
     },
-    '&.Mui-focused  .MuiOutlinedInput-notchedOutline': {
-        border: `2px solid ${theme.palette.primary.main}`,
-    },
-    '&.Mui-error': {
-        boxShadow: theme.shadows['0'],
-        border: `2px solid ${theme.palette.error.main}`,
-    },
-    '&.Mui-error.Mui-focused .MuiOutlinedInput-notchedOutline': {
-        border: 'none',
+    '&:hover.Mui-error .MuiOutlinedInput-notchedOutline': {
+        borderColor: `${theme.palette.error.main} !important`,
     },
 }));
 
@@ -30,18 +22,19 @@ export type BaseSelectProps = SelectProps & {
     readonly helperText?: string;
 };
 
-export const BaseSelect = memo((props: BaseSelectProps) => {
+export const BaseSelect = (props: BaseSelectProps) => {
     const { name, control, options, label, helperText, defaultValue, ...otherProps } = props;
 
     return (
         <FormControl fullWidth>
-            <InputLabel id={`${name}-label`}>{label}</InputLabel>
+            <InputLabel id={`${name}-label`} error={otherProps.error}>
+                {label}
+            </InputLabel>
             <Controller
                 name={name}
                 control={control}
                 defaultValue={defaultValue}
                 render={({ field }) => (
-                    // eslint-disable-next-line react/jsx-props-no-spreading
                     <StyledSelect {...otherProps} label={label} labelId={`${name}-label`} {...field}>
                         {options.map((option) => (
                             <MenuItem key={option} value={option}>
@@ -56,4 +49,4 @@ export const BaseSelect = memo((props: BaseSelectProps) => {
             )}
         </FormControl>
     );
-});
+};

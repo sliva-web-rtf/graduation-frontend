@@ -1,20 +1,16 @@
 import { FormControlLabel, FormGroup, Switch, SwitchProps } from '@mui/material';
+import { forwardRef, Ref } from 'react';
 
-type Props = {
+type Props = SwitchProps & {
     label: string;
 };
 
-export const BaseSwitch = (props: Props & SwitchProps) => {
-    const { label, required = false, defaultChecked = false, disabled = false } = props;
+export const BaseSwitch = forwardRef((props: Props, ref: Ref<any>) => {
+    const { label } = props;
 
     return (
         <FormGroup>
-            <FormControlLabel
-                label={label}
-                required={required}
-                disabled={disabled}
-                control={<Switch defaultChecked={defaultChecked} />}
-            />
+            <FormControlLabel ref={ref} label={label} control={<Switch {...props} />} />
         </FormGroup>
     );
-};
+});

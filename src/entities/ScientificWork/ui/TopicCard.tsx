@@ -29,6 +29,7 @@ export const TopicCard = memo((props: ScientificWork) => {
                 </Stack>
                 <Divider />
                 <Stack spacing={1}>
+                    <Row left="Предприятие" right="" />
                     <Row left="Направление" right="Направление" />
                     <Row left="Требуемая роль" right="Роль" />
                     <Row left="Автор" right="Миронова Е.М." />

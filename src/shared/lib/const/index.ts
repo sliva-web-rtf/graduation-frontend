@@ -1,3 +1,4 @@
+export const SITENAME = 'Мой диплом';
 export const DEBOUNCE_DELAY = 500;
 export const ALLOWED_DOMAINS = [
     'gmail.com',
@@ -10,6 +11,16 @@ export const ALLOWED_DOMAINS = [
     'yandex.ru',
     'urfu.ru',
     'urfu.me',
+];
+
+export const topicRoles = [
+    'Аналитик',
+    'UX/UI-дизайнер',
+    'Frontend-разработчик',
+    'Backend-разработчик',
+    'Fullstack-разработчик',
+    'ML-разработчик',
+    'DevOps',
 ];
 
 export const DIRECTIONS = [

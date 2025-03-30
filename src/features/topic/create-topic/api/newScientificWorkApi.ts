@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify';
-import { baseApi } from '@/shared/api';
+import { baseApi, TagTypes } from '@/shared/api';
 import { ScientificWorkRequest } from '../models/types/scientificWorkRequest';
 
 const newScientificWorkApi = baseApi.injectEndpoints({
@@ -15,7 +15,7 @@ const newScientificWorkApi = baseApi.injectEndpoints({
             transformResponse: () => {
                 toast.success('Тема исследования успешно предложена');
             },
-            invalidatesTags: ['Catalog'],
+            invalidatesTags: [TagTypes.Catalog],
         }),
     }),
 });

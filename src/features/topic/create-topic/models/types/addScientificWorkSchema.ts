@@ -1,32 +1,41 @@
 import { z } from 'zod';
 
-export const addScientificWorkFormSchema = z.object({
-    name: z.string().min(1, 'Название обязательно'),
-    description: z.string().min(1, 'Описание обязательно'),
-    result: z.string().min(1, 'Результаты обязательны'),
-    scientificAreaSubsections: z
-        .array(
-            z.object({
-                section: z.string(),
-                label: z.string(),
-            }),
-            {
-                required_error: 'Укажите хотя бы одну область науки',
-            },
-        )
-        .min(1, 'Укажите хотя бы одну область науки'),
-    scientificInterests: z
-        .array(z.string(), {
-            required_error: 'Укажите хотя бы одно ключевой слово',
-        })
-        .min(1, 'Укажите хотя бы одно ключевой слово'),
-    limit: z
-        .number({
-            required_error: 'Укажите количество участников',
-            invalid_type_error: 'Укажите количество участников',
-        })
-        .min(1, 'Укажите количество участников')
-        .max(5, 'Максимум 5 участников'),
-});
+export const createTopicFormSchema = z
+    .object({
+        name: z.string().min(1, 'Укажите название темы'),
+        role: z.string({ required_error: 'Укажите роль' }),
+        description: z.string().optional(),
+        result: z.string().optional(),
+        isEnterpriseTopic: z.boolean().optional(),
+        enterprise: z.string().optional(),
+        isEnterpriseManager: z.boolean().optional(),
+        enterpriseManager: z.string().optional(),
+    })
+    .refine(
+        (data) => {
+            if (data.isEnterpriseTopic && !data.enterprise) {
+                return false;
+            }
 
-export type AddScientificWorkFormSchema = z.infer<typeof addScientificWorkFormSchema>;
+            return true;
+        },
+        {
+            message: 'Укажите название предприятия',
+            path: ['enterprise'],
+        },
+    )
+    .refine(
+        (data) => {
+            if (data.isEnterpriseManager && !data.enterpriseManager) {
+                return false;
+            }
+
+            return true;
+        },
+        {
+            message: 'Укажите руководителя/куратора от предприятия',
+            path: ['enterpriseManager'],
+        },
+    );
+
+export type CreateTopicFormSchema = z.infer<typeof createTopicFormSchema>;

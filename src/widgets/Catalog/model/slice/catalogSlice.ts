@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { DIRECTIONS, SortDirection } from '@/shared/lib/const';
-import { CatalogSchema } from '@/widgets/Catalog/model/types/catalogSchema';
-import { CatalogOption } from '../types/catalogOption';
+import { CatalogOption, CatalogSchema } from '../types';
 
 export const initialState: CatalogSchema = {
     search: '',

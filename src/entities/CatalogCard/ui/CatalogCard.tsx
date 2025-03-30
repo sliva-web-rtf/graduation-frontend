@@ -1,9 +1,9 @@
 import { Paper, Stack, Typography } from '@mui/material';
 import { memo, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { getParentLink } from '@/entities/CatalogCard/lib/helpers/getParentLink';
-import { RequestButton } from '@/features/entity/AddRequests';
 import { LimitInfo } from '@/shared/ui/LimitInfo/LimitInfo';
+import { RequestButton } from '@/features/entity/AddRequests';
+import { getParentLink } from '../lib';
 import { type ICatalogCard } from '../model/types/ICatalogCard';
 import styles from './CatalogCard.module.scss';
 

@@ -1,10 +1,10 @@
-import { useCallback } from 'react';
 import { Typography } from '@mui/material';
+import { useCallback } from 'react';
 import { CatalogCard } from '@/entities/CatalogCard';
-import { transformDtoForCatalogCard } from '@/entities/CatalogList/lib/helpers/transformDtoForCatalogCard';
-import { PersonTopicsSkeleton } from './PersonTopics.skeleton';
 import { ScientificWork, useGetUsersScientificWorksQuery } from '@/entities/ScientificWork';
 import { BaseList } from '@/shared/ui/List/List';
+import { transformDtoForCatalogCard } from '@/widgets/Catalog';
+import { PersonTopicsSkeleton } from './PersonTopics.skeleton';
 
 type PersonTopicsProps = {
     userId: string;

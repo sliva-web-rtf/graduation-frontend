@@ -1,19 +1,16 @@
 import { Stack } from '@mui/material';
 import { ChangeEvent, memo } from 'react';
 import { useSelector } from 'react-redux';
-import { CatalogList } from '@/entities/CatalogList';
 import { isUserStudent } from '@/entities/User';
 import { Search } from '@/features/catalog/Search';
-import { ToggleList } from '@/features/catalog/ToggleList';
 import { CreateTopicButton } from '@/features/topic/create-topic';
 import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { SortDirection } from '@/shared/lib/const';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { SortButton } from '@/shared/ui';
-import { BasePagination } from '@/shared/ui/Pagination/Pagination';
-import { catalogActions, catalogReducer } from '@/widgets/Catalog/model/slice/catalogSlice';
-import { getCatalog } from '../model';
-import { CatalogOption } from '../model/types/catalogOption';
+import { BasePagination, SortButton } from '@/shared/ui';
+import { catalogActions, CatalogOption, catalogReducer, getCatalog } from '../model';
+import { CatalogList } from './CatalogList';
+import { ToggleList } from './ToggleList';
 
 const initialReducers: ReducersList = {
     catalog: catalogReducer,

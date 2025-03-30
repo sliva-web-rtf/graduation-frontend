@@ -4,9 +4,11 @@ import { type Role } from '@/entities/User/model/types/role';
 import { CatalogPage } from '@/pages/CatalogPage';
 import { ForbiddenPage } from '@/pages/ForbiddenPage';
 import { LoginPage } from '@/pages/LoginPage';
+import { MyDimpomPage } from '@/pages/MyDimpomPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 import { ProfessorPage } from '@/pages/ProfessorPage';
 import { ProfilePage } from '@/pages/ProfilePage';
+import { RequestsPage } from '@/pages/RequestsPage';
 import { StudentPage } from '@/pages/StudentPage';
 import { TestPage } from '@/pages/TestPage';
 import { TopicPage } from '@/pages/TopicPage';
@@ -99,7 +101,7 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     },
     [AppRoutes.Requests]: {
         path: RoutePath.Requests,
-        element: <>Заявки</>,
+        element: <RequestsPage />,
         ...withLayoutAndAuth,
     },
     [AppRoutes.Commissions]: {
@@ -109,7 +111,7 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     },
     [AppRoutes.MyDiplom]: {
         path: RoutePath.MyDiplom,
-        element: <>Мой диплом</>,
+        element: <MyDimpomPage />,
         ...withLayoutAndAuth,
     },
     [AppRoutes.MyGuides]: {

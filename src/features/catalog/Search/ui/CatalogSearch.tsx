@@ -3,10 +3,10 @@ import { ChangeEvent, memo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDebouncedCallback } from 'use-debounce';
 import { DirectionsAutocomplete } from '@/entities/Directions';
+import { DEBOUNCE_DELAY } from '@/shared/lib/const';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { BaseSearch } from '@/shared/ui';
-import { getCatalog } from '@/widgets/Catalog/model';
-import { catalogActions } from '@/widgets/Catalog/model/slice/catalogSlice';
+import { catalogActions, getCatalog } from '@/widgets/Catalog';
 
 export const Search = memo(() => {
     const dispatch = useAppDispatch();
@@ -15,7 +15,7 @@ export const Search = memo(() => {
 
     const handleSearchChange = useDebouncedCallback((value: string) => {
         dispatch(catalogActions.setSearch(value));
-    }, 500);
+    }, DEBOUNCE_DELAY);
 
     const onChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
         setSearchValue(e.target.value);

@@ -9,7 +9,7 @@ import { type CatalogSchema } from '@/widgets/Catalog/model/types/catalogSchema'
 import { PersonalDataSchema } from '@/widgets/PersonalData/model/types/personalDataSchema';
 import { PersonInfoSchema } from '@/widgets/PersonInfo';
 import { ProfileSchema } from '@/widgets/Profile';
-import { RequestsSectionSchema } from '@/widgets/RequestsSection';
+import { RequestsSchema } from '@/widgets/Requests';
 
 export interface StateSchema {
     [baseApi.reducerPath]: ReturnType<typeof baseApi.reducer>;
@@ -19,7 +19,7 @@ export interface StateSchema {
     catalog?: CatalogSchema;
     personalData?: PersonalDataSchema;
     profile?: ProfileSchema;
-    requestsSection?: RequestsSectionSchema;
+    requests?: RequestsSchema;
     'person-info'?: PersonInfoSchema;
 }
 
