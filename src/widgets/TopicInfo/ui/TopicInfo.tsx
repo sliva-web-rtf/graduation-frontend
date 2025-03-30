@@ -1,10 +1,10 @@
-import { memo } from 'react';
 import { Grid, Stack, Typography } from '@mui/material';
+import { memo } from 'react';
 import { useParams } from 'react-router-dom';
+import { TopicCard, useGetScientificWorkQuery } from '@/entities/Topic';
 import { AddScientificWorkButton } from '@/features/entity/AddRequests';
-import { useGetScientificWorkQuery, TopicCard } from '@/entities/ScientificWork';
-import { TopicInfoSkeleton } from './TopicInfo.skeleton';
 import { InfoCard } from '@/shared/ui';
+import { TopicInfoSkeleton } from './TopicInfo.skeleton';
 
 export const TopicInfo = memo(() => {
     const { id } = useParams();

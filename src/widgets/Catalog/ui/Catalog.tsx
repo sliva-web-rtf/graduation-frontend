@@ -1,13 +1,11 @@
-import { Stack } from '@mui/material';
+import { Stack, Tooltip } from '@mui/material';
 import { ChangeEvent, memo } from 'react';
 import { useSelector } from 'react-redux';
 import { isUserStudent } from '@/entities/User';
 import { Search } from '@/features/catalog/Search';
-import { CreateTopicButton } from '@/features/topic/create-topic';
 import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import { SortDirection } from '@/shared/lib/const';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { BasePagination, SortButton } from '@/shared/ui';
+import { BasePagination, BaseSwitch } from '@/shared/ui';
 import { catalogActions, CatalogOption, catalogReducer, getCatalog } from '../model';
 import { CatalogList } from './CatalogList';
 import { ToggleList } from './ToggleList';
@@ -18,15 +16,15 @@ const initialReducers: ReducersList = {
 
 const Catalog = memo(() => {
     const dispatch = useAppDispatch();
-    const { order, option, page, pagesCount } = useSelector(getCatalog);
+    const { order, option, page, pagesCount, includeOwnedTopics } = useSelector(getCatalog);
     const isStudent = useSelector(isUserStudent);
-
-    const handleOrderChange = (value: SortDirection) => {
-        dispatch(catalogActions.setOrder(value));
-    };
 
     const handlePageChange = (_: ChangeEvent<unknown>, value: number) => {
         dispatch(catalogActions.setPage(value));
+    };
+
+    const handleIncludeOwnedTopicsChange = (_: ChangeEvent<unknown>, value: boolean) => {
+        dispatch(catalogActions.setIncludeOwnedTopics(value));
     };
 
     return (
@@ -36,10 +34,15 @@ const Catalog = memo(() => {
                     <Search />
                     <Stack direction="row" justifyContent="space-between" alignItems="center">
                         <ToggleList />
-                        <Stack direction="row" spacing={2}>
-                            <SortButton order={order} onChange={handleOrderChange} />
-                            {option === CatalogOption.Topics && <CreateTopicButton />}
-                        </Stack>
+                        {option === CatalogOption.Topics && (
+                            <Tooltip title="Показывать мои темы в начале списка">
+                                <BaseSwitch
+                                    label="Мои темы"
+                                    value={includeOwnedTopics}
+                                    onChange={handleIncludeOwnedTopicsChange}
+                                />
+                            </Tooltip>
+                        )}
                     </Stack>
                     <CatalogList />
                 </Stack>

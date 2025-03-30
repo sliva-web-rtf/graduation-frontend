@@ -5,5 +5,5 @@ import { Role } from '../../types/role';
 export const getUserRoles = (state: StateSchema) => state.user.authData?.roles;
 
 export const isUserAdmin = createSelector(getUserRoles, (roles) => Boolean(roles?.includes(Role.Admin)));
-export const isUserProfessor = createSelector(getUserRoles, (roles) => Boolean(roles?.includes(Role.Professor)));
+export const isUserProfessor = createSelector(getUserRoles, (roles) => Boolean(roles?.includes(Role.Supervisor)));
 export const isUserStudent = createSelector(getUserRoles, (roles) => Boolean(roles?.includes(Role.Student)));

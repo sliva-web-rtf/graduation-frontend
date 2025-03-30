@@ -9,13 +9,14 @@ export const initialState: CatalogSchema = {
     page: 1,
     pageSize: 3,
     pagesCount: {
-        [CatalogOption.Managers]: 1,
+        [CatalogOption.Supervisors]: 1,
         [CatalogOption.Topics]: 1,
         [CatalogOption.Students]: 1,
     },
     direction: '',
     directions: DIRECTIONS,
     order: SortDirection.DESC,
+    includeOwnedTopics: false,
 };
 
 export const catalogSlice = createSlice({
@@ -42,6 +43,9 @@ export const catalogSlice = createSlice({
         },
         setOrder: (state, action: PayloadAction<CatalogSchema['order']>) => {
             state.order = action.payload;
+        },
+        setIncludeOwnedTopics: (state, action: PayloadAction<CatalogSchema['includeOwnedTopics']>) => {
+            state.includeOwnedTopics = action.payload;
         },
     },
 });

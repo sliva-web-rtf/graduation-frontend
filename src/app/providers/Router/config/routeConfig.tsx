@@ -2,6 +2,7 @@
 import { RouteProps } from 'react-router-dom';
 import { type Role } from '@/entities/User/model/types/role';
 import { CatalogPage } from '@/pages/CatalogPage';
+import { CreateTopicPage } from '@/pages/CreateTopicPage';
 import { ForbiddenPage } from '@/pages/ForbiddenPage';
 import { LoginPage } from '@/pages/LoginPage';
 import { MyDimpomPage } from '@/pages/MyDimpomPage';
@@ -22,7 +23,7 @@ export type AppRoutesProps = RouteProps & {
 export enum AppRoutes {
     Login = 'Login',
     Catalog = 'Catalog',
-    Managers = 'Managers',
+    Supervisors = 'Supervisors',
     Topics = 'Topics',
     Students = 'Students',
     Profile = 'Profile',
@@ -34,12 +35,13 @@ export enum AppRoutes {
     MyGuides = 'MyGuides',
     MyStudents = 'MyStudents',
     Commissions = 'Commissions',
+    CreateTopic = 'CreateTopic',
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.Test]: '/test',
     [AppRoutes.Login]: '/login',
-    [AppRoutes.Managers]: '/manager/:id',
+    [AppRoutes.Supervisors]: '/manager/:id',
     [AppRoutes.Topics]: '/topics/:id',
     [AppRoutes.Students]: '/students/:id',
     [AppRoutes.Profile]: '/profile',
@@ -48,6 +50,7 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.MyGuides]: '/my-guides',
     [AppRoutes.MyStudents]: '/my-students',
     [AppRoutes.Commissions]: '/commissions',
+    [AppRoutes.CreateTopic]: '/create-topic',
     [AppRoutes.Catalog]: '/',
     [AppRoutes.Forbidden]: '/forbidden',
     [AppRoutes.NotFound]: '*',
@@ -74,8 +77,8 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         element: <ProfilePage />,
         ...withLayoutAndAuth,
     },
-    [AppRoutes.Managers]: {
-        path: RoutePath.Managers,
+    [AppRoutes.Supervisors]: {
+        path: RoutePath.Supervisors,
         element: <ProfessorPage />,
         ...withLayoutAndAuth,
     },
@@ -107,6 +110,11 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     [AppRoutes.Commissions]: {
         path: RoutePath.Commissions,
         element: <>Комиссии</>,
+        ...withLayoutAndAuth,
+    },
+    [AppRoutes.CreateTopic]: {
+        path: RoutePath.CreateTopic,
+        element: <CreateTopicPage />,
         ...withLayoutAndAuth,
     },
     [AppRoutes.MyDiplom]: {

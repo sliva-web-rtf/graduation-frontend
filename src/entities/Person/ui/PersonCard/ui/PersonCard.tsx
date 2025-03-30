@@ -1,5 +1,4 @@
 import { Divider, Paper, Stack, Typography } from '@mui/material';
-import { getFullName } from '@/shared/lib/helpers/getFullName';
 import { Person } from '../../../model';
 
 const Row = ({ left, right }: { left: string; right?: string }) => (
@@ -17,9 +16,7 @@ const Row = ({ left, right }: { left: string; right?: string }) => (
 
 export const PersonCard = (props: Person) => {
     const {
-        firstName,
-        lastName,
-        patronymic,
+        name,
         contacts,
 
         // Для руководителя
@@ -33,7 +30,6 @@ export const PersonCard = (props: Person) => {
         direction,
         group,
     } = props;
-    const name = getFullName(firstName, lastName, patronymic);
 
     return (
         <Paper

@@ -3,8 +3,8 @@ import { memo, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { CatalogCard } from '@/entities/CatalogCard';
 import { Professor } from '@/entities/Professor';
-import { ScientificWork } from '@/entities/ScientificWork';
 import { Student } from '@/entities/Student';
+import { TopicCardModel } from '@/entities/Topic';
 import { BaseList } from '@/shared/ui/List/List';
 import { getCatalog } from '@/widgets/Catalog';
 import { useGetCatalogQuery } from '../../../api';
@@ -13,14 +13,20 @@ import styles from './CatalogList.module.scss';
 import { CatalogListSkeleton } from './CatalogList.skeleton';
 
 export const CatalogList = memo(() => {
-    const { search, order, option, page, pageSize, direction } = useSelector(getCatalog);
+    const { search, order, option, page, pageSize, includeOwnedTopics } = useSelector(getCatalog);
 
-    const render = useCallback((item: Professor | ScientificWork | Student) => {
-        const transformed = transformDtoForCatalogCard(item);
-        return <CatalogCard key={transformed.id} {...transformed} />;
-    }, []);
+    const render = useCallback(
+        (item: Professor | TopicCardModel | Student) => {
+            const transformed = transformDtoForCatalogCard(item);
+            return <CatalogCard option={option} key={transformed.id} {...transformed} />;
+        },
+        [option],
+    );
 
-    const { isFetching, data } = useGetCatalogQuery({ option, params: { search, page, pageSize, direction, order } });
+    const { isFetching, data } = useGetCatalogQuery({
+        option,
+        params: { search, page, pageSize, includeOwnedTopics, order },
+    });
 
     if (isFetching) {
         return <CatalogListSkeleton count={pageSize} />;

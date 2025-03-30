@@ -1,10 +1,10 @@
 import { Professor } from '@/entities/Professor';
-import { ScientificWork } from '@/entities/ScientificWork';
 import { Student } from '@/entities/Student';
+import { ScientificWork } from '@/entities/Topic';
 import { SortDirection } from '@/shared/lib/const';
 
 export enum CatalogOption {
-    Managers = 'Руководители ВКР',
+    Supervisors = 'Руководители ВКР',
     Topics = 'Темы',
     Students = 'Студенты',
 }
@@ -19,6 +19,7 @@ export type CatalogSchema = {
     pageSize: number;
     pagesCount: Record<CatalogOption, number>;
     order: SortDirection;
+    includeOwnedTopics: boolean;
 };
 
 export interface CatalogDto {
@@ -39,7 +40,7 @@ export interface CatalogRequest {
         search: string;
         page: number;
         pageSize: number;
-        direction: string;
+        includeOwnedTopics: boolean;
         order: SortDirection;
     };
 }

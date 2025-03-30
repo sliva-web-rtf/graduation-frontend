@@ -1,7 +1,6 @@
-import { ScientificWork } from '../model/types/scientificWork';
-import { ScientificWorkDto } from '../model/types/scientificWorkDto';
+import { ScientificWorkDto, Topic } from '../model/types';
 
-export const mapScientificWorkDtoToModel = (dto: ScientificWorkDto): ScientificWork => ({
+export const mapScientificWorkDtoToModel = (dto: ScientificWorkDto): Topic => ({
     id: dto.id,
     name: dto.name,
     description: dto.description,

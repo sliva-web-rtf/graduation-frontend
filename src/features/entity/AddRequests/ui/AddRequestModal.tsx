@@ -1,6 +1,6 @@
 import { FormControl, RadioGroup, Stack, Typography } from '@mui/material';
 import { ChangeEvent, memo } from 'react';
-import { ScientificWork, useGetUsersScientificWorksQuery } from '@/entities/ScientificWork';
+import { ScientificWork, useGetUsersScientificWorksQuery } from '@/entities/Topic';
 import { BaseLoadingButton, BaseModal, BaseRadio } from '@/shared/ui';
 
 interface AddRequestModalProps {

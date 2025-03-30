@@ -1,12 +1,10 @@
 import { Stack } from '@mui/material';
 import { memo } from 'react';
 import { useSelector } from 'react-redux';
-import { ToggleList } from '@/features/profile/ToggleList';
-import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { ChangePasswordForm, PersonalInfoForm } from '@/widgets/PersonalData';
-import { getProfile } from '../model/selectors/getProfile/getProfile';
-import { profileReducer } from '../model/slice/profileSlice';
-import { ProfileOption } from '../model/types/profileOption';
+import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+import { getProfile, ProfileOption, profileReducer } from '../model';
+import { ToggleList } from './ToggleList';
 
 const initialReducers: ReducersList = {
     profile: profileReducer,

@@ -1,29 +1,17 @@
-import { Professor } from '@/entities/Professor';
-import { ScientificWork } from '@/entities/ScientificWork';
-import { Student } from '@/entities/Student';
 import { ICatalogCard } from '@/entities/CatalogCard/model/types/ICatalogCard';
-import { CatalogOption } from '@/widgets/Catalog';
+import { Professor } from '@/entities/Professor';
+import { Student } from '@/entities/Student';
+import { TopicCardModel } from '@/entities/Topic';
 
-const getCatalogOption = (dto: Professor | ScientificWork | Student) => {
-    if ('workStatus' in dto) {
-        return CatalogOption.Topics;
-    }
-    if ('fullness' in dto) {
-        return CatalogOption.Managers;
-    }
+type CatalogCardDto = Professor | TopicCardModel | Student;
+type TransformedCatalogCard = Omit<ICatalogCard, 'option'>;
 
-    return CatalogOption.Students;
-};
-
-export const transformDtoForCatalogCard = (dto: Professor | ScientificWork | Student): ICatalogCard => ({
+export const transformDtoForCatalogCard = (dto: CatalogCardDto): TransformedCatalogCard => ({
     id: dto.id,
-    title: 'name' in dto ? dto.name : `${dto.lastName} ${dto.firstName} ${dto.patronymic}`,
-    canJoin: 'canJoin' in dto ? dto.canJoin : true,
-    commandSearching: 'commandSearching' in dto ? dto.commandSearching : undefined,
-    professorSearching: 'professorSearching' in dto ? dto.professorSearching : undefined,
-    option: getCatalogOption(dto),
-    subtitle: 'degree' in dto ? `${dto.degree}` : '',
+    // eslint-disable-next-line no-nested-ternary
+    subtitle: 'owner' in dto ? dto.owner.name : 'degree' in dto ? `${dto.degree}` : '',
+    title: 'name' in dto ? dto.name : '',
+    description: 'description' in dto ? dto.description : '',
     limit: 'limit' in dto ? dto.limit : undefined,
     fullness: 'fullness' in dto ? dto.fullness : undefined,
-    description: 'description' in dto ? dto.description : '',
 });

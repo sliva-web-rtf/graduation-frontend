@@ -1,8 +1,7 @@
 import { Divider, Paper, Stack, Typography } from '@mui/material';
 import { memo } from 'react';
-import { WorkStatusRus } from '@/entities/ScientificWork';
 import { BaseChip } from '@/shared/ui';
-import { ScientificWork } from '../model/types/scientificWork';
+import { Topic, WorkStatusRus } from '../model/types';
 
 const Row = ({ left, right }: { left: string; right?: string }) => (
     <Stack spacing={1} direction="row" justifyContent="space-between">
@@ -17,8 +16,8 @@ const Row = ({ left, right }: { left: string; right?: string }) => (
     </Stack>
 );
 
-export const TopicCard = memo((props: ScientificWork) => {
-    const { name, professor, workStatus } = props;
+export const TopicCard = memo((props: Topic) => {
+    const { name, workStatus } = props;
 
     return (
         <Paper sx={(theme) => ({ padding: theme.spacing(3), borderRadius: theme.spacing(2) })}>

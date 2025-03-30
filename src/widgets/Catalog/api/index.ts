@@ -12,7 +12,7 @@ const catalogApi = baseApi.injectEndpoints({
             query: ({ option, params }) =>
                 queryString.stringifyUrl({
                     url: getUrl(option),
-                    query: params,
+                    query: { ...params, query: params.search },
                 }),
             onQueryStarted: async (arg, api) => {
                 const { dispatch, queryFulfilled } = api;
