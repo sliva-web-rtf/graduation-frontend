@@ -1,30 +1,27 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { DIRECTIONS, SortDirection } from '@/shared/lib/const';
+import { SortDirection } from '@/shared/lib/const';
 import { CatalogOption, CatalogSchema } from '../types';
 
 export const initialState: CatalogSchema = {
-    search: '',
     option: CatalogOption.Topics,
     options: Object.values(CatalogOption),
     page: 1,
-    pageSize: 3,
+    size: 3,
     pagesCount: {
         [CatalogOption.Supervisors]: 1,
         [CatalogOption.Topics]: 1,
         [CatalogOption.Students]: 1,
     },
-    direction: '',
-    directions: DIRECTIONS,
+    academicProgram: '',
     order: SortDirection.DESC,
-    includeOwnedTopics: false,
 };
 
 export const catalogSlice = createSlice({
     name: 'catalog',
     initialState,
     reducers: {
-        setSearch: (state, action: PayloadAction<CatalogSchema['search']>) => {
-            state.search = action.payload;
+        setSearch: (state, action: PayloadAction<CatalogSchema['query']>) => {
+            state.query = action.payload;
         },
         setOption: (state, action: PayloadAction<CatalogSchema['option']>) => {
             state.option = action.payload;
@@ -38,8 +35,8 @@ export const catalogSlice = createSlice({
         setPagesCount: (state, action: PayloadAction<number>) => {
             state.pagesCount[state.option] = action.payload;
         },
-        setDirection: (state, action: PayloadAction<CatalogSchema['direction']>) => {
-            state.direction = action.payload;
+        setAcademicProgram: (state, action: PayloadAction<CatalogSchema['academicProgram']>) => {
+            state.academicProgram = action.payload;
         },
         setOrder: (state, action: PayloadAction<CatalogSchema['order']>) => {
             state.order = action.payload;

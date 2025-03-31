@@ -2,8 +2,7 @@ import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
 
 import { FC, ReactNode, useMemo } from 'react';
-import { getUserAuthData } from '@/entities/User';
-import { getUserRoles } from '@/entities/User/model/selectors/getUserRoles/getUserRoles';
+import { getUserData } from '@/entities/User';
 import { type Role } from '@/entities/User/model/types/role';
 import { RoutePath } from '../config/routeConfig';
 
@@ -14,11 +13,10 @@ interface RequireAuthProps {
 }
 
 export const RequireAuth: FC<RequireAuthProps> = (props) => {
-    const auth = useSelector(getUserAuthData);
-    const location = useLocation();
-    const userRoles = useSelector(getUserRoles);
-
     const { children, isAuth, roles } = props;
+    const { user } = useSelector(getUserData);
+    const location = useLocation();
+    const { roles: userRoles } = user ?? { roles: [] as Role[] };
 
     const hasRequiredRoles = useMemo(() => {
         if (!roles) {
@@ -30,7 +28,8 @@ export const RequireAuth: FC<RequireAuthProps> = (props) => {
             return hasRole;
         });
     }, [roles, userRoles]);
-    if (!auth && isAuth) {
+
+    if (!user && isAuth) {
         return <Navigate to={RoutePath.Login} state={{ from: location }} replace />;
     }
 
@@ -38,7 +37,7 @@ export const RequireAuth: FC<RequireAuthProps> = (props) => {
         return <Navigate to={RoutePath.Forbidden} state={{ from: location }} replace />;
     }
 
-    if (auth && !isAuth) {
+    if (user && !isAuth) {
         return <Navigate to={location.state?.from ?? RoutePath.Catalog} replace />;
     }
 

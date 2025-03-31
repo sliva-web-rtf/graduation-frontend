@@ -2,7 +2,7 @@ import { Stack } from '@mui/material';
 import { ChangeEvent, memo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDebouncedCallback } from 'use-debounce';
-import { DirectionsAutocomplete } from '@/entities/Directions';
+import { AcademicProgramsAutocomplete } from '@/entities/AcademicPrograms';
 import { DEBOUNCE_DELAY } from '@/shared/lib/const';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { BaseSearch } from '@/shared/ui';
@@ -10,8 +10,8 @@ import { catalogActions, getCatalog } from '@/widgets/Catalog';
 
 export const Search = memo(() => {
     const dispatch = useAppDispatch();
-    const { search, direction, directions } = useSelector(getCatalog);
-    const [searchValue, setSearchValue] = useState(search);
+    const { query, academicProgram } = useSelector(getCatalog);
+    const [searchValue, setSearchValue] = useState(query);
 
     const handleSearchChange = useDebouncedCallback((value: string) => {
         dispatch(catalogActions.setSearch(value));
@@ -22,17 +22,12 @@ export const Search = memo(() => {
         handleSearchChange(e.target.value);
     };
 
-    const onChangeDirection = (_: unknown, value: string) => dispatch(catalogActions.setDirection(value));
+    const onChangeAcademicProgram = (_: unknown, value: string) => dispatch(catalogActions.setAcademicProgram(value));
 
     return (
         <Stack direction="row" spacing={2}>
             <BaseSearch value={searchValue} onChange={onChangeSearch} />
-            <DirectionsAutocomplete
-                value={direction}
-                onChange={onChangeDirection}
-                options={directions}
-                placeholder="Направление подготовки"
-            />
+            <AcademicProgramsAutocomplete value={academicProgram} onChange={onChangeAcademicProgram} />
         </Stack>
     );
 });

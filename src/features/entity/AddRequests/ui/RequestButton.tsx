@@ -1,6 +1,6 @@
 import { memo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { getUserAuthData } from '@/entities/User';
+import { getUserData } from '@/entities/User';
 import { useAddProfessorMutation, useAddStudentMutation } from '@/features/entity/AddRequests';
 import { AddRequestModal } from '@/features/entity/AddRequests/ui/AddRequestModal';
 import { BaseButton } from '@/shared/ui/Button/Button';
@@ -11,13 +11,18 @@ interface RequestButtonProps {
 
 export const RequestButton = memo((props: RequestButtonProps) => {
     const { id: studentId } = props;
-    // const isProfessor = useSelector(isUserProfessor);
-    const id = useSelector(getUserAuthData)?.id;
     const [scientificWorkId, setScientificWorkId] = useState('');
     const [open, setOpen] = useState(false);
 
     const [addToOrFromProfessor, { isLoading: isLoading1 }] = useAddProfessorMutation();
     const [addStudentFromStudent, { isLoading: isLoading2 }] = useAddStudentMutation();
+    const { user } = useSelector(getUserData);
+
+    if (!user) {
+        return null;
+    }
+
+    const { id } = user;
 
     const toggleOpen = () => {
         setOpen((prev) => !prev);
@@ -61,7 +66,7 @@ export const RequestButton = memo((props: RequestButtonProps) => {
             </BaseButton>
             <AddRequestModal
                 id={studentId}
-                userId={id!}
+                userId={id}
                 open={open}
                 onClose={toggleOpen}
                 scientificWorkId={scientificWorkId}

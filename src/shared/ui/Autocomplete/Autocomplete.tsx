@@ -8,7 +8,7 @@ export type BaseAutocompleteProps = Omit<AutocompleteProps<any, any, any, any>, 
 
 export const BaseAutocomplete = memo(
     forwardRef<HTMLInputElement, BaseAutocompleteProps>((props: BaseAutocompleteProps, ref) => {
-        const { error, helperText, placeholder, loading, ...autocompleteProps } = props;
+        const { error, helperText, label, placeholder, loading, ...autocompleteProps } = props;
 
         return (
             <Autocomplete
@@ -23,6 +23,7 @@ export const BaseAutocomplete = memo(
                 renderInput={(params) => (
                     <BaseField
                         {...params}
+                        label={label}
                         placeholder={placeholder}
                         error={error}
                         helperText={helperText}

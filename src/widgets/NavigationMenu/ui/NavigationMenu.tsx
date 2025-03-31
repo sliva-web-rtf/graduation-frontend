@@ -3,14 +3,15 @@ import { memo } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
 import { BaseTab, BaseTabs, TabLabel } from '@/shared/ui';
-import { getUserRoles } from '@/entities/User/model/selectors/getUserRoles/getUserRoles';
+import { getUserData } from '@/entities/User';
 import { getTabs } from '../model/const';
 
 export const NavigationMenu = memo((props: TabsProps) => {
     const location = useLocation();
-    const userRoles = useSelector(getUserRoles);
+    const { user } = useSelector(getUserData);
+    const { roles } = user ?? { roles: [] };
 
-    const tabs = getTabs(userRoles?.[0]);
+    const tabs = getTabs(roles[0]);
 
     return (
         <BaseTabs orientation="vertical" value={location.pathname} {...props}>

@@ -10,16 +10,16 @@ export enum CatalogOption {
 }
 
 export type CatalogSchema = {
-    search: string;
     option: CatalogOption;
     options: CatalogOption[];
-    direction: string;
-    directions: string[];
+    academicProgram: string;
     page: number;
-    pageSize: number;
+    size: number;
     pagesCount: Record<CatalogOption, number>;
     order: SortDirection;
-    includeOwnedTopics: boolean;
+
+    query?: string;
+    includeOwnedTopics?: boolean;
 };
 
 export interface CatalogDto {
@@ -37,10 +37,10 @@ export interface CatalogModel {
 export interface CatalogRequest {
     option: CatalogOption;
     params: {
-        search: string;
         page: number;
-        pageSize: number;
-        includeOwnedTopics: boolean;
-        order: SortDirection;
+        size: number;
+        includeOwnedTopics?: boolean;
+        query?: string;
+        order?: SortDirection;
     };
 }

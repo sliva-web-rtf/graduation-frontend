@@ -1,2 +1,2 @@
-export const calculatePagesCount = (totalItems: number, pageSize: number): number =>
-    Math.max(Math.ceil(totalItems / pageSize), 1);
+export const calculatePagesCount = (totalItems: number, size: number): number =>
+    Math.max(Math.ceil(totalItems / size), 1);

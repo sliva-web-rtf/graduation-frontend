@@ -77,10 +77,10 @@ export const RequestsList = () => {
         return <RequestCard key={item.id} {...item} />;
     }, []);
 
-    // const { isFetching, data } = useGetCatalogQuery({ option, params: { search, page, pageSize, direction, order } });
+    // const { isFetching, data } = useGetCatalogQuery({ option, params: { search, page, size, direction, order } });
 
     // if (isFetching) {
-    //     return <RequestsListSkeleton count={pageSize} />;
+    //     return <RequestsListSkeleton count={size} />;
     // }
 
     // if (!data?.data?.length) {

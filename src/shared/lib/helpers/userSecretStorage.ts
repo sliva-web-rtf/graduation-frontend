@@ -20,8 +20,9 @@ export namespace UserSecretStorageService {
         await LocalStorageService.clear();
     }
 
-    export async function isValid(): Promise<boolean> {
-        const secret = await get();
+    export function isValid(): boolean {
+        const secret = get();
+
         return secret !== null;
     }
 }

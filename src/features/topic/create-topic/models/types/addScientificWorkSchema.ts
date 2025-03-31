@@ -3,17 +3,21 @@ import { z } from 'zod';
 export const createTopicFormSchema = z
     .object({
         name: z.string().min(1, 'Укажите название темы'),
-        role: z.string({ required_error: 'Укажите роль' }),
         description: z.string().optional(),
         result: z.string().optional(),
-        isEnterpriseTopic: z.boolean().optional(),
-        enterprise: z.string().optional(),
-        isEnterpriseManager: z.boolean().optional(),
-        enterpriseManager: z.string().optional(),
+        requestedRoles: z.union([z.string(), z.array(z.string()).min(1, 'Укажите роль')], {
+            required_error: 'Укажите роль',
+            invalid_type_error: 'Некорректный формат данных',
+        }),
+        // academicPrograms: z.array(z.string()).min(1, 'Укажите направление'),
+        requiresСompany: z.boolean().optional(),
+        companyName: z.string().optional(),
+        requiresSupervisor: z.boolean().optional(),
+        companySupervisorName: z.string().optional(),
     })
     .refine(
         (data) => {
-            if (data.isEnterpriseTopic && !data.enterprise) {
+            if (data.requiresСompany && !data.companyName) {
                 return false;
             }
 
@@ -21,12 +25,12 @@ export const createTopicFormSchema = z
         },
         {
             message: 'Укажите название предприятия',
-            path: ['enterprise'],
+            path: ['companyName'],
         },
     )
     .refine(
         (data) => {
-            if (data.isEnterpriseManager && !data.enterpriseManager) {
+            if (data.requiresSupervisor && !data.companySupervisorName) {
                 return false;
             }
 
@@ -34,7 +38,7 @@ export const createTopicFormSchema = z
         },
         {
             message: 'Укажите руководителя/куратора от предприятия',
-            path: ['enterpriseManager'],
+            path: ['companySupervisorName'],
         },
     );
 

@@ -1,6 +1,6 @@
 import { FormControl, RadioGroup, Stack, Typography } from '@mui/material';
 import { ChangeEvent, memo } from 'react';
-import { ScientificWork, useGetUsersScientificWorksQuery } from '@/entities/Topic';
+import { TopicCardModel, useGetUsersScientificWorksQuery } from '@/entities/Topic';
 import { BaseLoadingButton, BaseModal, BaseRadio } from '@/shared/ui';
 
 interface AddRequestModalProps {
@@ -14,14 +14,14 @@ interface AddRequestModalProps {
     readonly disabled: boolean;
 }
 
-const RadioList = memo(({ items }: { items?: Array<ScientificWork> }) => {
+const RadioList = memo(({ items }: { items?: Array<TopicCardModel> }) => {
     if (!items?.length) {
         return <Typography>Темы отсутсвуют</Typography>;
     }
 
     return (
         <Stack>
-            {items.map((item: ScientificWork) => (
+            {items.map((item: TopicCardModel) => (
                 <BaseRadio key={item.id} label={item.name} value={item.id} />
             ))}
         </Stack>

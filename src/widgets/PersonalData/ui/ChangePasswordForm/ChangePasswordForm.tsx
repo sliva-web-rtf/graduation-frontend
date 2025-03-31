@@ -1,22 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Stack, Typography } from '@mui/material';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { BaseLoadingButton, HelperText, PasswordField } from '@/shared/ui';
 import { updatePassword } from '../../api/personalDataApi';
 import { changePasswordFormSchema, ChangePasswordFormSchema } from '../../model/types/changePasswordFormSchema';
 
 export const ChangePasswordForm = () => {
-    const [showPassword, setShowPassword] = useState({
-        currentPassword: false,
-        newPassword: false,
-        repeatNewPassword: false,
-    });
-
-    const handleClickShowPassword = (field: 'currentPassword' | 'repeatNewPassword' | 'newPassword') => {
-        setShowPassword((prevState) => ({ ...prevState, [field]: !prevState[field] }));
-    };
-
     const [updateSmbdyPassword, { isLoading }] = updatePassword();
     const {
         formState: { errors, isSubmitSuccessful },

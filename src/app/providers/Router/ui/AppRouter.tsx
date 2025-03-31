@@ -24,8 +24,6 @@ const AppRouter = () => {
                 }
             />
         );
-
-        // return <Route key={route.path} path={route.path} element={element} />;
     }, []);
 
     return (

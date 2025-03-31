@@ -2,14 +2,16 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Stack } from '@mui/material';
 import { memo } from 'react';
 import { useForm } from 'react-hook-form';
-import { BaseLoadingButton } from '@/shared/ui/Button/Button';
-import { BaseField, BaseSelect, BaseSwitch } from '@/shared/ui';
+import { AcademicProgramsAutocomplete } from '@/entities/AcademicPrograms';
 import { topicRoles } from '@/shared/lib/const';
-import { useAddNewScientificWorkMutation } from '../api/newScientificWorkApi';
+import { BaseField, BaseSelect, BaseSwitch } from '@/shared/ui';
+import { BaseLoadingButton } from '@/shared/ui/Button/Button';
+import { useCreateTopicMutation } from '../api/topicApi';
 import { CreateTopicFormSchema, createTopicFormSchema } from '../models/types/addScientificWorkSchema';
 
 export const CreateTopicForm = memo(() => {
-    const [addNewScientificWork, { isLoading: isCreating }] = useAddNewScientificWorkMutation();
+    const isStudent = true;
+    const [createTopic, { isLoading: isCreating }] = useCreateTopicMutation();
     const {
         control,
         formState: { errors },
@@ -20,26 +22,24 @@ export const CreateTopicForm = memo(() => {
     } = useForm<CreateTopicFormSchema>({
         resolver: zodResolver(createTopicFormSchema),
     });
-    const [isEnterpriseTopic, isEnterpriseManager] = watch(['isEnterpriseTopic', 'isEnterpriseManager']);
+    const [requiresСompany, requiresSupervisor] = watch(['requiresСompany', 'requiresSupervisor']);
 
     const onSubmit = async (data: CreateTopicFormSchema) => {
-        alert('@todo');
+        const transformedData = isStudent ? { ...data, requestedRoles: undefined, role: data.requestedRoles } : data;
 
-        // try {
-        //     await addNewScientificWork({
-        //         ...data,
-        //         isEducator: true,
-        //     });
-        //     reset();
-        // } catch (err) {
-        //     /* empty */
-        // }
+        try {
+            /* Хак, из-за requestedRoles и role */
+            await createTopic(transformedData as never);
+            reset();
+        } catch (err) {
+            /* empty */
+        }
     };
 
     return (
         <Stack component="form" spacing={4} onSubmit={handleSubmit(onSubmit)} width="100%" maxWidth={900}>
             <Stack spacing={4} direction="row">
-                <Stack spacing={2} width="100%">
+                <Stack spacing={2} width="100%" maxWidth={400}>
                     <BaseField
                         autoFocus
                         {...register('name')}
@@ -51,35 +51,38 @@ export const CreateTopicForm = memo(() => {
                         helperText={errors.name?.message}
                     />
                     <BaseSelect
-                        name="role"
+                        multiple={!isStudent}
+                        name="requestedRoles"
                         control={control}
                         label="Роль"
                         options={topicRoles}
-                        error={Boolean(errors.role)}
-                        helperText={errors.role?.message}
+                        defaultValue={[]}
+                        error={Boolean(errors.requestedRoles)}
+                        helperText={errors.requestedRoles?.message}
                     />
+                    <AcademicProgramsAutocomplete label="Направление подготовки" />
                     <Stack spacing={1}>
-                        <BaseSwitch {...register('isEnterpriseTopic')} label="Тема от предприятия" />
-                        {isEnterpriseTopic && (
+                        <BaseSwitch {...register('requiresСompany')} label="Тема от предприятия" />
+                        {requiresСompany && (
                             <BaseField
-                                {...register('enterprise')}
+                                {...register('companyName')}
                                 label="Введите название предприятия"
                                 placeholder="ООО Название предприятия"
-                                error={Boolean(errors.enterprise)}
-                                helperText={errors.enterprise?.message}
+                                error={Boolean(errors.companyName)}
+                                helperText={errors.companyName?.message}
                             />
                         )}
                     </Stack>
-                    {isEnterpriseTopic && (
+                    {requiresСompany && (
                         <Stack spacing={1}>
-                            <BaseSwitch {...register('isEnterpriseManager')} label="Руководитель от предприятия" />
-                            {isEnterpriseManager && (
+                            <BaseSwitch {...register('requiresSupervisor')} label="Руководитель от предприятия" />
+                            {requiresSupervisor && (
                                 <BaseField
-                                    {...register('enterpriseManager')}
+                                    {...register('companySupervisorName')}
                                     label="Руководитель/куратор от предприятия"
                                     placeholder="Иванов Иван Иванович"
-                                    error={Boolean(errors.enterpriseManager)}
-                                    helperText={errors.enterpriseManager?.message}
+                                    error={Boolean(errors.companySupervisorName)}
+                                    helperText={errors.companySupervisorName?.message}
                                 />
                             )}
                         </Stack>

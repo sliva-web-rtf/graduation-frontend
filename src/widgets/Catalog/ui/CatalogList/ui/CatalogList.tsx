@@ -13,7 +13,7 @@ import styles from './CatalogList.module.scss';
 import { CatalogListSkeleton } from './CatalogList.skeleton';
 
 export const CatalogList = memo(() => {
-    const { search, order, option, page, pageSize, includeOwnedTopics } = useSelector(getCatalog);
+    const { query, option, page, size, includeOwnedTopics } = useSelector(getCatalog);
 
     const render = useCallback(
         (item: Professor | TopicCardModel | Student) => {
@@ -25,11 +25,11 @@ export const CatalogList = memo(() => {
 
     const { isFetching, data } = useGetCatalogQuery({
         option,
-        params: { search, page, pageSize, includeOwnedTopics, order },
+        params: { query, page, size, includeOwnedTopics },
     });
 
     if (isFetching) {
-        return <CatalogListSkeleton count={pageSize} />;
+        return <CatalogListSkeleton count={size} />;
     }
 
     if (!data?.data?.length) {

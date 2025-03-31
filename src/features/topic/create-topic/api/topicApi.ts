@@ -1,16 +1,14 @@
 import { toast } from 'react-toastify';
 import { baseApi, TagTypes } from '@/shared/api';
-import { ScientificWorkRequest } from '../models/types/scientificWorkRequest';
+import { CreateTopicRequest } from '../models/types/scientificWorkRequest';
 
-const newScientificWorkApi = baseApi.injectEndpoints({
+const topicApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
-        addNewScientificWork: build.mutation<void, ScientificWorkRequest>({
+        createTopic: build.mutation<void, CreateTopicRequest>({
             query: (data) => ({
-                url: '/api/scientificWork/create-scientific-work',
+                url: '/api/topics',
                 method: 'POST',
-                body: {
-                    ...data,
-                },
+                body: data,
             }),
             transformResponse: () => {
                 toast.success('Тема исследования успешно предложена');
@@ -20,4 +18,4 @@ const newScientificWorkApi = baseApi.injectEndpoints({
     }),
 });
 
-export const { useAddNewScientificWorkMutation } = newScientificWorkApi;
+export const { useCreateTopicMutation } = topicApi;

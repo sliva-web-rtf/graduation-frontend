@@ -12,13 +12,13 @@ const catalogApi = baseApi.injectEndpoints({
             query: ({ option, params }) =>
                 queryString.stringifyUrl({
                     url: getUrl(option),
-                    query: { ...params, query: params.search },
+                    query: params,
                 }),
             onQueryStarted: async (arg, api) => {
                 const { dispatch, queryFulfilled } = api;
                 try {
                     const { data } = await queryFulfilled;
-                    const pagesCount = calculatePagesCount(data.length, arg.params.pageSize);
+                    const pagesCount = calculatePagesCount(data.length, arg.params.size);
                     dispatch(catalogActions.setPagesCount(pagesCount));
                 } catch (err) {
                     toast.error(`Ошибка при получения каталога: ${err}`);
