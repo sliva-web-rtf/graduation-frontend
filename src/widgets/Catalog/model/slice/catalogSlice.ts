@@ -1,12 +1,12 @@
+import { CATALOG_CARD_HEIGHT, SortDirection } from '@/shared/lib/const';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { SortDirection } from '@/shared/lib/const';
 import { CatalogOption, CatalogSchema } from '../types';
 
 export const initialState: CatalogSchema = {
     option: CatalogOption.Topics,
     options: Object.values(CatalogOption),
-    page: 1,
-    size: 3,
+    page: 0,
+    size: Math.round((window.innerHeight - 335) / (CATALOG_CARD_HEIGHT + 16)),
     pagesCount: {
         [CatalogOption.Supervisors]: 1,
         [CatalogOption.Topics]: 1,
@@ -22,6 +22,7 @@ export const catalogSlice = createSlice({
     reducers: {
         setSearch: (state, action: PayloadAction<CatalogSchema['query']>) => {
             state.query = action.payload;
+            state.page = 0;
         },
         setOption: (state, action: PayloadAction<CatalogSchema['option']>) => {
             state.option = action.payload;

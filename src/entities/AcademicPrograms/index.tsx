@@ -1,1 +1,1 @@
-export { AcademicProgramsAutocomplete } from './ui/AcademicProgramsAutocomplete/AcademicProgramsAutocomplete';
+export { AcademicProgramsSelect } from './ui/AcademicProgramsSelect/AcademicProgramsSelect';

@@ -1,16 +1,18 @@
+import { AcademicProgramsSelect } from '@/entities/AcademicPrograms';
+import { TopicRolesSelect } from '@/entities/Roles';
+import { isUserStudent } from '@/entities/User';
+import { BaseField, BaseSwitch } from '@/shared/ui';
+import { BaseLoadingButton } from '@/shared/ui/Button/Button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Stack } from '@mui/material';
 import { memo } from 'react';
 import { useForm } from 'react-hook-form';
-import { AcademicProgramsAutocomplete } from '@/entities/AcademicPrograms';
-import { topicRoles } from '@/shared/lib/const';
-import { BaseField, BaseSelect, BaseSwitch } from '@/shared/ui';
-import { BaseLoadingButton } from '@/shared/ui/Button/Button';
+import { useSelector } from 'react-redux';
 import { useCreateTopicMutation } from '../api/topicApi';
 import { CreateTopicFormSchema, createTopicFormSchema } from '../models/types/addScientificWorkSchema';
 
 export const CreateTopicForm = memo(() => {
-    const isStudent = true;
+    const isStudent = useSelector(isUserStudent);
     const [createTopic, { isLoading: isCreating }] = useCreateTopicMutation();
     const {
         control,
@@ -50,17 +52,24 @@ export const CreateTopicForm = memo(() => {
                         error={Boolean(errors.name)}
                         helperText={errors.name?.message}
                     />
-                    <BaseSelect
+                    <TopicRolesSelect
                         multiple={!isStudent}
                         name="requestedRoles"
                         control={control}
                         label="Роль"
-                        options={topicRoles}
                         defaultValue={[]}
                         error={Boolean(errors.requestedRoles)}
                         helperText={errors.requestedRoles?.message}
                     />
-                    <AcademicProgramsAutocomplete label="Направление подготовки" />
+                    <AcademicProgramsSelect
+                        multiple
+                        name="academicPrograms"
+                        control={control}
+                        label="Направление подготовки"
+                        defaultValue={[]}
+                        error={Boolean(errors.academicPrograms)}
+                        helperText={errors.academicPrograms?.message}
+                    />
                     <Stack spacing={1}>
                         <BaseSwitch {...register('requiresСompany')} label="Тема от предприятия" />
                         {requiresСompany && (
@@ -99,7 +108,7 @@ export const CreateTopicForm = memo(() => {
                         helperText={errors.description?.message}
                     />
                     <BaseField
-                        {...register('description')}
+                        {...register('result')}
                         label="Ожидаемые результаты"
                         placeholder="Опишите результаты, которые предполагается достичь в ходе работы"
                         multiline

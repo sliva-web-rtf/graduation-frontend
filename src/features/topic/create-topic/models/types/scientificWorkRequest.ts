@@ -1,6 +1,6 @@
 export interface CreateTopicRequest {
     name: string;
-    // academicPrograms: string[];
+    academicPrograms: string[];
 
     description?: string;
     result?: string;

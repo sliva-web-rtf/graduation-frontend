@@ -1,5 +1,6 @@
 export const SITENAME = 'Мой диплом';
-export const DEBOUNCE_DELAY = 500;
+export const CATALOG_CARD_HEIGHT = 166;
+export const DEBOUNCE_DELAY = 800;
 export const ALLOWED_DOMAINS = [
     'gmail.com',
     'yahoo.com',
@@ -21,16 +22,6 @@ export const topicRoles = [
     'Fullstack-разработчик',
     'ML-разработчик',
     'DevOps',
-];
-
-export const DIRECTIONS = [
-    '09.03.01 Информатика и вычислительная техника',
-    '09.03.02 Информационные системы и технологии',
-    '09.03.03 Прикладная информатика',
-    '09.03.04 Программная инженерия',
-    '09.03.05 Инноватика (в сфере информационных технологий)',
-    '09.03.06 Информационная безопасность',
-    '09.03.07 Вычислительные машины, комплексы, системы и сети',
 ];
 
 export enum SortDirection {

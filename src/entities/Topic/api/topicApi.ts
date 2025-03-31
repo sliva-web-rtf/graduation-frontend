@@ -8,13 +8,10 @@ import {
     UsersScientificWorksRequest,
 } from '../model/types';
 
-const scientificWorkApi = baseApi.injectEndpoints({
+const topicApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
         getScientificWork: build.query<Topic, ScientificWorksRequest>({
-            query: ({ id }) => ({
-                url: '/api/scientificWork/general-info-by-id',
-                params: { id },
-            }),
+            query: ({ id }) => `topics/${id}`,
             transformResponse: (response: ScientificWorkDto) => mapScientificWorkDtoToModel(response),
         }),
         getUsersScientificWorks: build.query<TopicCardModel[], UsersScientificWorksRequest>({
@@ -26,4 +23,4 @@ const scientificWorkApi = baseApi.injectEndpoints({
     }),
 });
 
-export const { useGetScientificWorkQuery, useGetUsersScientificWorksQuery } = scientificWorkApi;
+export const { useGetScientificWorkQuery, useGetUsersScientificWorksQuery } = topicApi;

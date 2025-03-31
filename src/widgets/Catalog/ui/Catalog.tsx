@@ -1,10 +1,10 @@
-import { Stack, Tooltip } from '@mui/material';
-import { ChangeEvent, memo } from 'react';
-import { useSelector } from 'react-redux';
 import { Search } from '@/features/catalog/Search';
 import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { BasePagination, BaseSwitch } from '@/shared/ui';
+import { Stack, Tooltip } from '@mui/material';
+import { ChangeEvent, memo } from 'react';
+import { useSelector } from 'react-redux';
 import { catalogActions, CatalogOption, catalogReducer, getCatalog } from '../model';
 import { CatalogList } from './CatalogList';
 import { ToggleList } from './ToggleList';
@@ -18,7 +18,7 @@ const Catalog = memo(() => {
     const { option, page, pagesCount, includeOwnedTopics } = useSelector(getCatalog);
 
     const handlePageChange = (_: ChangeEvent<unknown>, value: number) => {
-        dispatch(catalogActions.setPage(value));
+        dispatch(catalogActions.setPage(value - 1));
     };
 
     const handleIncludeOwnedTopicsChange = (_: ChangeEvent<unknown>, value: boolean) => {
@@ -44,7 +44,7 @@ const Catalog = memo(() => {
                     </Stack>
                     <CatalogList />
                 </Stack>
-                <BasePagination page={page} count={pagesCount[option]} onChange={handlePageChange} />
+                <BasePagination page={page + 1} count={pagesCount[option]} onChange={handlePageChange} />
             </Stack>
         </DynamicModuleLoader>
     );

@@ -6,7 +6,7 @@ type Model = string[];
 const academicProgramsApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
         getAcademicPrograms: build.query<Model, void>({
-            query: () => '/api//topics/academic-programs',
+            query: () => '/topics/academic-programs',
             transformResponse: (response: Dto) => response.academicPrograms,
         }),
     }),

@@ -12,13 +12,13 @@ const userApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
         user: build.query<User, undefined>({
             query: () => ({
-                url: '/api/auth',
+                url: '/auth',
             }),
             transformResponse: (response: UserDto) => mapUserDtoToModel(response),
         }),
         auth: build.mutation<Token, Login>({
             query: (initialValues) => ({
-                url: '/api/auth',
+                url: '/auth',
                 method: 'POST',
                 body: {
                     ...loginToDto(initialValues),

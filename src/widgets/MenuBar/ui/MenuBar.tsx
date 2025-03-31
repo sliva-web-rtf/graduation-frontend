@@ -1,12 +1,12 @@
+import { RoutePath } from '@/app/providers/Router/config/routeConfig';
+import { getUserData, ROLES } from '@/entities/User';
+import { LogoutButton } from '@/features/logout';
+import { getInitials } from '@/shared/lib/helpers/getInitials';
+import { BaseAppBar } from '@/shared/ui/AppBar/AppBar';
 import { AppBarProps, Box, Stack, Toolbar, Tooltip, Typography } from '@mui/material';
 import { memo } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { RoutePath } from '@/app/providers/Router/config/routeConfig';
-import { getUserData } from '@/entities/User';
-import { LogoutButton } from '@/features/logout';
-import { getInitials } from '@/shared/lib/helpers/getInitials';
-import { BaseAppBar } from '@/shared/ui/AppBar/AppBar';
 import classnames from './MenuBar.module.scss';
 
 interface MenuBarProps extends AppBarProps {}
@@ -19,6 +19,7 @@ export const MenuBar = memo(({ sx, ...props }: MenuBarProps) => {
     }
 
     const { roles, firstName, lastName } = user;
+    const translatedRoles = roles.map((role) => ROLES[role]).join(', ');
     const userInitials = getInitials(firstName, lastName);
 
     return (
@@ -37,8 +38,8 @@ export const MenuBar = memo(({ sx, ...props }: MenuBarProps) => {
                                 {userInitials}
                             </Typography>
                         </Tooltip>
-                        <Typography variant="bodyXS" color="secondary">
-                            {roles || 'Нет роли'}
+                        <Typography variant="bodyXS" color="secondary" className={classnames.username}>
+                            {translatedRoles || 'Нет роли'}
                         </Typography>
                     </Stack>
                     <LogoutButton />

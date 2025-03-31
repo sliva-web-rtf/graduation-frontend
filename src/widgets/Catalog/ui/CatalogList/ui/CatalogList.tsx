@@ -1,12 +1,12 @@
-import { Typography } from '@mui/material';
-import { memo, useCallback } from 'react';
-import { useSelector } from 'react-redux';
 import { CatalogCard } from '@/entities/CatalogCard';
 import { Professor } from '@/entities/Professor';
 import { Student } from '@/entities/Student';
 import { TopicCardModel } from '@/entities/Topic';
 import { BaseList } from '@/shared/ui/List/List';
 import { getCatalog } from '@/widgets/Catalog';
+import { Typography } from '@mui/material';
+import { memo, useCallback } from 'react';
+import { useSelector } from 'react-redux';
 import { useGetCatalogQuery } from '../../../api';
 import { transformDtoForCatalogCard } from '../../../lib';
 import styles from './CatalogList.module.scss';

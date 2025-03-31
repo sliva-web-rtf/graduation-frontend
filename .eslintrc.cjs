@@ -28,6 +28,7 @@ module.exports = {
         'no-underscore-dangle': 'off',
         'no-param-reassign': 'off',
         'import/no-unresolved': 'off',
+        'import/order': 'off',
         'import/prefer-default-export': 'off',
         'import/extensions': 'off',
         'import/no-extraneous-dependencies': 'off',

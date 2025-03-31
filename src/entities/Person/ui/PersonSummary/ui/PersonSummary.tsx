@@ -1,7 +1,7 @@
+import { getInitials } from '@/shared/lib/helpers/getInitials';
 import { Stack, Typography } from '@mui/material';
 import { FC } from 'react';
 import { NavLink } from 'react-router-dom';
-import { getInitials } from '@/shared/lib/helpers/getInitials';
 
 interface PersonSummaryProps {
     readonly id: string;

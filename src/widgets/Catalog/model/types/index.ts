@@ -1,6 +1,6 @@
 import { Professor } from '@/entities/Professor';
 import { Student } from '@/entities/Student';
-import { ScientificWork } from '@/entities/Topic';
+import { TopicCardModel } from '@/entities/Topic';
 import { SortDirection } from '@/shared/lib/const';
 
 export enum CatalogOption {
@@ -23,15 +23,15 @@ export type CatalogSchema = {
 };
 
 export interface CatalogDto {
-    readonly length: number;
-    readonly professors?: Professor[];
-    readonly scientificWorks?: ScientificWork[];
-    readonly students?: Student[];
+    pagesCount: number;
+    supervisors?: Professor[];
+    topics?: TopicCardModel[];
+    students?: Student[];
 }
 
 export interface CatalogModel {
-    readonly data?: Array<Professor | ScientificWork | Student>;
-    readonly length: number;
+    data?: Array<Professor | TopicCardModel | Student>;
+    pagesCount: number;
 }
 
 export interface CatalogRequest {

@@ -1,7 +1,6 @@
 import { Divider, Paper, Stack, Typography } from '@mui/material';
 import { memo } from 'react';
-import { BaseChip } from '@/shared/ui';
-import { Topic, WorkStatusRus } from '../model/types';
+import { Topic } from '../model/types';
 
 const Row = ({ left, right }: { left: string; right?: string }) => (
     <Stack spacing={1} direction="row" justifyContent="space-between">
@@ -12,30 +11,30 @@ const Row = ({ left, right }: { left: string; right?: string }) => (
         >
             {left}
         </Typography>
-        <Typography variant="subtitle1">{right}</Typography>
+        <Typography variant="subtitle1">{right || 'Не указано'}</Typography>
     </Stack>
 );
 
 export const TopicCard = memo((props: Topic) => {
-    const { name, workStatus } = props;
+    const { name, owner, student, supervisor, requestedRole } = props;
 
     return (
         <Paper sx={(theme) => ({ padding: theme.spacing(3), borderRadius: theme.spacing(2) })}>
             <Stack spacing={3}>
                 <Stack spacing={1}>
-                    <BaseChip label={WorkStatusRus[workStatus]} sx={{ alignSelf: 'flex-start' }} />
+                    {/* <BaseChip label={WorkStatusRus[workStatus]} sx={{ alignSelf: 'flex-start' }} /> */}
                     <Typography variant="h3">{name}</Typography>
                 </Stack>
                 <Divider />
                 <Stack spacing={1}>
                     <Row left="Предприятие" right="" />
-                    <Row left="Направление" right="Направление" />
-                    <Row left="Требуемая роль" right="Роль" />
-                    <Row left="Автор" right="Миронова Е.М." />
+                    <Row left="Направление" right="" />
+                    <Row left="Требуемая роль" right={requestedRole} />
+                    <Row left="Автор" right={owner?.name} />
                     <Divider />
-                    <Row left="Студент" right="Миронова Е.М." />
+                    <Row left="Студент" right={student?.name} />
                     <Divider />
-                    <Row left="Руководитель" right="Миронова Е.М." />
+                    <Row left="Руководитель" right={supervisor?.name} />
                 </Stack>
             </Stack>
         </Paper>

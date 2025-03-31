@@ -1,6 +1,4 @@
 import { PersonMainInfo } from '@/entities/Person/model/types';
-import { Professor } from '@/entities/Professor';
-import { Student } from '@/entities/Student';
 
 export enum WorkStatus {
     NotConfirmed = 'NotConfirmed',
@@ -12,15 +10,12 @@ export interface Topic {
     id: string;
     name: string;
     description: string;
-    isFavorite: boolean;
-    canJoin: boolean;
     result: string;
-    problem: string;
-    limit: number;
-    fullness: number;
-    workStatus: WorkStatus;
-    professor: Professor;
-    students: Student[];
+    requestedRole: string;
+    supervisor: PersonMainInfo;
+    student: PersonMainInfo;
+    owner: PersonMainInfo;
+    // workStatus: WorkStatus;
 }
 
 export type TopicCardModel = {
@@ -47,15 +42,11 @@ export interface ScientificWorksRequest {
 
 export interface ScientificWorkDto {
     id: string;
-    name: string;
+    topic: string;
     description: string;
-    isFavorite: boolean;
-    canJoin: boolean;
     result: string;
-    problem: string;
-    limit: number;
-    fullness: number;
-    workStatus: WorkStatus;
-    professor: Professor;
-    studentDtos: Student[];
+    requestedRole: string;
+    supervisor: PersonMainInfo;
+    owner: PersonMainInfo;
+    student: PersonMainInfo;
 }

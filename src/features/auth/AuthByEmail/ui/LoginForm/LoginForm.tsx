@@ -1,11 +1,10 @@
+import { useAuthMutation } from '@/entities/User/api/userApi';
+import { BaseField, BaseLoadingButton, PasswordField } from '@/shared/ui';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Stack, Typography } from '@mui/material';
 import classNames from 'classnames';
 import { memo, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-import { BaseField, BaseLoadingButton, PasswordField } from '@/shared/ui';
-import { useAuthMutation } from '@/entities/User/api/userApi';
 import { LoginFormSchema, loginFormSchema } from '../../model/types/loginFormSchema';
 
 export interface LoginFormProps {
@@ -14,14 +13,13 @@ export interface LoginFormProps {
 
 const LoginForm = memo((props: LoginFormProps) => {
     const { className } = props;
-    const navigate = useNavigate();
     const [auth, { isLoading }] = useAuthMutation();
 
     const {
         formState: { errors },
         handleSubmit,
         register,
-        // setError,
+        setError,
     } = useForm<LoginFormSchema>({
         resolver: zodResolver(loginFormSchema),
     });
@@ -30,12 +28,15 @@ const LoginForm = memo((props: LoginFormProps) => {
         async (data: LoginFormSchema) => {
             try {
                 await auth(data);
-                navigate('/', { replace: true });
+                window.location.href = '/';
             } catch (err) {
-                /* empty */
+                setError('root', {
+                    type: 'server',
+                    message: 'Неправильный логин или пароль',
+                });
             }
         },
-        [auth, navigate],
+        [auth, setError],
     );
 
     return (
@@ -44,7 +45,7 @@ const LoginForm = memo((props: LoginFormProps) => {
                 <Stack spacing={2} width="100%">
                     <BaseField
                         autoFocus
-                        label="Эл. почта"
+                        label="Логин"
                         fullWidth
                         {...register('email')}
                         error={Boolean(errors.email)}

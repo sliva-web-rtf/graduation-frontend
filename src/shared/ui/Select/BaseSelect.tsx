@@ -16,34 +16,65 @@ export const StyledSelect = styled(Select)<SelectProps>(({ theme }) => ({
 }));
 
 export type BaseSelectProps = SelectProps & {
-    readonly name: string;
-    readonly control: any;
-    readonly options: Array<string | number>;
-    readonly helperText?: string;
+    name: string;
+    control: any;
+    options: Array<string | number>;
+    helperText?: string;
+    useController?: boolean;
+    clearable?: boolean;
 };
 
 export const BaseSelect = (props: BaseSelectProps) => {
-    const { name, control, options, label, helperText, defaultValue, ...otherProps } = props;
+    const {
+        name,
+        clearable = true,
+        control,
+        options,
+        label,
+        helperText,
+        defaultValue,
+        useController = true,
+        value,
+        onChange,
+        ...otherProps
+    } = props;
+
+    const renderSelect = (fieldProps?: { value: any; onChange: (event: any) => void }) => (
+        <StyledSelect
+            {...otherProps}
+            label={label}
+            labelId={`${name}-label`}
+            value={fieldProps?.value ?? value ?? ''}
+            onChange={fieldProps?.onChange ?? onChange}
+        >
+            {!otherProps.multiple && clearable && (
+                <MenuItem value="">
+                    <b>Сбросить выбор</b>
+                </MenuItem>
+            )}
+            {options.map((option) => (
+                <MenuItem key={option} value={option}>
+                    {option}
+                </MenuItem>
+            ))}
+        </StyledSelect>
+    );
 
     return (
         <FormControl fullWidth>
             <InputLabel id={`${name}-label`} error={otherProps.error}>
                 {label}
             </InputLabel>
-            <Controller
-                name={name}
-                control={control}
-                defaultValue={defaultValue}
-                render={({ field }) => (
-                    <StyledSelect {...otherProps} label={label} labelId={`${name}-label`} {...field}>
-                        {options.map((option) => (
-                            <MenuItem key={option} value={option}>
-                                {option}
-                            </MenuItem>
-                        ))}
-                    </StyledSelect>
-                )}
-            />
+            {useController && control ? (
+                <Controller
+                    name={name}
+                    control={control}
+                    defaultValue={defaultValue}
+                    render={({ field }) => renderSelect(field)}
+                />
+            ) : (
+                renderSelect()
+            )}
             {helperText && (
                 <FormHelperText sx={(theme) => ({ color: theme.palette.error.main })}>{helperText}</FormHelperText>
             )}

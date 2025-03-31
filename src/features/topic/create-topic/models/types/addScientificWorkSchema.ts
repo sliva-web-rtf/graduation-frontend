@@ -9,7 +9,7 @@ export const createTopicFormSchema = z
             required_error: 'Укажите роль',
             invalid_type_error: 'Некорректный формат данных',
         }),
-        // academicPrograms: z.array(z.string()).min(1, 'Укажите направление'),
+        academicPrograms: z.array(z.string()).min(1, 'Укажите направление'),
         requiresСompany: z.boolean().optional(),
         companyName: z.string().optional(),
         requiresSupervisor: z.boolean().optional(),
