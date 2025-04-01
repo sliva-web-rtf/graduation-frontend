@@ -19,6 +19,7 @@ export * from './Radio/Radio';
 export { BaseSearch } from './Search/Search';
 export * from './Select/BaseSelect';
 export { SortButton } from './SortButton/SortButton';
+export { CommentCard } from './CommentCard/CommentCard';
 export * from './Switch/Switch';
 export * from './Table/Table';
 export * from './Tabs/Tabs';
