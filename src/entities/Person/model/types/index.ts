@@ -1,8 +1,10 @@
-type User = {
-    firstName: string;
-    lastName: string;
+import { Role } from '@/entities/User';
 
-    patronymic?: string;
+export type PersonMainInfo = {
+    id: string;
+    name: string;
+    role: Role;
+
     about?: string;
     contacts?: string;
     canJoin?: boolean;
@@ -21,7 +23,7 @@ export type Manager = {
     fullness: number;
 };
 
-export type Person = User & Partial<Student> & Partial<Manager>;
+export type Person = PersonMainInfo & Partial<Student> & Partial<Manager>;
 
 type Entity = 'student' | 'professor';
 

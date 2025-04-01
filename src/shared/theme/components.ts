@@ -1,46 +1,29 @@
 /* eslint-disable no-unused-vars */
 import { Components, Theme } from '@mui/material';
-import { shadows } from './shadows';
-
-declare module '@mui/material/Button' {
-    interface ButtonPropsVariantOverrides {
-        shadowed: true;
-    }
-}
+import { grey } from '@mui/material/colors';
 
 export const components: Components<Omit<Theme, 'components'>> | undefined = {
     MuiButton: {
+        defaultProps: { variant: 'outlined' },
         variants: [
             {
-                props: { variant: 'shadowed' },
+                props: { variant: 'outlined' },
                 style: {
                     backgroundColor: 'white',
-                    boxShadow: shadows['1'],
+                    borderColor: grey['300'],
+                },
+            },
+            {
+                props: { variant: 'contained' },
+                style: {
+                    boxShadow: 'none',
                 },
             },
         ],
     },
     MuiTextField: {
-        defaultProps: {
-            variant: 'filled',
-            InputProps: {
-                disableUnderline: true,
-            },
-        },
+        defaultProps: { variant: 'outlined', autoComplete: 'off' },
     },
-    MuiAvatar: {
-        styleOverrides: {
-            root: {
-                color: '#AECBF5',
-                backgroundColor: '#E7F0FF',
-                '.MuiSvgIcon-root': {
-                    width: '45%',
-                    height: '45%',
-                },
-            },
-        },
-    },
-
     MuiModal: {
         styleOverrides: {
             root: {
@@ -49,5 +32,8 @@ export const components: Components<Omit<Theme, 'components'>> | undefined = {
                 },
             },
         },
+    },
+    MuiPaper: {
+        defaultProps: { variant: 'outlined' },
     },
 };

@@ -4,8 +4,7 @@
     column-gap: calc(2 * var(--space-xl));
     height: var(--catalog-card-height);
     padding: var(--space-l);
-    background-color: var(--light-background-color);
-    border: 1px solid var(--border-color);
+    border-radius: var(--space-l);
 }
 
 .title,

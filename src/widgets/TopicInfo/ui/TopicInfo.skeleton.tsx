@@ -1,6 +1,6 @@
-import { memo } from 'react';
 import { Grid, Stack } from '@mui/material';
-import { TopicCardSkeleton } from '@/entities/ScientificWork';
+import { memo } from 'react';
+import { TopicCardSkeleton } from '@/entities/Topic';
 import { InfoCardSkeleton } from '@/shared/ui/InfoCard/InfoCard.skeleton';
 
 export const TopicInfoSkeleton = memo(() => (

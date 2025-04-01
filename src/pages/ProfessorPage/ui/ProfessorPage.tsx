@@ -1,12 +1,13 @@
-import { Helmet } from 'react-helmet';
 import { Stack, Typography } from '@mui/material';
+import { Helmet } from 'react-helmet';
+import { SITENAME } from '@/shared/lib/const';
 import { BackButton } from '@/widgets/BackButton';
 import { PersonInfo } from '@/widgets/PersonInfo';
 
 const ProfessorPage = () => (
     <>
         <Helmet>
-            <title>Руководитель ВКР | SCI Join</title>
+            <title>Руководитель ВКР | {SITENAME}</title>
         </Helmet>
         <Stack spacing={6}>
             <Stack spacing={4}>

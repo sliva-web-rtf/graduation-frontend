@@ -5,7 +5,7 @@ export const getParamsByOption = (option: CatalogOption) => {
     let param = 'studentId';
 
     switch (option) {
-        case CatalogOption.Managers:
+        case CatalogOption.Supervisors:
             endpoint = 'professor';
             param = 'professorId';
             break;

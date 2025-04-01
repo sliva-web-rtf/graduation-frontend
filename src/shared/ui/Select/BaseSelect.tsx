@@ -1,59 +1,83 @@
 import { FormControl, FormHelperText, InputLabel, MenuItem, Select, SelectProps, styled } from '@mui/material';
-import { memo } from 'react';
 import { Controller } from 'react-hook-form';
 
 export const StyledSelect = styled(Select)<SelectProps>(({ theme }) => ({
     '&': {
         borderRadius: theme.spacing(2),
         backgroundColor: theme.palette.background.paper,
-        boxShadow: theme.shadows[1],
+        fontWeight: 500,
     },
-    '& .MuiOutlinedInput-notchedOutline': {
-        border: 'none',
+    '&:hover .MuiOutlinedInput-notchedOutline': {
+        borderColor: '#1e88e5 !important',
     },
-    '&.Mui-focused  .MuiOutlinedInput-notchedOutline': {
-        border: `2px solid ${theme.palette.primary.main}`,
-    },
-    '&.Mui-error': {
-        boxShadow: theme.shadows['0'],
-        border: `2px solid ${theme.palette.error.main}`,
-    },
-    '&.Mui-error.Mui-focused .MuiOutlinedInput-notchedOutline': {
-        border: 'none',
+    '&:hover.Mui-error .MuiOutlinedInput-notchedOutline': {
+        borderColor: `${theme.palette.error.main} !important`,
     },
 }));
 
 export type BaseSelectProps = SelectProps & {
-    readonly name: string;
-    readonly control: any;
-    readonly options: Array<string | number>;
-    readonly helperText?: string;
+    name: string;
+    control: any;
+    options: Array<string | number>;
+    helperText?: string;
+    useController?: boolean;
+    clearable?: boolean;
 };
 
-export const BaseSelect = memo((props: BaseSelectProps) => {
-    const { name, control, options, label, helperText, defaultValue, ...otherProps } = props;
+export const BaseSelect = (props: BaseSelectProps) => {
+    const {
+        name,
+        clearable = true,
+        control,
+        options,
+        label,
+        helperText,
+        defaultValue,
+        useController = true,
+        value,
+        onChange,
+        ...otherProps
+    } = props;
+
+    const renderSelect = (fieldProps?: { value: any; onChange: (event: any) => void }) => (
+        <StyledSelect
+            {...otherProps}
+            label={label}
+            labelId={`${name}-label`}
+            value={fieldProps?.value ?? value ?? ''}
+            onChange={fieldProps?.onChange ?? onChange}
+        >
+            {!otherProps.multiple && clearable && (
+                <MenuItem value="">
+                    <b>Сбросить выбор</b>
+                </MenuItem>
+            )}
+            {options.map((option) => (
+                <MenuItem key={option} value={option}>
+                    {option}
+                </MenuItem>
+            ))}
+        </StyledSelect>
+    );
 
     return (
         <FormControl fullWidth>
-            <InputLabel id={`${name}-label`}>{label}</InputLabel>
-            <Controller
-                name={name}
-                control={control}
-                defaultValue={defaultValue}
-                render={({ field }) => (
-                    // eslint-disable-next-line react/jsx-props-no-spreading
-                    <StyledSelect {...otherProps} label={label} labelId={`${name}-label`} {...field}>
-                        {options.map((option) => (
-                            <MenuItem key={option} value={option}>
-                                {option}
-                            </MenuItem>
-                        ))}
-                    </StyledSelect>
-                )}
-            />
+            <InputLabel id={`${name}-label`} error={otherProps.error}>
+                {label}
+            </InputLabel>
+            {useController && control ? (
+                <Controller
+                    name={name}
+                    control={control}
+                    defaultValue={defaultValue}
+                    render={({ field }) => renderSelect(field)}
+                />
+            ) : (
+                renderSelect()
+            )}
             {helperText && (
                 <FormHelperText sx={(theme) => ({ color: theme.palette.error.main })}>{helperText}</FormHelperText>
             )}
         </FormControl>
     );
-});
+};

@@ -1,27 +1,29 @@
+import { CATALOG_CARD_HEIGHT, SortDirection } from '@/shared/lib/const';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CatalogSchema } from '@/widgets/Catalog/model/types/catalogSchema';
-import { CatalogOption } from '../types/catalogOption';
-import { DIRECTIONS } from '@/shared/lib/const';
+import { CatalogOption, CatalogSchema } from '../types';
 
 export const initialState: CatalogSchema = {
     option: CatalogOption.Topics,
     options: Object.values(CatalogOption),
-    page: 1,
-    pageSize: 3,
+    page: 0,
+    size: Math.round((window.innerHeight - 335) / (CATALOG_CARD_HEIGHT + 16)),
     pagesCount: {
-        [CatalogOption.Managers]: 1,
+        [CatalogOption.Supervisors]: 1,
         [CatalogOption.Topics]: 1,
         [CatalogOption.Students]: 1,
     },
-    scientificInterests: [],
-    directions: DIRECTIONS,
-    isFavoriteFilterOnly: false,
+    academicProgram: '',
+    order: SortDirection.DESC,
 };
 
 export const catalogSlice = createSlice({
     name: 'catalog',
     initialState,
     reducers: {
+        setSearch: (state, action: PayloadAction<CatalogSchema['query']>) => {
+            state.query = action.payload;
+            state.page = 0;
+        },
         setOption: (state, action: PayloadAction<CatalogSchema['option']>) => {
             state.option = action.payload;
         },
@@ -34,14 +36,14 @@ export const catalogSlice = createSlice({
         setPagesCount: (state, action: PayloadAction<number>) => {
             state.pagesCount[state.option] = action.payload;
         },
-        setScientificInterests: (state, action: PayloadAction<CatalogSchema['scientificInterests']>) => {
-            state.scientificInterests = action.payload;
+        setAcademicProgram: (state, action: PayloadAction<CatalogSchema['academicProgram']>) => {
+            state.academicProgram = action.payload;
         },
-        setDirections: (state, action: PayloadAction<CatalogSchema['directions']>) => {
-            state.directions = action.payload;
+        setOrder: (state, action: PayloadAction<CatalogSchema['order']>) => {
+            state.order = action.payload;
         },
-        setIsFavoriteFilter: (state, action: PayloadAction<CatalogSchema['isFavoriteFilterOnly']>) => {
-            state.isFavoriteFilterOnly = action.payload;
+        setIncludeOwnedTopics: (state, action: PayloadAction<CatalogSchema['includeOwnedTopics']>) => {
+            state.includeOwnedTopics = action.payload;
         },
     },
 });

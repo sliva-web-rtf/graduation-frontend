@@ -1,7 +1,7 @@
 import { FormControl, RadioGroup, Stack, Typography } from '@mui/material';
 import { ChangeEvent, memo } from 'react';
-import { ScientificWork, TopicRadio, useGetUsersScientificWorksQuery } from '@/entities/ScientificWork';
-import { BaseLoadingButton, BaseModal } from '@/shared/ui';
+import { TopicCardModel, useGetUsersScientificWorksQuery } from '@/entities/Topic';
+import { BaseLoadingButton, BaseModal, BaseRadio } from '@/shared/ui';
 
 interface AddRequestModalProps {
     readonly id: string;
@@ -14,15 +14,15 @@ interface AddRequestModalProps {
     readonly disabled: boolean;
 }
 
-const RadioList = memo(({ items }: { items?: Array<ScientificWork> }) => {
+const RadioList = memo(({ items }: { items?: Array<TopicCardModel> }) => {
     if (!items?.length) {
-        return <Typography variant="body1">Темы отсутсвуют</Typography>;
+        return <Typography>Темы отсутсвуют</Typography>;
     }
 
     return (
         <Stack>
-            {items.map((item: ScientificWork) => (
-                <TopicRadio value={item.id} label={item.name} />
+            {items.map((item: TopicCardModel) => (
+                <BaseRadio key={item.id} label={item.name} value={item.id} />
             ))}
         </Stack>
     );
@@ -40,10 +40,6 @@ export const AddRequestModal = memo((props: AddRequestModalProps) => {
         { skip: !open },
     );
 
-    if (isOtherWorksFetching || isUsersWorksFetching) {
-        return null;
-    }
-
     const handleRadioChange = (_: ChangeEvent<HTMLInputElement>, value: string) => {
         setScientificWorkId(value);
     };
@@ -54,37 +50,35 @@ export const AddRequestModal = memo((props: AddRequestModalProps) => {
             subtitle="Выберите тему ВКР для отправки запроса"
             actionButton={
                 <BaseLoadingButton
-                    loading={!scientificWorkId || disabled}
+                    disabled={!scientificWorkId || isOtherWorksFetching || isUsersWorksFetching}
+                    loading={disabled}
                     variant="contained"
-                    sx={{ alignSelf: 'flex-end' }}
                     onClick={onSubmit}
                 >
                     Оформить заявку
                 </BaseLoadingButton>
             }
             open={open}
+            loading={isOtherWorksFetching || isUsersWorksFetching}
             onClose={onClose}
             onClick={(e) => {
                 e.stopPropagation();
-                e.preventDefault();
             }}
         >
-            <form>
-                <FormControl>
-                    <RadioGroup name="scientificWorkId" value={scientificWorkId} onChange={handleRadioChange}>
-                        <Stack spacing={4}>
-                            <Stack spacing={2}>
-                                <Typography variant="h3">Выбрать из тем пользователя</Typography>
-                                <RadioList items={otherScientificWorks} />
-                            </Stack>
-                            <Stack spacing={2}>
-                                <Typography variant="h3">Предложить из своих тем</Typography>
-                                <RadioList items={usersScientificWorks} />
-                            </Stack>
+            <FormControl>
+                <RadioGroup name="scientificWorkId" value={scientificWorkId} onChange={handleRadioChange}>
+                    <Stack spacing={4}>
+                        <Stack spacing={2}>
+                            <Typography variant="h3">Выбрать из тем пользователя</Typography>
+                            <RadioList items={otherScientificWorks} />
                         </Stack>
-                    </RadioGroup>
-                </FormControl>
-            </form>
+                        <Stack spacing={2}>
+                            <Typography variant="h3">Предложить из своих тем</Typography>
+                            <RadioList items={usersScientificWorks} />
+                        </Stack>
+                    </Stack>
+                </RadioGroup>
+            </FormControl>
         </BaseModal>
     );
 });

@@ -1,6 +1,6 @@
-@import "reset";
-@import "variables/global";
-@import "fonts";
+@use "reset";
+@use "variables/global";
+@use "fonts";
 
 #root {
     background-color: var(--bg-color);

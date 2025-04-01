@@ -1,51 +1,40 @@
-import { Box, Paper, Stack, Typography } from '@mui/material';
+import { RequestButton } from '@/features/entity/AddRequests';
+import { LimitInfo } from '@/shared/ui/LimitInfo/LimitInfo';
+import { Paper, Stack, Typography } from '@mui/material';
 import { memo, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { getParentLink } from '@/entities/CatalogCard/lib/helpers/getParentLink';
-import { RequestButton } from '@/features/entity/AddRequests';
+import { getParentLink } from '../lib';
 import { type ICatalogCard } from '../model/types/ICatalogCard';
 import styles from './CatalogCard.module.scss';
-import { LimitInfo } from '@/shared/ui/LimitInfo/LimitInfo';
 
 export const CatalogCard = memo((props: ICatalogCard) => {
-    const { id, title, subtitle, description, option, canJoin, commandSearching, professorSearching, limit, fullness } =
-        props;
-
+    const { id, title, subtitle, description, option, limit, fullness } = props;
     const parentLink = useMemo(() => getParentLink(option), [option]);
 
-    const text =
-        // eslint-disable-next-line max-len
-        'Разработка эффективных численных методов, параллельных алгоритмов и программ решения задач математической физики на многопроцессорных вычислительных системах, разработка методов глубокого обучения и обработка радиолокационных данных для построения цифровых моделей рельефа земной поверхности.';
-
     return (
-        <Box
+        <Paper
             component={Link}
             to={`/${parentLink}/${id}`}
             className={styles.card}
-            sx={{ borderRadius: 3, '&:hover': { textDecoration: 'none' } }}
+            sx={{ '&:hover': { textDecoration: 'none' } }}
         >
             <Stack spacing={3}>
                 <Stack spacing={1}>
                     <Typography variant="subtitle1" color="secondary">
-                        {subtitle || 'Текст'}
+                        {subtitle}
                     </Typography>
                     <Typography variant="h3" className={styles.title}>
-                        {title || 'Текст'}
+                        {title}
                     </Typography>
                 </Stack>
                 <Typography variant="subtitle1" fontFamily="Manrope" fontWeight={500} className={styles.description}>
-                    {description || text}
+                    {description || 'Описание отсутствует'}
                 </Typography>
             </Stack>
             <Stack spacing={6} alignSelf="center" justifyContent="space-between">
                 <LimitInfo limit={limit} fullness={fullness} />
-                <RequestButton
-                    id={id}
-                    commandSearching={Boolean(commandSearching)}
-                    professorSearching={Boolean(professorSearching)}
-                    canJoin={Boolean(canJoin)}
-                />
+                <RequestButton id={id} />
             </Stack>
-        </Box>
+        </Paper>
     );
 });

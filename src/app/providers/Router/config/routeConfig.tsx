@@ -2,11 +2,14 @@
 import { RouteProps } from 'react-router-dom';
 import { type Role } from '@/entities/User/model/types/role';
 import { CatalogPage } from '@/pages/CatalogPage';
+import { CreateTopicPage } from '@/pages/CreateTopicPage';
 import { ForbiddenPage } from '@/pages/ForbiddenPage';
 import { LoginPage } from '@/pages/LoginPage';
+import { MyDimpomPage } from '@/pages/MyDimpomPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 import { ProfessorPage } from '@/pages/ProfessorPage';
 import { ProfilePage } from '@/pages/ProfilePage';
+import { RequestsPage } from '@/pages/RequestsPage';
 import { StudentPage } from '@/pages/StudentPage';
 import { TestPage } from '@/pages/TestPage';
 import { TopicPage } from '@/pages/TopicPage';
@@ -20,7 +23,7 @@ export type AppRoutesProps = RouteProps & {
 export enum AppRoutes {
     Login = 'Login',
     Catalog = 'Catalog',
-    Managers = 'Managers',
+    Supervisors = 'Supervisors',
     Topics = 'Topics',
     Students = 'Students',
     Profile = 'Profile',
@@ -32,27 +35,25 @@ export enum AppRoutes {
     MyGuides = 'MyGuides',
     MyStudents = 'MyStudents',
     Commissions = 'Commissions',
+    CreateTopic = 'CreateTopic',
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
+    [AppRoutes.Test]: '/test',
     [AppRoutes.Login]: '/login',
-    [AppRoutes.Managers]: '/manager/:id',
+    [AppRoutes.Supervisors]: '/manager/:id',
     [AppRoutes.Topics]: '/topics/:id',
     [AppRoutes.Students]: '/students/:id',
     [AppRoutes.Profile]: '/profile',
-    [AppRoutes.Test]: '/test',
     [AppRoutes.Requests]: '/requests',
     [AppRoutes.MyDiplom]: '/my-dimplom',
     [AppRoutes.MyGuides]: '/my-guides',
     [AppRoutes.MyStudents]: '/my-students',
     [AppRoutes.Commissions]: '/commissions',
+    [AppRoutes.CreateTopic]: '/create-topic',
     [AppRoutes.Catalog]: '/',
     [AppRoutes.Forbidden]: '/forbidden',
     [AppRoutes.NotFound]: '*',
-    // [AppRoutes.Signup]: '/signup',
-    // [AppRoutes.ConfirmEmail]: '/signup/confirm-email',
-    // [AppRoutes.Manual]: '/manual',
-    // [AppRoutes.ManualArticle]: '/manual/:id',
 };
 
 const withLayoutAndAuth = {
@@ -76,8 +77,8 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         element: <ProfilePage />,
         ...withLayoutAndAuth,
     },
-    [AppRoutes.Managers]: {
-        path: RoutePath.Managers,
+    [AppRoutes.Supervisors]: {
+        path: RoutePath.Supervisors,
         element: <ProfessorPage />,
         ...withLayoutAndAuth,
     },
@@ -103,7 +104,7 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     },
     [AppRoutes.Requests]: {
         path: RoutePath.Requests,
-        element: <>Заявки</>,
+        element: <RequestsPage />,
         ...withLayoutAndAuth,
     },
     [AppRoutes.Commissions]: {
@@ -111,9 +112,14 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         element: <>Комиссии</>,
         ...withLayoutAndAuth,
     },
+    [AppRoutes.CreateTopic]: {
+        path: RoutePath.CreateTopic,
+        element: <CreateTopicPage />,
+        ...withLayoutAndAuth,
+    },
     [AppRoutes.MyDiplom]: {
         path: RoutePath.MyDiplom,
-        element: <>Мой диплом</>,
+        element: <MyDimpomPage />,
         ...withLayoutAndAuth,
     },
     [AppRoutes.MyGuides]: {

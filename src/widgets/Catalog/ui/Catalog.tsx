@@ -1,19 +1,13 @@
-import { Stack } from '@mui/material';
-import { useSelector } from 'react-redux';
-import { ChangeEvent, memo } from 'react';
-import { BasePagination } from '@/shared/ui/Pagination/Pagination';
 import { Search } from '@/features/catalog/Search';
-import { ToggleList } from '@/features/catalog/ToggleList';
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { catalogActions, catalogReducer } from '@/widgets/Catalog/model/slice/catalogSlice';
-import { CatalogList } from '@/entities/CatalogList';
-import { CreateTopicButton } from '@/features/topic/create-topic';
 import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import { CatalogOption } from '../model/types/catalogOption';
-import { getCatalogPage } from '../model/selectors/getCatalogPage/getCatalogPage';
-import { getCatalogPagesCount } from '../model/selectors/getCatalogPagesCount/getCatalogPagesCount';
-import { getCatalogOption } from '../model/selectors/getCatalogOption/getCatalogOption';
-import { isUserStudent } from '@/entities/User';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { BasePagination, BaseSwitch } from '@/shared/ui';
+import { Stack, Tooltip } from '@mui/material';
+import { ChangeEvent, memo } from 'react';
+import { useSelector } from 'react-redux';
+import { catalogActions, CatalogOption, catalogReducer, getCatalog } from '../model';
+import { CatalogList } from './CatalogList';
+import { ToggleList } from './ToggleList';
 
 const initialReducers: ReducersList = {
     catalog: catalogReducer,
@@ -21,29 +15,36 @@ const initialReducers: ReducersList = {
 
 const Catalog = memo(() => {
     const dispatch = useAppDispatch();
-    const option = useSelector(getCatalogOption);
-    const page = useSelector(getCatalogPage);
-    const pagesCount = useSelector(getCatalogPagesCount);
-    const isStudent = useSelector(isUserStudent);
+    const { option, page, pagesCount, includeOwnedTopics } = useSelector(getCatalog);
 
     const handlePageChange = (_: ChangeEvent<unknown>, value: number) => {
-        dispatch(catalogActions.setPage(value));
+        dispatch(catalogActions.setPage(value - 1));
+    };
+
+    const handleIncludeOwnedTopicsChange = (_: ChangeEvent<unknown>, value: boolean) => {
+        dispatch(catalogActions.setIncludeOwnedTopics(value));
     };
 
     return (
-        <DynamicModuleLoader removeAfterUnmount reducers={initialReducers}>
+        <DynamicModuleLoader reducers={initialReducers}>
             <Stack spacing={4} justifyContent="space-between" height="100%">
                 <Stack spacing={4}>
                     <Search />
                     <Stack direction="row" justifyContent="space-between" alignItems="center">
                         <ToggleList />
-                        <Stack direction="row" spacing={2}>
-                            {!isStudent && option === CatalogOption.Topics && <CreateTopicButton />}
-                        </Stack>
+                        {option === CatalogOption.Topics && (
+                            <Tooltip title="Показывать мои темы в начале списка">
+                                <BaseSwitch
+                                    label="Мои темы"
+                                    value={includeOwnedTopics}
+                                    onChange={handleIncludeOwnedTopicsChange}
+                                />
+                            </Tooltip>
+                        )}
                     </Stack>
                     <CatalogList />
                 </Stack>
-                <BasePagination page={page} count={pagesCount[option]} onChange={handlePageChange} />
+                <BasePagination page={page + 1} count={pagesCount[option]} onChange={handlePageChange} />
             </Stack>
         </DynamicModuleLoader>
     );

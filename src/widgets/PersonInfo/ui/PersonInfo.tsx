@@ -1,16 +1,16 @@
 import { Grid, Stack, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { ToggleUsersInfo } from './TogglePersonInfo';
-import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import { PersonInfoSkeleton } from './PersonInfo.skeleton';
+import { PersonCard, useGetPersonQuery } from '@/entities/Person';
 import { RequestButton } from '@/features/entity/AddRequests';
-import classNames from './PersonInfo.module.scss';
-import { PersonPortfolio } from './PersonPortfolio';
-import { PersonTopics } from './PersonTopics';
+import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { getPersonInfoOption, personInfoReducer } from '../model';
 import { ToggleOptions } from '../model/types/toggleOptions';
-import { PersonCard, useGetPersonQuery } from '@/entities/Person';
+import classNames from './PersonInfo.module.scss';
+import { PersonInfoSkeleton } from './PersonInfo.skeleton';
+import { PersonPortfolio } from './PersonPortfolio';
+import { PersonTopics } from './PersonTopics';
+import { ToggleUsersInfo } from './TogglePersonInfo';
 
 const initialReducers: ReducersList = {
     'person-info': personInfoReducer,
@@ -34,7 +34,7 @@ export const PersonInfo = (props: { isStudent?: boolean }) => {
     return (
         <DynamicModuleLoader removeAfterUnmount reducers={initialReducers}>
             <Grid container gap={3}>
-                <Grid item xs={2.8}>
+                <Grid item xs={3.5}>
                     <Stack spacing={3}>
                         <PersonCard {...data} />
                         <RequestButton id={id!} canJoin={data.canJoin} commandSearching professorSearching />

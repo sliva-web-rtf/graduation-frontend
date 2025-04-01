@@ -1,7 +1,5 @@
 /build
+/dist
 node_modules
 .idea
-/storybook-static
-.loki/report.html
-.loki/report.json
 .vscode

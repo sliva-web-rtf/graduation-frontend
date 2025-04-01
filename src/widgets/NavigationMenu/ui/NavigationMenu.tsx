@@ -1,19 +1,20 @@
-import { NavLink, useLocation } from 'react-router-dom';
-import { memo } from 'react';
 import { TabsProps } from '@mui/material';
+import { memo } from 'react';
 import { useSelector } from 'react-redux';
-import { BaseTabs, BaseTab, TabLabel } from '@/shared/ui/Tabs/Tabs';
+import { NavLink, useLocation } from 'react-router-dom';
+import { BaseTab, BaseTabs, TabLabel } from '@/shared/ui';
+import { getUserData } from '@/entities/User';
 import { getTabs } from '../model/const';
-import { getUserRoles } from '@/entities/User/model/selectors/getUserRoles/getUserRoles';
 
 export const NavigationMenu = memo((props: TabsProps) => {
     const location = useLocation();
-    const userRoles = useSelector(getUserRoles);
+    const { user } = useSelector(getUserData);
+    const { roles } = user ?? { roles: [] };
 
-    const tabs = getTabs(userRoles?.[0]);
+    const tabs = getTabs(roles[0]);
 
     return (
-        <BaseTabs orientation="vertical" indicatorColor="primary" value={location.pathname} {...props}>
+        <BaseTabs orientation="vertical" value={location.pathname} {...props}>
             {tabs.map((item) => (
                 <BaseTab
                     key={item.path}

@@ -3,8 +3,8 @@ import { CombinedState, Reducer } from 'redux';
 import { userReducer } from '@/entities/User';
 import { baseApi } from '@/shared/api';
 import { createReducerManager } from './reducerManager';
-import { StateSchema } from './StateSchema';
 import { rtkQueryErrorMiddleware } from './rtkErrorMiddleware';
+import { StateSchema } from './StateSchema';
 
 export function createReduxStore(initialState?: StateSchema, asyncReducers?: ReducersMapObject<StateSchema>) {
     const rootReducers: ReducersMapObject<StateSchema> = {

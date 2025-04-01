@@ -1,10 +1,9 @@
-import { memo } from 'react';
-import { Grid, Stack, Typography } from '@mui/material';
-import { useParams } from 'react-router-dom';
-import { AddScientificWorkButton } from '@/features/entity/AddRequests';
-import { useGetScientificWorkQuery, TopicCard } from '@/entities/ScientificWork';
-import { TopicInfoSkeleton } from './TopicInfo.skeleton';
+import { TopicCard, useGetScientificWorkQuery } from '@/entities/Topic';
 import { InfoCard } from '@/shared/ui';
+import { Grid, Stack, Typography } from '@mui/material';
+import { memo } from 'react';
+import { useParams } from 'react-router-dom';
+import { TopicInfoSkeleton } from './TopicInfo.skeleton';
 
 export const TopicInfo = memo(() => {
     const { id } = useParams();
@@ -24,9 +23,9 @@ export const TopicInfo = memo(() => {
             <Grid item xs={5}>
                 <Stack spacing={3}>
                     <TopicCard {...data} />
-                    <Stack spacing={1} alignItems="center">
-                        <AddScientificWorkButton id={id!} canJoin={data.canJoin} />
-                    </Stack>
+                    {/* <Stack spacing={1} alignItems="center">
+                        <AddRequestModal id={id!} />
+                    </Stack> */}
                 </Stack>
             </Grid>
             <Grid item xs>

@@ -1,29 +1,28 @@
+import { memo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import React, { memo, useState } from 'react';
-import { BaseButton } from '@/shared/ui/Button/Button';
-import { isUserProfessor } from '@/entities/User/model/selectors/getUserRoles/getUserRoles';
-import { getUserAuthData } from '@/entities/User';
+import { getUserData } from '@/entities/User';
 import { useAddProfessorMutation, useAddStudentMutation } from '@/features/entity/AddRequests';
-import { RequestEnum } from '@/features/entity/AddRequests/model/types/requestEnum';
 import { AddRequestModal } from '@/features/entity/AddRequests/ui/AddRequestModal';
+import { BaseButton } from '@/shared/ui/Button/Button';
 
 interface RequestButtonProps {
-    readonly id: string;
-    readonly commandSearching: boolean;
-    readonly professorSearching: boolean;
-    readonly canJoin?: boolean;
+    id: string;
 }
 
 export const RequestButton = memo((props: RequestButtonProps) => {
-    const { id: studentId, commandSearching, professorSearching, canJoin } = props;
-    const isProfessor = useSelector(isUserProfessor);
-    const id = useSelector(getUserAuthData)?.id;
+    const { id: studentId } = props;
     const [scientificWorkId, setScientificWorkId] = useState('');
     const [open, setOpen] = useState(false);
-    const disabled = (isProfessor && !professorSearching) || (!isProfessor && !commandSearching);
 
     const [addToOrFromProfessor, { isLoading: isLoading1 }] = useAddProfessorMutation();
     const [addStudentFromStudent, { isLoading: isLoading2 }] = useAddStudentMutation();
+    const { user } = useSelector(getUserData);
+
+    if (!user) {
+        return null;
+    }
+
+    const { id } = user;
 
     const toggleOpen = () => {
         setOpen((prev) => !prev);
@@ -47,7 +46,7 @@ export const RequestButton = memo((props: RequestButtonProps) => {
             //         requestEnum: RequestEnum.FromStudent,
             //     });
             // }
-            toggleOpen();
+            // toggleOpen();
         } catch (error) {
             /* empty */
         }
@@ -62,13 +61,12 @@ export const RequestButton = memo((props: RequestButtonProps) => {
                     e.stopPropagation();
                     toggleOpen();
                 }}
-                disabled={canJoin === undefined ? false : !canJoin}
             >
                 Оформить заявку
             </BaseButton>
             <AddRequestModal
                 id={studentId}
-                userId={id!}
+                userId={id}
                 open={open}
                 onClose={toggleOpen}
                 scientificWorkId={scientificWorkId}

@@ -1,10 +1,9 @@
-import { styled, AppBar, AppBarProps } from '@mui/material';
+import { AppBar, AppBarProps, styled } from '@mui/material';
 
 export const BaseAppBar = styled(AppBar)<AppBarProps>(({ theme }) => ({
     '&': {
-        borderRadius: theme.spacing(1),
+        borderRadius: theme.spacing(2),
         background: theme.palette.background.default,
-        boxShadow: 'none',
     },
     '& .MuiToolbar-root': {
         justifyContent: 'space-between',

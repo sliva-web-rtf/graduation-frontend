@@ -1,10 +1,11 @@
+import AddIcon from '@mui/icons-material/Add';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
-import ManageSearchOutlinedIcon from '@mui/icons-material/ManageSearchOutlined';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
-import HubIcon from '@mui/icons-material/Hub';
 import GroupIcon from '@mui/icons-material/Group';
-import { RoutePath } from '@/app/providers/Router/config/routeConfig';
+import HubIcon from '@mui/icons-material/Hub';
+import ManageSearchOutlinedIcon from '@mui/icons-material/ManageSearchOutlined';
 import { Role } from '@/entities/User';
+import { RoutePath } from '@/app/providers/Router/config/routeConfig';
 import { Tab } from './types';
 
 const studentTabs: Tab[] = [
@@ -23,6 +24,11 @@ const studentTabs: Tab[] = [
         path: RoutePath.Requests,
         icon: <FormatListBulletedIcon />,
     },
+    {
+        label: 'Создание темы',
+        path: RoutePath.CreateTopic,
+        icon: <AddIcon />,
+    },
 ];
 
 const managerTabs: Tab[] = [
@@ -40,6 +46,11 @@ const managerTabs: Tab[] = [
         label: 'Заявки',
         path: RoutePath.Requests,
         icon: <FormatListBulletedIcon />,
+    },
+    {
+        label: 'Создание темы',
+        path: RoutePath.CreateTopic,
+        icon: <AddIcon />,
     },
 ];
 
@@ -73,7 +84,7 @@ export const getTabs = (role?: Role) => {
     switch (role) {
         case Role.Student:
             return studentTabs;
-        case Role.Professor:
+        case Role.Supervisor:
             return managerTabs;
         case Role.Expert:
             return expertTabs;

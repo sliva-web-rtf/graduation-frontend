@@ -5,11 +5,11 @@ import { CombinedState } from 'redux';
 import { UserSchema } from '@/entities/User';
 import { type LoginSchema } from '@/features/auth/AuthByEmail/model/types/loginSchema';
 import { baseApi } from '@/shared/api';
-import { type CatalogSchema } from '@/widgets/Catalog/model/types/catalogSchema';
-import { PersonalDataSchema } from '@/widgets/PersonalData/model/types/personalDataSchema';
+import { type CatalogSchema } from '@/widgets/Catalog';
+import { PersonalDataSchema } from '@/widgets/PersonalData';
 import { PersonInfoSchema } from '@/widgets/PersonInfo';
 import { ProfileSchema } from '@/widgets/Profile';
-import { RequestsSectionSchema } from '@/widgets/RequestsSection';
+import { RequestsSchema } from '@/widgets/Requests';
 
 export interface StateSchema {
     [baseApi.reducerPath]: ReturnType<typeof baseApi.reducer>;
@@ -19,7 +19,7 @@ export interface StateSchema {
     catalog?: CatalogSchema;
     personalData?: PersonalDataSchema;
     profile?: ProfileSchema;
-    requestsSection?: RequestsSectionSchema;
+    requests?: RequestsSchema;
     'person-info'?: PersonInfoSchema;
 }
 

@@ -1,21 +1,27 @@
 import { Stack } from '@mui/material';
 import { memo } from 'react';
-import { ToggleList } from '@/features/profile/ToggleList';
+import { useSelector } from 'react-redux';
+import { ChangePasswordForm, PersonalInfoForm } from '@/widgets/PersonalData';
 import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import { profileReducer } from '../model/slice/profileSlice';
-import { ConditionComponent } from '@/shared/ui';
+import { getProfile, ProfileOption, profileReducer } from '../model';
+import { ToggleList } from './ToggleList';
 
 const initialReducers: ReducersList = {
     profile: profileReducer,
 };
 
-const Profile = memo(() => (
-    <DynamicModuleLoader removeAfterUnmount reducers={initialReducers}>
-        <Stack spacing={4} height="100%">
-            <ToggleList />
-            <ConditionComponent />
-        </Stack>
-    </DynamicModuleLoader>
-));
+const Profile = memo(() => {
+    const { option } = useSelector(getProfile);
+
+    return (
+        <DynamicModuleLoader removeAfterUnmount reducers={initialReducers}>
+            <Stack spacing={4} height="100%" maxWidth="600px">
+                <ToggleList />
+                {option === ProfileOption.PersonalData && <PersonalInfoForm />}
+                {option === ProfileOption.Security && <ChangePasswordForm />}
+            </Stack>
+        </DynamicModuleLoader>
+    );
+});
 
 export default Profile;

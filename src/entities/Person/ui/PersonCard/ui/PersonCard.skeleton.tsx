@@ -3,8 +3,8 @@ import { Divider, Paper, Skeleton, Stack } from '@mui/material';
 export const PersonCardSkeleton = () => (
     <Paper
         sx={(theme) => ({
-            padding: [theme.spacing(3), theme.spacing(2)].join(' '),
-            borderRadius: theme.spacing(4),
+            padding: theme.spacing(2),
+            borderRadius: theme.spacing(2),
         })}
     >
         <Stack spacing={3}>

@@ -1,10 +1,10 @@
-import { useCallback } from 'react';
 import { Typography } from '@mui/material';
+import { useCallback } from 'react';
 import { CatalogCard } from '@/entities/CatalogCard';
-import { transformDtoForCatalogCard } from '@/entities/CatalogList/lib/helpers/transformDtoForCatalogCard';
-import { PersonTopicsSkeleton } from './PersonTopics.skeleton';
-import { ScientificWork, useGetUsersScientificWorksQuery } from '@/entities/ScientificWork';
+import { TopicCardModel, useGetUsersScientificWorksQuery } from '@/entities/Topic';
 import { BaseList } from '@/shared/ui/List/List';
+import { CatalogOption, transformDtoForCatalogCard } from '@/widgets/Catalog';
+import { PersonTopicsSkeleton } from './PersonTopics.skeleton';
 
 type PersonTopicsProps = {
     userId: string;
@@ -15,9 +15,9 @@ export const PersonTopics = (props: PersonTopicsProps) => {
     const { userId, className } = props;
     const { isFetching, data } = useGetUsersScientificWorksQuery({ userId });
 
-    const render = useCallback((item: ScientificWork) => {
+    const render = useCallback((item: TopicCardModel) => {
         const transformed = transformDtoForCatalogCard(item);
-        return <CatalogCard key={transformed.id} {...transformed} />;
+        return <CatalogCard key={transformed.id} option={CatalogOption.Topics} {...transformed} />;
     }, []);
 
     if (isFetching) {
