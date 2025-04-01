@@ -1,10 +1,10 @@
-import { Grid, Stack, Typography } from '@mui/material';
-import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import { PersonCard, useGetPersonQuery } from '@/entities/Person';
 import { RequestButton } from '@/features/entity/AddRequests';
 import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import { getPersonInfoOption, personInfoReducer } from '../model';
+import { Grid, Stack, Typography } from '@mui/material';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { getPersonInfo, personInfoReducer } from '../model';
 import { ToggleOptions } from '../model/types/toggleOptions';
 import classNames from './PersonInfo.module.scss';
 import { PersonInfoSkeleton } from './PersonInfo.skeleton';
@@ -19,7 +19,7 @@ const initialReducers: ReducersList = {
 export const PersonInfo = (props: { isStudent?: boolean }) => {
     const { isStudent } = props;
     const { id } = useParams();
-    const option = useSelector(getPersonInfoOption);
+    const { option } = useSelector(getPersonInfo);
 
     const { isFetching, data } = useGetPersonQuery({ id: id!, entity: isStudent ? 'student' : 'professor' });
 
@@ -37,7 +37,7 @@ export const PersonInfo = (props: { isStudent?: boolean }) => {
                 <Grid item xs={3.5}>
                     <Stack spacing={3}>
                         <PersonCard {...data} />
-                        <RequestButton id={id!} canJoin={data.canJoin} commandSearching professorSearching />
+                        <RequestButton id={id!} />
                     </Stack>
                 </Grid>
                 <Grid item xs>

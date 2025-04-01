@@ -25,7 +25,7 @@ const BaseTab = styled(Tab)<BaseTabProps>(({ theme }) => ({
         textTransform: 'none',
         alignItems: 'flex-start',
         justifyContent: 'center',
-        borderRadius: theme.spacing(2),
+        borderRadius: theme.spacing(1.5),
     },
     '&.Mui-selected': {
         color: theme.palette.primary.contrastText,

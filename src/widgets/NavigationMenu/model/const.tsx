@@ -1,77 +1,23 @@
-import AddIcon from '@mui/icons-material/Add';
+import { RoutePath } from '@/app/providers/Router/config/routeConfig';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import GroupIcon from '@mui/icons-material/Group';
 import HubIcon from '@mui/icons-material/Hub';
 import ManageSearchOutlinedIcon from '@mui/icons-material/ManageSearchOutlined';
-import { Role } from '@/entities/User';
-import { RoutePath } from '@/app/providers/Router/config/routeConfig';
+import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
 import { Tab } from './types';
 
-const studentTabs: Tab[] = [
-    {
-        label: 'Мой диплом',
-        path: RoutePath.MyDiplom,
-        icon: <DescriptionOutlinedIcon />,
-    },
-    {
-        label: 'Выбор темы',
-        path: RoutePath.Catalog,
-        icon: <ManageSearchOutlinedIcon />,
-    },
-    {
-        label: 'Заявки',
-        path: RoutePath.Requests,
-        icon: <FormatListBulletedIcon />,
-    },
-    {
-        label: 'Создание темы',
-        path: RoutePath.CreateTopic,
-        icon: <AddIcon />,
-    },
-];
+const myDiplom = { label: 'Мой диплом', path: RoutePath.MyDiplom, icon: <DescriptionOutlinedIcon /> };
+const myTopics = { label: 'Мои темы', path: RoutePath.MyTopics, icon: <WorkOutlineIcon /> };
+const myStudents = { label: 'Мои студенты', path: RoutePath.MyStudents, icon: <GroupIcon /> };
+const catalog = { label: 'Выбор темы', path: RoutePath.Catalog, icon: <ManageSearchOutlinedIcon /> };
+const requests = { label: 'Заявки', path: RoutePath.Requests, icon: <FormatListBulletedIcon /> };
 
-const managerTabs: Tab[] = [
-    {
-        label: 'Мои руководства',
-        path: RoutePath.MyGuides,
-        icon: <GroupIcon />,
-    },
-    {
-        label: 'Выбор темы',
-        path: RoutePath.Catalog,
-        icon: <ManageSearchOutlinedIcon />,
-    },
-    {
-        label: 'Заявки',
-        path: RoutePath.Requests,
-        icon: <FormatListBulletedIcon />,
-    },
-    {
-        label: 'Создание темы',
-        path: RoutePath.CreateTopic,
-        icon: <AddIcon />,
-    },
-];
-
-const expertTabs: Tab[] = [
-    {
-        label: 'Мои студенты',
-        path: RoutePath.MyStudents,
-        icon: <GroupIcon />,
-    },
-];
-
-const clerkTabs: Tab[] = [
-    ...expertTabs,
-    {
-        label: 'Заявки',
-        path: RoutePath.Requests,
-        icon: <FormatListBulletedIcon />,
-    },
-];
-
-const headClerkTabs: Tab[] = [
+export const expertTabs: Tab[] = [myStudents];
+export const clerkTabs: Tab[] = [...expertTabs, requests];
+export const supervisorTabs: Tab[] = [myTopics, catalog, requests];
+export const studentTabs: Tab[] = [myDiplom, ...supervisorTabs];
+export const headClerkTabs: Tab[] = [
     {
         label: 'Комиссии',
         path: RoutePath.Commissions,
@@ -79,20 +25,3 @@ const headClerkTabs: Tab[] = [
     },
     ...clerkTabs,
 ];
-
-export const getTabs = (role?: Role) => {
-    switch (role) {
-        case Role.Student:
-            return studentTabs;
-        case Role.Supervisor:
-            return managerTabs;
-        case Role.Expert:
-            return expertTabs;
-        case Role.Clerk:
-            return clerkTabs;
-        case Role.HeadClerk:
-            return headClerkTabs;
-        default:
-            return [];
-    }
-};

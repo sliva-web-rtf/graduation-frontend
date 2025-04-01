@@ -2,13 +2,15 @@ import { Paper, Stack, Typography } from '@mui/material';
 import { memo } from 'react';
 
 interface InfoCardProps {
-    readonly title: string;
-    readonly text?: string | number;
-    readonly formatted?: boolean;
+    title: string;
+
+    emptyText?: string;
+    text?: string | number;
+    formatted?: boolean;
 }
 
 export const InfoCard = memo((props: InfoCardProps) => {
-    const { title, text, formatted } = props;
+    const { title, text, formatted, emptyText = 'Информация отсутсвует' } = props;
 
     return (
         <Paper
@@ -20,7 +22,7 @@ export const InfoCard = memo((props: InfoCardProps) => {
             <Stack spacing={2}>
                 <Typography variant="h3">{title}</Typography>
                 <Typography variant="subtitle1" fontFamily="Monrope" whiteSpace={formatted ? 'pre' : 'normal'}>
-                    {text || 'Пусто'}
+                    {text || emptyText}
                 </Typography>
             </Stack>
         </Paper>

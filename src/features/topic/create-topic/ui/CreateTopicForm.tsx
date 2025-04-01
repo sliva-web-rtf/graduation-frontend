@@ -39,7 +39,7 @@ export const CreateTopicForm = memo(() => {
     };
 
     return (
-        <Stack component="form" spacing={4} onSubmit={handleSubmit(onSubmit)} width="100%" maxWidth={900}>
+        <Stack component="form" spacing={4} onSubmit={handleSubmit(onSubmit)} width="70vw" maxWidth={900}>
             <Stack spacing={4} direction="row">
                 <Stack spacing={2} width="100%" maxWidth={400}>
                     <BaseField

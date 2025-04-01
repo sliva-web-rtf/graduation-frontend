@@ -6,6 +6,6 @@ export const getInitials = (
     if (!firstName || !lastName) {
         return 'Неизвестно';
     }
-    const initials = `${lastName} ${firstName[0]}.`;
-    return patronymic ? `${initials}.${patronymic[0]}.` : initials;
+    const initials = `${lastName} ${firstName[0]}. `;
+    return patronymic ? `${initials}${patronymic[0]}.` : initials;
 };

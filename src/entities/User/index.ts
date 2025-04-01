@@ -1,3 +1,4 @@
+export { useAuthMutation, userApi, useUserQuery } from './api/userApi';
 export { getUserData } from './model/selectors/getUserData/getUserData';
 export { isUserStudent } from './model/selectors/isUserStudent/isUserStudent';
 export { isUserSupervisor } from './model/selectors/isUserSupervisor/isUserSupervisor';

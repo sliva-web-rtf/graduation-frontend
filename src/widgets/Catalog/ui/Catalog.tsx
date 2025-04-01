@@ -1,52 +1,32 @@
 import { Search } from '@/features/catalog/Search';
-import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { BasePagination, BaseSwitch } from '@/shared/ui';
-import { Stack, Tooltip } from '@mui/material';
+import { BasePagination } from '@/shared/ui';
+import { Stack } from '@mui/material';
 import { ChangeEvent, memo } from 'react';
 import { useSelector } from 'react-redux';
-import { catalogActions, CatalogOption, catalogReducer, getCatalog } from '../model';
+import { catalogActions, getCatalog } from '../model';
 import { CatalogList } from './CatalogList';
 import { ToggleList } from './ToggleList';
 
-const initialReducers: ReducersList = {
-    catalog: catalogReducer,
-};
-
 const Catalog = memo(() => {
     const dispatch = useAppDispatch();
-    const { option, page, pagesCount, includeOwnedTopics } = useSelector(getCatalog);
+    const { option, page, pagesCount } = useSelector(getCatalog);
 
     const handlePageChange = (_: ChangeEvent<unknown>, value: number) => {
         dispatch(catalogActions.setPage(value - 1));
     };
 
-    const handleIncludeOwnedTopicsChange = (_: ChangeEvent<unknown>, value: boolean) => {
-        dispatch(catalogActions.setIncludeOwnedTopics(value));
-    };
-
     return (
-        <DynamicModuleLoader reducers={initialReducers}>
-            <Stack spacing={4} justifyContent="space-between" height="100%">
-                <Stack spacing={4}>
-                    <Search />
-                    <Stack direction="row" justifyContent="space-between" alignItems="center">
-                        <ToggleList />
-                        {option === CatalogOption.Topics && (
-                            <Tooltip title="Показывать мои темы в начале списка">
-                                <BaseSwitch
-                                    label="Мои темы"
-                                    value={includeOwnedTopics}
-                                    onChange={handleIncludeOwnedTopicsChange}
-                                />
-                            </Tooltip>
-                        )}
-                    </Stack>
-                    <CatalogList />
+        <Stack spacing={4} justifyContent="space-between" height="100%">
+            <Stack spacing={4} height="100%">
+                <Search />
+                <Stack direction="row" justifyContent="space-between" alignItems="center">
+                    <ToggleList />
                 </Stack>
-                <BasePagination page={page + 1} count={pagesCount[option]} onChange={handlePageChange} />
+                <CatalogList />
             </Stack>
-        </DynamicModuleLoader>
+            <BasePagination page={page + 1} count={pagesCount[option]} onChange={handlePageChange} />
+        </Stack>
     );
 });
 

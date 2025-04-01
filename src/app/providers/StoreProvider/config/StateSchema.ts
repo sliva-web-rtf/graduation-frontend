@@ -3,24 +3,24 @@ import { AnyAction, EnhancedStore, Reducer, ReducersMapObject } from '@reduxjs/t
 import { CombinedState } from 'redux';
 
 import { UserSchema } from '@/entities/User';
-import { type LoginSchema } from '@/features/auth/AuthByEmail/model/types/loginSchema';
 import { baseApi } from '@/shared/api';
 import { type CatalogSchema } from '@/widgets/Catalog';
 import { PersonalDataSchema } from '@/widgets/PersonalData';
 import { PersonInfoSchema } from '@/widgets/PersonInfo';
 import { ProfileSchema } from '@/widgets/Profile';
 import { RequestsSchema } from '@/widgets/Requests';
+import { TopicInfoSchema } from '@/widgets/TopicInfo';
 
 export interface StateSchema {
     [baseApi.reducerPath]: ReturnType<typeof baseApi.reducer>;
     user: UserSchema;
+    catalog: CatalogSchema;
 
-    loginForm?: LoginSchema;
-    catalog?: CatalogSchema;
     personalData?: PersonalDataSchema;
     profile?: ProfileSchema;
     requests?: RequestsSchema;
     'person-info'?: PersonInfoSchema;
+    'topic-info'?: TopicInfoSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;

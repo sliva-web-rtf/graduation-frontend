@@ -1,4 +1,4 @@
-import { useAuthMutation } from '@/entities/User/api/userApi';
+import { useAuthMutation } from '@/entities/User';
 import { BaseField, BaseLoadingButton, PasswordField } from '@/shared/ui';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Stack, Typography } from '@mui/material';

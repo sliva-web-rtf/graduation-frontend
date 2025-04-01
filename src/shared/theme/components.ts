@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { Components, Theme } from '@mui/material';
 import { grey } from '@mui/material/colors';
+import type {} from '@mui/x-data-grid/themeAugmentation';
 
 export const components: Components<Omit<Theme, 'components'>> | undefined = {
     MuiButton: {
@@ -35,5 +36,11 @@ export const components: Components<Omit<Theme, 'components'>> | undefined = {
     },
     MuiPaper: {
         defaultProps: { variant: 'outlined' },
+    },
+    MuiDataGrid: {
+        defaultProps: {
+            disableRowSelectionOnClick: true,
+            autoPageSize: true,
+        },
     },
 };

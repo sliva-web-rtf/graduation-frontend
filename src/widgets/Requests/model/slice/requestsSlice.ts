@@ -1,10 +1,12 @@
+import { userApi } from '@/entities/User';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RequestsSectionOption } from '../types/requestsSectionOption';
+import { getRequestsOptionsForRoles } from '../../lib';
+import { RequestsOption } from '../types';
 import { RequestsSectionSchema } from '../types/requestsSectionSchema';
 
 export const initialState: RequestsSectionSchema = {
-    option: RequestsSectionOption.Incoming,
-    options: Object.values(RequestsSectionOption),
+    option: RequestsOption.Incoming,
+    options: [RequestsOption.Incoming, RequestsOption.Outgoing, RequestsOption.History],
 };
 
 export const requestsSlice = createSlice({
@@ -18,7 +20,12 @@ export const requestsSlice = createSlice({
             state.options = action.payload;
         },
     },
+    extraReducers: (builder) => {
+        builder.addMatcher(userApi.endpoints.user.matchFulfilled, (state, { payload }) => {
+            state.options = getRequestsOptionsForRoles(payload?.roles ?? []);
+        });
+    },
 });
 
-export const { actions: requestsSectionActions } = requestsSlice;
-export const { reducer: requestsSectionReducer } = requestsSlice;
+export const { actions: requestsActions } = requestsSlice;
+export const { reducer: requestsReducer } = requestsSlice;

@@ -1,4 +1,6 @@
+import { ICatalogCard } from '@/entities/CatalogCard';
 import { baseApi } from '@/shared/api';
+import { transformDtoForCatalogCard } from '@/widgets/Catalog';
 import { mapScientificWorkDtoToModel } from '../lib';
 import {
     ScientificWorkDto,
@@ -14,11 +16,12 @@ const topicApi = baseApi.injectEndpoints({
             query: ({ id }) => `topics/${id}`,
             transformResponse: (response: ScientificWorkDto) => mapScientificWorkDtoToModel(response),
         }),
-        getUsersScientificWorks: build.query<TopicCardModel[], UsersScientificWorksRequest>({
+        getUsersScientificWorks: build.query<Omit<ICatalogCard, 'option'>[], UsersScientificWorksRequest>({
             query: ({ userId }) => ({
-                url: '/api/scientificWork/scientific-work-by-user-id',
+                url: 'topics/topics-by-user-id',
                 params: { userId },
             }),
+            transformResponse: (response: TopicCardModel[]) => response?.map(transformDtoForCatalogCard),
         }),
     }),
 });

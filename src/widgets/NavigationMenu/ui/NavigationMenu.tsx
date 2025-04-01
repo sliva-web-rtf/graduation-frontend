@@ -1,20 +1,22 @@
+import { getUserData, Role } from '@/entities/User';
+import { BaseTab, BaseTabs, TabLabel } from '@/shared/ui';
 import { TabsProps } from '@mui/material';
 import { memo } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
-import { BaseTab, BaseTabs, TabLabel } from '@/shared/ui';
-import { getUserData } from '@/entities/User';
-import { getTabs } from '../model/const';
+import { getTabsForRoles } from '../lib';
 
 export const NavigationMenu = memo((props: TabsProps) => {
     const location = useLocation();
     const { user } = useSelector(getUserData);
     const { roles } = user ?? { roles: [] };
 
-    const tabs = getTabs(roles[0]);
+    // const tabs = getTabsForRoles(roles);
+    const tabs = getTabsForRoles([Role.Admin]);
+    const value = location.pathname.startsWith('/topics') ? '/' : `/${location.pathname.split('/')[1]}`;
 
     return (
-        <BaseTabs orientation="vertical" value={location.pathname} {...props}>
+        <BaseTabs orientation="vertical" value={value} {...props}>
             {tabs.map((item) => (
                 <BaseTab
                     key={item.path}

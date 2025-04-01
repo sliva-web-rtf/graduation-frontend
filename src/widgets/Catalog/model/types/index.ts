@@ -1,3 +1,4 @@
+import { ICatalogCard } from '@/entities/CatalogCard';
 import { Professor } from '@/entities/Professor';
 import { Student } from '@/entities/Student';
 import { TopicCardModel } from '@/entities/Topic';
@@ -30,7 +31,7 @@ export interface CatalogDto {
 }
 
 export interface CatalogModel {
-    data?: Array<Professor | TopicCardModel | Student>;
+    data?: Omit<ICatalogCard, 'option'>[];
     pagesCount: number;
 }
 

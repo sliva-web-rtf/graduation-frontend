@@ -2,7 +2,7 @@ import { baseApi, TagTypes } from '@/shared/api';
 import { catalogActions } from '@/widgets/Catalog';
 import queryString from 'query-string';
 import { toast } from 'react-toastify';
-import { getUrl, mapCatalogDtoToModel } from '../lib';
+import { getUrl, mapCatalogDtoToModel, transformDtoForCatalogCard } from '../lib';
 import { CatalogDto, CatalogModel, CatalogRequest } from '../model';
 
 const catalogApi = baseApi.injectEndpoints({
@@ -18,11 +18,17 @@ const catalogApi = baseApi.injectEndpoints({
                 try {
                     const { data } = await queryFulfilled;
                     dispatch(catalogActions.setPagesCount(data.pagesCount));
-                } catch (err) {
+                } catch (err: any) {
                     toast.error(`Ошибка при получения каталога: ${err.message}`);
                 }
             },
-            transformResponse: (response: CatalogDto) => mapCatalogDtoToModel(response),
+            transformResponse: (response: CatalogDto) => {
+                const { data, pagesCount } = mapCatalogDtoToModel(response);
+                return {
+                    data: data?.map(transformDtoForCatalogCard),
+                    pagesCount,
+                };
+            },
             providesTags: [TagTypes.Catalog],
         }),
     }),

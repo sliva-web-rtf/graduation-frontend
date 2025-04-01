@@ -1,10 +1,12 @@
+import { userApi } from '@/entities/User';
 import { CATALOG_CARD_HEIGHT, SortDirection } from '@/shared/lib/const';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { getCatalogOptionsForRoles } from '../../lib';
 import { CatalogOption, CatalogSchema } from '../types';
 
 export const initialState: CatalogSchema = {
     option: CatalogOption.Topics,
-    options: Object.values(CatalogOption),
+    options: [CatalogOption.Topics],
     page: 0,
     size: Math.round((window.innerHeight - 335) / (CATALOG_CARD_HEIGHT + 16)),
     pagesCount: {
@@ -45,6 +47,11 @@ export const catalogSlice = createSlice({
         setIncludeOwnedTopics: (state, action: PayloadAction<CatalogSchema['includeOwnedTopics']>) => {
             state.includeOwnedTopics = action.payload;
         },
+    },
+    extraReducers: (builder) => {
+        builder.addMatcher(userApi.endpoints.user.matchFulfilled, (state, { payload }) => {
+            state.options = getCatalogOptionsForRoles(payload?.roles ?? []);
+        });
     },
 });
 

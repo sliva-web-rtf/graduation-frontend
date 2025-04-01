@@ -8,9 +8,9 @@ import { Login } from '../model/types/login';
 import { type User } from '../model/types/user';
 import { type TokenDto, UserDto } from './types';
 
-const userApi = baseApi.injectEndpoints({
+export const userApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
-        user: build.query<User, undefined>({
+        user: build.query<User, void>({
             query: () => ({
                 url: '/auth',
             }),

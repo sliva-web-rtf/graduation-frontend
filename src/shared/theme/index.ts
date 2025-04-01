@@ -29,4 +29,9 @@ export const theme = createTheme({
     shadows,
     typography,
     components,
+    mixins: {
+        MuiDataGrid: {
+            containerBackground: '#ffffff',
+        },
+    },
 });

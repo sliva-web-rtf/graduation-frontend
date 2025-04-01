@@ -1,18 +1,20 @@
 /* eslint-disable no-unused-vars */
-import { RouteProps } from 'react-router-dom';
 import { type Role } from '@/entities/User/model/types/role';
 import { CatalogPage } from '@/pages/CatalogPage';
 import { CreateTopicPage } from '@/pages/CreateTopicPage';
 import { ForbiddenPage } from '@/pages/ForbiddenPage';
 import { LoginPage } from '@/pages/LoginPage';
 import { MyDimpomPage } from '@/pages/MyDimpomPage';
+import { MyStudentsPage } from '@/pages/MyStudentsPage';
+import { MyTopicsPage } from '@/pages/MyTopicsPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
-import { ProfessorPage } from '@/pages/ProfessorPage';
 import { ProfilePage } from '@/pages/ProfilePage';
 import { RequestsPage } from '@/pages/RequestsPage';
 import { StudentPage } from '@/pages/StudentPage';
+import { SupervisorPage } from '@/pages/SupervisorPage';
 import { TestPage } from '@/pages/TestPage';
 import { TopicPage } from '@/pages/TopicPage';
+import { RouteProps } from 'react-router-dom';
 
 export type AppRoutesProps = RouteProps & {
     authOnly?: boolean;
@@ -32,7 +34,7 @@ export enum AppRoutes {
     Test = 'Test',
     Requests = 'Requests',
     MyDiplom = 'MyDiplom',
-    MyGuides = 'MyGuides',
+    MyTopics = 'MyTopics',
     MyStudents = 'MyStudents',
     Commissions = 'Commissions',
     CreateTopic = 'CreateTopic',
@@ -41,13 +43,13 @@ export enum AppRoutes {
 export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.Test]: '/test',
     [AppRoutes.Login]: '/login',
-    [AppRoutes.Supervisors]: '/manager/:id',
+    [AppRoutes.Supervisors]: '/supervisors/:id',
     [AppRoutes.Topics]: '/topics/:id',
     [AppRoutes.Students]: '/students/:id',
     [AppRoutes.Profile]: '/profile',
     [AppRoutes.Requests]: '/requests',
     [AppRoutes.MyDiplom]: '/my-dimplom',
-    [AppRoutes.MyGuides]: '/my-guides',
+    [AppRoutes.MyTopics]: '/my-topics',
     [AppRoutes.MyStudents]: '/my-students',
     [AppRoutes.Commissions]: '/commissions',
     [AppRoutes.CreateTopic]: '/create-topic',
@@ -79,7 +81,7 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     },
     [AppRoutes.Supervisors]: {
         path: RoutePath.Supervisors,
-        element: <ProfessorPage />,
+        element: <SupervisorPage />,
         ...withLayoutAndAuth,
     },
     [AppRoutes.Topics]: {
@@ -122,14 +124,14 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         element: <MyDimpomPage />,
         ...withLayoutAndAuth,
     },
-    [AppRoutes.MyGuides]: {
-        path: RoutePath.MyGuides,
-        element: <>Мои руководства</>,
+    [AppRoutes.MyTopics]: {
+        path: RoutePath.MyTopics,
+        element: <MyTopicsPage />,
         ...withLayoutAndAuth,
     },
     [AppRoutes.MyStudents]: {
         path: RoutePath.MyStudents,
-        element: <>Мои студенты</>,
+        element: <MyStudentsPage />,
         ...withLayoutAndAuth,
     },
     [AppRoutes.Test]: {

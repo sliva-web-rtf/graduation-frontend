@@ -1,22 +1,22 @@
-import { FormControl, RadioGroup, Stack, Typography } from '@mui/material';
-import { ChangeEvent, memo } from 'react';
 import { TopicCardModel, useGetUsersScientificWorksQuery } from '@/entities/Topic';
 import { BaseLoadingButton, BaseModal, BaseRadio } from '@/shared/ui';
+import { Divider, FormControl, RadioGroup, Stack, Typography } from '@mui/material';
+import { ChangeEvent, memo } from 'react';
 
 interface AddRequestModalProps {
-    readonly id: string;
-    readonly userId: string;
-    readonly open: boolean;
-    readonly scientificWorkId: string;
-    readonly setScientificWorkId: (value: string) => void;
-    readonly onClose: () => void;
-    readonly onSubmit: () => void;
-    readonly disabled: boolean;
+    id: string;
+    userId: string;
+    open: boolean;
+    scientificWorkId: string;
+    setScientificWorkId: (value: string) => void;
+    onClose: () => void;
+    onSubmit: () => void;
+    disabled: boolean;
 }
 
 const RadioList = memo(({ items }: { items?: Array<TopicCardModel> }) => {
     if (!items?.length) {
-        return <Typography>Темы отсутсвуют</Typography>;
+        return <Typography color="secondary">Темы отсутсвуют</Typography>;
     }
 
     return (
@@ -72,6 +72,7 @@ export const AddRequestModal = memo((props: AddRequestModalProps) => {
                             <Typography variant="h3">Выбрать из тем пользователя</Typography>
                             <RadioList items={otherScientificWorks} />
                         </Stack>
+                        <Divider />
                         <Stack spacing={2}>
                             <Typography variant="h3">Предложить из своих тем</Typography>
                             <RadioList items={usersScientificWorks} />

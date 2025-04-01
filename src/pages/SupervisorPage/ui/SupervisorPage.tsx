@@ -1,10 +1,10 @@
-import { Stack, Typography } from '@mui/material';
-import { Helmet } from 'react-helmet';
 import { SITENAME } from '@/shared/lib/const';
 import { BackButton } from '@/widgets/BackButton';
 import { PersonInfo } from '@/widgets/PersonInfo';
+import { Stack, Typography } from '@mui/material';
+import { Helmet } from 'react-helmet';
 
-const ProfessorPage = () => (
+const SupervisorPage = () => (
     <>
         <Helmet>
             <title>Руководитель ВКР | {SITENAME}</title>
@@ -19,4 +19,4 @@ const ProfessorPage = () => (
     </>
 );
 
-export default ProfessorPage;
+export default SupervisorPage;

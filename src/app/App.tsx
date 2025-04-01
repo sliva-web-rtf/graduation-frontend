@@ -1,8 +1,7 @@
-import { useEffect } from 'react';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { useEffect } from 'react';
 
-import { userActions } from '@/entities/User';
-import { useUserQuery } from '@/entities/User/api/userApi';
+import { userActions, useUserQuery } from '@/entities/User';
 import { UserSecretStorageService } from '@/shared/lib/helpers/userSecretStorage';
 import { PageLoader } from '@/shared/ui';
 import { AppRouter } from './providers/Router';
@@ -10,7 +9,7 @@ import { AppRouter } from './providers/Router';
 function App() {
     const dispatch = useAppDispatch();
     const isInited = UserSecretStorageService.isValid();
-    const { isFetching, data } = useUserQuery(undefined);
+    const { isFetching, data } = useUserQuery();
 
     useEffect(() => {
         if (data) {

@@ -1,8 +1,8 @@
-import { memo, MouseEvent, useCallback } from 'react';
-import { useSelector } from 'react-redux';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { ToggleButtons } from '@/shared/ui';
-import { getRequestsSection, requestsSectionActions } from '../model';
+import { memo, MouseEvent, useCallback } from 'react';
+import { useSelector } from 'react-redux';
+import { getRequestsSection, requestsActions } from '../model';
 
 export const ToggleList = memo(() => {
     const dispatch = useAppDispatch();
@@ -11,7 +11,7 @@ export const ToggleList = memo(() => {
     const handleChange = useCallback(
         (_: MouseEvent<HTMLElement>, newAlignment: typeof option) => {
             if (newAlignment) {
-                dispatch(requestsSectionActions.setOption(newAlignment));
+                dispatch(requestsActions.setOption(newAlignment));
             }
         },
         [dispatch],

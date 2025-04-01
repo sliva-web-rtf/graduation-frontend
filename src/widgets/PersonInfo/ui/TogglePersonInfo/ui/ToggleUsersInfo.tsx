@@ -1,13 +1,12 @@
-import { useSelector } from 'react-redux';
-import { memo, MouseEvent, useCallback } from 'react';
-import { ToggleButtons } from '@/shared/ui';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { getPersonInfoOption, getPersonInfoOptions, personInfoActions } from '../../../model';
+import { ToggleButtons } from '@/shared/ui';
+import { memo, MouseEvent, useCallback } from 'react';
+import { useSelector } from 'react-redux';
+import { getPersonInfo, personInfoActions } from '../../../model';
 
 export const TogglePersonInfo = memo(() => {
     const dispatch = useAppDispatch();
-    const option = useSelector(getPersonInfoOption);
-    const options = useSelector(getPersonInfoOptions);
+    const { option, options } = useSelector(getPersonInfo);
 
     const handleChange = useCallback(
         (_: MouseEvent<HTMLElement>, newAlignment: typeof option) => {

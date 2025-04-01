@@ -1,7 +1,9 @@
-import { configureStore, ReducersMapObject } from '@reduxjs/toolkit';
-import { CombinedState, Reducer } from 'redux';
 import { userReducer } from '@/entities/User';
 import { baseApi } from '@/shared/api';
+import { catalogReducer } from '@/widgets/Catalog';
+import { requestsReducer } from '@/widgets/Requests/model';
+import { configureStore, ReducersMapObject } from '@reduxjs/toolkit';
+import { CombinedState, Reducer } from 'redux';
 import { createReducerManager } from './reducerManager';
 import { rtkQueryErrorMiddleware } from './rtkErrorMiddleware';
 import { StateSchema } from './StateSchema';
@@ -10,6 +12,8 @@ export function createReduxStore(initialState?: StateSchema, asyncReducers?: Red
     const rootReducers: ReducersMapObject<StateSchema> = {
         ...asyncReducers,
         user: userReducer,
+        catalog: catalogReducer,
+        requests: requestsReducer,
         [baseApi.reducerPath]: baseApi.reducer,
     };
 

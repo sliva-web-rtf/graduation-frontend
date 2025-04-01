@@ -18,9 +18,9 @@ export const MenuBar = memo(({ sx, ...props }: MenuBarProps) => {
         return null;
     }
 
-    const { roles, firstName, lastName } = user;
+    const { roles, firstName, lastName, patronymic } = user;
     const translatedRoles = roles.map((role) => ROLES[role]).join(', ');
-    const userInitials = getInitials(firstName, lastName);
+    const userInitials = getInitials(firstName, lastName, patronymic);
 
     return (
         <Box sx={sx}>

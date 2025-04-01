@@ -1,6 +1,6 @@
+import { BaseButton } from '@/shared/ui';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import { useState } from 'react';
-import { BaseButton } from '@/shared/ui';
 import { CreateTopicModal } from './CreateTopicModal';
 
 export const CreateTopicButton = () => {
@@ -10,7 +10,7 @@ export const CreateTopicButton = () => {
 
     return (
         <>
-            <BaseButton startIcon={<AddRoundedIcon />} onClick={toggleOpen}>
+            <BaseButton variant="contained" startIcon={<AddRoundedIcon />} onClick={toggleOpen}>
                 Создать тему
             </BaseButton>
             <CreateTopicModal open={open} onClose={toggleOpen} />
