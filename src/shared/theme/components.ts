@@ -40,9 +40,6 @@ export const components: Components<Omit<Theme, 'components'>> | undefined = {
     },
     MuiChip: {
         styleOverrides: {
-            root: {
-                fontWeight: 500,
-            },
             colorError: {
                 backgroundColor: '#FFDDDD', // Пастельный красный
                 color: '#B00020',

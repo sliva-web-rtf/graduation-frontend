@@ -22,6 +22,10 @@ export const BaseButton = styled(Button)<ButtonProps>(({ theme }) => ({
     '&.MuiButton-root:hover': {
         boxShadow: 'none',
     },
+    '&.MuiButton-sizeSmall': {
+        padding: '6px 16px',
+        fontSize: 12,
+    },
 }));
 
 export const BaseLoadingButton = styled(LoadingButton)<LoadingButtonProps>(({ theme }) => ({

@@ -7,7 +7,6 @@
     --border-radius: 16px;
     --page-width: calc(100vw - var(--space-xl));
     --sidebar-width: 250px;
-    --onboarding-sidebar-description-width: 658px;
     --catalog-card-height: 166px;
     --modal-width: 500px;
     --login-form-width: 400px;
@@ -16,16 +15,20 @@
     --tab-with-status-min-width: 150px;
 
     // Цвета
+    --text-color: #21272a;
     --light-text-color: #fff;
     --bg-color: #f4f9fd;
     --light-background-color: #fff;
+    --modal-backdrop-color: #c5daf4c7;
     --primary-color: #408dff;
     --light-primary-color: #a6c8ff;
     --secondary-color: #878d96;
     --border-color: #e0e0e0;
     --tab-with-status-background-color: #fff;
-    --text-color: #21272a;
-    --success-color: #0f0;
-    --error-color: #f44336;
-    --modal-backdrop-color: #c5daf4c7;
+    --succes-color: #1b5e20;
+    --light-succes-color: #dff4dd;
+    --warning-color: #997404;
+    --light-warning-color: #fff4d1;
+    --error-color: #b00020;
+    --light-error-color: #fdd;
 }

@@ -31,6 +31,9 @@ const StyledToggleButton = styled(ToggleButton)<CustomToggleButtonProps>(({ them
         color: variant === 'underline' ? theme.palette.text.secondary : '#0000008A',
         borderBottom: variant === 'underline' ? `2px solid ${theme.palette.grey[400]}` : theme.spacing(4),
         alignSelf: 'auto',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
     },
     '&.Mui-selected': {
         ...(variant === 'underline'

@@ -51,13 +51,12 @@ export const BaseModal = (props: BaseModalProps) => {
                         <Typography color="secondary">{subtitle}</Typography>
                     </Stack>
                     {loading ? <LinearProgress /> : children}
-                    {cancelButton ||
-                        (actionButton && (
-                            <Stack direction="row" spacing={4} alignSelf="flex-end">
-                                {cancelButton}
-                                {actionButton}
-                            </Stack>
-                        ))}
+                    {(cancelButton || actionButton) && (
+                        <Stack direction="row" spacing={2} alignSelf="flex-end">
+                            {cancelButton}
+                            {actionButton}
+                        </Stack>
+                    )}
                 </Stack>
             </Stack>
         </Modal>

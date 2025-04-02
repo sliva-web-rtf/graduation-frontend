@@ -17,6 +17,7 @@ import { TopicMainInfo } from './TopicMainInfo';
 type TopicInfoProps = {
     extended?: boolean;
     editable?: boolean;
+    topicId?: string;
 };
 
 const initialReducers: ReducersList = {
@@ -24,8 +25,9 @@ const initialReducers: ReducersList = {
 };
 
 export const TopicInfo = memo((props: TopicInfoProps) => {
-    const { extended = false, editable = false } = props;
-    const { id } = useParams();
+    const { topicId, extended = false, editable = false } = props;
+    const { id: paramsId } = useParams();
+    const id = paramsId || topicId;
     const { option } = useSelector(getTopicInfo);
     const { isFetching, data } = useGetScientificWorkQuery({ id: id! });
 
@@ -46,7 +48,7 @@ export const TopicInfo = memo((props: TopicInfoProps) => {
                     <Stack spacing={3}>
                         <TopicCard {...data} />
                         <Stack spacing={1} alignItems="center">
-                            <TopicRequestButton id={id} name={name} />
+                            {!extended && <TopicRequestButton id={id} name={name} />}
                         </Stack>
                     </Stack>
                 </Grid>
