@@ -34,11 +34,7 @@ const BaseTab = styled(Tab)<BaseTabProps>(({ theme }) => ({
 }));
 
 const TabLabel = ({ label, startIcon }: TabLabelProps) => (
-    <Typography
-        sx={{ display: 'flex', columnGap: (theme) => theme.spacing(1), alignItems: 'center' }}
-        variant="body1"
-        fontWeight={600}
-    >
+    <Typography sx={{ display: 'flex', columnGap: (theme) => theme.spacing(1), alignItems: 'center' }} fontWeight={600}>
         {startIcon} {label}
     </Typography>
 );

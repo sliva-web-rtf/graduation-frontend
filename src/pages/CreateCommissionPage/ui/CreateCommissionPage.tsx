@@ -1,22 +1,20 @@
 import { SITENAME } from '@/shared/lib/const';
 import { BackButton } from '@/widgets/BackButton';
-import { PersonInfo } from '@/widgets/PersonInfo';
 import { Stack, Typography } from '@mui/material';
 import { Helmet } from 'react-helmet';
 
-const StudentPage = () => (
+const CreateCommissionPage = () => (
     <>
         <Helmet>
-            <title>Студент | {SITENAME}</title>
+            <title>Создание комиссии | {SITENAME}</title>
         </Helmet>
         <Stack spacing={6} height="100%">
             <Stack spacing={4}>
-                <BackButton />
-                <Typography variant="h1">Студент</Typography>
+                <BackButton>Вернуться к списку комиссий</BackButton>
+                <Typography variant="h1">Создание комиссии</Typography>
             </Stack>
-            <PersonInfo isStudent />
         </Stack>
     </>
 );
 
-export default StudentPage;
+export default CreateCommissionPage;

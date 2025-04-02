@@ -9,7 +9,7 @@ const SupervisorPage = () => (
         <Helmet>
             <title>Руководитель ВКР | {SITENAME}</title>
         </Helmet>
-        <Stack spacing={6}>
+        <Stack spacing={6} height="100%">
             <Stack spacing={4}>
                 <BackButton />
                 <Typography variant="h1">Руководитель ВКР</Typography>

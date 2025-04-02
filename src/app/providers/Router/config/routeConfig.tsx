@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
 import { type Role } from '@/entities/User/model/types/role';
 import { CatalogPage } from '@/pages/CatalogPage';
+import { CommissionsPage } from '@/pages/CommissionsPage';
+import { CreateCommissionPage } from '@/pages/CreateCommissionPage';
 import { CreateTopicPage } from '@/pages/CreateTopicPage';
 import { ForbiddenPage } from '@/pages/ForbiddenPage';
 import { LoginPage } from '@/pages/LoginPage';
@@ -37,6 +39,7 @@ export enum AppRoutes {
     MyTopics = 'MyTopics',
     MyStudents = 'MyStudents',
     Commissions = 'Commissions',
+    CreateComission = 'CreateComission',
     CreateTopic = 'CreateTopic',
 }
 
@@ -52,6 +55,7 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.MyTopics]: '/my-topics',
     [AppRoutes.MyStudents]: '/my-students',
     [AppRoutes.Commissions]: '/commissions',
+    [AppRoutes.CreateComission]: '/commissions/create',
     [AppRoutes.CreateTopic]: '/create-topic',
     [AppRoutes.Catalog]: '/',
     [AppRoutes.Forbidden]: '/forbidden',
@@ -111,9 +115,14 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         element: <RequestsPage />,
         ...withLayoutAndAuth,
     },
+    [AppRoutes.CreateComission]: {
+        path: RoutePath.CreateComission,
+        element: <CreateCommissionPage />,
+        ...withLayoutAndAuth,
+    },
     [AppRoutes.Commissions]: {
         path: RoutePath.Commissions,
-        element: <>Комиссии</>,
+        element: <CommissionsPage />,
         ...withLayoutAndAuth,
     },
     [AppRoutes.CreateTopic]: {

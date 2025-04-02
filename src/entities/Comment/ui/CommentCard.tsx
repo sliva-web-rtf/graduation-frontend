@@ -25,6 +25,7 @@ const StyledAccordionSummary = styled(AccordionSummary)<{ expert: boolean }>(({ 
     color: expert ? theme.palette.warning.main : theme.palette.error.main,
     backgroundColor: expert ? theme.palette.warning.light : theme.palette.error.light,
     borderRadius: theme.spacing(2),
+    height: theme.spacing(8),
 }));
 
 export const CommentCard = ({ role, text, date }: CommentProps) => {

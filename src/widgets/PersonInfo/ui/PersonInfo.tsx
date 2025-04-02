@@ -1,7 +1,8 @@
 import { PersonCard, useGetPersonQuery } from '@/entities/Person';
 import { RequestButton } from '@/features/entity/AddRequests';
 import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import { Grid, Stack, Typography } from '@mui/material';
+import { EmptyMessage } from '@/shared/ui';
+import { Grid, Stack } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getPersonInfo, personInfoReducer } from '../model';
@@ -28,7 +29,11 @@ export const PersonInfo = (props: { isStudent?: boolean }) => {
     }
 
     if (!data) {
-        return <Typography variant="body2">Информации отсутствует</Typography>;
+        return (
+            <Stack height="100%">
+                <EmptyMessage />
+            </Stack>
+        );
     }
 
     return (
