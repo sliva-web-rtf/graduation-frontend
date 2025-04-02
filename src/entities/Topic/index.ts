@@ -1,4 +1,4 @@
 export { useGetScientificWorkQuery, useGetUsersScientificWorksQuery } from './api/topicApi';
-export { WorkStatus, WorkStatusRus, type Topic, type TopicCardModel } from './model/types';
+export { TopicStatus, TopicStatusRus, type Topic, type TopicCardModel } from './model/types';
 export { TopicCard } from './ui/TopicCard';
 export { TopicCardSkeleton } from './ui/TopicCard.skeleton';

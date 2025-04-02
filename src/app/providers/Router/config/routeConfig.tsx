@@ -58,6 +58,8 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.NotFound]: '*',
 };
 
+export type RoutePathType = (typeof RoutePath)[keyof typeof RoutePath];
+
 const withLayoutAndAuth = {
     hasLayout: true,
     authOnly: true,

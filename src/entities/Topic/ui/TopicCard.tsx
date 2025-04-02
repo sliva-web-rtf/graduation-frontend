@@ -1,17 +1,21 @@
+import { PersonSummary } from '@/entities/Person';
 import { Divider, Paper, Stack, Typography } from '@mui/material';
-import { memo } from 'react';
+import { memo, ReactNode } from 'react';
 import { Topic } from '../model/types';
 
-const Row = ({ left, right }: { left: string; right?: string }) => (
-    <Stack spacing={1} direction="row" justifyContent="space-between">
-        <Typography
-            variant="subtitle1"
-            color="secondary"
-            sx={{ overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '90%' }}
-        >
+const clampedText = { overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' };
+const Row = ({ left, right, isText }: { left: string; right?: string | ReactNode; isText?: boolean }) => (
+    <Stack spacing={2} direction="row" justifyContent="space-between">
+        <Typography variant="subtitle1" color="secondary" sx={clampedText}>
             {left}
         </Typography>
-        <Typography variant="subtitle1">{right || 'Не указано'}</Typography>
+        {isText ? (
+            <Typography variant="subtitle1" sx={{ whiteSpace: 'nowrap' }}>
+                {right || 'Не указано'}
+            </Typography>
+        ) : (
+            right
+        )}
     </Stack>
 );
 
@@ -22,19 +26,19 @@ export const TopicCard = memo((props: Topic) => {
         <Paper sx={(theme) => ({ padding: theme.spacing(3), borderRadius: theme.spacing(2) })}>
             <Stack spacing={3}>
                 <Stack spacing={1}>
-                    {/* <BaseChip label={WorkStatusRus[workStatus]} sx={{ alignSelf: 'flex-start' }} /> */}
+                    {/* <BaseChip label={TopicStatusRus[workStatus]} sx={{ alignSelf: 'flex-start' }} /> */}
                     <Typography variant="h3">{name}</Typography>
                 </Stack>
                 <Divider />
                 <Stack spacing={1}>
-                    <Row left="Предприятие" right="" />
-                    <Row left="Направление" right="" />
-                    <Row left="Требуемая роль" right={requestedRole} />
-                    <Row left="Автор" right={owner?.name} />
+                    <Row left="Предприятие" right="" isText />
+                    <Row left="Направление" right="" isText />
+                    <Row left="Требуемая роль" right={requestedRole} isText />
+                    <Row left="Автор" right={<PersonSummary {...owner} />} />
                     <Divider />
-                    <Row left="Студент" right={student?.name} />
+                    <Row left="Студент" right={<PersonSummary {...student} isLink />} />
                     <Divider />
-                    <Row left="Руководитель" right={supervisor?.name} />
+                    <Row left="Руководитель" right={<PersonSummary {...supervisor} isLink />} />
                 </Stack>
             </Stack>
         </Paper>

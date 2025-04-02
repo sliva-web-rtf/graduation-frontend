@@ -1,4 +1,4 @@
-import { RoutePath } from '@/app/providers/Router/config/routeConfig';
+import { RoutePath } from '@/app/providers/Router';
 import { CatalogOption } from '@/widgets/Catalog';
 
 export const getParentLink = (option: CatalogOption) => {

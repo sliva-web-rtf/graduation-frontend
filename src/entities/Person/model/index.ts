@@ -1,1 +1,1 @@
-export type { Person, Student, Manager } from './types';
+export type { Manager, Person, PersonMainInfo, Student } from './types';

@@ -1,10 +1,16 @@
 import { PersonMainInfo } from '@/entities/Person/model/types';
 
-export enum WorkStatus {
-    NotConfirmed = 'NotConfirmed',
+export enum TopicStatus {
+    Canceled = 'Completed',
+    Сonsideration = 'Сonsideration',
     Confirmed = 'Confirmed',
-    Completed = 'Completed',
 }
+
+export const TopicStatusRus: Record<TopicStatus, string> = {
+    [TopicStatus.Canceled]: 'Отклонена',
+    [TopicStatus.Сonsideration]: 'На рассмотрении',
+    [TopicStatus.Confirmed]: 'Утверждена',
+};
 
 export interface Topic {
     id: string;
@@ -29,12 +35,6 @@ export type TopicCardModel = {
 export interface UsersScientificWorksRequest {
     userId: string;
 }
-
-export const WorkStatusRus: Record<WorkStatus, string> = {
-    [WorkStatus.NotConfirmed]: 'Не подтверждена',
-    [WorkStatus.Confirmed]: 'Одобрена',
-    [WorkStatus.Completed]: 'Подтверждена',
-};
 
 export interface ScientificWorksRequest {
     id: string;

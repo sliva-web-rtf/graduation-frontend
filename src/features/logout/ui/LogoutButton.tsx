@@ -1,10 +1,10 @@
+import { RoutePath } from '@/app/providers/Router';
+import { userActions } from '@/entities/User';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import { IconButton, Tooltip } from '@mui/material';
 import { memo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { userActions } from '@/entities/User';
-import { RoutePath } from '@/app/providers/Router/config/routeConfig';
 
 export const LogoutButton = memo(() => {
     const dispatch = useAppDispatch();

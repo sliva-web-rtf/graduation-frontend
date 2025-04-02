@@ -1,37 +1,39 @@
+import { RoutePath } from '@/app/providers/Router';
+import { getInfoPagePath } from '@/shared/lib/helpers/getInfoPagePath';
 import { getInitials } from '@/shared/lib/helpers/getInitials';
 import { Stack, Typography } from '@mui/material';
 import { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 
 interface PersonSummaryProps {
-    readonly id: string;
-    readonly firstName: string;
-    readonly lastName: string;
-    readonly isLink: boolean;
+    id: string;
+    name: string;
 
-    readonly degree?: string;
-    readonly patronymic?: string;
+    isLink?: boolean;
+    isStudent?: boolean;
+    degree?: string;
+    role?: string;
 }
 
-// todo:
-// Заменить в Link значение атрибута "to" на getInfoPagePath(AppRoutes.?, id)
-
 export const PersonSummary: FC<PersonSummaryProps> = (props) => {
-    const { id, firstName, lastName, patronymic, degree, isLink } = props;
-    const name = getInitials(firstName, lastName, patronymic);
+    const { id, name, degree, role, isLink, isStudent } = props;
+    const initials = getInitials(name);
+    const path = getInfoPagePath(isStudent ? RoutePath.Students : RoutePath.Supervisors, id);
 
     return (
-        <Stack>
-            {isLink ? (
-                <Typography component={NavLink} to="/" color="primary" variant="h4">
-                    {name}
+        <Stack textAlign="end">
+            {isLink && id ? (
+                <Typography component={NavLink} to={path} variant="subtitle1" sx={{ whiteSpace: 'nowrap' }}>
+                    {initials}
                 </Typography>
             ) : (
-                <Typography variant="subtitle1">{name}</Typography>
+                <Typography variant="subtitle1" sx={{ whiteSpace: 'nowrap' }}>
+                    {initials}
+                </Typography>
             )}
 
             <Typography variant="bodyXS" color="secondary">
-                {degree}
+                {degree || role}
             </Typography>
         </Stack>
     );

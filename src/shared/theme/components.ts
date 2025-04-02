@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { Components, Theme } from '@mui/material';
 import { grey } from '@mui/material/colors';
+import { ruRU } from '@mui/x-data-grid/locales';
 import type {} from '@mui/x-data-grid/themeAugmentation';
 
 export const components: Components<Omit<Theme, 'components'>> | undefined = {
@@ -37,10 +38,30 @@ export const components: Components<Omit<Theme, 'components'>> | undefined = {
     MuiPaper: {
         defaultProps: { variant: 'outlined' },
     },
+    MuiChip: {
+        styleOverrides: {
+            root: {
+                fontWeight: 500,
+            },
+            colorError: {
+                backgroundColor: '#FFDDDD', // Пастельный красный
+                color: '#B00020',
+            },
+            colorWarning: {
+                backgroundColor: '#FFF4D1', // Пастельный жёлтый
+                color: '#997404',
+            },
+            colorSuccess: {
+                backgroundColor: '#DFF4DD', // Пастельный зелёный
+                color: '#1B5E20',
+            },
+        },
+    },
     MuiDataGrid: {
         defaultProps: {
             disableRowSelectionOnClick: true,
             autoPageSize: true,
+            localeText: ruRU.components.MuiDataGrid.defaultProps.localeText,
         },
     },
 };
