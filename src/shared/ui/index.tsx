@@ -1,6 +1,4 @@
-export { BaseAccordion } from './Accordion/Accordion';
-export { BaseAccordionDetails } from './Accordion/AccordionDetails';
-export { BaseAccordionSummary } from './Accordion/AccordionSummary';
+export * from './Alert/Alert';
 export * from './AppBar/AppBar';
 export * from './Attach/Attach';
 export { BaseButton, BaseLoadingButton } from './Button/Button';

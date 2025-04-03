@@ -1,7 +1,6 @@
 import { baseApi } from '@/shared/api';
 import { UserSecretStorageService } from '@/shared/lib/helpers/userSecretStorage';
 import { type Token } from '../../../shared/lib/types/token';
-import { loginToDto } from '../lib/loginMapper';
 import { mapTokenDtoToModel } from '../lib/tokenMapper';
 import { mapUserDtoToModel } from '../lib/userMapper';
 import { Login } from '../model/types/login';
@@ -17,17 +16,16 @@ export const userApi = baseApi.injectEndpoints({
             transformResponse: (response: UserDto) => mapUserDtoToModel(response),
         }),
         auth: build.mutation<Token, Login>({
-            query: (initialValues) => ({
+            query: (body) => ({
                 url: '/auth',
                 method: 'POST',
-                body: {
-                    ...loginToDto(initialValues),
-                },
+                body,
             }),
             transformResponse: async (response: TokenDto) => {
                 await UserSecretStorageService.save(response);
                 return mapTokenDtoToModel(response);
             },
+            transformErrorResponse: () => new Error('Неверный логин или пароль'),
         }),
     }),
 });

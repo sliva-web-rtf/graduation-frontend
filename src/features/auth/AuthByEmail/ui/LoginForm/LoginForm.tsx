@@ -1,7 +1,7 @@
 import { useAuthMutation } from '@/entities/User';
-import { BaseField, BaseLoadingButton, PasswordField } from '@/shared/ui';
+import { BaseAlert, BaseField, BaseLoadingButton, PasswordField } from '@/shared/ui';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Stack, Typography } from '@mui/material';
+import { Stack } from '@mui/material';
 import classNames from 'classnames';
 import { memo, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
@@ -13,30 +13,24 @@ export interface LoginFormProps {
 
 const LoginForm = memo((props: LoginFormProps) => {
     const { className } = props;
-    const [auth, { isLoading }] = useAuthMutation();
-
+    const [auth, { isLoading, error }] = useAuthMutation();
     const {
         formState: { errors },
         handleSubmit,
         register,
-        setError,
     } = useForm<LoginFormSchema>({
         resolver: zodResolver(loginFormSchema),
     });
 
     const onSubmitHandler = useCallback(
-        async (data: LoginFormSchema) => {
-            try {
-                await auth(data);
-                window.location.href = '/';
-            } catch (err) {
-                setError('root', {
-                    type: 'server',
-                    message: 'Неправильный логин или пароль',
+        (data: LoginFormSchema) => {
+            auth(data)
+                .unwrap()
+                .then(() => {
+                    window.location.href = '/';
                 });
-            }
         },
-        [auth, setError],
+        [auth],
     );
 
     return (
@@ -47,9 +41,9 @@ const LoginForm = memo((props: LoginFormProps) => {
                         autoFocus
                         label="Логин"
                         fullWidth
-                        {...register('email')}
-                        error={Boolean(errors.email)}
-                        helperText={errors.email?.message}
+                        {...register('userName')}
+                        error={Boolean(errors.userName)}
+                        helperText={errors.userName?.message}
                     />
                     <PasswordField
                         label="Пароль"
@@ -68,7 +62,7 @@ const LoginForm = memo((props: LoginFormProps) => {
                 >
                     Войти
                 </BaseLoadingButton>
-                {Boolean(errors.root?.message) && <Typography color="error">{errors.root!.message}</Typography>}
+                {error && 'message' in error && <BaseAlert severity="error">{error.message}</BaseAlert>}
             </Stack>
         </form>
     );

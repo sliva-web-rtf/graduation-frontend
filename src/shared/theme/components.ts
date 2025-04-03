@@ -61,4 +61,9 @@ export const components: Components<Omit<Theme, 'components'>> | undefined = {
             localeText: ruRU.components.MuiDataGrid.defaultProps.localeText,
         },
     },
+    MuiAlert: {
+        defaultProps: {
+            variant: 'filled',
+        },
+    },
 };

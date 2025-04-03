@@ -5,10 +5,9 @@ export interface UserDto {
     roles: Role[];
     firstName: string;
     lastName: string;
+    email: string;
 
     patronymic?: string;
-    email?: string;
-    lastLogin?: string;
 }
 
 export interface TokenDto {
