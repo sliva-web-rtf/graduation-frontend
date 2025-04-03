@@ -1,5 +1,5 @@
 import { PersonCard, useGetPersonQuery } from '@/entities/Person';
-import { RequestButton } from '@/features/entity/AddRequests';
+import { PersonRequestButton } from '@/features/person/send-request';
 import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { EmptyMessage } from '@/shared/ui';
 import { Grid, Stack } from '@mui/material';
@@ -28,7 +28,7 @@ export const PersonInfo = (props: { isStudent?: boolean }) => {
         return <PersonInfoSkeleton />;
     }
 
-    if (!data) {
+    if (!data || !id) {
         return (
             <Stack height="100%">
                 <EmptyMessage />
@@ -42,7 +42,7 @@ export const PersonInfo = (props: { isStudent?: boolean }) => {
                 <Grid item xs={3.5}>
                     <Stack spacing={3}>
                         <PersonCard {...data} />
-                        <RequestButton id={id!} />
+                        <PersonRequestButton id={id} name={data.name} />
                     </Stack>
                 </Grid>
                 <Grid item xs>

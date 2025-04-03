@@ -13,6 +13,9 @@ const topicApi = baseApi.injectEndpoints({
             transformResponse: () => {
                 toast.success('Тема исследования успешно предложена');
             },
+            transformErrorResponse: () => {
+                toast.error('Ошибка при создании темы исследования');
+            },
             invalidatesTags: [TagTypes.Catalog],
         }),
     }),

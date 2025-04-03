@@ -1,4 +1,4 @@
-import { RequestButton } from '@/features/entity/AddRequests';
+import { PersonRequestButton } from '@/features/person/send-request';
 import { TopicRequestButton } from '@/features/topic/send-request';
 import { LimitInfo } from '@/shared/ui/LimitInfo/LimitInfo';
 import { CatalogOption } from '@/widgets/Catalog';
@@ -42,7 +42,7 @@ export const CatalogCard = memo((props: ICatalogCard) => {
             </Stack>
             <Stack spacing={6} alignSelf="center" justifyContent="space-between">
                 <LimitInfo limit={limit} fullness={fullness} />
-                {isTopics ? <TopicRequestButton id={id} name={title} /> : <RequestButton id={id} />}
+                {isTopics ? <TopicRequestButton id={id} name={title} /> : <PersonRequestButton id={id} name={title} />}
             </Stack>
         </Paper>
     );

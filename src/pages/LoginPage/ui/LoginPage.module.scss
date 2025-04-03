@@ -1,18 +1,14 @@
 .container {
     position: relative;
     height: 100vh;
+    overflow: hidden;
 }
 
 .formWrapper {
     width: var(--login-form-width);
-    background-color: var(--bg-color);
     padding: calc(2 * var(--space-l));
-    border-radius: calc(1.5 * var(--border-radius));
+    border-radius: var(--border-radius);
     z-index: 1;
-}
-
-.form {
-    width: 100%;
 }
 
 .fig1,
@@ -28,6 +24,7 @@
 }
 
 .fig2 {
+    scale: 0.8;
     top: 45%;
     right: 45%;
     z-index: 0;

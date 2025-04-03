@@ -5,13 +5,14 @@ import { BaseButton } from '../Button/Button';
 import classNames from './Modal.module.scss';
 
 type BaseModalProps = ModalProps & {
-    title: string;
     children: ReactNode;
 
+    title?: string;
     actionButton?: ReactNode;
     cancelButton?: ReactNode;
     subtitle?: string;
     loading?: boolean;
+    size?: 'small' | 'medium' | 'large';
 };
 
 const CloseButton = ({ onClick }: { onClick: any }) => (
@@ -38,17 +39,20 @@ export const BaseModal = (props: BaseModalProps) => {
         actionButton,
         cancelButton,
         loading = false,
+        size,
         ...otherProps
     } = props;
+    // eslint-disable-next-line no-nested-ternary
+    const width = size === undefined ? undefined : size === 'small' ? 400 : size === 'large' ? 800 : 600;
 
     return (
         <Modal open={open} onClose={onClose} {...otherProps}>
             <Stack direction="row" spacing={2} alignItems="flex-start" className={classNames.modal}>
                 <CloseButton onClick={onClose} />
-                <Stack spacing={4} className={classNames.content}>
+                <Stack spacing={4} className={classNames.content} width={width}>
                     <Stack spacing={1}>
-                        <Typography variant="h2">{title}</Typography>
-                        <Typography color="secondary">{subtitle}</Typography>
+                        {title && <Typography variant="h2">{title}</Typography>}
+                        {subtitle && <Typography color="secondary">{subtitle}</Typography>}
                     </Stack>
                     {loading ? <LinearProgress /> : children}
                     {(cancelButton || actionButton) && (

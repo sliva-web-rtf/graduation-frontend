@@ -2,7 +2,7 @@ import { baseApi } from '@/shared/api';
 import { toast } from 'react-toastify';
 import { TopicRequest } from '../model';
 
-const addRequestsApi = baseApi.injectEndpoints({
+const topicRequestApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
         topicRequest: build.mutation<void, TopicRequest>({
             query: (body) => ({
@@ -20,4 +20,4 @@ const addRequestsApi = baseApi.injectEndpoints({
     }),
 });
 
-export const { useTopicRequestMutation } = addRequestsApi;
+export const { useTopicRequestMutation } = topicRequestApi;

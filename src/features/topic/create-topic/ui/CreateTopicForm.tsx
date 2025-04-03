@@ -8,7 +8,7 @@ import { Stack } from '@mui/material';
 import { memo } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
-import { useCreateTopicMutation } from '../api/topicApi';
+import { useCreateTopicMutation } from '../api';
 import { CreateTopicFormSchema, createTopicFormSchema } from '../models/types/addScientificWorkSchema';
 
 export const CreateTopicForm = memo(() => {
@@ -26,16 +26,14 @@ export const CreateTopicForm = memo(() => {
     });
     const [requiresСompany, requiresSupervisor] = watch(['requiresСompany', 'requiresSupervisor']);
 
-    const onSubmit = async (data: CreateTopicFormSchema) => {
+    const onSubmit = (data: CreateTopicFormSchema) => {
         const transformedData = isStudent ? { ...data, requestedRoles: undefined, role: data.requestedRoles } : data;
-
-        try {
-            /* Хак, из-за requestedRoles и role */
-            await createTopic(transformedData as never);
-            reset();
-        } catch (err) {
-            /* empty */
-        }
+        /* Хак, из-за requestedRoles и role */
+        createTopic(transformedData as never)
+            .unwrap()
+            .then(() => {
+                reset();
+            });
     };
 
     return (
