@@ -2,13 +2,13 @@ import { CssBaseline } from '@mui/material';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 
-import { ToastContainer } from 'react-toastify';
 import { ErrorBoundary } from '@/app/providers/ErrorBoundary';
 import { StoreProvider } from '@/app/providers/StoreProvider';
 import ThemeProvider from '@/app/providers/ThemeProvider/ui/ThemeProvider';
-import App from './app/App';
-import 'react-toastify/dist/ReactToastify.css';
 import '@/app/styles/index.scss';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import App from './app/App';
 
 const container = document.getElementById('root');
 
@@ -30,6 +30,6 @@ root.render(
                 </ErrorBoundary>
             </StoreProvider>
         </BrowserRouter>
-        <ToastContainer limit={3} position="bottom-center" autoClose={2000} closeOnClick />
+        <ToastContainer limit={3} autoClose={3000} theme="colored" closeOnClick />
     </>,
 );

@@ -15,6 +15,7 @@ export const baseQuery: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryE
             if (token != null) {
                 headers.set('Authorization', `Bearer ${token.token}`);
             }
+
             return headers;
         },
     });

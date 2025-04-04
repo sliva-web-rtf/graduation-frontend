@@ -1,5 +1,6 @@
-import { ReactNode } from 'react';
+/* eslint-disable no-unused-vars */
 import { Box } from '@mui/material';
+import { ReactNode } from 'react';
 
 interface ListProps<T> {
     items: T[];
@@ -9,5 +10,6 @@ interface ListProps<T> {
 
 export function BaseList<T>(props: ListProps<T>) {
     const { items, render, className } = props;
+
     return <Box className={className}>{items.map((item) => render(item))}</Box>;
 }

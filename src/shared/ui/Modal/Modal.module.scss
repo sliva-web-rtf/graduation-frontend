@@ -1,0 +1,19 @@
+.backdrop {
+    overflow-y: scroll;
+}
+
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow-y: scroll;
+}
+
+.content {
+    min-width: var(--modal-width);
+    max-width: 80vw;
+    border-radius: var(--space-m);
+    padding: var(--space-xl);
+    background-color: var(--bg-color);
+}

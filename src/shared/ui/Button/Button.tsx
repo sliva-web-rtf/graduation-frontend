@@ -1,39 +1,45 @@
+import LoadingButton, { LoadingButtonProps } from '@mui/lab/LoadingButton';
 import { Button, ButtonProps, styled } from '@mui/material';
 import { grey } from '@mui/material/colors';
-import LoadingButton, { LoadingButtonProps } from '@mui/lab/LoadingButton';
 
-export const BaseButton = styled(Button)<ButtonProps>(() => ({
+export const BaseButton = styled(Button)<ButtonProps>(({ theme }) => ({
     '&': {
-        borderRadius: 'var(--border-radius)',
+        borderRadius: theme.spacing(2),
         textTransform: 'none',
         minWidth: 0,
-        fontFamily: 'Manrope',
         fontWeight: '600',
+        padding: '10px 28px',
     },
     '&.MuiButton-outlined': {
-        borderColor: grey['500'],
         color: grey['900'],
+        '&:hover': {
+            backgroundColor: 'white',
+        },
     },
-    '&.MuiButton-contained,Mui-disabled': {
+    '&.MuiButton-contained': {
         color: grey['100'],
     },
-    '&.MuiButton-root:hover': {},
+    '&.MuiButton-root:hover': {
+        boxShadow: 'none',
+    },
+    '&.MuiButton-sizeSmall': {
+        padding: '6px 16px',
+        fontSize: 12,
+    },
 }));
 
-export const BaseLoadingButton = styled(LoadingButton)<LoadingButtonProps>(() => ({
+export const BaseLoadingButton = styled(LoadingButton)<LoadingButtonProps>(({ theme }) => ({
     '&': {
-        borderRadius: 'var(--border-radius)',
+        borderRadius: theme.spacing(2),
         textTransform: 'none',
         minWidth: 0,
-        fontFamily: 'Manrope',
         fontWeight: '600',
+        padding: '10px 28px',
     },
     '&.MuiButton-outlined': {
-        borderColor: grey['500'],
         color: grey['900'],
     },
-    '&.MuiButton-contained,Mui-disabled': {
+    '&.MuiButton-contained': {
         color: grey['100'],
     },
-    '&.MuiButton-root:hover': {},
 }));

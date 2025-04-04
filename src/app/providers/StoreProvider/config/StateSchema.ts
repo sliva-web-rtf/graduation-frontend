@@ -1,33 +1,30 @@
+/* eslint-disable no-unused-vars */
 import { AnyAction, EnhancedStore, Reducer, ReducersMapObject } from '@reduxjs/toolkit';
 import { CombinedState } from 'redux';
 
 import { UserSchema } from '@/entities/User';
-import { type LoginSchema } from '@/features/auth/AuthByEmail/model/types/loginSchema';
+import { CommissionFormSchema } from '@/features/comission/create-comission';
 import { baseApi } from '@/shared/api';
-import { type CatalogSchema } from '@/widgets/Catalog/model/types/catalogSchema';
-import { ManualSchema } from '@/widgets/Manual';
-import { OnboardingSchema } from '@/widgets/Onboarding/model/types/onboardingSchema';
-import { PersonalDataSchema } from '@/widgets/PersonalData/model/types/personalDataSchema';
-import { ProfessorInfoSchema } from '@/widgets/ProfessorInfo';
+import { AdministrationSchema } from '@/widgets/Administration';
+import { type CatalogSchema } from '@/widgets/Catalog';
+import { PersonalDataSchema } from '@/widgets/PersonalData';
+import { PersonInfoSchema } from '@/widgets/PersonInfo';
 import { ProfileSchema } from '@/widgets/Profile';
-import { RequestsSectionSchema } from '@/widgets/RequestsSection';
-import { ScientificPortfolioSchema } from '@/widgets/ScientificPortfolio';
-import { StudentInfoSchema } from '@/widgets/StudentInfo';
+import { RequestsSchema } from '@/widgets/Requests';
+import { TopicInfoSchema } from '@/widgets/TopicInfo';
 
 export interface StateSchema {
-    user: UserSchema;
     [baseApi.reducerPath]: ReturnType<typeof baseApi.reducer>;
+    user: UserSchema;
+    catalog: CatalogSchema;
 
-    loginForm?: LoginSchema;
-    catalog?: CatalogSchema;
-    professor?: ProfessorInfoSchema;
-    student?: StudentInfoSchema;
-    manual?: ManualSchema;
-    onboarding?: OnboardingSchema;
     personalData?: PersonalDataSchema;
     profile?: ProfileSchema;
-    scientificPortfolio?: ScientificPortfolioSchema;
-    requestsSection?: RequestsSectionSchema;
+    requests?: RequestsSchema;
+    commissionForm?: CommissionFormSchema;
+    administration?: AdministrationSchema;
+    'person-info'?: PersonInfoSchema;
+    'topic-info'?: TopicInfoSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;

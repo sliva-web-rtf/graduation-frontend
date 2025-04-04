@@ -3,23 +3,18 @@ import { Role } from '../model/types/role';
 export interface UserDto {
     id: string;
     roles: Role[];
-    fullName?: string;
-    email?: string;
-    lastLogin?: string;
-    isRegistrationComplete: boolean;
-    emailConfirmed: boolean;
+    firstName: string;
+    lastName: string;
+    email: string;
+
+    patronymic?: string;
 }
 
 export interface TokenDto {
     token: string;
-    refreshToken: string;
 }
 
 export interface LoginDto {
+    userName: string;
     password: string;
-    email: string;
-}
-
-export interface RefreshTokenDto {
-    refreshToken: TokenDto['refreshToken'];
 }

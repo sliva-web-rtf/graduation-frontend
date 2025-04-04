@@ -1,38 +1,41 @@
-import { memo } from 'react';
-import { useSelector } from 'react-redux';
-import { Box, Stack } from '@mui/material';
+import { AcademicProgramsSelect } from '@/entities/AcademicPrograms';
+import { DEBOUNCE_DELAY } from '@/shared/lib/const';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { catalogActions } from '@/widgets/Catalog/model/slice/catalogSlice';
-import { ScientificAreasAutocomplete } from '@/entities/ScientificAreas';
-import { ScientificInterestsAutocomplete } from '@/entities/ScietificInterests';
-import { getCatalogAreas, getCatalogInterests } from '@/widgets/Catalog';
+import { BaseSearch } from '@/shared/ui';
+import { catalogActions, getCatalog } from '@/widgets/Catalog';
+import { SelectChangeEvent, Stack } from '@mui/material';
+import { ChangeEvent, memo, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useDebouncedCallback } from 'use-debounce';
 
 export const Search = memo(() => {
     const dispatch = useAppDispatch();
-    // TODO: улучшить структуру
-    const areas = useSelector(getCatalogAreas);
-    const interests = useSelector(getCatalogInterests);
+    const { query, academicProgram } = useSelector(getCatalog);
+    const [searchValue, setSearchValue] = useState(query);
+
+    const handleSearchChange = useDebouncedCallback((value: string) => {
+        dispatch(catalogActions.setSearch(value));
+    }, DEBOUNCE_DELAY);
+
+    const onChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
+        setSearchValue(e.target.value);
+        handleSearchChange(e.target.value);
+    };
+
+    const onChangeAcademicProgram = (e: SelectChangeEvent<string>) => {
+        dispatch(catalogActions.setAcademicProgram(e.target.value));
+    };
 
     return (
         <Stack direction="row" spacing={2}>
-            <Box width="60%">
-                <ScientificInterestsAutocomplete
-                    multiple
-                    value={interests}
-                    onChange={(_, value) => dispatch(catalogActions.setScientificInterests(value))}
-                    placeholder="Поиск по ключевым словам"
-                    limitTags={1}
-                />
-            </Box>
-            <Box width="40%">
-                <ScientificAreasAutocomplete
-                    multiple
-                    limitTags={1}
-                    value={areas}
-                    onChange={(_, value) => dispatch(catalogActions.setScientificAreas(value))}
-                    placeholder="Область науки и технологий"
-                />
-            </Box>
+            <BaseSearch value={searchValue} onChange={onChangeSearch} />
+            <AcademicProgramsSelect
+                useController={false}
+                label="Направление подготовки"
+                value={academicProgram}
+                // @ts-ignore Хак из-за максимальной универсальности селекта
+                onChange={onChangeAcademicProgram}
+            />
         </Stack>
     );
 });

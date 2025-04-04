@@ -1,18 +1,20 @@
-@import "reset";
-@import "variables/global";
-@import "fonts";
+@use "reset";
+@use "variables/global";
+@use "fonts";
 
 #root {
-  background-color: var(--bg-color);
+    background-color: var(--bg-color);
 }
 
 .page-wrapper {
-  width: var(--page-width);
-  min-height: 100vh;
-  display: grid;
-  grid-template-columns: var(--sidebar-width) 1fr;
-  column-gap: var(--space-xl);
-  padding: var(--space-m) 0;
-  margin: 0 auto;
-  color: var(--text-color);
+    width: var(--page-width);
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: var(--sidebar-width) 1fr;
+    column-gap: var(--space-xl);
+    color: var(--text-color);
+}
+
+a {
+    color: var(--primary-color);
 }

@@ -1,8 +1,7 @@
-import KeyboardBackspaceRoundedIcon from '@mui/icons-material/KeyboardBackspaceRounded';
-import { useNavigate } from 'react-router-dom';
-import { memo, ReactNode } from 'react';
 import { BaseButton } from '@/shared/ui/Button/Button';
-import { RoutePath } from '@/app/providers/Router/config/routeConfig';
+import KeyboardBackspaceRoundedIcon from '@mui/icons-material/KeyboardBackspaceRounded';
+import { memo, ReactNode } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface BackButtonProps {
     readonly to?: string;
@@ -13,16 +12,21 @@ export const BackButton = memo((props: BackButtonProps) => {
     const { to, children } = props;
     const navigate = useNavigate();
 
-    const handleClick = () => navigate(to || RoutePath.Catalog);
+    const handleClick = () => {
+        if (to) {
+            navigate(to);
+        } else {
+            navigate(-1);
+        }
+    };
 
     return (
         <BaseButton
-            variant="shadowed"
-            sx={(theme) => ({ alignSelf: 'flex-start', padding: [theme.spacing(1.5), theme.spacing(3)].join(' ') })}
+            sx={() => ({ alignSelf: 'flex-start' })}
             startIcon={<KeyboardBackspaceRoundedIcon />}
             onClick={handleClick}
         >
-            {children || 'Вернуться к каталогу'}
+            {children || 'Вернуться назад'}
         </BaseButton>
     );
 });

@@ -1,26 +1,31 @@
+import { userApi } from '@/entities/User';
+import { CATALOG_CARD_HEIGHT, SortDirection } from '@/shared/lib/const';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CatalogSchema } from '@/widgets/Catalog/model/types/catalogSchema';
-import { CatalogOption } from '../types/catalogOption';
+import { getCatalogOptionsForRoles } from '../../lib';
+import { CatalogOption, CatalogSchema } from '../types';
 
 export const initialState: CatalogSchema = {
-    option: CatalogOption.Themes,
-    options: Object.values(CatalogOption),
-    page: 1,
-    pageSize: 5,
+    option: CatalogOption.Topics,
+    options: [CatalogOption.Topics],
+    page: 0,
+    size: Math.round((window.innerHeight - 335) / (CATALOG_CARD_HEIGHT + 16)),
     pagesCount: {
-        [CatalogOption.Professors]: 1,
-        [CatalogOption.Themes]: 1,
-        [CatalogOption.Students]: 1,
+        [CatalogOption.Supervisors]: 0,
+        [CatalogOption.Topics]: 0,
+        [CatalogOption.Students]: 0,
     },
-    scientificInterests: [],
-    scientificAreas: [],
-    isFavoriteFilterOnly: false,
+    academicProgram: '',
+    order: SortDirection.DESC,
 };
 
 export const catalogSlice = createSlice({
     name: 'catalog',
     initialState,
     reducers: {
+        setSearch: (state, action: PayloadAction<CatalogSchema['query']>) => {
+            state.query = action.payload;
+            state.page = 0;
+        },
         setOption: (state, action: PayloadAction<CatalogSchema['option']>) => {
             state.option = action.payload;
         },
@@ -33,15 +38,20 @@ export const catalogSlice = createSlice({
         setPagesCount: (state, action: PayloadAction<number>) => {
             state.pagesCount[state.option] = action.payload;
         },
-        setScientificInterests: (state, action: PayloadAction<CatalogSchema['scientificInterests']>) => {
-            state.scientificInterests = action.payload;
+        setAcademicProgram: (state, action: PayloadAction<CatalogSchema['academicProgram']>) => {
+            state.academicProgram = action.payload;
         },
-        setScientificAreas: (state, action: PayloadAction<CatalogSchema['scientificAreas']>) => {
-            state.scientificAreas = action.payload;
+        setOrder: (state, action: PayloadAction<CatalogSchema['order']>) => {
+            state.order = action.payload;
         },
-        setIsFavoriteFilter: (state, action: PayloadAction<CatalogSchema['isFavoriteFilterOnly']>) => {
-            state.isFavoriteFilterOnly = action.payload;
+        setIncludeOwnedTopics: (state, action: PayloadAction<CatalogSchema['includeOwnedTopics']>) => {
+            state.includeOwnedTopics = action.payload;
         },
+    },
+    extraReducers: (builder) => {
+        builder.addMatcher(userApi.endpoints.user.matchFulfilled, (state, { payload }) => {
+            state.options = getCatalogOptionsForRoles(payload?.roles ?? []);
+        });
     },
 });
 

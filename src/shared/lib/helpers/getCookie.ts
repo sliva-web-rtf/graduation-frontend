@@ -5,5 +5,6 @@ export const getCookie = (name: string) => {
         const value = cookie.split('=')[1];
         return JSON.parse(decodeURIComponent(value));
     }
+
     return null;
 };

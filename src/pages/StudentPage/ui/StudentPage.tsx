@@ -1,19 +1,20 @@
-import { Helmet } from 'react-helmet';
-import { Stack, Typography } from '@mui/material';
+import { SITENAME } from '@/shared/lib/const';
 import { BackButton } from '@/widgets/BackButton';
-import { StudentInfo } from '@/widgets/StudentInfo';
+import { PersonInfo } from '@/widgets/PersonInfo';
+import { Stack, Typography } from '@mui/material';
+import { Helmet } from 'react-helmet';
 
 const StudentPage = () => (
     <>
         <Helmet>
-            <title>Исследователь | SCI Join</title>
+            <title>Студент | {SITENAME}</title>
         </Helmet>
-        <Stack spacing={6}>
+        <Stack spacing={6} height="100%">
             <Stack spacing={4}>
                 <BackButton />
-                <Typography variant="h1">Исследователь</Typography>
+                <Typography variant="h1">Студент</Typography>
             </Stack>
-            <StudentInfo />
+            <PersonInfo isStudent />
         </Stack>
     </>
 );

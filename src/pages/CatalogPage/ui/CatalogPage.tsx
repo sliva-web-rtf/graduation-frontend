@@ -1,14 +1,14 @@
-import { Stack, Typography } from '@mui/material';
+import { Stack } from '@mui/material';
 import { Helmet } from 'react-helmet';
+import { SITENAME } from '@/shared/lib/const';
 import { Catalog } from '@/widgets/Catalog';
 
 const CatalogPage = () => (
     <>
         <Helmet>
-            <title>Каталог | SCI Join</title>
+            <title>Выбор темы | {SITENAME}</title>
         </Helmet>
         <Stack spacing={4} height="100%">
-            <Typography variant="h1">Каталог</Typography>
             <Catalog />
         </Stack>
     </>

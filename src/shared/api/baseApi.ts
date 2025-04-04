@@ -1,9 +1,15 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { baseQueryWithReauth } from './baseQueryWithReauth';
 
+export enum TagTypes {
+    Catalog = 'Catalog',
+    Requests = 'Requests',
+    Profile = 'Profile',
+}
+
 export const baseApi = createApi({
     reducerPath: 'api',
     baseQuery: baseQueryWithReauth,
-    tagTypes: ['Avatar', 'Catalog', 'StudentSearchingStatus', 'ProfessorSearchingStatus'],
+    tagTypes: Object.values(TagTypes),
     endpoints: () => ({}),
 });

@@ -1,51 +1,35 @@
-import { Stack } from '@mui/material';
-import { useSelector } from 'react-redux';
-import { ChangeEvent, memo } from 'react';
-import { BasePagination } from '@/shared/ui/Pagination/Pagination';
 import { Search } from '@/features/catalog/Search';
-import { ToggleList } from '@/features/catalog/ToggleList';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { catalogActions, catalogReducer } from '@/widgets/Catalog/model/slice/catalogSlice';
-import { CatalogList } from '@/entities/CatalogList';
-import { FavoritesFilterCheckbox } from '@/features/catalog/Favorites';
-import { CreateScientificWorkModal } from '@/features/scientificWork/CreateScientificWork';
-import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import { CatalogOption } from '../model/types/catalogOption';
-import { getCatalogPage } from '../model/selectors/getCatalogPage/getCatalogPage';
-import { getCatalogPagesCount } from '../model/selectors/getCatalogPagesCount/getCatalogPagesCount';
-import { getCatalogOption } from '../model/selectors/getCatalogOption/getCatalogOption';
-
-const initialReducers: ReducersList = {
-    catalog: catalogReducer,
-};
+import { BasePagination } from '@/shared/ui';
+import { Stack } from '@mui/material';
+import { ChangeEvent, memo } from 'react';
+import { useSelector } from 'react-redux';
+import { catalogActions, getCatalog } from '../model';
+import { CatalogList } from './CatalogList';
+import { ToggleList } from './ToggleList';
 
 const Catalog = memo(() => {
     const dispatch = useAppDispatch();
-    const option = useSelector(getCatalogOption);
-    const page = useSelector(getCatalogPage);
-    const pagesCount = useSelector(getCatalogPagesCount);
+    const { option, page, pagesCount } = useSelector(getCatalog);
+    const pagesCountForOption = pagesCount[option];
 
     const handlePageChange = (_: ChangeEvent<unknown>, value: number) => {
-        dispatch(catalogActions.setPage(value));
+        dispatch(catalogActions.setPage(value - 1));
     };
 
     return (
-        <DynamicModuleLoader removeAfterUnmount reducers={initialReducers}>
-            <Stack spacing={4} justifyContent="space-between" height="100%">
-                <Stack spacing={4}>
-                    <Search />
-                    <Stack direction="row" justifyContent="space-between" alignItems="center">
-                        <ToggleList />
-                        <Stack direction="row" spacing={2}>
-                            <FavoritesFilterCheckbox />
-                            {option === CatalogOption.Themes && <CreateScientificWorkModal />}
-                        </Stack>
-                    </Stack>
-                    <CatalogList />
+        <Stack spacing={4} justifyContent="space-between" height="100%">
+            <Stack spacing={4} height="100%">
+                <Search />
+                <Stack direction="row" justifyContent="space-between" alignItems="center">
+                    <ToggleList />
                 </Stack>
-                <BasePagination page={page} count={pagesCount[option]} onChange={handlePageChange} />
+                <CatalogList />
             </Stack>
-        </DynamicModuleLoader>
+            {pagesCountForOption > 0 && (
+                <BasePagination page={page + 1} count={pagesCount[option]} onChange={handlePageChange} />
+            )}
+        </Stack>
     );
 });
 

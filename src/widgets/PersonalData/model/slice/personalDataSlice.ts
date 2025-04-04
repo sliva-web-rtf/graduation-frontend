@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { STATUS } from '@/shared/api/status';
 import { PersonalDataSchema } from '../types/personalDataSchema';
 import { PersonalInfoFormSchema } from '../types/personalInfoFormSchema';
-import { ProfessorSearchingStatus } from '@/widgets/Onboarding/model/types/professorStatus';
 import { StudentSearchingStatus } from '../types/studentSearchingStatus';
 
 const initialState: PersonalDataSchema = {
@@ -21,9 +20,6 @@ export const personalDataSlice = createSlice({
         },
         setStudentSearchingStatus: (state, action: PayloadAction<StudentSearchingStatus | undefined>) => {
             state.studentSearchingStatus = action.payload;
-        },
-        setProfessorSeacrhingStatus: (state, action: PayloadAction<ProfessorSearchingStatus | undefined>) => {
-            state.professorSearhingStatus = action.payload;
         },
     },
 });

@@ -1,31 +1,50 @@
-import React, { memo } from 'react';
-import { AppBarProps, Avatar, Badge, Box, IconButton, Toolbar } from '@mui/material';
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
-import NotificationsNoneRoundedIcon from '@mui/icons-material/NotificationsNoneRounded';
-import WorkspacePremiumOutlinedIcon from '@mui/icons-material/WorkspacePremiumOutlined';
-import { NavLink } from 'react-router-dom';
-import { BaseAppBar } from '@/shared/ui/AppBar/AppBar';
 import { RoutePath } from '@/app/providers/Router/config/routeConfig';
+import { getUserData, ROLES } from '@/entities/User';
+import { LogoutButton } from '@/features/logout';
+import { getInitials } from '@/shared/lib/helpers/getInitials';
+import { BaseAppBar } from '@/shared/ui/AppBar/AppBar';
+import { AppBarProps, Box, Stack, Toolbar, Tooltip, Typography } from '@mui/material';
+import { memo } from 'react';
+import { useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import classnames from './MenuBar.module.scss';
 
 interface MenuBarProps extends AppBarProps {}
 
-export const MenuBar = memo(({ sx, ...props }: MenuBarProps) => (
-    <Box sx={sx}>
-        <BaseAppBar position="static" {...props}>
-            <Toolbar>
-                <Avatar sx={{ width: 48, height: 48 }} component={NavLink} to={RoutePath.Profile} />
-                <IconButton color="primary">
-                    <SettingsOutlinedIcon />
-                </IconButton>
-                <IconButton color="primary">
-                    <WorkspacePremiumOutlinedIcon />
-                </IconButton>
-                <IconButton color="primary">
-                    <Badge badgeContent={2} color="error">
-                        <NotificationsNoneRoundedIcon />
-                    </Badge>
-                </IconButton>
-            </Toolbar>
-        </BaseAppBar>
-    </Box>
-));
+export const MenuBar = memo(({ sx, ...props }: MenuBarProps) => {
+    const { user } = useSelector(getUserData);
+
+    if (!user) {
+        return null;
+    }
+
+    const { roles, firstName, lastName, patronymic } = user;
+    const translatedRoles = roles.map((role) => ROLES[role]).join(', ');
+    const userInitials = getInitials(firstName, lastName, patronymic);
+
+    return (
+        <Box sx={sx}>
+            <BaseAppBar position="static" {...props}>
+                <Toolbar sx={{ gap: 1 }}>
+                    <Stack>
+                        <Tooltip title="Перейти в личный кабинет">
+                            <Typography
+                                variant="subtitle2"
+                                color="primary"
+                                component={NavLink}
+                                to={RoutePath.Profile}
+                                className={classnames.username}
+                            >
+                                {userInitials}
+                            </Typography>
+                        </Tooltip>
+                        <Typography variant="bodyXS" color="secondary" className={classnames.username}>
+                            {translatedRoles || 'Нет роли'}
+                        </Typography>
+                    </Stack>
+                    <LogoutButton />
+                </Toolbar>
+            </BaseAppBar>
+        </Box>
+    );
+});

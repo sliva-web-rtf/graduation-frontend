@@ -1,14 +1,14 @@
-import { RoutePath } from '@/app/providers/Router/config/routeConfig';
+import { RoutePath } from '@/app/providers/Router';
 import { CatalogOption } from '@/widgets/Catalog';
 
 export const getParentLink = (option: CatalogOption) => {
     let path = '';
     switch (option) {
-        case CatalogOption.Professors:
-            path = RoutePath.Professors;
+        case CatalogOption.Supervisors:
+            path = RoutePath.Supervisors;
             break;
-        case CatalogOption.Themes:
-            path = RoutePath.ScientificWork;
+        case CatalogOption.Topics:
+            path = RoutePath.Topics;
             break;
         default:
             path = RoutePath.Students;

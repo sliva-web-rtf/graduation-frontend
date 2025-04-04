@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Reducer } from '@reduxjs/toolkit';
 import { FC, ReactNode, useEffect } from 'react';
 import { useDispatch, useStore } from 'react-redux';
@@ -14,7 +15,7 @@ interface DynamicModuleLoaderProps {
 }
 
 export const DynamicModuleLoader: FC<DynamicModuleLoaderProps> = (props) => {
-    const { children, reducers, removeAfterUnmount = true } = props;
+    const { children, reducers, removeAfterUnmount = false } = props;
 
     const store = useStore() as ReduxStoreWithManager;
     const dispatch = useDispatch();

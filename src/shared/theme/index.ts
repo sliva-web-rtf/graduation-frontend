@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material';
-import { blue, blueGrey, green, grey, red } from '@mui/material/colors';
+import { blue, blueGrey, grey } from '@mui/material/colors';
 
 import { components } from './components';
 import { shadows } from './shadows';
@@ -11,7 +11,7 @@ export const theme = createTheme({
             default: '#F4F9FD',
         },
         primary: {
-            main: blue['600'],
+            main: '#408DFF',
             light: blue['200'],
         },
         secondary: {
@@ -19,14 +19,28 @@ export const theme = createTheme({
             light: blueGrey['50'],
         },
         error: {
-            main: red['500'],
+            main: '#b00020',
+            light: '#ffdddd',
+        },
+        warning: {
+            main: '#997404',
+            light: '#fff4d1',
         },
         success: {
-            main: green['500'],
-            light: green.A100,
+            main: '#1b5e20',
+            light: '#dff4dd',
+        },
+        info: {
+            main: '#1976D2',
+            light: '#d1e8ffa3',
         },
     },
     shadows,
     typography,
     components,
+    mixins: {
+        MuiDataGrid: {
+            containerBackground: '#ffffff',
+        },
+    },
 });
