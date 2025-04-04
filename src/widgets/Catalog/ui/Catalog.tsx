@@ -11,6 +11,7 @@ import { ToggleList } from './ToggleList';
 const Catalog = memo(() => {
     const dispatch = useAppDispatch();
     const { option, page, pagesCount } = useSelector(getCatalog);
+    const pagesCountForOption = pagesCount[option];
 
     const handlePageChange = (_: ChangeEvent<unknown>, value: number) => {
         dispatch(catalogActions.setPage(value - 1));
@@ -25,7 +26,9 @@ const Catalog = memo(() => {
                 </Stack>
                 <CatalogList />
             </Stack>
-            <BasePagination page={page + 1} count={pagesCount[option]} onChange={handlePageChange} />
+            {pagesCountForOption > 0 && (
+                <BasePagination page={page + 1} count={pagesCount[option]} onChange={handlePageChange} />
+            )}
         </Stack>
     );
 });

@@ -1,4 +1,4 @@
-import AttachFileIcon from '@mui/icons-material/AttachFile';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { styled } from '@mui/material';
 import { MuiFileInput, MuiFileInputProps } from 'mui-file-input';
@@ -14,6 +14,7 @@ export const StyledAttach = styled(MuiFileInput)<MuiFileInputProps>(({ theme }) 
     },
     span: {
         cursor: 'pointer',
+        fontWeight: 500,
     },
     '.MuiOutlinedInput-notchedOutline': {
         borderColor: theme.palette.primary.main,
@@ -37,7 +38,7 @@ export const Attach = (props: MuiFileInputProps) => (
         inputProps={{ accept: '.pdf, .doc, .docx' }}
         // eslint-disable-next-line react/jsx-no-duplicate-props
         InputProps={{
-            startAdornment: <AttachFileIcon color="primary" />,
+            startAdornment: <CloudUploadIcon color={props?.value ? 'primary' : 'secondary'} />,
         }}
         clearIconButtonProps={{
             title: 'Удалить файл',

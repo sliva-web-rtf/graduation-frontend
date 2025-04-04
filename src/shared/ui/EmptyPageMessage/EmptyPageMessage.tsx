@@ -1,5 +1,5 @@
-import InboxIcon from '@mui/icons-material/Inbox';
-import { Box, Stack, Typography } from '@mui/material';
+import { Stack } from '@mui/material';
+import { BaseAlert } from '../Alert/Alert';
 
 type EmptyMessageProps = {
     message?: string;
@@ -9,11 +9,10 @@ export const EmptyMessage = (props: EmptyMessageProps) => {
     const { message = 'Информация отсутсвует' } = props;
 
     return (
-        <Box display="flex" sx={{ alignItems: 'center', justifyContent: 'center', flex: 1 }} height="100%">
-            <Stack spacing={1} alignItems="center">
-                <InboxIcon fontSize="large" color="secondary" sx={{ width: 48, height: 48 }} />
-                <Typography color="secondary">{message}</Typography>
-            </Stack>
-        </Box>
+        <Stack alignItems="center" justifyContent="center" height="100%">
+            <BaseAlert severity="info" sx={{ alignSelf: 'center', width: 'inherit !important' }}>
+                {message}
+            </BaseAlert>
+        </Stack>
     );
 };

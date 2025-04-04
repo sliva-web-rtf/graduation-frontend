@@ -1,8 +1,8 @@
+import { BaseAlert, BaseLoadingButton, HelperText, PasswordField } from '@/shared/ui';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Stack, Typography } from '@mui/material';
+import { Stack } from '@mui/material';
 import { useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { BaseLoadingButton, HelperText, PasswordField } from '@/shared/ui';
 import { updatePassword } from '../../api/personalDataApi';
 import { changePasswordFormSchema, ChangePasswordFormSchema } from '../../model/types/changePasswordFormSchema';
 
@@ -59,13 +59,8 @@ export const ChangePasswordForm = () => {
                     error={Boolean(errors.repeatNewPassword)}
                     helperText={<HelperText error={errors.repeatNewPassword} />}
                 />
-                <Stack>
-                    <Typography variant="bodyXS" color="#00000099">
-                        Последнее изменение пароля
-                    </Typography>
-                    <Typography color="primary">Не изменялся</Typography>
-                </Stack>
             </Stack>
+            <BaseAlert severity="info"> Последнее изменение пароля: Не изменялся</BaseAlert>
             <BaseLoadingButton
                 loading={isLoading}
                 type="submit"

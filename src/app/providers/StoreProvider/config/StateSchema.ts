@@ -5,6 +5,7 @@ import { CombinedState } from 'redux';
 import { UserSchema } from '@/entities/User';
 import { CommissionFormSchema } from '@/features/comission/create-comission';
 import { baseApi } from '@/shared/api';
+import { AdministrationSchema } from '@/widgets/Administration';
 import { type CatalogSchema } from '@/widgets/Catalog';
 import { PersonalDataSchema } from '@/widgets/PersonalData';
 import { PersonInfoSchema } from '@/widgets/PersonInfo';
@@ -21,6 +22,7 @@ export interface StateSchema {
     profile?: ProfileSchema;
     requests?: RequestsSchema;
     commissionForm?: CommissionFormSchema;
+    administration?: AdministrationSchema;
     'person-info'?: PersonInfoSchema;
     'topic-info'?: TopicInfoSchema;
 }

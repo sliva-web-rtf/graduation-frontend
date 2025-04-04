@@ -1,6 +1,7 @@
 import { RoutePath } from '@/app/providers/Router';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { BaseAlert, BaseLoadingButton } from '@/shared/ui';
+import AddIcon from '@mui/icons-material/Add';
 import { Stack } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -30,6 +31,7 @@ export const SubmitCommissionForm = () => {
             <BaseLoadingButton
                 variant="contained"
                 onClick={handleClick}
+                startIcon={<AddIcon />}
                 sx={{ alignSelf: 'flex-start' }}
                 disabled={!isStepsValid}
             >

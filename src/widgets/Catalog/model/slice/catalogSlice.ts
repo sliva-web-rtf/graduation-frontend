@@ -10,9 +10,9 @@ export const initialState: CatalogSchema = {
     page: 0,
     size: Math.round((window.innerHeight - 335) / (CATALOG_CARD_HEIGHT + 16)),
     pagesCount: {
-        [CatalogOption.Supervisors]: 1,
-        [CatalogOption.Topics]: 1,
-        [CatalogOption.Students]: 1,
+        [CatalogOption.Supervisors]: 0,
+        [CatalogOption.Topics]: 0,
+        [CatalogOption.Students]: 0,
     },
     academicProgram: '',
     order: SortDirection.DESC,

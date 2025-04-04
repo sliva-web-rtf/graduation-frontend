@@ -1,7 +1,6 @@
 import { baseApi, TagTypes } from '@/shared/api';
 import { catalogActions } from '@/widgets/Catalog';
 import queryString from 'query-string';
-import { toast } from 'react-toastify';
 import { getUrl, mapCatalogDtoToModel, transformDtoForCatalogCard } from '../lib';
 import { CatalogDto, CatalogModel, CatalogRequest } from '../model';
 
@@ -19,7 +18,7 @@ const catalogApi = baseApi.injectEndpoints({
                     const { data } = await queryFulfilled;
                     dispatch(catalogActions.setPagesCount(data.pagesCount));
                 } catch (err: any) {
-                    toast.error(`Ошибка при получения каталога: ${err.message}`);
+                    /* empty */
                 }
             },
             transformResponse: (response: CatalogDto) => {

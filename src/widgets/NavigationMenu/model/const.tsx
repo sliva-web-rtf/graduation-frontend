@@ -3,6 +3,7 @@ import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import GroupIcon from '@mui/icons-material/Group';
 import HubIcon from '@mui/icons-material/Hub';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import ManageSearchOutlinedIcon from '@mui/icons-material/ManageSearchOutlined';
 import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
 import { Tab } from './types';
@@ -24,4 +25,9 @@ export const headClerkTabs: Tab[] = [
         icon: <HubIcon />,
     },
     ...clerkTabs,
+    {
+        label: 'Администриров...',
+        path: RoutePath.Administration,
+        icon: <ManageAccountsIcon />,
+    },
 ];

@@ -1,5 +1,5 @@
 import { CatalogCard, ICatalogCard } from '@/entities/CatalogCard';
-import { EmptyMessage } from '@/shared/ui';
+import { EmptyMessage, ErrorPageMessage } from '@/shared/ui';
 import { BaseList } from '@/shared/ui/List/List';
 import { getCatalog } from '@/widgets/Catalog';
 import { memo, useCallback } from 'react';
@@ -27,7 +27,11 @@ export const CatalogList = memo(() => {
         return <CatalogListSkeleton count={size} />;
     }
 
-    if (!data?.data?.length || error) {
+    if (error) {
+        return <ErrorPageMessage />;
+    }
+
+    if (!data?.data?.length) {
         return <EmptyMessage message="Ничего не найдено" />;
     }
 

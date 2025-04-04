@@ -16,9 +16,10 @@ export const StyledSelect = styled(Select)<SelectProps>(({ theme }) => ({
 }));
 
 export type BaseSelectProps = SelectProps & {
-    name: string;
-    control: any;
     options: Array<string | number>;
+
+    control?: any;
+    name?: string;
     helperText?: string;
     useController?: boolean;
     clearable?: boolean;
@@ -43,7 +44,6 @@ export const BaseSelect = (props: BaseSelectProps) => {
         <StyledSelect
             {...otherProps}
             label={label}
-            labelId={`${name}-label`}
             value={fieldProps?.value ?? value ?? ''}
             onChange={fieldProps?.onChange ?? onChange}
         >
@@ -62,9 +62,7 @@ export const BaseSelect = (props: BaseSelectProps) => {
 
     return (
         <FormControl fullWidth>
-            <InputLabel id={`${name}-label`} error={otherProps.error}>
-                {label}
-            </InputLabel>
+            <InputLabel error={otherProps.error}>{label}</InputLabel>
             {useController && control ? (
                 <Controller
                     name={name}

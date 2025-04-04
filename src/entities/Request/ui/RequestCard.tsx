@@ -1,6 +1,6 @@
+import { BaseButton, TopicChangeInfo } from '@/shared/ui';
 import { Box, Paper, Stack, Typography } from '@mui/material';
 import { NavLink } from 'react-router-dom';
-import { BaseButton, TopicChangeInfo } from '@/shared/ui';
 import styles from './RequestCard.module.scss';
 
 type RequestCardProps = {

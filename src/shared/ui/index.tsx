@@ -6,6 +6,7 @@ export * from './Checkbox/Checkbox';
 export * from './Chip/Chip';
 export { EditingField } from './EditingField/EditingField';
 export * from './EmptyPageMessage/EmptyPageMessage';
+export * from './ErrorPageMessage/ErrorPageMessage';
 export { BaseField } from './Field/Field';
 export { HelperText } from './HelperText/HelperText';
 export * from './Icons';

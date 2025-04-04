@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { type Role } from '@/entities/User/model/types/role';
+import { AdminPage } from '@/pages/AdminPage';
 import { CatalogPage } from '@/pages/CatalogPage';
 import { CommissionsPage } from '@/pages/CommissionsPage';
 import { CreateCommissionPage } from '@/pages/CreateCommissionPage';
@@ -41,10 +42,12 @@ export enum AppRoutes {
     Commissions = 'Commissions',
     CreateComission = 'CreateComission',
     CreateTopic = 'CreateTopic',
+    Administration = 'Administration',
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.Test]: '/test',
+    [AppRoutes.Administration]: '/administration',
     [AppRoutes.Login]: '/login',
     [AppRoutes.Supervisors]: '/supervisors/:id',
     [AppRoutes.Topics]: '/topics/:id',
@@ -143,6 +146,11 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     [AppRoutes.MyStudents]: {
         path: RoutePath.MyStudents,
         element: <MyStudentsPage />,
+        ...withLayoutAndAuth,
+    },
+    [AppRoutes.Administration]: {
+        path: RoutePath.Administration,
+        element: <AdminPage />,
         ...withLayoutAndAuth,
     },
     [AppRoutes.Test]: {
