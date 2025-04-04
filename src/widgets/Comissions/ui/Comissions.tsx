@@ -1,5 +1,5 @@
 import { ComissionCard } from '@/entities/Comission';
-import { CreateComissionButton } from '@/features/comission/create-comission';
+import { CreateCommissionButton } from '@/features/comission/create-comission';
 import { Stack } from '@mui/material';
 
 type ComissionsProps = {};
@@ -19,7 +19,7 @@ export const Comissions = (props: ComissionsProps) => {
                 comissionName="Комиссия 2"
                 clerk={{ id: '2', name: 'Баринов Виктор Петрович' }}
             />
-            <CreateComissionButton />
+            <CreateCommissionButton />
         </Stack>
     );
 };

@@ -3,7 +3,7 @@ import { BaseButton } from '@/shared/ui';
 import AddIcon from '@mui/icons-material/Add';
 import { Link, useNavigate } from 'react-router-dom';
 
-export const CreateComissionButton = () => {
+export const CreateCommissionButton = () => {
     const navigate = useNavigate();
 
     const handleClick = (e: any) => {

@@ -24,7 +24,7 @@ export const components: Components<Omit<Theme, 'components'>> | undefined = {
         ],
     },
     MuiTextField: {
-        defaultProps: { variant: 'outlined', autoComplete: 'off' },
+        defaultProps: { variant: 'outlined', autoComplete: 'off', fullWidth: true },
     },
     MuiModal: {
         styleOverrides: {
