@@ -1,6 +1,8 @@
+import { RoutePath } from '@/app/providers/Router';
 import { AcademicProgramsSelect } from '@/entities/AcademicPrograms';
 import { TopicRolesSelect } from '@/entities/Roles';
 import { isUserStudent } from '@/entities/User';
+import { getInfoPagePath } from '@/shared/lib/helpers/getInfoPagePath';
 import { BaseField, BaseSwitch } from '@/shared/ui';
 import { BaseLoadingButton } from '@/shared/ui/Button/Button';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -8,10 +10,12 @@ import { Stack } from '@mui/material';
 import { memo } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { useCreateTopicMutation } from '../api';
-import { CreateTopicFormSchema, createTopicFormSchema } from '../models/types/addScientificWorkSchema';
+import { CreateTopicFormSchema, createTopicFormSchema } from '../models/types/createTopicFormSchema';
 
 export const CreateTopicForm = memo(() => {
+    const navigate = useNavigate();
     const isStudent = useSelector(isUserStudent);
     const [createTopic, { isLoading: isCreating }] = useCreateTopicMutation();
     const {
@@ -31,7 +35,8 @@ export const CreateTopicForm = memo(() => {
         /* Хак, из-за requestedRoles и role */
         createTopic(transformedData as never)
             .unwrap()
-            .then(() => {
+            .then((response) => {
+                navigate(getInfoPagePath(RoutePath.MyTopics, response.id));
                 reset();
             });
     };

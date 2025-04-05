@@ -38,6 +38,7 @@ export enum AppRoutes {
     Requests = 'Requests',
     MyDiplom = 'MyDiplom',
     MyTopics = 'MyTopics',
+    MyTopic = 'MyTopic',
     MyStudents = 'MyStudents',
     Commissions = 'Commissions',
     CreateComission = 'CreateComission',
@@ -56,6 +57,7 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.Requests]: '/requests',
     [AppRoutes.MyDiplom]: '/my-dimplom',
     [AppRoutes.MyTopics]: '/my-topics',
+    [AppRoutes.MyTopic]: '/my-topics/:id',
     [AppRoutes.MyStudents]: '/my-students',
     [AppRoutes.Commissions]: '/commissions',
     [AppRoutes.CreateComission]: '/commissions/create',
@@ -141,6 +143,11 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     [AppRoutes.MyTopics]: {
         path: RoutePath.MyTopics,
         element: <MyTopicsPage />,
+        ...withLayoutAndAuth,
+    },
+    [AppRoutes.MyTopic]: {
+        path: RoutePath.MyTopic,
+        element: <TopicPage extended editable />,
         ...withLayoutAndAuth,
     },
     [AppRoutes.MyStudents]: {

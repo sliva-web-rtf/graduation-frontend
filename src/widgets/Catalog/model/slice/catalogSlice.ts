@@ -28,9 +28,7 @@ export const catalogSlice = createSlice({
         },
         setOption: (state, action: PayloadAction<CatalogSchema['option']>) => {
             state.option = action.payload;
-        },
-        setOptions: (state, action: PayloadAction<CatalogSchema['options']>) => {
-            state.options = action.payload;
+            state.page = 0;
         },
         setPage: (state, action: PayloadAction<CatalogSchema['page']>) => {
             state.page = action.payload;
@@ -43,9 +41,6 @@ export const catalogSlice = createSlice({
         },
         setOrder: (state, action: PayloadAction<CatalogSchema['order']>) => {
             state.order = action.payload;
-        },
-        setIncludeOwnedTopics: (state, action: PayloadAction<CatalogSchema['includeOwnedTopics']>) => {
-            state.includeOwnedTopics = action.payload;
         },
     },
     extraReducers: (builder) => {

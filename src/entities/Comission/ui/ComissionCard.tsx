@@ -9,7 +9,7 @@ import { Accordion, AccordionDetails, AccordionSummary, Stack, styled, Typograph
 type ComissionCardProps = {
     comissionId: string;
     comissionName: string;
-    clerk: Pick<PersonMainInfo, 'id' | 'name'>;
+    clerk: Pick<PersonMainInfo, 'id' | 'fullName'>;
 };
 
 const StyledAccordion = styled(Accordion)(({ theme }) => ({
@@ -28,7 +28,7 @@ const StyledAccordionSummary = styled(AccordionSummary)(({ theme }) => ({
 
 export const ComissionCard = (props: ComissionCardProps) => {
     const { comissionId, comissionName, clerk } = props;
-    const { name: clerkName } = clerk;
+    const { fullName: clerkName } = clerk;
 
     return (
         <StyledAccordion>

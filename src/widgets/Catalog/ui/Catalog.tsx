@@ -21,9 +21,7 @@ const Catalog = memo(() => {
         <Stack spacing={4} justifyContent="space-between" height="100%">
             <Stack spacing={4} height="100%">
                 <Search />
-                <Stack direction="row" justifyContent="space-between" alignItems="center">
-                    <ToggleList />
-                </Stack>
+                <ToggleList />
                 <CatalogList />
             </Stack>
             {pagesCountForOption > 0 && (

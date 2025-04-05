@@ -9,7 +9,11 @@ import styles from './CatalogList.module.scss';
 import { CatalogListSkeleton } from './CatalogList.skeleton';
 
 export const CatalogList = memo(() => {
-    const { query, option, page, size, includeOwnedTopics } = useSelector(getCatalog);
+    const { query, option, page, size } = useSelector(getCatalog);
+    const { isFetching, data, error } = useGetCatalogQuery({
+        option,
+        params: { query, page, size },
+    });
 
     const render = useCallback(
         (item: Omit<ICatalogCard, 'option'>) => {
@@ -17,11 +21,6 @@ export const CatalogList = memo(() => {
         },
         [option],
     );
-
-    const { isFetching, data, error } = useGetCatalogQuery({
-        option,
-        params: { query, page, size, includeOwnedTopics },
-    });
 
     if (isFetching) {
         return <CatalogListSkeleton count={size} />;
@@ -35,5 +34,5 @@ export const CatalogList = memo(() => {
         return <EmptyMessage message="Ничего не найдено" />;
     }
 
-    return <BaseList className={styles.catalogList} items={data!.data} render={render} />;
+    return <BaseList className={styles.catalogList} items={data.data} render={render} />;
 });

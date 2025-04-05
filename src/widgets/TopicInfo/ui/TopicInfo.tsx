@@ -1,4 +1,4 @@
-import { TopicCard, useGetScientificWorkQuery } from '@/entities/Topic';
+import { TopicCard, useGetTopicQuery } from '@/entities/Topic';
 import { TopicRequestButton } from '@/features/topic/send-request';
 import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { EmptyMessage } from '@/shared/ui';
@@ -29,7 +29,7 @@ export const TopicInfo = memo((props: TopicInfoProps) => {
     const { id: paramsId } = useParams();
     const id = paramsId || topicId;
     const { option } = useSelector(getTopicInfo);
-    const { isFetching, data } = useGetScientificWorkQuery({ id: id! });
+    const { isFetching, data } = useGetTopicQuery({ id: id! });
 
     if (isFetching) {
         return <TopicInfoSkeleton />;

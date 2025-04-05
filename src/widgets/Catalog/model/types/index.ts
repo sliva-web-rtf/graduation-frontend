@@ -1,6 +1,6 @@
 import { ICatalogCard } from '@/entities/CatalogCard';
-import { Professor } from '@/entities/Professor';
 import { Student } from '@/entities/Student';
+import { Professor } from '@/entities/Supervisor';
 import { TopicCardModel } from '@/entities/Topic';
 import { SortDirection } from '@/shared/lib/const';
 
@@ -20,7 +20,6 @@ export type CatalogSchema = {
     order: SortDirection;
 
     query?: string;
-    includeOwnedTopics?: boolean;
 };
 
 export interface CatalogDto {
@@ -40,7 +39,6 @@ export interface CatalogRequest {
     params: {
         page: number;
         size: number;
-        includeOwnedTopics?: boolean;
         query?: string;
         order?: SortDirection;
     };

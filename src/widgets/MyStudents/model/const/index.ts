@@ -116,8 +116,14 @@ export const rows: GridRowsProp = [
         supervisor: { id: 's10', name: 'Орлов Николай Викторович' },
         companyName: 'ООО "WebTech"',
         companySupervisor: 'Иванов Дмитрий Сергеевич',
-        doc1: false,
     },
+];
+
+const first = [
+    'mark', // Оценка
+    'topicName', // Тема
+    'result', // Статус(прошел/нет)
+    'comment,', // Комментарий эксперта
 ];
 
 export const columns: GridColDef[] = [

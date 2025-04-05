@@ -1,3 +1,4 @@
+import { BaseLoadingButton } from '@/shared/ui';
 import { Paper, Skeleton, Stack, Typography } from '@mui/material';
 import { memo } from 'react';
 import styles from './CatalogCard.module.scss';
@@ -21,6 +22,10 @@ export const CatalogCardSkeleton = memo(() => (
                 </Typography>
             </Stack>
         </Stack>
-        <Skeleton width={120} height={40} sx={{ alignSelf: 'center' }} />
+        <Stack spacing={6} alignSelf="center" justifyContent="space-between">
+            <BaseLoadingButton variant="contained" loading>
+                Оформить заявку
+            </BaseLoadingButton>
+        </Stack>
     </Paper>
 ));

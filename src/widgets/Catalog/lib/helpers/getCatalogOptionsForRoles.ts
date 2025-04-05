@@ -19,5 +19,6 @@ export const getCatalogOptionsForRoles = (roles: Role[]): CatalogOption[] => {
         }
     });
 
-    return Array.from(optionsSet);
+    return [CatalogOption.Supervisors, CatalogOption.Topics, CatalogOption.Students];
+    // return Array.from(optionsSet);
 };

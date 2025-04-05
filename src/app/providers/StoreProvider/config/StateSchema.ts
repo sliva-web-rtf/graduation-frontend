@@ -3,6 +3,7 @@ import { AnyAction, EnhancedStore, Reducer, ReducersMapObject } from '@reduxjs/t
 import { CombinedState } from 'redux';
 
 import { UserSchema } from '@/entities/User';
+import { YearSchema } from '@/entities/Year';
 import { CommissionFormSchema } from '@/features/comission/create-comission';
 import { baseApi } from '@/shared/api';
 import { AdministrationSchema } from '@/widgets/Administration';
@@ -16,11 +17,12 @@ import { TopicInfoSchema } from '@/widgets/TopicInfo';
 export interface StateSchema {
     [baseApi.reducerPath]: ReturnType<typeof baseApi.reducer>;
     user: UserSchema;
+    year: YearSchema;
     catalog: CatalogSchema;
+    requests: RequestsSchema;
 
     personalData?: PersonalDataSchema;
     profile?: ProfileSchema;
-    requests?: RequestsSchema;
     commissionForm?: CommissionFormSchema;
     administration?: AdministrationSchema;
     'person-info'?: PersonInfoSchema;

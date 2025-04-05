@@ -10,7 +10,9 @@ import { Link } from 'react-router-dom';
 
 type Entity = {
     id: string;
-    name: string;
+
+    name?: string;
+    fullName?: string;
 };
 
 export const getLinkCell = <T extends Entity>(
@@ -19,10 +21,14 @@ export const getLinkCell = <T extends Entity>(
 ) => {
     if (!params.value) return null;
 
-    const { id, name } = params.value;
+    const { id, fullName, name } = params.value;
     const path = getInfoPagePath(route, id);
 
-    return <Link to={path}>{name}</Link>;
+    return (
+        <Link to={path} title={fullName || name}>
+            {name}
+        </Link>
+    );
 };
 
 export const renderStudentCell = (params: GridRenderCellParams<GridValidRowModel, PersonMainInfo>) =>

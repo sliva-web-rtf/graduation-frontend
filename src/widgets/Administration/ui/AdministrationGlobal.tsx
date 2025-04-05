@@ -1,4 +1,4 @@
-import { DefaultYearForm } from '@/features/set-year';
+import { DefaultYearForm } from '@/features/year/set-year';
 import { BaseAlert } from '@/shared/ui';
 import { Stack, Typography } from '@mui/material';
 import { memo } from 'react';

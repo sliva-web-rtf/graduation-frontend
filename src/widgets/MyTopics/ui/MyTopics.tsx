@@ -1,20 +1,29 @@
-import { CatalogListSkeleton } from '@/widgets/Catalog/ui/CatalogList';
-import { Stack } from '@mui/material';
-import { useGetMyTopicsQuery } from '../api';
+import { CatalogCard, ICatalogCard } from '@/entities/CatalogCard';
+import { useGetUsersTopicsQuery } from '@/entities/Topic';
+import { getUserData } from '@/entities/User';
+import { BaseList } from '@/shared/ui/List/List';
+import { CatalogOption } from '@/widgets/Catalog';
+import { PersonTopicsSkeleton } from '@/widgets/PersonInfo/ui/PersonTopics';
+import { useCallback } from 'react';
+import { useSelector } from 'react-redux';
 import { MyTopicsEmpty } from './MyTopics.empty';
+import styles from './MyTopics.module.scss';
 
-type MyTopicsProps = {};
+export const MyTopics = () => {
+    const { user } = useSelector(getUserData);
+    const { isFetching, data } = useGetUsersTopicsQuery({ userId: user!.id });
 
-export const MyTopics = (props: MyTopicsProps) => {
-    const { data, isFetching } = useGetMyTopicsQuery();
+    const render = useCallback((item: Omit<ICatalogCard, 'option'>) => {
+        return <CatalogCard key={item.id} option={CatalogOption.Topics} {...item} />;
+    }, []);
 
     if (isFetching) {
-        return <CatalogListSkeleton count={3} />;
+        return <PersonTopicsSkeleton className={styles.list} count={3} />;
     }
 
-    if (!data?.length || !data) {
+    if (!data?.length) {
         return <MyTopicsEmpty />;
     }
 
-    return <Stack>мои темы</Stack>;
+    return <BaseList className={styles.list} items={data} render={render} />;
 };

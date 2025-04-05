@@ -10,27 +10,23 @@ const Row = ({ left, right }: { left: string; right?: string }) => (
         >
             {left}
         </Typography>
-        <Typography variant="subtitle1">{right}</Typography>
+        <Typography variant="subtitle1">{right || 'Не указано'}</Typography>
     </Stack>
 );
 
 export const PersonCard = (props: Person) => {
     const {
-        name,
+        fullName,
         contacts,
 
         // Для руководителя
-        post,
-        degree,
-        fullness,
-        limit,
+        fullness = 0,
+        limit = 0,
 
         // Для студента
-        role,
-        direction,
-        group,
+        academicGroup,
+        academicProgram,
     } = props;
-
     return (
         <Paper
             sx={(theme) => ({
@@ -39,17 +35,20 @@ export const PersonCard = (props: Person) => {
             })}
         >
             <Stack spacing={3}>
-                <Typography variant="h3">{name}</Typography>
+                <Typography variant="h2">{fullName}</Typography>
                 <Divider />
                 <Stack spacing={1}>
-                    {'fullness' in props && <Row left="Лимиты" right={[fullness, limit].join('/')} />}
-                    {'degree' in props && <Row left="Должность" right={post || degree} />}
-                    {'role' in props && <Row left="Роль" right={role} />}
-                    {'direction' in props && <Row left="Направление" right={direction} />}
-                    {'group' in props && <Row left="Группа" right={group} />}
+                    {Boolean(limit) && <Row left="Лимиты" right={[fullness, limit].join('/')} />}
+                    {'academicProgram' in props && <Row left="Направление" right={academicProgram} />}
+                    {academicGroup && <Row left="Группа" right={academicGroup} />}
                 </Stack>
                 <Divider />
-                <Typography>{contacts || 'Контакты не указаны'}</Typography>
+                <Stack spacing={1}>
+                    <Typography variant="subtitle1" color="secondary">
+                        Контакты
+                    </Typography>
+                    <Typography>{contacts || 'Не указано'}</Typography>
+                </Stack>
             </Stack>
         </Paper>
     );

@@ -22,7 +22,7 @@ export const PersonInfo = (props: { isStudent?: boolean }) => {
     const { id } = useParams();
     const { option } = useSelector(getPersonInfo);
 
-    const { isFetching, data } = useGetPersonQuery({ id: id!, entity: isStudent ? 'student' : 'professor' });
+    const { isFetching, data } = useGetPersonQuery({ id: id!, isStudent: Boolean(isStudent) });
 
     if (isFetching) {
         return <PersonInfoSkeleton />;
@@ -42,11 +42,11 @@ export const PersonInfo = (props: { isStudent?: boolean }) => {
                 <Grid item xs={3.5}>
                     <Stack spacing={3}>
                         <PersonCard {...data} />
-                        <PersonRequestButton id={id} name={data.name} />
+                        <PersonRequestButton id={id} name={data.fullName} />
                     </Stack>
                 </Grid>
                 <Grid item xs>
-                    <Stack spacing={4} alignItems="flex-start">
+                    <Stack spacing={4} alignItems="flex-start" height="100%">
                         <ToggleUsersInfo />
                         {option === ToggleOptions.Portfolio ? (
                             <PersonPortfolio about={data.about} />

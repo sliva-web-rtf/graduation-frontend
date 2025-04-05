@@ -1,9 +1,6 @@
-import { Role } from '@/entities/User';
-
 export type PersonMainInfo = {
     id: string;
-    name: string;
-    role: Role;
+    fullName: string;
 
     about?: string;
     contacts?: string;
@@ -11,23 +8,19 @@ export type PersonMainInfo = {
 };
 
 export type Student = {
-    direction: string;
-    group: string;
+    academicProgram: string;
+    academicGroup: string;
     role: string;
 };
 
-export type Manager = {
-    post: string;
-    degree: string;
+export type Supervisor = {
     limit: number;
     fullness: number;
 };
 
-export type Person = PersonMainInfo & Partial<Student> & Partial<Manager>;
-
-type Entity = 'student' | 'professor';
+export type Person = PersonMainInfo & Partial<Student> & Partial<Supervisor>;
 
 export type PersonRequest = {
     id: string;
-    entity: Entity;
+    isStudent: boolean;
 };

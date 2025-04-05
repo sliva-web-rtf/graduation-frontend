@@ -63,7 +63,7 @@ export const BaseSelect = (props: BaseSelectProps) => {
     return (
         <FormControl fullWidth>
             <InputLabel error={otherProps.error}>{label}</InputLabel>
-            {useController && control ? (
+            {useController && control && name ? (
                 <Controller
                     name={name}
                     control={control}

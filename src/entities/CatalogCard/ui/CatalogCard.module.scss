@@ -1,10 +1,10 @@
 .card {
     display: grid;
     grid-template-columns: 1fr auto;
-    column-gap: calc(2 * var(--space-xl));
+    column-gap: calc(2 * var(--space-l));
     height: var(--catalog-card-height);
     padding: var(--space-l);
-    border-radius: var(--space-l);
+    border-radius: var(--space-m) !important;
 }
 
 .title,

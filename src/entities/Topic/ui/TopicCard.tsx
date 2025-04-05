@@ -1,7 +1,8 @@
 import { PersonSummary } from '@/entities/Person';
+import { BaseChip } from '@/shared/ui';
 import { Divider, Paper, Stack, Typography } from '@mui/material';
 import { memo, ReactNode } from 'react';
-import { Topic } from '../model/types';
+import { Topic, TopicStatus, TopicStatusRus } from '../model/types';
 
 const clampedText = { overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' };
 const Row = ({ left, right, isText }: { left: string; right?: string | ReactNode; isText?: boolean }) => (
@@ -26,8 +27,8 @@ export const TopicCard = memo((props: Topic) => {
         <Paper sx={(theme) => ({ padding: theme.spacing(3), borderRadius: theme.spacing(2) })}>
             <Stack spacing={3}>
                 <Stack spacing={1}>
-                    {/* <BaseChip label={TopicStatusRus[workStatus]} sx={{ alignSelf: 'flex-start' }} /> */}
-                    <Typography variant="h3">{name}</Typography>
+                    <BaseChip label={TopicStatusRus[TopicStatus.Confirmed]} color="success" />
+                    <Typography variant="h2">{name}</Typography>
                 </Stack>
                 <Divider />
                 <Stack spacing={1}>

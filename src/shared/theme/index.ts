@@ -34,6 +34,9 @@ export const theme = createTheme({
             main: '#1976D2',
             light: '#d1e8ffa3',
         },
+        text: {
+            primary: '#21272a',
+        },
     },
     shadows,
     typography,

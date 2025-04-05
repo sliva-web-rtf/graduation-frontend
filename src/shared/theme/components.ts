@@ -39,6 +39,9 @@ export const components: Components<Omit<Theme, 'components'>> | undefined = {
         defaultProps: { variant: 'outlined' },
     },
     MuiChip: {
+        defaultProps: {
+            sx: { alignSelf: 'flex-start' },
+        },
         styleOverrides: {
             colorError: {
                 backgroundColor: '#FFDDDD', // Пастельный красный
@@ -56,6 +59,7 @@ export const components: Components<Omit<Theme, 'components'>> | undefined = {
     },
     MuiDataGrid: {
         defaultProps: {
+            disableColumnFilter: true,
             disableRowSelectionOnClick: true,
             autoPageSize: true,
             localeText: ruRU.components.MuiDataGrid.defaultProps.localeText,

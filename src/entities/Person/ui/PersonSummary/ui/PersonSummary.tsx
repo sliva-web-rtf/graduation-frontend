@@ -7,7 +7,7 @@ import { NavLink } from 'react-router-dom';
 
 interface PersonSummaryProps {
     id: string;
-    name: string;
+    name?: any;
 
     isLink?: boolean;
     isStudent?: boolean;

@@ -16,9 +16,6 @@ export const requestsSlice = createSlice({
         setOption: (state, action: PayloadAction<RequestsSectionSchema['option']>) => {
             state.option = action.payload;
         },
-        setOptions: (state, action: PayloadAction<RequestsSectionSchema['options']>) => {
-            state.options = action.payload;
-        },
     },
     extraReducers: (builder) => {
         builder.addMatcher(userApi.endpoints.user.matchFulfilled, (state, { payload }) => {
