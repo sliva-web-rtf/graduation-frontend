@@ -4,20 +4,20 @@ import { LocalStorageService } from './localStorage';
 export namespace UserSecretStorageService {
     const USER_SECRET_KEY = 'USER_SECRET_KEY';
 
-    export async function save(secret: Token): Promise<void> {
-        await LocalStorageService.save(USER_SECRET_KEY, secret);
+    export function save(secret: Token) {
+        LocalStorageService.save(USER_SECRET_KEY, secret);
     }
 
-    export async function remove(): Promise<void> {
-        await LocalStorageService.remove(USER_SECRET_KEY);
+    export function remove() {
+        LocalStorageService.remove(USER_SECRET_KEY);
     }
 
-    export function get(): Promise<Token | null> {
+    export function get(): Token | null {
         return LocalStorageService.get<Token>(USER_SECRET_KEY);
     }
 
-    export async function clear(): Promise<void> {
-        await LocalStorageService.clear();
+    export function clear() {
+        LocalStorageService.clear();
     }
 
     export function isValid(): boolean {

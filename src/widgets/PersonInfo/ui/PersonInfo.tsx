@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getPersonInfo, personInfoReducer } from '../model';
 import { ToggleOptions } from '../model/types/toggleOptions';
-import classNames from './PersonInfo.module.scss';
 import { PersonInfoSkeleton } from './PersonInfo.skeleton';
 import { PersonPortfolio } from './PersonPortfolio';
 import { PersonTopics } from './PersonTopics';
@@ -51,7 +50,7 @@ export const PersonInfo = (props: { isStudent?: boolean }) => {
                         {option === ToggleOptions.Portfolio ? (
                             <PersonPortfolio about={data.about} />
                         ) : (
-                            <PersonTopics userId={id!} className={classNames.list} />
+                            <PersonTopics userId={id!} />
                         )}
                     </Stack>
                 </Grid>

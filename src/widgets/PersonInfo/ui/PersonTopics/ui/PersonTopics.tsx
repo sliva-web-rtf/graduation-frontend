@@ -9,6 +9,7 @@ import styles from './PersonTopics.module.scss';
 import { PersonTopicsSkeleton } from './PersonTopics.skeleton';
 
 type PersonTopicsProps = {
+    className?: string;
     userId: string;
 };
 

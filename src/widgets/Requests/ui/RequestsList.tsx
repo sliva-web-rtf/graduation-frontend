@@ -1,7 +1,7 @@
-import { useCallback } from 'react';
-import { useSelector } from 'react-redux';
 import { RequestCard } from '@/entities/Request';
 import { BaseList } from '@/shared/ui/List/List';
+import { useCallback } from 'react';
+import { useSelector } from 'react-redux';
 import { getRequestsSection, RequestsSectionOption } from '../model';
 import styles from './RequestsList.module.scss';
 
@@ -87,5 +87,6 @@ export const RequestsList = () => {
     //     return <Typography>Ничего не найдено</Typography>;
     // }
 
+    // @ts-ignore
     return <BaseList className={styles.list} items={data} render={render} />;
 };

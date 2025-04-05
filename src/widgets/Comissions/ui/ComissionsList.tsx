@@ -23,13 +23,13 @@ export const ComissionsList = () => {
                 <ComissionCard
                     comissionId="1"
                     comissionName="Комиссия 1"
-                    clerk={{ id: '1', name: 'Миронова Елена Михайловна' }}
+                    clerk={{ id: '1', fullName: 'Миронова Елена Михайловна' }}
                 />
 
                 <ComissionCard
                     comissionId="2"
                     comissionName="Комиссия 2"
-                    clerk={{ id: '2', name: 'Баринов Виктор Петрович' }}
+                    clerk={{ id: '2', fullName: 'Баринов Виктор Петрович' }}
                 />
             </Stack>
         );

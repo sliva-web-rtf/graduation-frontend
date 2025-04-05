@@ -1,7 +1,7 @@
 import { ICatalogCard } from '@/entities/CatalogCard';
+import { TopicCardModel } from '@/entities/Topic';
 import { baseApi } from '@/shared/api';
 import { transformDtoForCatalogCard } from '@/widgets/Catalog';
-import { TopicCardModel } from '../model/types';
 
 const topicApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
