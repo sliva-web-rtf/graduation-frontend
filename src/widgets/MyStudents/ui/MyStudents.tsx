@@ -1,13 +1,49 @@
-import { BaseTable } from '@/shared/ui';
+import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { Stack } from '@mui/material';
-import { columns, rows } from '../model';
+import { useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useGetStudentsTableQuery } from '../api';
+import { generateColumns } from '../lib';
+import { myStudentsReducer } from '../model';
+import { getMyStudentsState } from '../model/selectors';
+import { MyStudentsFilter } from './MyStudentsFilter';
+import { MyStudentsTable } from './MyStudentsTable';
 
 type MyStudentsProps = {};
 
+const initialReducers: ReducersList = {
+    myStudents: myStudentsReducer,
+};
+
 export const MyStudents = (props: MyStudentsProps) => {
+    const { stage, query } = useSelector(getMyStudentsState);
+    const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 1 });
+    const { data, isFetching } = useGetStudentsTableQuery({
+        page: paginationModel.page,
+        size: paginationModel.pageSize,
+        stage,
+        query,
+    });
+
+    const columns = useMemo(() => generateColumns(data?.dataType), [data]);
+    const rowCount = useMemo(
+        () => (data?.pagesCount ?? 1) * paginationModel.pageSize,
+        [data?.pagesCount, paginationModel.pageSize],
+    );
+
     return (
-        <Stack height="100%" maxWidth="calc(var(--page-width) - var(--sidebar-width) - var(--space-xl))">
-            <BaseTable rows={rows} columns={columns} />
-        </Stack>
+        <DynamicModuleLoader removeAfterUnmount reducers={initialReducers}>
+            <Stack spacing={4} height="100%" width="100%">
+                <MyStudentsFilter />
+                <MyStudentsTable
+                    columns={columns}
+                    rows={data?.students ?? []}
+                    rowCount={rowCount}
+                    loading={isFetching}
+                    paginationModel={paginationModel}
+                    setPaginationModel={setPaginationModel}
+                />
+            </Stack>
+        </DynamicModuleLoader>
     );
 };

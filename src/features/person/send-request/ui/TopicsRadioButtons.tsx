@@ -1,10 +1,10 @@
-import { TopicCardModel } from '@/entities/Topic';
+import { ICatalogCard } from '@/entities/CatalogCard';
 import { BaseRadio } from '@/shared/ui';
-import { Stack, Typography } from '@mui/material';
+import { Skeleton, Stack, Typography } from '@mui/material';
 import { memo } from 'react';
 
 type TopicsRadioButtonsProps = {
-    items?: TopicCardModel[];
+    items?: Omit<ICatalogCard, 'option'>[];
 };
 
 export const TopicsRadioButtons = memo((props: TopicsRadioButtonsProps) => {
@@ -16,9 +16,18 @@ export const TopicsRadioButtons = memo((props: TopicsRadioButtonsProps) => {
 
     return (
         <Stack>
-            {items.map((item: TopicCardModel) => (
-                <BaseRadio key={item.id} label={item.name} value={item.id} />
+            {items.map((item) => (
+                <BaseRadio key={item.id} label={item.title} value={item.id} />
             ))}
         </Stack>
     );
 });
+
+export const TopicsRadioButtonsSkeleton = () => {
+    return (
+        <Stack>
+            <Skeleton height={40} />
+            <Skeleton width="90%" height={40} />
+        </Stack>
+    );
+};

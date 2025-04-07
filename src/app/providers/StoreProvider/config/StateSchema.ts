@@ -2,17 +2,18 @@
 import { AnyAction, EnhancedStore, Reducer, ReducersMapObject } from '@reduxjs/toolkit';
 import { CombinedState } from 'redux';
 
-import { UserSchema } from '@/entities/User';
-import { YearSchema } from '@/entities/Year';
-import { CommissionFormSchema } from '@/features/comission/create-comission';
+import { type UserSchema } from '@/entities/User';
+import { type YearSchema } from '@/entities/Year';
+import { type CommissionFormSchema } from '@/features/comission/create-comission';
 import { baseApi } from '@/shared/api';
-import { AdministrationSchema } from '@/widgets/Administration';
+import { type AdministrationSchema } from '@/widgets/Administration';
 import { type CatalogSchema } from '@/widgets/Catalog';
-import { PersonalDataSchema } from '@/widgets/PersonalData';
-import { PersonInfoSchema } from '@/widgets/PersonInfo';
-import { ProfileSchema } from '@/widgets/Profile';
-import { RequestsSchema } from '@/widgets/Requests';
-import { TopicInfoSchema } from '@/widgets/TopicInfo';
+import { type MyStudentsSchema } from '@/widgets/MyStudents';
+import { type PersonalDataSchema } from '@/widgets/PersonalData';
+import { type PersonInfoSchema } from '@/widgets/PersonInfo';
+import { type ProfileSchema } from '@/widgets/Profile';
+import { type RequestsSchema } from '@/widgets/Requests';
+import { type TopicInfoSchema } from '@/widgets/TopicInfo';
 
 export interface StateSchema {
     [baseApi.reducerPath]: ReturnType<typeof baseApi.reducer>;
@@ -25,6 +26,7 @@ export interface StateSchema {
     profile?: ProfileSchema;
     commissionForm?: CommissionFormSchema;
     administration?: AdministrationSchema;
+    myStudents?: MyStudentsSchema;
     'person-info'?: PersonInfoSchema;
     'topic-info'?: TopicInfoSchema;
 }

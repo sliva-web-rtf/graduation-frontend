@@ -55,6 +55,10 @@ export const components: Components<Omit<Theme, 'components'>> | undefined = {
                 backgroundColor: '#DFF4DD', // Пастельный зелёный
                 color: '#1B5E20',
             },
+            colorSecondary: {
+                backgroundColor: '#E5E4E2', // Пастельный белый
+                color: '#21272A',
+            },
         },
     },
     MuiDataGrid: {
@@ -63,6 +67,12 @@ export const components: Components<Omit<Theme, 'components'>> | undefined = {
             disableRowSelectionOnClick: true,
             autoPageSize: true,
             localeText: ruRU.components.MuiDataGrid.defaultProps.localeText,
+            slotProps: {
+                loadingOverlay: {
+                    variant: 'skeleton',
+                    noRowsVariant: 'skeleton',
+                },
+            },
         },
     },
     MuiAlert: {

@@ -11,12 +11,11 @@ interface PersonSummaryProps {
 
     isLink?: boolean;
     isStudent?: boolean;
-    degree?: string;
     role?: string;
 }
 
 export const PersonSummary: FC<PersonSummaryProps> = (props) => {
-    const { id, name, degree, role, isLink, isStudent } = props;
+    const { id, name, role, isLink, isStudent } = props;
     const initials = getInitials(name);
     const path = getInfoPagePath(isStudent ? RoutePath.Students : RoutePath.Supervisors, id);
 
@@ -33,7 +32,7 @@ export const PersonSummary: FC<PersonSummaryProps> = (props) => {
             )}
 
             <Typography variant="bodyXS" color="secondary">
-                {degree || role}
+                {role}
             </Typography>
         </Stack>
     );

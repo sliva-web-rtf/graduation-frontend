@@ -19,7 +19,7 @@ export const StyledPagination = styled((props: PaginationProps) => (
 }));
 
 export const BasePagination = (props: PaginationProps) => (
-    <Stack direction="row" justifyContent="center">
-        <StyledPagination {...props} />
+    <Stack direction="row" justifyContent="center" width="100%">
+        <StyledPagination {...props} size="small" />
     </Stack>
 );

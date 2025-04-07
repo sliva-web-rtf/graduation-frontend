@@ -12,6 +12,9 @@ export const BaseTable = styled(DataGrid)<DataGridProps>(({ theme }) => ({
     '& .MuiDataGrid-row:nth-of-type(even)': {
         backgroundColor: theme.palette.background.paper,
     },
+    '& .MuiDataGrid-row:hover': {
+        backgroundColor: theme.palette.secondary.light,
+    },
     '& .MuiDataGrid-columnHeaderTitle': {
         fontSize: 14,
         color: theme.palette.secondary.main,
@@ -21,5 +24,8 @@ export const BaseTable = styled(DataGrid)<DataGridProps>(({ theme }) => ({
         ...theme.applyStyles('light', {
             borderRightColor: grey[300],
         }),
+    },
+    '& .MuiDataGrid-overlay': {
+        color: theme.palette.secondary.main,
     },
 }));

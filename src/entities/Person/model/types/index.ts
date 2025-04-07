@@ -24,3 +24,15 @@ export type PersonRequest = {
     id: string;
     isStudent: boolean;
 };
+
+export enum StudentStatus {
+    Kicked = 'Kicked',
+    Academ = 'Academ',
+    Active = 'Active',
+}
+
+export const StudentStatusRus: Record<StudentStatus, string> = {
+    [StudentStatus.Kicked]: 'Отчислен',
+    [StudentStatus.Academ]: 'Академ',
+    [StudentStatus.Active]: 'Активен',
+};

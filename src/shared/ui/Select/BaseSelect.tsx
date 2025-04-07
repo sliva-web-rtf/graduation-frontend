@@ -36,6 +36,7 @@ export const BaseSelect = (props: BaseSelectProps) => {
         defaultValue,
         useController = true,
         value,
+        size,
         onChange,
         ...otherProps
     } = props;
@@ -61,7 +62,7 @@ export const BaseSelect = (props: BaseSelectProps) => {
     );
 
     return (
-        <FormControl fullWidth>
+        <FormControl fullWidth size={size}>
             <InputLabel error={otherProps.error}>{label}</InputLabel>
             {useController && control && name ? (
                 <Controller

@@ -1,5 +1,6 @@
-import { BaseLoadingButton } from '@/shared/ui';
-import { useTopicRequestMutation } from '../api';
+import { BaseButton } from '@/shared/ui';
+import { useState } from 'react';
+import { TopicRequestModal } from './TopicRequestModal';
 
 type TopicRequestButtonProps = {
     id: string;
@@ -8,19 +9,16 @@ type TopicRequestButtonProps = {
 
 export const TopicRequestButton = (props: TopicRequestButtonProps) => {
     const { id, name } = props;
-    const [requestTopic, { isLoading }] = useTopicRequestMutation();
+    const [open, setOpen] = useState(false);
 
-    const handleClick = async () => {
-        // eslint-disable-next-line no-restricted-globals
-        const isConfirmed = confirm(`Вы действительно хотите оформить заявку на тему "${name}"?`);
-        if (isConfirmed) {
-            await requestTopic({ topicId: id });
-        }
-    };
+    const toggleOpen = () => setOpen((prev) => !prev);
 
     return (
-        <BaseLoadingButton variant="contained" onClick={handleClick} loading={isLoading}>
-            Оформить заявку
-        </BaseLoadingButton>
+        <>
+            <BaseButton variant="contained" onClick={toggleOpen}>
+                Оформить заявку
+            </BaseButton>
+            <TopicRequestModal open={open} onClose={toggleOpen} id={id} name={name} />
+        </>
     );
 };

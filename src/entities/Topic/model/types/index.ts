@@ -1,15 +1,18 @@
 import { PersonMainInfo } from '@/entities/Person/model/types';
+import { StrictRecord } from '@/shared/lib/types/StrictRecord';
 
 export enum TopicStatus {
     Canceled = 'Completed',
     Сonsideration = 'Сonsideration',
-    Confirmed = 'Confirmed',
+    Approved = 'Approved',
 }
 
-export const TopicStatusRus: Record<TopicStatus, string> = {
+export const TopicStatusRus: StrictRecord<TopicStatus, string> = {
     [TopicStatus.Canceled]: 'Отклонена',
     [TopicStatus.Сonsideration]: 'На рассмотрении',
-    [TopicStatus.Confirmed]: 'Утверждена',
+    [TopicStatus.Approved]: 'Утверждена',
+
+    getUnknown: 'Неизвестно',
 };
 
 export interface Topic {
