@@ -13,7 +13,12 @@ export const NavigationMenu = memo((props: TabsProps) => {
 
     // const tabs = getTabsForRoles(roles);
     const tabs = getTabsForRoles([Role.Admin]);
-    const value = location.pathname.startsWith('/topics') ? '/' : `/${location.pathname.split('/')[1]}`;
+    const value =
+        location.pathname.startsWith('/topics') ||
+        location.pathname.startsWith('/students') ||
+        location.pathname.startsWith('/supervisors')
+            ? '/'
+            : `/${location.pathname.split('/')[1]}`;
 
     return (
         <BaseTabs orientation="vertical" value={value} {...props}>

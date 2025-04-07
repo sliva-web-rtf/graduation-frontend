@@ -1,3 +1,5 @@
+import { StrictRecord } from '@/shared/lib/types/StrictRecord';
+
 export type PersonMainInfo = {
     id: string;
     fullName: string;
@@ -31,8 +33,10 @@ export enum StudentStatus {
     Active = 'Active',
 }
 
-export const StudentStatusRus: Record<StudentStatus, string> = {
+export const StudentStatusRus: StrictRecord<StudentStatus, string> = {
     [StudentStatus.Kicked]: 'Отчислен',
     [StudentStatus.Academ]: 'Академ',
     [StudentStatus.Active]: 'Активен',
-};
+
+    getUnknown: 'Неизвестно',
+} as const;

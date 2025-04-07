@@ -2,7 +2,7 @@ import { StudentStatus } from '@/entities/Person';
 import { TopicStatus } from '@/entities/Topic';
 import { DocumentStatus, ResultStatus } from '../types/statuses';
 
-export const getColorByTopicStatus = (status: TopicStatus) => {
+export const getColorByTopicStatus = (status?: TopicStatus) => {
     switch (status) {
         case TopicStatus.Approved:
             return 'success';
@@ -16,7 +16,7 @@ export const getColorByTopicStatus = (status: TopicStatus) => {
     }
 };
 
-export const getColorByStudentsStatus = (status: StudentStatus) => {
+export const getColorByStudentsStatus = (status?: StudentStatus) => {
     switch (status) {
         case StudentStatus.Active:
             return 'success';
@@ -30,7 +30,7 @@ export const getColorByStudentsStatus = (status: StudentStatus) => {
     }
 };
 
-export const getColorByResultStatus = (status: ResultStatus) => {
+export const getColorByResultStatus = (status?: ResultStatus) => {
     switch (status) {
         case ResultStatus.Success:
             return 'success';
