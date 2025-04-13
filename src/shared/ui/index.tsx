@@ -26,3 +26,4 @@ export * from './Table/Table';
 export * from './Tabs/Tabs';
 export * from './ToggleButtons/ToggleButtons';
 export * from './TopicChangeInfo/TopicChangeInfo';
+export * from './LinearStepsProgress/LinearStagesProgress';
