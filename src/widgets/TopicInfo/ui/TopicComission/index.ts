@@ -1,1 +1,1 @@
-export { TopicComission } from './ui/TopicComission';
+export { TopicCommission } from './ui/TopicCommission';
