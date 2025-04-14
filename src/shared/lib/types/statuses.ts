@@ -7,11 +7,11 @@ export enum ResultStatus {
 }
 
 export const ResultStatusRus: StrictRecord<ResultStatus, string> = {
-    [ResultStatus.Error]: 'Не пройдено',
+    [ResultStatus.Error]: 'Не успешно',
     [ResultStatus.Warning]: 'Не явился',
     [ResultStatus.Success]: 'Успешно',
 
-    getUnknown: 'Неизвестно',
+    getUnknown: 'Нет данных',
 } as const;
 
 export enum DocumentStatus {

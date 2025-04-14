@@ -27,7 +27,7 @@ export const MyDimplom = (props: MyDimplomProps) => {
                 <CommentCard role={Role.Expert} text={text1} date={new Date(Date.now())} />
                 <CommentCard role={Role.Clerk} text={text2} date={new Date(Date.now())} />
             </Stack>
-            <TopicInfo topicId="5558be23-1c9c-484a-a65f-a62b4ddfff28" extended />
+            <TopicInfo topicId="370a764c-be35-4cf8-adb0-cbef75389b70" extended />
         </Stack>
     );
 };

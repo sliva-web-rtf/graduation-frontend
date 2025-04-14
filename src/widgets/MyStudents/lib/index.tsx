@@ -117,7 +117,6 @@ const baseColumns: GridColDef[] = [
         field: 'student',
         headerName: 'ФИО',
         width: 300,
-        sortable: false,
         renderCell: renderLinkCell(RoutePath.Students, 'fullName'),
     },
     { field: 'academicGroup', headerName: 'Группа', width: 110 },

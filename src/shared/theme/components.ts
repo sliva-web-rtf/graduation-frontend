@@ -63,7 +63,7 @@ export const components: Components<Omit<Theme, 'components'>> | undefined = {
     },
     MuiDataGrid: {
         defaultProps: {
-            disableColumnFilter: true,
+            // disableColumnFilter: true,
             disableRowSelectionOnClick: true,
             autoPageSize: true,
             localeText: ruRU.components.MuiDataGrid.defaultProps.localeText,

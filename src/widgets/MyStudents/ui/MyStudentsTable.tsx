@@ -40,6 +40,7 @@ export const MyStudentsTable = (props: StudentsTableProps) => {
     return (
         <Stack height="100%" maxWidth="calc(var(--page-width) - var(--sidebar-width) - var(--space-xl))">
             <BaseTable
+                disableVirtualization
                 paginationMode="server"
                 loading={loading}
                 paginationModel={paginationModel}

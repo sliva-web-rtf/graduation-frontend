@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { styled } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { DataGrid, DataGridProps } from '@mui/x-data-grid';
@@ -8,12 +9,22 @@ export const BaseTable = styled(DataGrid)<DataGridProps>(({ theme }) => ({
     fontWeight: 500,
     '& .MuiDataGrid-row:nth-of-type(odd)': {
         backgroundColor: 'transparent',
+
+        '& .MuiDataGrid-columnHeader[data-field="id"], .MuiDataGrid-cell[data-field="id"], & .MuiDataGrid-columnHeader[data-field="student"], & .MuiDataGrid-cell[data-field="student"]':
+            {
+                backgroundColor: theme.palette.background.default,
+            },
     },
     '& .MuiDataGrid-row:nth-of-type(even)': {
         backgroundColor: theme.palette.background.paper,
     },
     '& .MuiDataGrid-row:hover': {
         backgroundColor: theme.palette.secondary.light,
+
+        '& .MuiDataGrid-columnHeader[data-field="id"], .MuiDataGrid-cell[data-field="id"], & .MuiDataGrid-columnHeader[data-field="student"], & .MuiDataGrid-cell[data-field="student"]':
+            {
+                backgroundColor: theme.palette.secondary.light,
+            },
     },
     '& .MuiDataGrid-columnHeaderTitle': {
         fontSize: 14,
@@ -27,5 +38,17 @@ export const BaseTable = styled(DataGrid)<DataGridProps>(({ theme }) => ({
     },
     '& .MuiDataGrid-overlay': {
         color: theme.palette.secondary.main,
+    },
+    '& .MuiDataGrid-columnHeader[data-field="id"], & .MuiDataGrid-cell[data-field="id"]': {
+        position: 'sticky',
+        left: 0,
+        zIndex: 100,
+        backgroundColor: theme.palette.background.paper,
+    },
+    '& .MuiDataGrid-columnHeader[data-field="student"], & .MuiDataGrid-cell[data-field="student"]': {
+        position: 'sticky',
+        left: 50,
+        zIndex: 100,
+        backgroundColor: theme.palette.background.paper,
     },
 }));
