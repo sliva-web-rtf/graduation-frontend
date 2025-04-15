@@ -3,28 +3,38 @@ import { styled } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { DataGrid, DataGridProps } from '@mui/x-data-grid';
 
+const stickyHeaders = {
+    check: '.MuiDataGrid-columnHeader[data-field="__check__"]',
+    number: '.MuiDataGrid-columnHeader[data-field="number"]',
+    student: '.MuiDataGrid-columnHeader[data-field="student"]',
+};
+
+const stickyCells = {
+    check: '.MuiDataGrid-cell[data-field="__check__"]',
+    number: '.MuiDataGrid-cell[data-field="number"]',
+    student: '.MuiDataGrid-cell[data-field="student"]',
+};
+
 export const BaseTable = styled(DataGrid)<DataGridProps>(({ theme }) => ({
     fontFamily: ['Manrope', 'sans-serif'].join(','),
     fontSize: 16,
     fontWeight: 500,
-    '& .MuiDataGrid-row:nth-of-type(odd)': {
-        backgroundColor: 'transparent',
-
-        '& .MuiDataGrid-columnHeader[data-field="id"], .MuiDataGrid-cell[data-field="id"], & .MuiDataGrid-columnHeader[data-field="student"], & .MuiDataGrid-cell[data-field="student"]':
-            {
-                backgroundColor: theme.palette.background.default,
-            },
-    },
-    '& .MuiDataGrid-row:nth-of-type(even)': {
+    '.MuiDataGrid-row': {
         backgroundColor: theme.palette.background.paper,
     },
-    '& .MuiDataGrid-row:hover': {
-        backgroundColor: theme.palette.secondary.light,
+    '.MuiDataGrid-row.Mui-selected': {
+        backgroundColor: '#DEECFD',
 
-        '& .MuiDataGrid-columnHeader[data-field="id"], .MuiDataGrid-cell[data-field="id"], & .MuiDataGrid-columnHeader[data-field="student"], & .MuiDataGrid-cell[data-field="student"]':
-            {
-                backgroundColor: theme.palette.secondary.light,
-            },
+        [Object.values(stickyCells).join(',')]: {
+            backgroundColor: '#DEECFD',
+        },
+    },
+    '& .MuiDataGrid-row:hover': {
+        backgroundColor: `${theme.palette.secondary.light} !important`,
+
+        [Object.values(stickyCells).join(',')]: {
+            backgroundColor: theme.palette.secondary.light,
+        },
     },
     '& .MuiDataGrid-columnHeaderTitle': {
         fontSize: 14,
@@ -39,16 +49,27 @@ export const BaseTable = styled(DataGrid)<DataGridProps>(({ theme }) => ({
     '& .MuiDataGrid-overlay': {
         color: theme.palette.secondary.main,
     },
-    '& .MuiDataGrid-columnHeader[data-field="id"], & .MuiDataGrid-cell[data-field="id"]': {
+    [[stickyHeaders.check, stickyCells.check].join(',')]: {
         position: 'sticky',
         left: 0,
         zIndex: 100,
         backgroundColor: theme.palette.background.paper,
     },
-    '& .MuiDataGrid-columnHeader[data-field="student"], & .MuiDataGrid-cell[data-field="student"]': {
+    [[stickyHeaders.number, stickyCells.number].join(',')]: {
         position: 'sticky',
         left: 50,
         zIndex: 100,
         backgroundColor: theme.palette.background.paper,
+    },
+    [[stickyHeaders.student, stickyCells.student].join(',')]: {
+        position: 'sticky',
+        left: 100,
+        zIndex: 100,
+        backgroundColor: theme.palette.background.paper,
+    },
+    '.MuiDataGrid-cell a': {
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
     },
 }));

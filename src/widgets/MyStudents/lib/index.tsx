@@ -112,33 +112,37 @@ const formattingReviewColumns: GridColDef[] = DOCUMENTS.map((doc) => ({
 }));
 
 const baseColumns: GridColDef[] = [
-    { field: 'id', headerName: '№', width: 50, align: 'center' },
+    { field: 'number', headerName: '№', width: 50, align: 'center' },
     {
         field: 'student',
         headerName: 'ФИО',
         width: 300,
         renderCell: renderLinkCell(RoutePath.Students, 'fullName'),
+        display: 'flex',
     },
     { field: 'academicGroup', headerName: 'Группа', width: 110 },
     {
         field: 'topic',
         headerName: 'Тема',
+        display: 'flex',
         width: 400,
         renderCell: renderLinkCell(RoutePath.Topics, 'name'),
         sortable: false,
+        editable: true,
     },
-    { field: 'topicStatus', headerName: 'Статус темы', width: 180, renderCell: renderTopicStatusCell },
-    { field: 'role', headerName: 'Роль', width: 200, sortable: false },
+    { field: 'topicStatus', headerName: 'Статус темы', width: 180, renderCell: renderTopicStatusCell, editable: true },
+    { field: 'role', headerName: 'Роль', width: 200, sortable: false, editable: true },
     {
         field: 'supervisor',
         headerName: 'Руководитель',
         width: 300,
         renderCell: renderLinkCell(RoutePath.Supervisors, 'fullName'),
         sortable: false,
+        editable: true,
     },
-    { field: 'companyName', headerName: 'Предприятие', width: 300, sortable: false },
-    { field: 'companySupervisor', headerName: 'Куратор от предприятия', width: 300, sortable: false },
-    { field: 'status', headerName: 'Статус студента', width: 180, renderCell: renderStudentStatusCell },
+    { field: 'companyName', headerName: 'Предприятие', width: 300, sortable: false, editable: true },
+    { field: 'companySupervisor', headerName: 'Куратор от предприятия', width: 300, sortable: false, editable: true },
+    { field: 'status', headerName: 'Статус студента', width: 180, renderCell: renderStudentStatusCell, editable: true },
 ];
 const defenceColumns: GridColDef[] = [
     {
@@ -147,12 +151,14 @@ const defenceColumns: GridColDef[] = [
         valueGetter: (_, row: RowData) => row.data?.isCommand,
         renderCell: rendeIsCommandCell,
         width: 100,
+        editable: true,
     },
     {
         field: 'mark',
         headerName: 'Оценка',
         valueGetter: (_, row: RowData) => row.data?.mark,
         width: 100,
+        editable: true,
     },
     {
         field: 'comment',
@@ -161,6 +167,7 @@ const defenceColumns: GridColDef[] = [
         renderCell: renderCommentCell,
         width: 500,
         sortable: false,
+        editable: true,
     },
     {
         field: 'result',
@@ -168,6 +175,7 @@ const defenceColumns: GridColDef[] = [
         valueGetter: (_, row: RowData) => row.data?.result,
         renderCell: renderResultCell,
         width: 180,
+        editable: true,
     },
 ];
 export const generateColumns = (dataType?: DataType): GridColDef[] => {

@@ -1,26 +1,10 @@
 import { StudentRowDto } from '../model';
-import {
-    DefenceData,
-    FormattingReviewData,
-    StudentRowModel,
-    StudentsTableDto,
-    StudentsTableModel,
-} from '../model/types';
+import { StudentRowModel, StudentsTableDto, StudentsTableModel } from '../model/types';
 
-const checkFormattingReviewData = (data: DefenceData | FormattingReviewData): data is FormattingReviewData =>
-    'documents' in data;
-
-const mapStudentData = (data: DefenceData | FormattingReviewData): DefenceData | FormattingReviewData => {
-    if (checkFormattingReviewData(data)) {
-        return data;
-    }
-
-    return data;
-};
-
-const mapStudentRowDtoToModel = (dto: StudentRowDto, index: number): StudentRowModel => {
+const mapStudentRowDtoToModel = (dto: StudentRowDto, index: number, page: number, size: number): StudentRowModel => {
     return {
-        id: index + 1,
+        id: dto.id,
+        number: page * size + (index + 1),
         student: {
             id: dto.id,
             fullName: dto.fullName,
@@ -43,13 +27,13 @@ const mapStudentRowDtoToModel = (dto: StudentRowDto, index: number): StudentRowM
             : undefined,
 
         status: dto.status,
-        data: mapStudentData(dto.data),
+        data: dto.data,
     };
 };
 
-export const mapStudentsTableDtoToModel = (dto: StudentsTableDto): StudentsTableModel => {
+export const mapStudentsTableDtoToModel = (dto: StudentsTableDto, page: number, size: number): StudentsTableModel => {
     return {
         ...dto,
-        students: dto.students.map((dto, index) => mapStudentRowDtoToModel(dto, index)),
+        students: dto.students.map((dto, index) => mapStudentRowDtoToModel(dto, index, page, size)),
     };
 };

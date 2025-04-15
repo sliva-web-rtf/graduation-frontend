@@ -1,5 +1,6 @@
 import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { Stack } from '@mui/material';
+import { GridRowSelectionModel } from '@mui/x-data-grid';
 import { useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useGetStudentsTableQuery } from '../api';
@@ -9,14 +10,13 @@ import { getMyStudentsState } from '../model/selectors';
 import { MyStudentsFilter } from './MyStudentsFilter';
 import { MyStudentsTable } from './MyStudentsTable';
 
-type MyStudentsProps = {};
-
 const initialReducers: ReducersList = {
     myStudents: myStudentsReducer,
 };
 
-export const MyStudents = (props: MyStudentsProps) => {
+export const MyStudents = () => {
     const { stage, query } = useSelector(getMyStudentsState);
+    const [rowSelectionModel, setRowSelectionModel] = useState<GridRowSelectionModel>([]);
     const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 1 });
     const { data, isFetching } = useGetStudentsTableQuery({
         page: paginationModel.page,
@@ -42,6 +42,10 @@ export const MyStudents = (props: MyStudentsProps) => {
                     loading={isFetching}
                     paginationModel={paginationModel}
                     setPaginationModel={setPaginationModel}
+                    rowSelectionModel={rowSelectionModel}
+                    onRowSelectionModelChange={(newRowSelectionModel: GridRowSelectionModel) => {
+                        setRowSelectionModel(newRowSelectionModel);
+                    }}
                 />
             </Stack>
         </DynamicModuleLoader>

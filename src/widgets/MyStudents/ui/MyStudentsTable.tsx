@@ -1,14 +1,17 @@
-import { BasePagination, BaseTable } from '@/shared/ui';
+import { BaseTable, StyledPagination } from '@/shared/ui';
 import { Stack } from '@mui/material';
 import {
     GridColDef,
     gridPageCountSelector,
     gridPageSelector,
     GridPaginationModel,
+    GridRowSelectionModel,
     GridValidRowModel,
     useGridApiContext,
     useGridSelector,
 } from '@mui/x-data-grid';
+import { useMemo } from 'react';
+import { SetDefenceDateButton } from './SetDefenceDateButton';
 
 type StudentsTableProps = {
     columns: GridColDef[];
@@ -17,6 +20,8 @@ type StudentsTableProps = {
     loading: boolean;
     paginationModel: GridPaginationModel;
     setPaginationModel: (_: GridPaginationModel) => void;
+    rowSelectionModel: GridRowSelectionModel;
+    onRowSelectionModelChange: (_: GridRowSelectionModel) => void;
 };
 
 const CustomPagination = () => {
@@ -25,7 +30,7 @@ const CustomPagination = () => {
     const pageCount = useGridSelector(apiRef, gridPageCountSelector);
 
     return (
-        <BasePagination
+        <StyledPagination
             size="small"
             page={page + 1} // +1 для MUI Pagination (начинает с 1)
             count={pageCount}
@@ -34,8 +39,30 @@ const CustomPagination = () => {
     );
 };
 
+const CustomFooter = (props: { selected: boolean }) => {
+    const { selected } = props;
+    const apiRef = useGridApiContext();
+    const selectedRows = useMemo(() => [...apiRef.current.getSelectedRows()], [apiRef]);
+
+    return (
+        <Stack direction="row" justifyContent="space-between" alignItems="center" px={1} py={2} width="100%">
+            <SetDefenceDateButton items={selectedRows} disabled={!selected} />
+            <CustomPagination />
+        </Stack>
+    );
+};
+
 export const MyStudentsTable = (props: StudentsTableProps) => {
-    const { columns, rows, rowCount, loading, paginationModel, setPaginationModel } = props;
+    const {
+        columns,
+        rows,
+        rowCount,
+        loading,
+        paginationModel,
+        setPaginationModel,
+        rowSelectionModel,
+        onRowSelectionModelChange,
+    } = props;
 
     return (
         <Stack height="100%" maxWidth="calc(var(--page-width) - var(--sidebar-width) - var(--space-xl))">
@@ -43,12 +70,20 @@ export const MyStudentsTable = (props: StudentsTableProps) => {
                 disableVirtualization
                 paginationMode="server"
                 loading={loading}
-                paginationModel={paginationModel}
+                rowCount={rowCount}
                 rows={rows}
                 columns={columns}
-                rowCount={rowCount}
+                paginationModel={paginationModel}
                 onPaginationModelChange={setPaginationModel}
-                slots={{ pagination: CustomPagination }}
+                rowSelectionModel={rowSelectionModel}
+                onRowSelectionModelChange={onRowSelectionModelChange}
+                slots={{
+                    pagination: CustomPagination,
+                    footer: () =>
+                        CustomFooter({
+                            selected: Boolean(rowSelectionModel.length),
+                        }),
+                }}
             />
         </Stack>
     );

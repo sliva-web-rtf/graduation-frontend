@@ -1,3 +1,5 @@
+import { z } from 'zod';
+
 export type StudentsTableRequest = {
     stage: string;
     page: number;
@@ -59,7 +61,8 @@ export type StudentsTableDto = {
 // MODEL
 
 export type StudentRowModel = {
-    id: number;
+    id: string;
+    number: number;
     student: {
         id: string;
         fullName: string;
@@ -88,3 +91,13 @@ export type StudentsTableModel = {
     pagesCount: number;
     dataType: DataType;
 };
+
+export const setDefenceFormSchema = z.object({
+    date: z.coerce.date({
+        errorMap: () => ({
+            message: 'Введите дату',
+        }),
+    }),
+});
+
+export type SetDefenceFormSchema = z.infer<typeof setDefenceFormSchema>;

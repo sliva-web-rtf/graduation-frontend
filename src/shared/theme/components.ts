@@ -3,6 +3,7 @@ import { Components, Theme } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { ruRU } from '@mui/x-data-grid/locales';
 import type {} from '@mui/x-data-grid/themeAugmentation';
+import type {} from '@mui/x-date-pickers/themeAugmentation';
 
 export const components: Components<Omit<Theme, 'components'>> | undefined = {
     MuiButton: {
@@ -63,7 +64,10 @@ export const components: Components<Omit<Theme, 'components'>> | undefined = {
     },
     MuiDataGrid: {
         defaultProps: {
-            // disableColumnFilter: true,
+            keepNonExistentRowsSelected: true,
+            hideFooterSelectedRowCount: true,
+            checkboxSelection: true,
+            disableColumnFilter: true,
             disableRowSelectionOnClick: true,
             autoPageSize: true,
             localeText: ruRU.components.MuiDataGrid.defaultProps.localeText,
@@ -78,6 +82,23 @@ export const components: Components<Omit<Theme, 'components'>> | undefined = {
     MuiAlert: {
         defaultProps: {
             variant: 'filled',
+        },
+    },
+    MuiTooltip: {
+        defaultProps: {
+            arrow: true,
+        },
+        styleOverrides: {
+            tooltip: {
+                maxWidth: 480,
+                fontSize: 14,
+                lineHeight: 1.5,
+            },
+        },
+    },
+    MuiDatePicker: {
+        defaultProps: {
+            label: 'Выберите дату',
         },
     },
 };

@@ -10,7 +10,10 @@ export const studentsTableApi = baseApi.injectEndpoints({
                 url: '/students/table',
                 params: removeEmptyValues(params),
             }),
-            transformResponse: (response: StudentsTableDto) => mapStudentsTableDtoToModel(response),
+            transformResponse: (response: StudentsTableDto, _: unknown, arg: StudentsTableRequest) => {
+                const { page, size } = arg;
+                return mapStudentsTableDtoToModel(response, page, size);
+            },
         }),
     }),
 });
