@@ -25,20 +25,19 @@ export const TopicCard = memo((props: Topic) => {
 
     return (
         <Paper sx={(theme) => ({ padding: theme.spacing(3), borderRadius: theme.spacing(2) })}>
-            <Stack spacing={3}>
+            <Stack spacing={3} divider={<Divider />}>
                 <Stack spacing={1}>
                     <BaseChip label={TopicStatusRus[TopicStatus.Approved]} color="success" />
                     <Typography variant="h2">{name}</Typography>
                 </Stack>
-                <Divider />
-                <Stack spacing={1}>
-                    <Row left="Предприятие" right="" isText />
-                    <Row left="Направление" right="" isText />
-                    <Row left="Требуемая роль" right={requestedRole} isText />
-                    <Row left="Автор" right={<PersonSummary {...owner} />} />
-                    <Divider />
+                <Stack spacing={1} divider={<Divider />}>
+                    <Stack spacing={1}>
+                        <Row left="Предприятие" right="" isText />
+                        <Row left="Направление" right="" isText />
+                        <Row left="Требуемая роль" right={requestedRole} isText />
+                        <Row left="Автор" right={<PersonSummary {...owner} />} />
+                    </Stack>
                     <Row left="Студент" right={<PersonSummary {...student} isLink isStudent />} />
-                    <Divider />
                     <Row left="Руководитель" right={<PersonSummary {...supervisor} isLink />} />
                 </Stack>
             </Stack>

@@ -1,5 +1,4 @@
-import { Stack, Typography, Paper, Divider } from '@mui/material';
-import { FC } from 'react';
+import { Divider, Paper, Stack, Typography } from '@mui/material';
 import { CommissionMember } from '../../../model/index';
 import { TopicCommissionRow } from './TopicCommissionRow';
 
@@ -8,21 +7,13 @@ interface TopicCommissionProps {
     members: CommissionMember[];
 }
 
-export const TopicCommission: FC<TopicCommissionProps> = ({ name, members }) => {
+export const TopicCommission = (props: TopicCommissionProps) => {
+    const { name, members } = props;
+
     return (
-        <Paper
-            elevation={0}
-            sx={{
-                p: 3,
-                borderRadius: 3,
-                backgroundColor: '#FFFFFF',
-                width: '100%',
-            }}
-        >
-            <Stack spacing={1}>
-                <Typography variant="h5" fontWeight={700}>
-                    {name}
-                </Typography>
+        <Paper sx={{ p: 3, borderRadius: 3, width: '100%' }}>
+            <Stack spacing={2}>
+                <Typography variant="h2">{name}</Typography>
                 <Stack divider={<Divider />} spacing={1}>
                     {members.map((member) => (
                         <TopicCommissionRow key={member.user.id} member={member} />

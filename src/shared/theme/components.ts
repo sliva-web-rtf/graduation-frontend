@@ -37,7 +37,7 @@ export const components: Components<Omit<Theme, 'components'>> | undefined = {
         },
     },
     MuiPaper: {
-        defaultProps: { variant: 'outlined' },
+        defaultProps: { variant: 'outlined', sx: { borderRadius: 3 } },
     },
     MuiChip: {
         defaultProps: {
@@ -101,6 +101,11 @@ export const components: Components<Omit<Theme, 'components'>> | undefined = {
     MuiDatePicker: {
         defaultProps: {
             label: 'Выберите дату',
+        },
+    },
+    MuiLinearProgress: {
+        defaultProps: {
+            sx: { borderRadius: 16, height: 8 },
         },
     },
 };

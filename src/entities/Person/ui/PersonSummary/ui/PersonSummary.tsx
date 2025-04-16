@@ -22,11 +22,11 @@ export const PersonSummary: FC<PersonSummaryProps> = (props) => {
     return (
         <Stack textAlign="end">
             {isLink && id ? (
-                <Typography component={NavLink} to={path} variant="subtitle1" sx={{ whiteSpace: 'nowrap' }}>
+                <Typography component={NavLink} to={path} variant="subtitle2" sx={{ whiteSpace: 'nowrap' }}>
                     {initials}
                 </Typography>
             ) : (
-                <Typography variant="subtitle1" sx={{ whiteSpace: 'nowrap' }}>
+                <Typography variant="subtitle2" sx={{ whiteSpace: 'nowrap' }}>
                     {initials}
                 </Typography>
             )}

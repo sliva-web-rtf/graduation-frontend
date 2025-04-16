@@ -12,7 +12,6 @@ export { BaseField } from './Field/Field';
 export { HelperText } from './HelperText/HelperText';
 export * from './Icons';
 export * from './InfoCard/InfoCard';
-export * from './LinearStepsProgress/LinearStagesProgress';
 export * from './Logo/Logo';
 export * from './Modal/Modal';
 export * from './PageLoader';

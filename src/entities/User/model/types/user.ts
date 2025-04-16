@@ -12,4 +12,5 @@ export type User = {
 
 export type UserSchema = {
     user?: User;
+    topicId?: string;
 };
