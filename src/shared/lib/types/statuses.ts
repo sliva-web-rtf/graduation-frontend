@@ -18,3 +18,10 @@ export enum DocumentStatus {
     Uploaded = 'Uploaded',
     Checked = 'Checked',
 }
+
+export const DocumentStatusRus: StrictRecord<DocumentStatus, string> = {
+    [DocumentStatus.Uploaded]: 'Загружен',
+    [DocumentStatus.Checked]: 'Проверен',
+
+    '': 'Нет загружен',
+} as const;

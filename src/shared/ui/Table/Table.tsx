@@ -38,6 +38,7 @@ export const BaseTable = styled(DataGrid)<DataGridProps>(({ theme }) => ({
     },
     '& .MuiDataGrid-columnHeaderTitle': {
         fontSize: 14,
+        fontWeight: 600,
         color: theme.palette.secondary.main,
     },
     '& .MuiDataGrid-columnHeader, .MuiDataGrid-cell': {
@@ -71,5 +72,8 @@ export const BaseTable = styled(DataGrid)<DataGridProps>(({ theme }) => ({
         textOverflow: 'ellipsis',
         whiteSpace: 'nowrap',
         overflow: 'hidden',
+    },
+    '.MuiDataGrid-cell--editing input': {
+        fontSize: 16,
     },
 }));

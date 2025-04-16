@@ -3,15 +3,15 @@ export enum Role {
     Student = 'Student',
     Supervisor = 'Supervisor',
     Expert = 'Expert',
-    Clerk = 'Clerk',
-    HeadClerk = 'HeadClerk',
+    Secretary = 'Secretary',
+    HeadSecretary = 'HeadSecretary',
 }
 
 export const ROLES: Record<Role, string> = {
     [Role.Student]: 'Студент',
     [Role.Supervisor]: 'Руководитель',
     [Role.Expert]: 'Экперт',
-    [Role.Clerk]: 'Секретарь',
-    [Role.HeadClerk]: 'Гл. секретарь',
+    [Role.Secretary]: 'Секретарь',
+    [Role.HeadSecretary]: 'Гл. секретарь',
     [Role.Admin]: 'Администратор',
 };

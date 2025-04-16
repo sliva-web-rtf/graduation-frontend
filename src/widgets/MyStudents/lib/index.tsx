@@ -1,99 +1,26 @@
-import { RoutePath, RoutePathType } from '@/app/providers/Router';
+import { RoutePath } from '@/app/providers/Router';
 import { StudentStatus, StudentStatusRus } from '@/entities/Person';
 import { TopicStatus, TopicStatusRus } from '@/entities/Topic';
-import {
-    getColorByDocumentStatus,
-    getColorByIsCommandStatus,
-    getColorByResultStatus,
-    getColorByStudentsStatus,
-    getColorByTopicStatus,
-} from '@/shared/lib/helpers/getColorByStatus';
-import { getInfoPagePath } from '@/shared/lib/helpers/getInfoPagePath';
-import { DocumentStatus, ResultStatus, ResultStatusRus } from '@/shared/lib/types/statuses';
-import { BaseChip } from '@/shared/ui';
-import { Box, Stack, Tooltip, Typography } from '@mui/material';
-import { GridColDef, GridRenderCellParams, GridValidRowModel } from '@mui/x-data-grid';
-import { Link } from 'react-router-dom';
+import { DocumentStatusRus, ResultStatus, ResultStatusRus } from '@/shared/lib/types/statuses';
+import { GridColDef, GridColTypeDef } from '@mui/x-data-grid';
 import { DataType, DefenceData, DocumentData, FormattingReviewData } from '../model';
-
-type Entity = {
-    id?: string;
-    text?: string;
-};
+import {
+    rendeIsCommandCell,
+    renderCommentCell,
+    renderDocCell,
+    RenderEditTextareaCell,
+    RenderEditTimeCell,
+    renderLinkCell,
+    renderResultCell,
+    renderStudentStatusCell,
+    renderTopicStatusCell,
+} from './renderCells';
 
 type RowData = { data: DefenceData & FormattingReviewData };
 
-const getLinkCell = (params: Entity, route: RoutePathType) => {
-    if (!params?.id || !params?.text) return null;
-
-    const { id, text } = params;
-    const path = getInfoPagePath(route, id);
-
-    return <Link to={path}>{text || text}</Link>;
-};
-
-const renderLinkCell = (route: RoutePathType, textKey: keyof GridValidRowModel) => (params: GridRenderCellParams) =>
-    getLinkCell(
-        {
-            id: params.value?.id,
-            text: params.value?.[textKey],
-        },
-        route,
-    );
-
-const renderTopicStatusCell = (params: GridRenderCellParams<GridValidRowModel, TopicStatus>) => {
-    const { value } = params;
-    const color = getColorByTopicStatus(value);
-
-    return <BaseChip label={(value && TopicStatusRus[value]) ?? TopicStatusRus.getUnknown} color={color} />;
-};
-
-const renderStudentStatusCell = (params: GridRenderCellParams<GridValidRowModel, StudentStatus>) => {
-    const { value } = params;
-    const color = getColorByStudentsStatus(value);
-
-    return <BaseChip label={(value && StudentStatusRus[value]) ?? StudentStatusRus.getUnknown} color={color} />;
-};
-
-const renderResultCell = (params: GridRenderCellParams<GridValidRowModel, ResultStatus>) => {
-    const { value } = params;
-    const color = getColorByResultStatus(value);
-
-    return <BaseChip label={(value && ResultStatusRus[value]) ?? ResultStatusRus.getUnknown} color={color} />;
-};
-
-const rendeIsCommandCell = (params: GridRenderCellParams<GridValidRowModel, boolean>) => {
-    const { value } = params;
-    const color = getColorByIsCommandStatus(value);
-
-    return <BaseChip label={value ? 'Да' : 'Нет'} color={color} />;
-};
-
-const renderCommentCell = (params: GridRenderCellParams<GridValidRowModel, string>) => {
-    const { value } = params;
-
-    if (!value) {
-        return null;
-    }
-
-    return (
-        <Stack justifyContent="center" height="100%">
-            <Tooltip title={value}>
-                <Typography>{value}</Typography>
-            </Tooltip>
-        </Stack>
-    );
-};
-
-const renderDocCell = (params: GridRenderCellParams<GridValidRowModel, DocumentStatus | undefined>) => {
-    const { value } = params;
-    const backgroundColor = getColorByDocumentStatus(value);
-
-    return (
-        <Stack alignItems="center" justifyContent="center" height="100%">
-            <Box sx={{ backgroundColor, width: 16, height: 16 }} />
-        </Stack>
-    );
+const multilineColumn: GridColTypeDef = {
+    type: 'string',
+    renderEditCell: (params) => <RenderEditTextareaCell {...params} />,
 };
 
 const DOCUMENTS = [
@@ -104,11 +31,15 @@ const DOCUMENTS = [
     'Акт о внедрении',
 ] as const;
 const formattingReviewColumns: GridColDef[] = DOCUMENTS.map((doc) => ({
-    field: doc,
     headerName: doc,
+    field: doc,
+    type: 'singleSelect',
+    valueOptions: Object.entries(DocumentStatusRus).map(([key, value]) => ({ value: key, label: value })),
+    valueGetter: (value, row: RowData) =>
+        (value || row.data?.documents?.find((d: DocumentData) => d.name === doc)?.status) ?? '',
     width: 100,
-    valueGetter: (_, row: RowData) => row.data?.documents?.find((d: DocumentData) => d.name === doc)?.status,
     renderCell: renderDocCell,
+    editable: true,
 }));
 
 const baseColumns: GridColDef[] = [
@@ -130,7 +61,18 @@ const baseColumns: GridColDef[] = [
         sortable: false,
         editable: true,
     },
-    { field: 'topicStatus', headerName: 'Статус темы', width: 180, renderCell: renderTopicStatusCell, editable: true },
+    {
+        headerName: 'Статус темы',
+        field: 'topicStatus',
+        type: 'singleSelect',
+        valueOptions: Object.values(TopicStatus).map((status) => ({
+            value: status,
+            label: TopicStatusRus[status],
+        })),
+        width: 180,
+        renderCell: renderTopicStatusCell,
+        editable: true,
+    },
     { field: 'role', headerName: 'Роль', width: 200, sortable: false, editable: true },
     {
         field: 'supervisor',
@@ -142,36 +84,90 @@ const baseColumns: GridColDef[] = [
     },
     { field: 'companyName', headerName: 'Предприятие', width: 300, sortable: false, editable: true },
     { field: 'companySupervisor', headerName: 'Куратор от предприятия', width: 300, sortable: false, editable: true },
-    { field: 'status', headerName: 'Статус студента', width: 180, renderCell: renderStudentStatusCell, editable: true },
+    {
+        headerName: 'Статус студента',
+        field: 'status',
+        type: 'singleSelect',
+        valueOptions: Object.values(StudentStatus).map((status) => ({
+            value: status,
+            label: StudentStatusRus[status],
+        })),
+        width: 180,
+        renderCell: renderStudentStatusCell,
+        editable: true,
+    },
 ];
 const defenceColumns: GridColDef[] = [
     {
-        field: 'isCommand',
+        headerName: 'Дата предзащиты',
+        field: 'date',
+        type: 'date',
+        valueGetter: (value) => value && new Date(value),
+        valueParser: (value: Date) => {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            return value < today ? today : value;
+        },
+        width: 120,
+        editable: true,
+    },
+    {
+        display: 'flex',
+        headerName: 'Время предзащиты',
+        field: 'time',
+        type: 'dateTime',
+        width: 90,
+        editable: true,
+        valueFormatter: (value: Date) => {
+            if (!value) return '';
+
+            return new Date(value).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        },
+        renderEditCell: (params) => <RenderEditTimeCell {...params} />,
+    },
+    {
         headerName: 'Командный проект',
+        field: 'isCommand',
+        type: 'singleSelect',
+        valueOptions: [
+            { value: 'true', label: 'Да' },
+            { value: 'false', label: 'Нет' },
+        ],
         valueGetter: (_, row: RowData) => row.data?.isCommand,
         renderCell: rendeIsCommandCell,
         width: 100,
         editable: true,
     },
     {
-        field: 'mark',
         headerName: 'Оценка',
+        headerAlign: 'left',
+        field: 'mark',
+        type: 'number',
         valueGetter: (_, row: RowData) => row.data?.mark,
+        valueParser: (value: number) => {
+            if (value < 0) return 0;
+
+            return value > 100 ? 100 : value;
+        },
         width: 100,
         editable: true,
     },
     {
-        field: 'comment',
         headerName: 'Комментарий',
+        field: 'comment',
         valueGetter: (_, row: RowData) => row.data?.comment,
         renderCell: renderCommentCell,
         width: 500,
         sortable: false,
         editable: true,
+        ...multilineColumn,
     },
     {
-        field: 'result',
         headerName: 'Результат',
+        field: 'result',
+        type: 'singleSelect',
+        valueOptions: Object.values(ResultStatus).map((status) => ({ value: status, label: ResultStatusRus[status] })),
         valueGetter: (_, row: RowData) => row.data?.result,
         renderCell: renderResultCell,
         width: 180,

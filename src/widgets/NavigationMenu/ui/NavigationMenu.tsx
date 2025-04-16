@@ -1,4 +1,4 @@
-import { getUserData, Role } from '@/entities/User';
+import { getUserData } from '@/entities/User';
 import { BaseTab, BaseTabs, TabLabel } from '@/shared/ui';
 import { TabsProps } from '@mui/material';
 import { memo } from 'react';
@@ -11,8 +11,8 @@ export const NavigationMenu = memo((props: TabsProps) => {
     const { user } = useSelector(getUserData);
     const { roles } = user ?? { roles: [] };
 
-    // const tabs = getTabsForRoles(roles);
-    const tabs = getTabsForRoles([Role.Admin]);
+    const tabs = getTabsForRoles(roles);
+    // const tabs = getTabsForRoles([Role.Admin]);
     const value =
         location.pathname.startsWith('/topics') ||
         location.pathname.startsWith('/students') ||

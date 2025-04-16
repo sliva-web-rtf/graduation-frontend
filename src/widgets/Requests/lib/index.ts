@@ -12,7 +12,7 @@ export const getRequestsOptionsForRoles = (roles: Role[]): RequestsOption[] => {
                 optionsSet.add(RequestsOption.Outgoing);
                 optionsSet.add(RequestsOption.History);
                 break;
-            case Role.Clerk:
+            case Role.Secretary:
                 optionsSet.add(RequestsOption.Incoming);
                 optionsSet.add(RequestsOption.History);
                 break;

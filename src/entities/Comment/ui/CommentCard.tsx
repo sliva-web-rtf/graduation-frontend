@@ -5,7 +5,7 @@ import { Accordion, AccordionDetails, AccordionSummary, Stack, Typography } from
 import { styled } from '@mui/material/styles';
 
 interface CommentProps {
-    role: Role.Expert | Role.Clerk;
+    role: Role.Expert | Role.Secretary;
     text: string;
     date: Date;
 }

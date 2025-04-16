@@ -64,6 +64,8 @@ export const components: Components<Omit<Theme, 'components'>> | undefined = {
     },
     MuiDataGrid: {
         defaultProps: {
+            paginationMode: 'server',
+            disableVirtualization: true,
             keepNonExistentRowsSelected: true,
             hideFooterSelectedRowCount: true,
             checkboxSelection: true,

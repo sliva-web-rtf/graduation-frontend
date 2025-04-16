@@ -9,7 +9,7 @@ export const getTabsForRoles = (roles: Role[]): Tab[] => {
             case Role.Expert:
                 expertTabs.forEach((tab) => tabsSet.add(tab));
                 break;
-            case Role.Clerk:
+            case Role.Secretary:
                 clerkTabs.forEach((tab) => tabsSet.add(tab));
                 break;
             case Role.Supervisor:
@@ -18,7 +18,7 @@ export const getTabsForRoles = (roles: Role[]): Tab[] => {
             case Role.Student:
                 studentTabs.forEach((tab) => tabsSet.add(tab));
                 break;
-            case Role.HeadClerk:
+            case Role.HeadSecretary:
                 headClerkTabs.forEach((tab) => tabsSet.add(tab));
                 break;
             case Role.Admin:

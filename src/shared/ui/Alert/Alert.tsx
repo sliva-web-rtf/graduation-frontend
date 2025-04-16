@@ -21,7 +21,7 @@ export const BaseAlert = styled(Alert)<AlertProps>(({ theme }) => ({
         color: theme.palette.success.main,
     },
     '&.MuiAlert-filledInfo': {
-        backgroundColor: theme.palette.info.light,
+        backgroundColor: '#DEEEFE',
         color: theme.palette.info.main,
     },
 }));

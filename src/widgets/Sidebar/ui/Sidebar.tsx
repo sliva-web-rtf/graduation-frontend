@@ -12,7 +12,7 @@ export const Sidebar = memo(() => {
     const { user } = useSelector(getUserData);
     const { roles } = user ?? { roles: [] as Role[] };
 
-    const isYearVisible = roles.includes(Role.Clerk) || roles.includes(Role.HeadClerk) || true;
+    const isYearVisible = roles.includes(Role.Secretary) || roles.includes(Role.HeadSecretary);
 
     return (
         <Stack className={styles.wrapper} sx={{ py: 4, px: 2 }} justifyContent="space-between">

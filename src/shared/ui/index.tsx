@@ -26,5 +26,6 @@ export * from './Stepper/Stepper';
 export * from './Switch/Switch';
 export * from './Table/Table';
 export * from './Tabs/Tabs';
+export * from './TimePicker/TimePicker';
 export * from './ToggleButtons/ToggleButtons';
 export * from './TopicChangeInfo/TopicChangeInfo';

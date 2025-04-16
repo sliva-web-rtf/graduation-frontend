@@ -1,16 +1,20 @@
 import { BaseTable, StyledPagination } from '@/shared/ui';
 import { Stack } from '@mui/material';
 import {
+    GridCellEditStopParams,
+    GridCellEditStopReasons,
     GridColDef,
     gridPageCountSelector,
     gridPageSelector,
     GridPaginationModel,
     GridRowSelectionModel,
     GridValidRowModel,
+    MuiBaseEvent,
+    MuiEvent,
     useGridApiContext,
     useGridSelector,
 } from '@mui/x-data-grid';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { SetDefenceDateButton } from './SetDefenceDateButton';
 
 type StudentsTableProps = {
@@ -23,6 +27,10 @@ type StudentsTableProps = {
     rowSelectionModel: GridRowSelectionModel;
     onRowSelectionModelChange: (_: GridRowSelectionModel) => void;
 };
+
+function isKeyboardEvent(event: any): event is KeyboardEvent {
+    return !!event.key;
+}
 
 const CustomPagination = () => {
     const apiRef = useGridApiContext();
@@ -64,11 +72,35 @@ export const MyStudentsTable = (props: StudentsTableProps) => {
         onRowSelectionModelChange,
     } = props;
 
+    const handleCellEditStop = useCallback((params: GridCellEditStopParams, event: MuiEvent<MuiBaseEvent>) => {
+        if (params.reason !== GridCellEditStopReasons.enterKeyDown) {
+            return;
+        }
+
+        if (isKeyboardEvent(event) && !event.ctrlKey && !event.metaKey) {
+            event.defaultMuiPrevented = true;
+        }
+    }, []);
+
+    const handleRowUpdate = useCallback((updatedRow: GridValidRowModel, originalRow: GridValidRowModel) => {
+        const changedField = Object.keys(updatedRow).find((key) => updatedRow[key] !== originalRow[key]);
+
+        if (!changedField) {
+            return originalRow;
+        }
+
+        console.log('Изменено:', {
+            id: updatedRow.id,
+            field: changedField,
+            newValue: updatedRow[changedField],
+        });
+
+        // Возвращаем обновлённую строку (или можно сделать API-запрос)
+        return updatedRow;
+    }, []);
     return (
         <Stack height="100%" maxWidth="calc(var(--page-width) - var(--sidebar-width) - var(--space-xl))">
             <BaseTable
-                disableVirtualization
-                paginationMode="server"
                 loading={loading}
                 rowCount={rowCount}
                 rows={rows}
@@ -77,6 +109,8 @@ export const MyStudentsTable = (props: StudentsTableProps) => {
                 onPaginationModelChange={setPaginationModel}
                 rowSelectionModel={rowSelectionModel}
                 onRowSelectionModelChange={onRowSelectionModelChange}
+                processRowUpdate={handleRowUpdate}
+                onCellEditStop={handleCellEditStop}
                 slots={{
                     pagination: CustomPagination,
                     footer: () =>
