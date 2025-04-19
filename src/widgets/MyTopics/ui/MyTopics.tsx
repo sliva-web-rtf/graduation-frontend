@@ -1,9 +1,11 @@
 import { CatalogCard, ICatalogCard } from '@/entities/CatalogCard';
 import { useGetUsersTopicsQuery } from '@/entities/Topic';
 import { getUserData } from '@/entities/User';
+import { CreateTopicButton } from '@/features/topic/create-topic';
 import { BaseList } from '@/shared/ui/List/List';
 import { CatalogOption } from '@/widgets/Catalog';
 import { PersonTopicsSkeleton } from '@/widgets/PersonInfo/ui/PersonTopics';
+import { Stack } from '@mui/material';
 import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { MyTopicsEmpty } from './MyTopics.empty';
@@ -25,5 +27,10 @@ export const MyTopics = () => {
         return <MyTopicsEmpty />;
     }
 
-    return <BaseList className={styles.list} items={data} render={render} />;
+    return (
+        <Stack spacing={2}>
+            <CreateTopicButton />
+            <BaseList className={styles.list} items={data} render={render} />
+        </Stack>
+    );
 };

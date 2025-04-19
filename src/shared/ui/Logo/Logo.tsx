@@ -2,9 +2,15 @@
 import { Box } from '@mui/material';
 import { memo } from 'react';
 
-const Logo = memo(() => (
+const Logo = memo(({ expanded }: { expanded: boolean }) => (
     <Box sx={{ paddingLeft: (theme) => theme.spacing(1) }}>
-        <svg width="195" height="42" viewBox="0 0 216 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg
+            width={expanded ? '205' : '28'}
+            height="42"
+            viewBox={`0 0 ${expanded ? '220' : '30'} 42`}
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
             <path
                 d="M25.1128 11.5809L26.5606 33.2307H20.7694V17.8346L16.5329 33.2307H11.048L6.29125 17.8346V33.2307H0.5L1.94781 11.5809H9.36029L13.7904 26.5692L18.2206 11.5809H25.1128Z"
                 fill="black"

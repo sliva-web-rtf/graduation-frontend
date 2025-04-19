@@ -1,5 +1,5 @@
-import { styled, Tab, TabProps, Tabs, TabsProps, Typography } from '@mui/material';
-import { ReactNode } from 'react';
+import { styled, Tab, TabProps, Tabs, TabsProps, Tooltip, Typography } from '@mui/material';
+import { ReactElement, ReactNode } from 'react';
 
 interface BaseTabsProps extends TabsProps {
     children?: ReactNode;
@@ -7,11 +7,13 @@ interface BaseTabsProps extends TabsProps {
 
 interface BaseTabProps extends TabProps {
     to: string;
+    expanded?: boolean;
 }
 
 interface TabLabelProps {
     label: string;
-    startIcon: ReactNode;
+    startIcon: ReactElement<any, any>;
+    expanded?: boolean;
 }
 
 const BaseTabs = styled(Tabs)<BaseTabsProps>(() => ({
@@ -20,10 +22,11 @@ const BaseTabs = styled(Tabs)<BaseTabsProps>(() => ({
     },
 }));
 
-const BaseTab = styled(Tab)<BaseTabProps>(({ theme }) => ({
+const BaseTab = styled(Tab)<BaseTabProps>(({ theme, expanded }) => ({
     '&': {
+        minWidth: 0,
         textTransform: 'none',
-        alignItems: 'flex-start',
+        alignItems: expanded ? 'flex-start' : 'center',
         justifyContent: 'center',
         borderRadius: theme.spacing(1.5),
     },
@@ -32,10 +35,18 @@ const BaseTab = styled(Tab)<BaseTabProps>(({ theme }) => ({
     },
 }));
 
-const TabLabel = ({ label, startIcon }: TabLabelProps) => (
-    <Typography sx={{ display: 'flex', columnGap: (theme) => theme.spacing(1), alignItems: 'center' }} fontWeight={600}>
-        {startIcon} {label}
-    </Typography>
-);
+const TabLabel = ({ label, startIcon, expanded }: TabLabelProps) =>
+    expanded ? (
+        <Typography
+            sx={{ display: 'flex', columnGap: (theme) => theme.spacing(1), alignItems: 'center' }}
+            fontWeight={600}
+        >
+            {startIcon} {label}
+        </Typography>
+    ) : (
+        <Tooltip title={label} placement="right-end">
+            {startIcon}
+        </Tooltip>
+    );
 
 export { BaseTab, BaseTabs, TabLabel };

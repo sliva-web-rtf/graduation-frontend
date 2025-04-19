@@ -19,6 +19,7 @@ export const BaseTable = styled(DataGrid)<DataGridProps>(({ theme }) => ({
     fontFamily: ['Manrope', 'sans-serif'].join(','),
     fontSize: 16,
     fontWeight: 500,
+
     '.MuiDataGrid-row': {
         backgroundColor: theme.palette.background.paper,
     },

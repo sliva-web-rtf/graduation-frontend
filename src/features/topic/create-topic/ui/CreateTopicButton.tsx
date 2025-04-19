@@ -10,7 +10,12 @@ export const CreateTopicButton = () => {
 
     return (
         <>
-            <BaseButton variant="contained" startIcon={<AddRoundedIcon />} onClick={toggleOpen}>
+            <BaseButton
+                variant="contained"
+                startIcon={<AddRoundedIcon />}
+                onClick={toggleOpen}
+                sx={{ alignSelf: 'flex-start' }}
+            >
                 Создать тему
             </BaseButton>
             <CreateTopicModal open={open} onClose={toggleOpen} />

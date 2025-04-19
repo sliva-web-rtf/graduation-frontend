@@ -1,8 +1,8 @@
 import { RoutePathType } from '@/app/providers/Router';
-import { ReactNode } from 'react';
+import { ReactElement } from 'react';
 
 export type Tab = {
     label: string;
     path: RoutePathType;
-    icon: ReactNode;
+    icon: ReactElement<any, any>;
 };

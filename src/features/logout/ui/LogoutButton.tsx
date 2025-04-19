@@ -1,22 +1,27 @@
-import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
-import { IconButton, Tooltip } from '@mui/material';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { ListItemIcon, ListItemText, MenuItem } from '@mui/material';
 import { memo, useState } from 'react';
 import { LogoutModal } from './LogoutModal';
 
-export const LogoutButton = memo(() => {
+export const LogoutMenuItem = memo(() => {
     const [open, setOpen] = useState(false);
 
-    const toggleOpen = () => setOpen((prev) => !prev);
-    const onClose = () => setOpen(false);
+    const handleOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     return (
         <>
-            <Tooltip title="Выйти из аккаунта">
-                <IconButton onClick={toggleOpen} sx={{ padding: 0 }}>
-                    <LogoutRoundedIcon />
-                </IconButton>
-            </Tooltip>
-            <LogoutModal open={open} onClose={onClose} />
+            <MenuItem onClick={handleOpen}>
+                <ListItemIcon>
+                    <LogoutIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>Выйти</ListItemText>
+            </MenuItem>
+            <LogoutModal open={open} onClose={handleClose} />
         </>
     );
 });

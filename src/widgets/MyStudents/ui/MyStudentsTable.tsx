@@ -1,5 +1,6 @@
+import { useSidebar } from '@/shared/lib/hooks/useAppDispatch/useSidebar';
 import { BaseTable, StyledPagination } from '@/shared/ui';
-import { Stack } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import {
     GridCellEditStopParams,
     GridCellEditStopReasons,
@@ -71,6 +72,7 @@ export const MyStudentsTable = (props: StudentsTableProps) => {
         rowSelectionModel,
         onRowSelectionModelChange,
     } = props;
+    const { expanded } = useSidebar();
 
     const handleCellEditStop = useCallback((params: GridCellEditStopParams, event: MuiEvent<MuiBaseEvent>) => {
         if (params.reason !== GridCellEditStopReasons.enterKeyDown) {
@@ -98,27 +100,30 @@ export const MyStudentsTable = (props: StudentsTableProps) => {
         // Возвращаем обновлённую строку (или можно сделать API-запрос)
         return updatedRow;
     }, []);
+
     return (
-        <Stack height="100%" maxWidth="calc(var(--page-width) - var(--sidebar-width) - var(--space-xl))">
-            <BaseTable
-                loading={loading}
-                rowCount={rowCount}
-                rows={rows}
-                columns={columns}
-                paginationModel={paginationModel}
-                onPaginationModelChange={setPaginationModel}
-                rowSelectionModel={rowSelectionModel}
-                onRowSelectionModelChange={onRowSelectionModelChange}
-                processRowUpdate={handleRowUpdate}
-                onCellEditStop={handleCellEditStop}
-                slots={{
-                    pagination: CustomPagination,
-                    footer: () =>
-                        CustomFooter({
-                            selected: Boolean(rowSelectionModel.length),
-                        }),
-                }}
-            />
-        </Stack>
+        <Box sx={{ flex: 1, position: 'relative' }}>
+            <Box sx={{ position: 'absolute', inset: 0 }}>
+                <BaseTable
+                    loading={loading}
+                    rowCount={rowCount}
+                    rows={rows}
+                    columns={columns}
+                    paginationModel={paginationModel}
+                    onPaginationModelChange={setPaginationModel}
+                    rowSelectionModel={rowSelectionModel}
+                    onRowSelectionModelChange={onRowSelectionModelChange}
+                    processRowUpdate={handleRowUpdate}
+                    onCellEditStop={handleCellEditStop}
+                    slots={{
+                        pagination: CustomPagination,
+                        footer: () =>
+                            CustomFooter({
+                                selected: Boolean(rowSelectionModel.length),
+                            }),
+                    }}
+                />
+            </Box>
+        </Box>
     );
 };

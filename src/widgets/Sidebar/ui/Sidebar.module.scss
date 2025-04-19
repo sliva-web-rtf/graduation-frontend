@@ -1,4 +1,5 @@
 .wrapper {
+    width: var(--sidebar-collapsed-width);
     position: sticky;
     top: 0;
     align-self: flex-start;
@@ -6,4 +7,8 @@
     border-radius: 0 !important;
     background-color: white;
     border-right: 1px solid var(--border-color);
+}
+
+.expanded {
+    width: 100%;
 }
