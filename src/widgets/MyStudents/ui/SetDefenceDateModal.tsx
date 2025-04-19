@@ -1,4 +1,4 @@
-import { BaseAlert, BaseButton, BaseDatePicker, BaseModal } from '@/shared/ui';
+import { BaseAlert, BaseButton, BaseDatePicker, BaseField, BaseModal } from '@/shared/ui';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Stack } from '@mui/material';
 import dayjs from 'dayjs';
@@ -14,6 +14,7 @@ type SetDefenceDateModalProps = {
 export const SetDefenceDateModal = (props: SetDefenceDateModalProps) => {
     const { open, onClose, items } = props;
     const {
+        register,
         control,
         formState: { errors },
         handleSubmit,
@@ -44,13 +45,21 @@ export const SetDefenceDateModal = (props: SetDefenceDateModalProps) => {
                     name="date"
                     render={({ field }) => (
                         <BaseDatePicker
+                            autoFocus
                             {...field}
                             minDate={dayjs()}
-                            slotProps={{ textField: { error: Boolean(errors.date), helperText: errors.date?.message } }}
+                            slotProps={{
+                                textField: {
+                                    error: Boolean(errors.date),
+                                    helperText:
+                                        errors.date?.message ?? 'Дата и время задается по Екатеринбургскому времени',
+                                },
+                            }}
                         />
                     )}
                 />
 
+                <BaseField label="Место проведения предзащиты" multiline rows={3} {...register('location')} />
                 <BaseAlert severity="info">
                     Время назначается в колонке «Время предзащиты» для каждого студента
                 </BaseAlert>

@@ -7,7 +7,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { getTabsForRoles } from '../lib';
 
 type NavigationMenuProps = {
-    expanded?: boolean;
+    expanded: string;
 } & TabsProps;
 
 export const NavigationMenu = memo((props: NavigationMenuProps) => {

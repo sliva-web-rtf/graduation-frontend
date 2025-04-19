@@ -6,7 +6,7 @@ import { MenuBar } from '@/widgets/MenuBar';
 import { NavigationMenu } from '@/widgets/NavigationMenu';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import { Divider, IconButton, Stack } from '@mui/material';
+import { Divider, IconButton, Stack, Tooltip } from '@mui/material';
 import { memo } from 'react';
 import { useSelector } from 'react-redux';
 import styles from './Sidebar.module.scss';
@@ -27,22 +27,25 @@ export const Sidebar = memo(() => {
             <Stack spacing={3} divider={<Divider />}>
                 <Logo expanded={expanded} />
                 <MenuBar expanded={expanded} />
-                <NavigationMenu expanded={expanded} />
+                <NavigationMenu expanded={expanded.toString()} />
             </Stack>
             {isYearVisible && <LocalYearForm />}
-            <IconButton
-                sx={(theme) => ({
-                    position: 'absolute',
-                    top: 32,
-                    right: -16,
-                    background: theme.palette.background.default,
-                    width: 32,
-                    height: 32,
-                })}
-                onClick={toggleSidebar}
-            >
-                {expanded ? <KeyboardArrowLeftIcon fontSize="small" /> : <KeyboardArrowRightIcon fontSize="small" />}
-            </IconButton>
+
+            <Tooltip title={expanded ? 'Свернуть меню' : 'Развернуть меню'} placement="right-end">
+                <IconButton
+                    sx={(theme) => ({
+                        position: 'absolute',
+                        bottom: theme.spacing(4),
+                        right: `-${theme.spacing(2)}`,
+                        background: theme.palette.background.default,
+                        width: 32,
+                        height: 32,
+                    })}
+                    onClick={toggleSidebar}
+                >
+                    {expanded ? <KeyboardArrowLeftIcon /> : <KeyboardArrowRightIcon />}
+                </IconButton>
+            </Tooltip>
         </Stack>
     );
 });

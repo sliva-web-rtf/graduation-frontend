@@ -15,7 +15,7 @@ const initialReducers: ReducersList = {
 };
 
 export const MyStudents = () => {
-    const { stage, query } = useSelector(getMyStudentsState);
+    const { stage, query, commission } = useSelector(getMyStudentsState);
     const [rowSelectionModel, setRowSelectionModel] = useState<GridRowSelectionModel>([]);
     const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 1 });
     const { data, isFetching } = useGetStudentsTableQuery({
@@ -23,6 +23,7 @@ export const MyStudents = () => {
         size: paginationModel.pageSize,
         stage,
         query,
+        commission,
     });
 
     const columns = useMemo(() => generateColumns(data?.dataType), [data]);
@@ -36,6 +37,7 @@ export const MyStudents = () => {
             <Stack spacing={4} height="100%" width="100%">
                 <MyStudentsFilter />
                 <MyStudentsTable
+                    stage={stage}
                     columns={columns}
                     rows={data?.students ?? []}
                     rowCount={rowCount}

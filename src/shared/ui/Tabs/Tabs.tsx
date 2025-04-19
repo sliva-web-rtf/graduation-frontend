@@ -7,13 +7,13 @@ interface BaseTabsProps extends TabsProps {
 
 interface BaseTabProps extends TabProps {
     to: string;
-    expanded?: boolean;
+    expanded: string;
 }
 
 interface TabLabelProps {
     label: string;
     startIcon: ReactElement<any, any>;
-    expanded?: boolean;
+    expanded: string;
 }
 
 const BaseTabs = styled(Tabs)<BaseTabsProps>(() => ({
@@ -26,7 +26,7 @@ const BaseTab = styled(Tab)<BaseTabProps>(({ theme, expanded }) => ({
     '&': {
         minWidth: 0,
         textTransform: 'none',
-        alignItems: expanded ? 'flex-start' : 'center',
+        alignItems: expanded === 'true' ? 'flex-start' : 'center',
         justifyContent: 'center',
         borderRadius: theme.spacing(1.5),
     },
@@ -36,7 +36,7 @@ const BaseTab = styled(Tab)<BaseTabProps>(({ theme, expanded }) => ({
 }));
 
 const TabLabel = ({ label, startIcon, expanded }: TabLabelProps) =>
-    expanded ? (
+    expanded === 'true' ? (
         <Typography
             sx={{ display: 'flex', columnGap: (theme) => theme.spacing(1), alignItems: 'center' }}
             fontWeight={600}

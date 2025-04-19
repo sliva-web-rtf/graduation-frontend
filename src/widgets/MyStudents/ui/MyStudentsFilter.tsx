@@ -1,9 +1,10 @@
+import { ComissionSelect } from '@/entities/Comission';
 import { StageSelect } from '@/entities/Stage';
 import { DEBOUNCE_DELAY } from '@/shared/lib/const';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { BaseSearch } from '@/shared/ui';
 import { Box, SelectChangeEvent, Stack } from '@mui/material';
-import { ChangeEvent, memo, useState } from 'react';
+import { ChangeEvent, memo, useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDebouncedCallback } from 'use-debounce';
 import { myStudentsActions } from '../model';
@@ -11,7 +12,7 @@ import { getMyStudentsState } from '../model/selectors';
 
 export const MyStudentsFilter = memo(() => {
     const dispatch = useAppDispatch();
-    const { stage, query } = useSelector(getMyStudentsState);
+    const { stage, query, commission } = useSelector(getMyStudentsState);
     const [searchValue, setSearchValue] = useState(query);
 
     const handleSearchChange = useDebouncedCallback((value: string) => {
@@ -23,18 +24,35 @@ export const MyStudentsFilter = memo(() => {
         handleSearchChange(e.target.value);
     };
 
-    const onChangeStage = (e: SelectChangeEvent<number>) => {
-        dispatch(myStudentsActions.setStage(e.target.value as number));
-    };
+    const onChangeStage = useCallback(
+        (e: SelectChangeEvent<string>) => {
+            dispatch(myStudentsActions.setStage(e.target.value));
+        },
+        [dispatch],
+    );
+
+    const onChangeComission = useCallback(
+        (e: SelectChangeEvent<string>) => {
+            dispatch(myStudentsActions.setCommission(e.target.value));
+        },
+        [dispatch],
+    );
 
     return (
         <Stack direction="row" spacing={3}>
             <BaseSearch placeholder="Поиск по ФИО, группе или теме" value={searchValue} onChange={onChangeSearch} />
-            <Box width="40%">
+            <Box width="30%">
                 <StageSelect
                     value={stage}
                     // @ts-expect-error Хак из-за максимальной универсальности селекта
                     onChange={onChangeStage}
+                />
+            </Box>
+            <Box width="30%">
+                <ComissionSelect
+                    value={commission}
+                    // @ts-expect-error Хак из-за максимальной универсальности селекта
+                    onChange={onChangeComission}
                 />
             </Box>
         </Stack>

@@ -8,6 +8,7 @@ const KEY = 'STAGE';
 export const initialState: MyStudentsSchema = {
     stage: LocalStorageService.get(KEY) || '',
     query: '',
+    commission: '',
 };
 
 const myStudentsSlice = createSlice({
@@ -18,6 +19,9 @@ const myStudentsSlice = createSlice({
             const { payload } = action;
             state.stage = payload;
             LocalStorageService.save(KEY, payload);
+        },
+        setCommission: (state, action: PayloadAction<MyStudentsSchema['commission']>) => {
+            state.commission = action.payload;
         },
         setQuery: (state, action: PayloadAction<MyStudentsSchema['query']>) => {
             state.query = action.payload;

@@ -3,6 +3,9 @@ import { StudentStatus, StudentStatusRus } from '@/entities/Person';
 import { TopicStatus, TopicStatusRus } from '@/entities/Topic';
 import { DocumentStatusRus, ResultStatus, ResultStatusRus } from '@/shared/lib/types/statuses';
 import { GridColDef, GridColTypeDef } from '@mui/x-data-grid';
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+import utc from 'dayjs/plugin/utc';
 import { DataType, DefenceData, DocumentData, FormattingReviewData } from '../model';
 import {
     rendeIsCommandCell,
@@ -15,6 +18,9 @@ import {
     renderStudentStatusCell,
     renderTopicStatusCell,
 } from './renderCells';
+
+dayjs.extend(utc);
+dayjs.extend(customParseFormat);
 
 type RowData = { data: DefenceData & FormattingReviewData };
 
@@ -36,7 +42,7 @@ const formattingReviewColumns: GridColDef[] = DOCUMENTS.map((doc) => ({
     type: 'singleSelect',
     valueOptions: Object.entries(DocumentStatusRus).map(([key, value]) => ({ value: key, label: value })),
     valueGetter: (value, row: RowData) =>
-        (value || row.data?.documents?.find((d: DocumentData) => d.name === doc)?.status) ?? '',
+        (value || row.data?.documents?.find((d: DocumentData) => d.name === doc)?.documentStatus) ?? '',
     width: 100,
     renderCell: renderDocCell,
     editable: true,
@@ -83,7 +89,13 @@ const baseColumns: GridColDef[] = [
         editable: true,
     },
     { field: 'companyName', headerName: 'Предприятие', width: 300, sortable: false, editable: true },
-    { field: 'companySupervisor', headerName: 'Куратор от предприятия', width: 300, sortable: false, editable: true },
+    {
+        field: 'companySupervisorName',
+        headerName: 'Куратор от предприятия',
+        width: 300,
+        sortable: false,
+        editable: true,
+    },
     {
         headerName: 'Статус студента',
         field: 'status',
@@ -96,18 +108,27 @@ const baseColumns: GridColDef[] = [
         renderCell: renderStudentStatusCell,
         editable: true,
     },
+    {
+        headerName: 'Комментарий',
+        field: 'studentComment',
+        renderCell: renderCommentCell,
+        width: 500,
+        sortable: false,
+        editable: true,
+        ...multilineColumn,
+    },
 ];
 const defenceColumns: GridColDef[] = [
     {
         headerName: 'Дата предзащиты',
         field: 'date',
         type: 'date',
-        valueGetter: (value) => value && new Date(value),
-        valueParser: (value: Date) => {
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
+        valueGetter: (_, row: RowData) => {
+            const { date } = row.data;
 
-            return value < today ? today : value;
+            if (!date) return null;
+
+            return dayjs(date, 'DD-MM-YYYY').toDate();
         },
         width: 120,
         editable: true,
@@ -119,12 +140,27 @@ const defenceColumns: GridColDef[] = [
         type: 'dateTime',
         width: 90,
         editable: true,
-        valueFormatter: (value: Date) => {
-            if (!value) return '';
+        valueGetter: (_, row: RowData) => {
+            const { time, date } = row.data;
 
-            return new Date(value).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            if (!time || !date) return null;
+
+            const datetime = dayjs(date ?? undefined);
+            const [hours, minutes] = time.split(':').map(Number);
+
+            return datetime.hour(hours).minute(minutes);
+        },
+        valueFormatter: (value: Date) => {
+            return value ? dayjs(value).format('HH:mm') : null;
         },
         renderEditCell: (params) => <RenderEditTimeCell {...params} />,
+    },
+    {
+        headerName: 'Место предзащиты',
+        field: 'location',
+        valueGetter: (_, row: RowData) => row.data?.location,
+        width: 180,
+        editable: true,
     },
     {
         headerName: 'Командный проект',
@@ -154,16 +190,6 @@ const defenceColumns: GridColDef[] = [
         editable: true,
     },
     {
-        headerName: 'Комментарий',
-        field: 'comment',
-        valueGetter: (_, row: RowData) => row.data?.comment,
-        renderCell: renderCommentCell,
-        width: 500,
-        sortable: false,
-        editable: true,
-        ...multilineColumn,
-    },
-    {
         headerName: 'Результат',
         field: 'result',
         type: 'singleSelect',
@@ -172,6 +198,16 @@ const defenceColumns: GridColDef[] = [
         renderCell: renderResultCell,
         width: 180,
         editable: true,
+    },
+    {
+        headerName: 'Комментарий по предзащите',
+        field: 'comment',
+        valueGetter: (_, row: RowData) => row.data?.comment,
+        renderCell: renderCommentCell,
+        width: 500,
+        sortable: false,
+        editable: true,
+        ...multilineColumn,
     },
 ];
 export const generateColumns = (dataType?: DataType): GridColDef[] => {
@@ -186,4 +222,4 @@ export const generateColumns = (dataType?: DataType): GridColDef[] => {
     }
 };
 
-export { mapStudentsTableDtoToModel } from './mapStudentsTableDtoToModel';
+export { mapStudentRowToDto, mapStudentsTableDtoToModel } from './mapStudentsTableDtoToModel';

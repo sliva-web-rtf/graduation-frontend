@@ -1,4 +1,3 @@
-import { useSidebar } from '@/shared/lib/hooks/useAppDispatch/useSidebar';
 import { BaseTable, StyledPagination } from '@/shared/ui';
 import { Box, Stack } from '@mui/material';
 import {
@@ -16,9 +15,12 @@ import {
     useGridSelector,
 } from '@mui/x-data-grid';
 import { useCallback, useMemo } from 'react';
+import { mapStudentRowToDto } from '../lib';
+import { StudentRowModel } from '../model';
 import { SetDefenceDateButton } from './SetDefenceDateButton';
 
 type StudentsTableProps = {
+    stage: string;
     columns: GridColDef[];
     rows: GridValidRowModel[];
     rowCount: number;
@@ -63,6 +65,7 @@ const CustomFooter = (props: { selected: boolean }) => {
 
 export const MyStudentsTable = (props: StudentsTableProps) => {
     const {
+        stage,
         columns,
         rows,
         rowCount,
@@ -72,8 +75,6 @@ export const MyStudentsTable = (props: StudentsTableProps) => {
         rowSelectionModel,
         onRowSelectionModelChange,
     } = props;
-    const { expanded } = useSidebar();
-
     const handleCellEditStop = useCallback((params: GridCellEditStopParams, event: MuiEvent<MuiBaseEvent>) => {
         if (params.reason !== GridCellEditStopReasons.enterKeyDown) {
             return;
@@ -84,22 +85,15 @@ export const MyStudentsTable = (props: StudentsTableProps) => {
         }
     }, []);
 
-    const handleRowUpdate = useCallback((updatedRow: GridValidRowModel, originalRow: GridValidRowModel) => {
-        const changedField = Object.keys(updatedRow).find((key) => updatedRow[key] !== originalRow[key]);
-
-        if (!changedField) {
-            return originalRow;
-        }
-
-        console.log('Изменено:', {
-            id: updatedRow.id,
-            field: changedField,
-            newValue: updatedRow[changedField],
-        });
-
-        // Возвращаем обновлённую строку (или можно сделать API-запрос)
-        return updatedRow;
-    }, []);
+    const handleRowUpdate = useCallback(
+        (updatedRow: GridValidRowModel, originalRow: GridValidRowModel) => {
+            const mappedRow = mapStudentRowToDto(updatedRow as StudentRowModel, stage);
+            console.log(mappedRow);
+            // Возвращаем обновлённую строку (или можно сделать API-запрос)
+            return updatedRow;
+        },
+        [stage],
+    );
 
     return (
         <Box sx={{ flex: 1, position: 'relative' }}>

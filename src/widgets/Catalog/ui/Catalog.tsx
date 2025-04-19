@@ -25,7 +25,7 @@ const Catalog = memo(() => {
                 <CatalogList />
             </Stack>
             {pagesCountForOption > 0 && (
-                <BasePagination page={page + 1} count={pagesCount[option]} onChange={handlePageChange} />
+                <BasePagination page={page + 1} count={pagesCountForOption} onChange={handlePageChange} />
             )}
         </Stack>
     );

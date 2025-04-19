@@ -4,6 +4,7 @@ export {
     setDefenceFormSchema,
     type DefenceData,
     type DocumentData,
+    type EditStudentRowDto,
     type FormattingReviewData,
     type MyStudentsSchema,
     type SetDefenceFormSchema,

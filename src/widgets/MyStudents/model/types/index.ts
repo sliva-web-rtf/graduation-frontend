@@ -1,3 +1,6 @@
+import { StudentStatus } from '@/entities/Person';
+import { TopicStatus } from '@/entities/Topic';
+import { ResultStatus } from '@/shared/lib/types/statuses';
 import { z } from 'zod';
 
 export type StudentsTableRequest = {
@@ -6,21 +9,26 @@ export type StudentsTableRequest = {
     size: number;
 
     query?: string;
+    commission?: string;
 };
 
 export type MyStudentsSchema = {
     stage: string;
     query: string;
+    commission: string;
 };
 
 export type DefenceData = {
     mark: number;
-    result: string;
+    result: ResultStatus;
     comment: string;
     isCommand: boolean;
+    location?: string;
+    date?: string;
+    time?: string;
 };
 
-export type DocumentData = { name: string; status: string };
+export type DocumentData = { name: string; documentStatus: string };
 export type FormattingReviewData = {
     documents: DocumentData[];
 };
@@ -31,7 +39,7 @@ export type StudentRowDto = {
     academicGroup: string;
     qualificationWork?: {
         id: string;
-        status: string;
+        status: TopicStatus;
         topic: string;
 
         companyName?: string;
@@ -42,7 +50,8 @@ export type StudentRowDto = {
         id: string;
         fullName: string;
     };
-    status: string;
+    comment: string;
+    status: StudentStatus;
     data: DefenceData | FormattingReviewData;
 };
 
@@ -68,13 +77,14 @@ export type StudentRowModel = {
         fullName: string;
     };
     academicGroup: string;
-    role: string;
+    status: StudentStatus;
 
     topic?: {
         id?: string;
         name?: string;
     };
-    topicStatus?: string;
+    role?: string;
+    topicStatus?: TopicStatus;
     companyName?: string;
     companySupervisorName?: string;
 
@@ -82,7 +92,7 @@ export type StudentRowModel = {
         id: string;
         fullName: string;
     };
-    status: string;
+    studentComment?: string;
     data: DefenceData | FormattingReviewData;
 };
 
@@ -93,11 +103,41 @@ export type StudentsTableModel = {
 };
 
 export const setDefenceFormSchema = z.object({
-    date: z.coerce.date({
-        errorMap: () => ({
-            message: 'Введите дату',
+    date: z.coerce
+        .date({
+            errorMap: () => ({
+                message: 'Введите дату',
+            }),
+        })
+        .min(new Date(), {
+            message: 'Дата не может быть в прошлом',
+        })
+        .max(new Date(new Date().setFullYear(new Date().getFullYear() + 1)), {
+            message: 'Дата не может быть больше чем через год от текущей',
         }),
-    }),
+    location: z.string().min(1, { message: 'Введите место проведения' }),
 });
 
 export type SetDefenceFormSchema = z.infer<typeof setDefenceFormSchema>;
+
+export type EditStudentRowDto = {
+    studentId: string;
+    stage: string;
+
+    studentStatus?: StudentStatus;
+    qualificationWorkStatus?: TopicStatus;
+    documents?: DocumentData[];
+    location?: string;
+    studentComment?: string;
+    supervisorId?: string;
+    result?: string;
+    role?: string;
+    companyName?: string;
+    companySupervisorName?: string;
+    mark?: number;
+    comment?: string;
+    isCommand?: boolean;
+    date?: string;
+    time?: string;
+    topic?: string;
+};
