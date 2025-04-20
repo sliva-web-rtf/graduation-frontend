@@ -1,11 +1,12 @@
 import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { Stack } from '@mui/material';
 import { GridRowSelectionModel } from '@mui/x-data-grid';
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useGetStudentsTableQuery } from '../api';
 import { generateColumns } from '../lib';
-import { myStudentsReducer } from '../model';
+import { myStudentsActions, myStudentsReducer } from '../model';
 import { getMyStudentsState } from '../model/selectors';
 import { MyStudentsFilter } from './MyStudentsFilter';
 import { MyStudentsTable } from './MyStudentsTable';
@@ -15,8 +16,9 @@ const initialReducers: ReducersList = {
 };
 
 export const MyStudents = () => {
-    const { stage, query, commission } = useSelector(getMyStudentsState);
-    const [rowSelectionModel, setRowSelectionModel] = useState<GridRowSelectionModel>([]);
+    const dispatch = useAppDispatch();
+    const { stage, query, commission, selectedStudents } = useSelector(getMyStudentsState);
+    // const [rowSelectionModel, setRowSelectionModel] = useState<GridRowSelectionModel>([]);
     const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 1 });
     const { data, isFetching } = useGetStudentsTableQuery({
         page: paginationModel.page,
@@ -32,6 +34,13 @@ export const MyStudents = () => {
         [data?.pagesCount, paginationModel.pageSize],
     );
 
+    const handleRowSelectionModelChange = useCallback(
+        (newRowSelectionModel: GridRowSelectionModel) => {
+            dispatch(myStudentsActions.setSelectedStudents(newRowSelectionModel as string[]));
+        },
+        [dispatch],
+    );
+
     return (
         <DynamicModuleLoader removeAfterUnmount reducers={initialReducers}>
             <Stack spacing={4} height="100%" width="100%">
@@ -44,10 +53,8 @@ export const MyStudents = () => {
                     loading={isFetching}
                     paginationModel={paginationModel}
                     setPaginationModel={setPaginationModel}
-                    rowSelectionModel={rowSelectionModel}
-                    onRowSelectionModelChange={(newRowSelectionModel: GridRowSelectionModel) => {
-                        setRowSelectionModel(newRowSelectionModel);
-                    }}
+                    rowSelectionModel={selectedStudents}
+                    onRowSelectionModelChange={handleRowSelectionModelChange}
                 />
             </Stack>
         </DynamicModuleLoader>

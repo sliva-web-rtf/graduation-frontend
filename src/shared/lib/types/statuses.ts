@@ -15,13 +15,13 @@ export const ResultStatusRus: StrictRecord<ResultStatus, string> = {
 } as const;
 
 export enum DocumentStatus {
+    Empty = 'Empty',
     Uploaded = 'Uploaded',
     Checked = 'Checked',
 }
 
 export const DocumentStatusRus: StrictRecord<DocumentStatus, string> = {
+    [DocumentStatus.Empty]: 'Не загружен',
     [DocumentStatus.Uploaded]: 'Загружен',
     [DocumentStatus.Checked]: 'Проверен',
-
-    '': 'Нет загружен',
 } as const;

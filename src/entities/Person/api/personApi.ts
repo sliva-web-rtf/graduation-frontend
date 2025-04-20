@@ -8,7 +8,18 @@ const personApi = baseApi.injectEndpoints({
                 url: isStudent ? `/students/${id}` : `/supervisors/${id}`,
             }),
         }),
+        getSupervisors: build.query<{ label: string; value: string }[], void>({
+            query: () => ({
+                url: '/supervisors',
+                params: {
+                    page: 0,
+                    size: 1000,
+                },
+            }),
+            transformResponse: (response: { supervisors: Person[] }) =>
+                response.supervisors.map((item) => ({ label: item.fullName, value: item.id })),
+        }),
     }),
 });
 
-export const { useGetPersonQuery } = personApi;
+export const { useGetPersonQuery, useGetSupervisorsQuery } = personApi;

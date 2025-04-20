@@ -9,6 +9,7 @@ export const initialState: MyStudentsSchema = {
     stage: LocalStorageService.get(KEY) || '',
     query: '',
     commission: '',
+    selectedStudents: [],
 };
 
 const myStudentsSlice = createSlice({
@@ -25,6 +26,9 @@ const myStudentsSlice = createSlice({
         },
         setQuery: (state, action: PayloadAction<MyStudentsSchema['query']>) => {
             state.query = action.payload;
+        },
+        setSelectedStudents: (state, action: PayloadAction<MyStudentsSchema['selectedStudents']>) => {
+            state.selectedStudents = action.payload;
         },
     },
     extraReducers: (builder) => {

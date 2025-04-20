@@ -1,5 +1,12 @@
-import dayjs from 'dayjs';
-import { EditStudentRowDto, StudentRowDto, StudentRowModel, StudentsTableDto, StudentsTableModel } from '../model';
+import {
+    DefenceData,
+    EditStudentRowDto,
+    FormattingReviewData,
+    StudentRowDto,
+    StudentRowModel,
+    StudentsTableDto,
+    StudentsTableModel,
+} from '../model';
 
 const mapStudentRowDtoToModel = (dto: StudentRowDto, index: number, page: number, size: number): StudentRowModel => {
     return {
@@ -25,7 +32,7 @@ const mapStudentRowDtoToModel = (dto: StudentRowDto, index: number, page: number
                   fullName: dto.supervisor.fullName,
               }
             : undefined,
-        studentComment: dto.comment,
+        comment: dto.comment,
         status: dto.status,
         data: dto.data,
     };
@@ -47,22 +54,17 @@ export const mapStudentRowToDto = (model: StudentRowModel, stage: string): EditS
         companyName: model.companyName,
         companySupervisorName: model.companySupervisorName,
         supervisorId: model.supervisor?.id,
-        studentComment: model.studentComment,
+        studentComment: model.comment,
         studentStatus: model.status,
+        topic: model.topic?.name,
 
-        // @ts-expect-error
-        location: model.location,
-        // @ts-expect-error
-        date: dayjs(model.date).format('DD-MM-YYYY'),
-        // @ts-expect-error
-        time: dayjs(model.time).format('HH:mm'),
-        // @ts-expect-error
-        mark: model.mark,
-        // @ts-expect-error
-        result: model.result,
-        // @ts-expect-error
-        comment: model.comment,
-        // @ts-expect-error
-        isCommand: model.isCommand,
+        mark: (model.data as DefenceData).mark,
+        result: (model.data as DefenceData).result,
+        comment: (model.data as DefenceData).comment,
+        isCommand: (model.data as DefenceData).isCommand,
+        date: (model.data as DefenceData).date,
+        time: (model.data as DefenceData).time,
+        location: (model.data as DefenceData).location,
+        documents: (model.data as FormattingReviewData).documents,
     };
 };

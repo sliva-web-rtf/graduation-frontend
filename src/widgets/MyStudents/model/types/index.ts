@@ -1,6 +1,7 @@
 import { StudentStatus } from '@/entities/Person';
 import { TopicStatus } from '@/entities/Topic';
-import { ResultStatus } from '@/shared/lib/types/statuses';
+import { DocumentStatus, ResultStatus } from '@/shared/lib/types/statuses';
+import dayjs from 'dayjs';
 import { z } from 'zod';
 
 export type StudentsTableRequest = {
@@ -16,6 +17,7 @@ export type MyStudentsSchema = {
     stage: string;
     query: string;
     commission: string;
+    selectedStudents: string[];
 };
 
 export type DefenceData = {
@@ -28,7 +30,7 @@ export type DefenceData = {
     time?: string;
 };
 
-export type DocumentData = { name: string; documentStatus: string };
+export type DocumentData = { name: string; documentStatus: DocumentStatus };
 export type FormattingReviewData = {
     documents: DocumentData[];
 };
@@ -92,7 +94,7 @@ export type StudentRowModel = {
         id: string;
         fullName: string;
     };
-    studentComment?: string;
+    comment?: string;
     data: DefenceData | FormattingReviewData;
 };
 
@@ -109,16 +111,22 @@ export const setDefenceFormSchema = z.object({
                 message: 'Введите дату',
             }),
         })
-        .min(new Date(), {
+        .min(dayjs().hour(0).minute(0).day(-1).toDate(), {
             message: 'Дата не может быть в прошлом',
         })
         .max(new Date(new Date().setFullYear(new Date().getFullYear() + 1)), {
             message: 'Дата не может быть больше чем через год от текущей',
         }),
-    location: z.string().min(1, { message: 'Введите место проведения' }),
+    location: z.string(),
 });
 
 export type SetDefenceFormSchema = z.infer<typeof setDefenceFormSchema>;
+export type SetDefenceRequest = {
+    stage: string;
+    studentIds: string[];
+    date: string;
+    location: string;
+};
 
 export type EditStudentRowDto = {
     studentId: string;

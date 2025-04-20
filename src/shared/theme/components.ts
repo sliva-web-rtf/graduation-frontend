@@ -69,6 +69,7 @@ export const components: Components<Omit<Theme, 'components'>> | undefined = {
             keepNonExistentRowsSelected: true,
             hideFooterSelectedRowCount: true,
             checkboxSelection: true,
+            disableColumnSorting: true,
             disableColumnFilter: true,
             disableRowSelectionOnClick: true,
             autoPageSize: true,

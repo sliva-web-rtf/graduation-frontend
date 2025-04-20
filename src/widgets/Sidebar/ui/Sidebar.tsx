@@ -1,6 +1,6 @@
 import { getUserData, Role } from '@/entities/User';
 import { LocalYearForm } from '@/features/year/set-local-year';
-import { useSidebar } from '@/shared/lib/hooks/useAppDispatch/useSidebar';
+import { useSidebar } from '@/shared/lib/hooks/useSidebar';
 import Logo from '@/shared/ui/Logo/Logo';
 import { MenuBar } from '@/widgets/MenuBar';
 import { NavigationMenu } from '@/widgets/NavigationMenu';

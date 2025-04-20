@@ -1,6 +1,6 @@
 import { Autocomplete, AutocompleteProps, CircularProgress, TextFieldProps } from '@mui/material';
 import { forwardRef, memo } from 'react';
-import { BaseField } from '@/shared/ui';
+import { BaseField } from '../Field/Field';
 
 // TODO: типизировать
 export type BaseAutocompleteProps = Omit<AutocompleteProps<any, any, any, any>, 'renderInput'> &
@@ -13,15 +13,16 @@ export const BaseAutocomplete = memo(
         return (
             <Autocomplete
                 ref={ref}
-                {...autocompleteProps}
+                forcePopupIcon
                 loading={loading}
                 freeSolo
-                forcePopupIcon
                 fullWidth
-                noOptionsText="Пусто"
+                noOptionsText="Ничего не найдено"
                 loadingText="Загрузка..."
+                {...autocompleteProps}
                 renderInput={(params) => (
                     <BaseField
+                        inputRef={props.inputRef}
                         {...params}
                         label={label}
                         placeholder={placeholder}

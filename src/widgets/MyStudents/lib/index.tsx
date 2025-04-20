@@ -6,7 +6,7 @@ import { GridColDef, GridColTypeDef } from '@mui/x-data-grid';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import utc from 'dayjs/plugin/utc';
-import { DataType, DefenceData, DocumentData, FormattingReviewData } from '../model';
+import { DataType, DefenceData, FormattingReviewData } from '../model';
 import {
     rendeIsCommandCell,
     renderCommentCell,
@@ -15,7 +15,9 @@ import {
     RenderEditTimeCell,
     renderLinkCell,
     renderResultCell,
+    RenderRoleEditCell,
     renderStudentStatusCell,
+    RenderSupervisorEditCell,
     renderTopicStatusCell,
 } from './renderCells';
 
@@ -36,13 +38,19 @@ const DOCUMENTS = [
     'Справка о наличии заимствовании',
     'Акт о внедрении',
 ] as const;
-const formattingReviewColumns: GridColDef[] = DOCUMENTS.map((doc) => ({
+const formattingReviewColumns: GridColDef[] = DOCUMENTS.map((doc, index) => ({
     headerName: doc,
-    field: doc,
+    field: `documents[${index}]`,
     type: 'singleSelect',
+    valueGetter: (_, row: RowData) => row.data?.documents[index],
     valueOptions: Object.entries(DocumentStatusRus).map(([key, value]) => ({ value: key, label: value })),
-    valueGetter: (value, row: RowData) =>
-        (value || row.data?.documents?.find((d: DocumentData) => d.name === doc)?.documentStatus) ?? '',
+    valueSetter: (value, row) => ({
+        ...row,
+        data: {
+            ...row.data,
+            documents: [...row.data.documents.slice(0, index), value, ...row.data.documents.slice(index + 1)],
+        },
+    }),
     width: 100,
     renderCell: renderDocCell,
     editable: true,
@@ -60,11 +68,19 @@ const baseColumns: GridColDef[] = [
     { field: 'academicGroup', headerName: 'Группа', width: 110 },
     {
         field: 'topic',
+        type: 'string',
         headerName: 'Тема',
+        valueSetter: (value, row) => ({
+            ...row,
+            topic: {
+                ...row.topic,
+                name: value.name ?? value,
+            },
+        }),
+        renderCell: renderLinkCell(RoutePath.Topics, 'name'),
+        renderEditCell: (params) => <RenderEditTextareaCell {...params} value={params.value?.name ?? ''} />,
         display: 'flex',
         width: 400,
-        renderCell: renderLinkCell(RoutePath.Topics, 'name'),
-        sortable: false,
         editable: true,
     },
     {
@@ -79,13 +95,39 @@ const baseColumns: GridColDef[] = [
         renderCell: renderTopicStatusCell,
         editable: true,
     },
-    { field: 'role', headerName: 'Роль', width: 200, sortable: false, editable: true },
+    {
+        field: 'role',
+        headerName: 'Роль',
+        renderEditCell: (params) => <RenderRoleEditCell {...params} />,
+        valueSetter: (value, row) => ({
+            ...row,
+            role: value ?? row.role,
+        }),
+        width: 250,
+        sortable: false,
+        editable: true,
+    },
     {
         field: 'supervisor',
         headerName: 'Руководитель',
-        width: 300,
+        valueSetter: (value, row) => ({
+            ...row,
+            supervisor: value
+                ? {
+                      fullName: value.label ?? value.fullName,
+                      id: value.value ?? value.id,
+                  }
+                : null,
+        }),
         renderCell: renderLinkCell(RoutePath.Supervisors, 'fullName'),
-        sortable: false,
+        renderEditCell: (params) => (
+            <RenderSupervisorEditCell
+                {...params}
+                value={params.value ? { label: params.value?.fullName, value: params.value?.id } : null}
+            />
+        ),
+        display: 'flex',
+        width: 300,
         editable: true,
     },
     { field: 'companyName', headerName: 'Предприятие', width: 300, sortable: false, editable: true },
@@ -93,7 +135,6 @@ const baseColumns: GridColDef[] = [
         field: 'companySupervisorName',
         headerName: 'Куратор от предприятия',
         width: 300,
-        sortable: false,
         editable: true,
     },
     {
@@ -104,16 +145,15 @@ const baseColumns: GridColDef[] = [
             value: status,
             label: StudentStatusRus[status],
         })),
-        width: 180,
+        width: 150,
         renderCell: renderStudentStatusCell,
         editable: true,
     },
     {
         headerName: 'Комментарий',
-        field: 'studentComment',
+        field: 'comment',
         renderCell: renderCommentCell,
         width: 500,
-        sortable: false,
         editable: true,
         ...multilineColumn,
     },
@@ -126,10 +166,19 @@ const defenceColumns: GridColDef[] = [
         valueGetter: (_, row: RowData) => {
             const { date } = row.data;
 
-            if (!date) return null;
+            if (!date) {
+                return null;
+            }
 
-            return dayjs(date, 'DD-MM-YYYY').toDate();
+            return dayjs(date).toDate();
         },
+        valueSetter: (value, row) => ({
+            ...row,
+            data: {
+                ...row.data,
+                date: value ? dayjs(value).format('YYYY-MM-DD') : null,
+            },
+        }),
         width: 120,
         editable: true,
     },
@@ -142,14 +191,20 @@ const defenceColumns: GridColDef[] = [
         editable: true,
         valueGetter: (_, row: RowData) => {
             const { time, date } = row.data;
-
-            if (!time || !date) return null;
+            if (!time) return null;
 
             const datetime = dayjs(date ?? undefined);
             const [hours, minutes] = time.split(':').map(Number);
 
             return datetime.hour(hours).minute(minutes);
         },
+        valueSetter: (value, row) => ({
+            ...row,
+            data: {
+                ...row.data,
+                time: value?.format('HH:mm:ss') || null,
+            },
+        }),
         valueFormatter: (value: Date) => {
             return value ? dayjs(value).format('HH:mm') : null;
         },
@@ -159,6 +214,13 @@ const defenceColumns: GridColDef[] = [
         headerName: 'Место предзащиты',
         field: 'location',
         valueGetter: (_, row: RowData) => row.data?.location,
+        valueSetter: (value, row) => ({
+            ...row,
+            data: {
+                ...row.data,
+                location: value || null,
+            },
+        }),
         width: 180,
         editable: true,
     },
@@ -171,6 +233,13 @@ const defenceColumns: GridColDef[] = [
             { value: 'false', label: 'Нет' },
         ],
         valueGetter: (_, row: RowData) => row.data?.isCommand,
+        valueSetter: (value, row) => ({
+            ...row,
+            data: {
+                ...row.data,
+                isCommand: value || null,
+            },
+        }),
         renderCell: rendeIsCommandCell,
         width: 100,
         editable: true,
@@ -178,9 +247,17 @@ const defenceColumns: GridColDef[] = [
     {
         headerName: 'Оценка',
         headerAlign: 'left',
+        align: 'center',
         field: 'mark',
         type: 'number',
         valueGetter: (_, row: RowData) => row.data?.mark,
+        valueSetter: (value, row) => ({
+            ...row,
+            data: {
+                ...row.data,
+                mark: value || null,
+            },
+        }),
         valueParser: (value: number) => {
             if (value < 0) return 0;
 
@@ -195,14 +272,28 @@ const defenceColumns: GridColDef[] = [
         type: 'singleSelect',
         valueOptions: Object.values(ResultStatus).map((status) => ({ value: status, label: ResultStatusRus[status] })),
         valueGetter: (_, row: RowData) => row.data?.result,
+        valueSetter: (value, row) => ({
+            ...row,
+            data: {
+                ...row.data,
+                result: value || null,
+            },
+        }),
         renderCell: renderResultCell,
         width: 180,
         editable: true,
     },
     {
         headerName: 'Комментарий по предзащите',
-        field: 'comment',
+        field: 'defenceComment',
         valueGetter: (_, row: RowData) => row.data?.comment,
+        valueSetter: (value, row) => ({
+            ...row,
+            data: {
+                ...row.data,
+                comment: value || null,
+            },
+        }),
         renderCell: renderCommentCell,
         width: 500,
         sortable: false,

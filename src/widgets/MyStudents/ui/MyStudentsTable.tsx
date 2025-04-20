@@ -1,3 +1,4 @@
+import { useSnackbar } from '@/shared/lib/hooks/useSnackbar';
 import { BaseTable, StyledPagination } from '@/shared/ui';
 import { Box, Stack } from '@mui/material';
 import {
@@ -14,7 +15,8 @@ import {
     useGridApiContext,
     useGridSelector,
 } from '@mui/x-data-grid';
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
+import { useEditStudentRowMutation } from '../api';
 import { mapStudentRowToDto } from '../lib';
 import { StudentRowModel } from '../model';
 import { SetDefenceDateButton } from './SetDefenceDateButton';
@@ -50,20 +52,18 @@ const CustomPagination = () => {
     );
 };
 
-const CustomFooter = (props: { selected: boolean }) => {
-    const { selected } = props;
-    const apiRef = useGridApiContext();
-    const selectedRows = useMemo(() => [...apiRef.current.getSelectedRows()], [apiRef]);
-
+const CustomFooter = () => {
     return (
         <Stack direction="row" justifyContent="space-between" alignItems="center" px={1} py={2} width="100%">
-            <SetDefenceDateButton items={selectedRows} disabled={!selected} />
+            <SetDefenceDateButton />
             <CustomPagination />
         </Stack>
     );
 };
 
 export const MyStudentsTable = (props: StudentsTableProps) => {
+    const { showSnackbar, Snackbar } = useSnackbar();
+    const [editSudentRow] = useEditStudentRowMutation();
     const {
         stage,
         columns,
@@ -75,6 +75,7 @@ export const MyStudentsTable = (props: StudentsTableProps) => {
         rowSelectionModel,
         onRowSelectionModelChange,
     } = props;
+
     const handleCellEditStop = useCallback((params: GridCellEditStopParams, event: MuiEvent<MuiBaseEvent>) => {
         if (params.reason !== GridCellEditStopReasons.enterKeyDown) {
             return;
@@ -86,13 +87,27 @@ export const MyStudentsTable = (props: StudentsTableProps) => {
     }, []);
 
     const handleRowUpdate = useCallback(
-        (updatedRow: GridValidRowModel, originalRow: GridValidRowModel) => {
+        async (updatedRow: GridValidRowModel, originalRow: GridValidRowModel) => {
+            if (JSON.stringify(updatedRow) === JSON.stringify(originalRow)) {
+                return originalRow;
+            }
+
             const mappedRow = mapStudentRowToDto(updatedRow as StudentRowModel, stage);
-            console.log(mappedRow);
-            // Возвращаем обновлённую строку (или можно сделать API-запрос)
-            return updatedRow;
+
+            const row = await editSudentRow(mappedRow)
+                .unwrap()
+                .then(() => {
+                    showSnackbar('success', 'Ячейка изменена');
+                    return updatedRow;
+                })
+                .catch(() => {
+                    showSnackbar('error', 'Произошла ошибка при редактировании ячейки');
+                    return originalRow;
+                });
+
+            return row;
         },
-        [stage],
+        [stage, editSudentRow, showSnackbar],
     );
 
     return (
@@ -111,13 +126,11 @@ export const MyStudentsTable = (props: StudentsTableProps) => {
                     onCellEditStop={handleCellEditStop}
                     slots={{
                         pagination: CustomPagination,
-                        footer: () =>
-                            CustomFooter({
-                                selected: Boolean(rowSelectionModel.length),
-                            }),
+                        footer: CustomFooter,
                     }}
                 />
             </Box>
+            {Snackbar}
         </Box>
     );
 };
