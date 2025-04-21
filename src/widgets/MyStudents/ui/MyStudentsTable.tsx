@@ -129,6 +129,14 @@ export const MyStudentsTable = (props: StudentsTableProps) => {
                     processRowUpdate={handleRowUpdate}
                     onProcessRowUpdateError={handleRowUpdateError}
                     onCellEditStop={handleCellEditStop}
+                    isCellEditable={(params) => {
+                        const { field, value, colDef } = params;
+                        if (field === 'topic' && !value) {
+                            return false;
+                        }
+
+                        return Boolean(colDef.editable);
+                    }}
                     slots={{
                         pagination: CustomPagination,
                         footer: CustomFooter,

@@ -90,7 +90,8 @@ const baseColumns: GridColDef[] = [
             },
         }),
         renderCell: renderLinkCell(RoutePath.Topics, 'name'),
-        renderEditCell: (params) => <RenderEditTextareaCell {...params} value={params.value?.name ?? ''} />,
+        renderEditCell: (params) =>
+            params.value ? <RenderEditTextareaCell {...params} value={params.value?.name ?? ''} /> : null,
         display: 'flex',
         width: 400,
         editable: true,
