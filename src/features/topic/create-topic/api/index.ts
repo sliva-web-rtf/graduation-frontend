@@ -1,22 +1,20 @@
 import { baseApi, TagTypes } from '@/shared/api';
 import { toast } from 'react-toastify';
-import { CreateTopicRequest } from '../models/types/scientificWorkRequest';
+import { CreateTopicRequest } from '../models/types/CreateTopicRequest';
+import { CreateTopicResponse } from '../models/types/CreateTopicResponse';
 
 const topicApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
-        createTopic: build.mutation<void, CreateTopicRequest>({
+        createTopic: build.mutation<CreateTopicResponse, CreateTopicRequest>({
             query: (data) => ({
                 url: '/topics',
                 method: 'POST',
                 body: data,
             }),
-            transformResponse: () => {
-                toast.success('Тема исследования успешно предложена');
-            },
             transformErrorResponse: () => {
-                toast.error('Ошибка при создании темы исследования');
+                toast.error('Ошибка при создании темы ВКР');
             },
-            invalidatesTags: [TagTypes.Catalog],
+            invalidatesTags: [TagTypes.MyTopics],
         }),
     }),
 });

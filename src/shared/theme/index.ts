@@ -1,5 +1,6 @@
 import { createTheme } from '@mui/material';
 import { blue, blueGrey, grey } from '@mui/material/colors';
+import { ruRU } from '@mui/x-date-pickers/locales';
 
 import { components } from './components';
 import { shadows } from './shadows';
@@ -34,6 +35,9 @@ export const theme = createTheme({
             main: '#1976D2',
             light: '#d1e8ffa3',
         },
+        text: {
+            primary: '#21272a',
+        },
     },
     shadows,
     typography,
@@ -43,4 +47,5 @@ export const theme = createTheme({
             containerBackground: '#ffffff',
         },
     },
+    ruRU,
 });

@@ -5,6 +5,10 @@ export enum TagTypes {
     Catalog = 'Catalog',
     Requests = 'Requests',
     Profile = 'Profile',
+    Commissions = 'Commissions',
+    Commission = 'Commission',
+    MyTopics = 'MyTopics',
+    MyStudents = 'MyStudents',
 }
 
 export const baseApi = createApi({

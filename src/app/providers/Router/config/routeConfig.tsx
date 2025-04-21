@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { type Role } from '@/entities/User/model/types/role';
+import { Role } from '@/entities/User/';
 import { AdminPage } from '@/pages/AdminPage';
 import { CatalogPage } from '@/pages/CatalogPage';
 import { CommissionsPage } from '@/pages/CommissionsPage';
@@ -15,7 +15,6 @@ import { ProfilePage } from '@/pages/ProfilePage';
 import { RequestsPage } from '@/pages/RequestsPage';
 import { StudentPage } from '@/pages/StudentPage';
 import { SupervisorPage } from '@/pages/SupervisorPage';
-import { TestPage } from '@/pages/TestPage';
 import { TopicPage } from '@/pages/TopicPage';
 import { RouteProps } from 'react-router-dom';
 
@@ -27,17 +26,18 @@ export type AppRoutesProps = RouteProps & {
 
 export enum AppRoutes {
     Login = 'Login',
+    Forbidden = 'Forbidden',
+    NotFound = 'NotFound',
+
     Catalog = 'Catalog',
     Supervisors = 'Supervisors',
     Topics = 'Topics',
     Students = 'Students',
     Profile = 'Profile',
-    Forbidden = 'Forbidden',
-    NotFound = 'NotFound',
-    Test = 'Test',
     Requests = 'Requests',
     MyDiplom = 'MyDiplom',
     MyTopics = 'MyTopics',
+    MyTopic = 'MyTopic',
     MyStudents = 'MyStudents',
     Commissions = 'Commissions',
     CreateComission = 'CreateComission',
@@ -46,7 +46,6 @@ export enum AppRoutes {
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
-    [AppRoutes.Test]: '/test',
     [AppRoutes.Administration]: '/administration',
     [AppRoutes.Login]: '/login',
     [AppRoutes.Supervisors]: '/supervisors/:id',
@@ -56,6 +55,7 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.Requests]: '/requests',
     [AppRoutes.MyDiplom]: '/my-dimplom',
     [AppRoutes.MyTopics]: '/my-topics',
+    [AppRoutes.MyTopic]: '/my-topics/:id',
     [AppRoutes.MyStudents]: '/my-students',
     [AppRoutes.Commissions]: '/commissions',
     [AppRoutes.CreateComission]: '/commissions/create',
@@ -102,16 +102,7 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         path: RoutePath.Students,
         element: <StudentPage />,
         ...withLayoutAndAuth,
-    },
-    [AppRoutes.Forbidden]: {
-        path: RoutePath.Forbidden,
-        element: <ForbiddenPage />,
-        ...withLayoutAndAuth,
-    },
-    [AppRoutes.NotFound]: {
-        path: RoutePath.NotFound,
-        element: <NotFoundPage />,
-        ...withLayoutAndAuth,
+        roles: [Role.HeadSecretary, Role.Secretary, Role.Supervisor],
     },
     [AppRoutes.Requests]: {
         path: RoutePath.Requests,
@@ -122,40 +113,57 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         path: RoutePath.CreateComission,
         element: <CreateCommissionPage />,
         ...withLayoutAndAuth,
+        roles: [Role.HeadSecretary, Role.Secretary],
     },
     [AppRoutes.Commissions]: {
         path: RoutePath.Commissions,
         element: <CommissionsPage />,
         ...withLayoutAndAuth,
+        roles: [Role.HeadSecretary, Role.Secretary],
     },
     [AppRoutes.CreateTopic]: {
         path: RoutePath.CreateTopic,
         element: <CreateTopicPage />,
         ...withLayoutAndAuth,
+        roles: [Role.Supervisor, Role.Student],
     },
     [AppRoutes.MyDiplom]: {
         path: RoutePath.MyDiplom,
         element: <MyDimpomPage />,
         ...withLayoutAndAuth,
+        roles: [Role.HeadSecretary, Role.Secretary, Role.Supervisor, Role.Student],
     },
     [AppRoutes.MyTopics]: {
         path: RoutePath.MyTopics,
         element: <MyTopicsPage />,
+        ...withLayoutAndAuth,
+        roles: [Role.Supervisor, Role.Student],
+    },
+    [AppRoutes.MyTopic]: {
+        path: RoutePath.MyTopic,
+        element: <TopicPage extended editable />,
         ...withLayoutAndAuth,
     },
     [AppRoutes.MyStudents]: {
         path: RoutePath.MyStudents,
         element: <MyStudentsPage />,
         ...withLayoutAndAuth,
+        roles: [Role.HeadSecretary, Role.Secretary],
     },
     [AppRoutes.Administration]: {
         path: RoutePath.Administration,
         element: <AdminPage />,
         ...withLayoutAndAuth,
+        roles: [Role.HeadSecretary],
     },
-    [AppRoutes.Test]: {
-        path: RoutePath.Test,
-        element: <TestPage />,
+    [AppRoutes.Forbidden]: {
+        path: RoutePath.Forbidden,
+        element: <ForbiddenPage />,
+        ...withLayoutAndAuth,
+    },
+    [AppRoutes.NotFound]: {
+        path: RoutePath.NotFound,
+        element: <NotFoundPage />,
         ...withLayoutAndAuth,
     },
 };

@@ -1,24 +1,11 @@
-import { ComissionCard } from '@/entities/Comission';
 import { CreateCommissionButton } from '@/features/comission/create-comission';
 import { Stack } from '@mui/material';
+import { ComissionsList } from './ComissionsList';
 
-type ComissionsProps = {};
-
-export const Comissions = (props: ComissionsProps) => {
-    // const {} = props;
-
+export const Comissions = () => {
     return (
-        <Stack spacing={2}>
-            <ComissionCard
-                comissionId="1"
-                comissionName="Комиссия 1"
-                clerk={{ id: '1', name: 'Миронова Елена Михайловна' }}
-            />
-            <ComissionCard
-                comissionId="2"
-                comissionName="Комиссия 2"
-                clerk={{ id: '2', name: 'Баринов Виктор Петрович' }}
-            />
+        <Stack spacing={4} height="100%" justifyContent="space-between">
+            <ComissionsList />
             <CreateCommissionButton />
         </Stack>
     );

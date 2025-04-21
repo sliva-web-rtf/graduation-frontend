@@ -7,33 +7,32 @@ import { NavLink } from 'react-router-dom';
 
 interface PersonSummaryProps {
     id: string;
-    name: string;
+    name?: any;
 
     isLink?: boolean;
     isStudent?: boolean;
-    degree?: string;
     role?: string;
 }
 
 export const PersonSummary: FC<PersonSummaryProps> = (props) => {
-    const { id, name, degree, role, isLink, isStudent } = props;
+    const { id, name, role, isLink, isStudent } = props;
     const initials = getInitials(name);
     const path = getInfoPagePath(isStudent ? RoutePath.Students : RoutePath.Supervisors, id);
 
     return (
         <Stack textAlign="end">
             {isLink && id ? (
-                <Typography component={NavLink} to={path} variant="subtitle1" sx={{ whiteSpace: 'nowrap' }}>
+                <Typography component={NavLink} to={path} variant="subtitle2" sx={{ whiteSpace: 'nowrap' }}>
                     {initials}
                 </Typography>
             ) : (
-                <Typography variant="subtitle1" sx={{ whiteSpace: 'nowrap' }}>
+                <Typography variant="subtitle2" sx={{ whiteSpace: 'nowrap' }}>
                     {initials}
                 </Typography>
             )}
 
             <Typography variant="bodyXS" color="secondary">
-                {degree || role}
+                {role}
             </Typography>
         </Stack>
     );

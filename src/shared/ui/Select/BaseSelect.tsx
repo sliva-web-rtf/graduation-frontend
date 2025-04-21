@@ -23,6 +23,7 @@ export type BaseSelectProps = SelectProps & {
     helperText?: string;
     useController?: boolean;
     clearable?: boolean;
+    clearText?: string;
 };
 
 export const BaseSelect = (props: BaseSelectProps) => {
@@ -36,7 +37,9 @@ export const BaseSelect = (props: BaseSelectProps) => {
         defaultValue,
         useController = true,
         value,
+        size,
         onChange,
+        clearText = 'Сбросить выбор',
         ...otherProps
     } = props;
 
@@ -49,7 +52,7 @@ export const BaseSelect = (props: BaseSelectProps) => {
         >
             {!otherProps.multiple && clearable && (
                 <MenuItem value="">
-                    <b>Сбросить выбор</b>
+                    <b>{clearText}</b>
                 </MenuItem>
             )}
             {options.map((option) => (
@@ -61,9 +64,9 @@ export const BaseSelect = (props: BaseSelectProps) => {
     );
 
     return (
-        <FormControl fullWidth>
+        <FormControl fullWidth size={size}>
             <InputLabel error={otherProps.error}>{label}</InputLabel>
-            {useController && control ? (
+            {useController && control && name ? (
                 <Controller
                     name={name}
                     control={control}

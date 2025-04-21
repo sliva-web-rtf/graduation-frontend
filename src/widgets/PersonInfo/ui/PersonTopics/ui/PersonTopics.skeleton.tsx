@@ -1,10 +1,10 @@
-import { useCallback } from 'react';
 import { CatalogCardSkeleton } from '@/entities/CatalogCard';
 import { BaseList } from '@/shared/ui/List/List';
+import { useCallback } from 'react';
 
 type UsersTopicsProps = {
     count: number;
-    className: string;
+    className?: string;
 };
 
 export const PersonTopicsSkeleton = (props: UsersTopicsProps) => {

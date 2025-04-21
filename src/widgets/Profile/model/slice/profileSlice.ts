@@ -14,9 +14,6 @@ export const profileSlice = createSlice({
         setOption: (state, action: PayloadAction<ProfileSchema['option']>) => {
             state.option = action.payload;
         },
-        setOptions: (state, action: PayloadAction<ProfileSchema['options']>) => {
-            state.options = action.payload;
-        },
     },
 });
 

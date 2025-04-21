@@ -10,11 +10,12 @@
     width: var(--page-width);
     min-height: 100vh;
     display: grid;
-    grid-template-columns: var(--sidebar-width) 1fr;
+    grid-template-columns: auto 1fr;
     column-gap: var(--space-xl);
     color: var(--text-color);
 }
 
 a {
+    display: block;
     color: var(--primary-color);
 }

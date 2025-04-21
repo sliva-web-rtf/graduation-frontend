@@ -13,11 +13,18 @@ export const ToggleList = memo(() => {
         (_: MouseEvent<HTMLElement>, newAlignment: typeof option) => {
             if (newAlignment) {
                 dispatch(catalogActions.setOption(newAlignment));
-                dispatch(catalogActions.setPage(0));
             }
         },
         [dispatch],
     );
 
-    return <ToggleButtons exclusive onChange={handleChange} value={option} options={options} />;
+    return (
+        <ToggleButtons
+            exclusive
+            onChange={handleChange}
+            value={option}
+            options={options}
+            sx={{ alignSelf: 'flex-start' }}
+        />
+    );
 });

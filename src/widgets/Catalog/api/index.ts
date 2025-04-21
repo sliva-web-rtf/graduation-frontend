@@ -1,5 +1,5 @@
 import { baseApi, TagTypes } from '@/shared/api';
-import { catalogActions } from '@/widgets/Catalog';
+import { removeEmptyValues } from '@/shared/lib/helpers/removeEmptyValues';
 import queryString from 'query-string';
 import { getUrl, mapCatalogDtoToModel, transformDtoForCatalogCard } from '../lib';
 import { CatalogDto, CatalogModel, CatalogRequest } from '../model';
@@ -10,17 +10,8 @@ const catalogApi = baseApi.injectEndpoints({
             query: ({ option, params }) =>
                 queryString.stringifyUrl({
                     url: getUrl(option),
-                    query: params,
+                    query: removeEmptyValues(params),
                 }),
-            onQueryStarted: async (arg, api) => {
-                const { dispatch, queryFulfilled } = api;
-                try {
-                    const { data } = await queryFulfilled;
-                    dispatch(catalogActions.setPagesCount(data.pagesCount));
-                } catch (err: any) {
-                    /* empty */
-                }
-            },
             transformResponse: (response: CatalogDto) => {
                 const { data, pagesCount } = mapCatalogDtoToModel(response);
                 return {

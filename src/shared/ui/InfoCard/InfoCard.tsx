@@ -21,7 +21,7 @@ export const InfoCard = memo((props: InfoCardProps) => {
         >
             <Stack spacing={2}>
                 <Typography variant="h3">{title}</Typography>
-                <Typography variant="subtitle1" fontFamily="Monrope" whiteSpace={formatted ? 'pre' : 'normal'}>
+                <Typography variant="subtitle2" fontWeight={500} whiteSpace={formatted ? 'pre' : 'normal'}>
                     {text || emptyText}
                 </Typography>
             </Stack>

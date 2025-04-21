@@ -1,8 +1,11 @@
-import { BaseAlert, BaseLoadingButton, BaseModal } from '@/shared/ui';
+import { useGetUsersTopicsQuery } from '@/entities/Topic';
+import { getUserData } from '@/entities/User';
+import { BaseAlert, BaseButton, BaseLoadingButton, BaseModal } from '@/shared/ui';
 import { Divider, FormControl, RadioGroup, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useSendRequestMutation } from '../api';
-import { TopicsRadioButtons } from './TopicsRadioButtons';
+import { TopicsRadioButtons, TopicsRadioButtonsSkeleton } from './TopicsRadioButtons';
 
 type PersonRequestModalProps = {
     id: string;
@@ -13,11 +16,11 @@ type PersonRequestModalProps = {
 
 export const PersonRequestModal = (props: PersonRequestModalProps) => {
     const { id, name, open, onClose } = props;
+    const { user } = useSelector(getUserData);
     const [sendRequest, { isLoading }] = useSendRequestMutation();
     const [topicId, setTopicId] = useState<string | null>(null);
-    const otherTopics = undefined;
-    const usersTopics = undefined;
-
+    const { data: personTopics, isFetching: isPersonTopicsFetching } = useGetUsersTopicsQuery({ userId: id });
+    const { data: usersTopics, isFetching: isUsersTopicsFetching } = useGetUsersTopicsQuery({ userId: user!.id });
     const handleRadioChange = (_: unknown, value: string) => {
         setTopicId(value);
     };
@@ -38,6 +41,11 @@ export const PersonRequestModal = (props: PersonRequestModalProps) => {
                     Оформить заявку
                 </BaseLoadingButton>
             }
+            cancelButton={
+                <BaseButton variant="text" onClick={onClose}>
+                    Отменить
+                </BaseButton>
+            }
             open={open}
             onClose={onClose}
             onClick={(e) => e.stopPropagation()}
@@ -45,16 +53,29 @@ export const PersonRequestModal = (props: PersonRequestModalProps) => {
             <Stack spacing={4}>
                 <BaseAlert severity="info">Вы оформляете заявку {name}</BaseAlert>
                 <FormControl>
-                    <RadioGroup name="topicId" value={topicId} onChange={handleRadioChange}>
+                    <RadioGroup
+                        name="topicId"
+                        value={topicId}
+                        onChange={handleRadioChange}
+                        sx={{ maxHeight: 400, overflowY: 'scroll' }}
+                    >
                         <Stack spacing={4}>
                             <Stack spacing={2}>
                                 <Typography variant="h3">Темы пользователя</Typography>
-                                <TopicsRadioButtons items={otherTopics} />
+                                {isPersonTopicsFetching ? (
+                                    <TopicsRadioButtonsSkeleton />
+                                ) : (
+                                    <TopicsRadioButtons items={personTopics} />
+                                )}
                             </Stack>
                             <Divider />
                             <Stack spacing={2}>
                                 <Typography variant="h3">Предложить из своих тем</Typography>
-                                <TopicsRadioButtons items={usersTopics} />
+                                {isPersonTopicsFetching ? (
+                                    <TopicsRadioButtonsSkeleton />
+                                ) : (
+                                    <TopicsRadioButtons items={usersTopics} />
+                                )}
                             </Stack>
                         </Stack>
                     </RadioGroup>

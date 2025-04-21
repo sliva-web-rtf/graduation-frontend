@@ -1,4 +1,5 @@
 import { userReducer } from '@/entities/User';
+import { yearReducer } from '@/entities/Year';
 import { baseApi } from '@/shared/api';
 import { catalogReducer } from '@/widgets/Catalog';
 import { requestsReducer } from '@/widgets/Requests/model';
@@ -12,6 +13,7 @@ export function createReduxStore(initialState?: StateSchema, asyncReducers?: Red
     const rootReducers: ReducersMapObject<StateSchema> = {
         ...asyncReducers,
         user: userReducer,
+        year: yearReducer,
         catalog: catalogReducer,
         requests: requestsReducer,
         [baseApi.reducerPath]: baseApi.reducer,

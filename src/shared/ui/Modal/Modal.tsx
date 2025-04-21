@@ -43,7 +43,7 @@ export const BaseModal = (props: BaseModalProps) => {
         ...otherProps
     } = props;
     // eslint-disable-next-line no-nested-ternary
-    const width = size === undefined ? undefined : size === 'small' ? 400 : size === 'large' ? 800 : 600;
+    const width = size === undefined ? '100%' : size === 'small' ? 450 : size === 'large' ? 900 : 650;
 
     return (
         <Modal open={open} onClose={onClose} {...otherProps}>

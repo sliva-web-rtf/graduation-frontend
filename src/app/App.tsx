@@ -2,27 +2,30 @@ import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch
 import { useEffect } from 'react';
 
 import { userActions, useUserQuery } from '@/entities/User';
-import { UserSecretStorageService } from '@/shared/lib/helpers/userSecretStorage';
+import { useGetDefaultYearQuery, yearActions } from '@/entities/Year';
 import { PageLoader } from '@/shared/ui';
 import { AppRouter } from './providers/Router';
 
 function App() {
     const dispatch = useAppDispatch();
-    const isInited = UserSecretStorageService.isValid();
-    const { isFetching, data } = useUserQuery();
+    const { isFetching: isUserFetching, data: user } = useUserQuery();
+    const { isFetching: isDefaulYearFetching, data: defaultYear } = useGetDefaultYearQuery();
 
     useEffect(() => {
-        if (data) {
-            dispatch(userActions.setUser(data));
+        if (user) {
+            dispatch(userActions.setUser(user));
         }
-    }, [data, dispatch]);
+    }, [user, dispatch]);
 
-    if (isFetching) {
+    useEffect(() => {
+        dispatch(yearActions.setAcademicYear(defaultYear));
+    }, [defaultYear, dispatch]);
+
+    if (isUserFetching || isDefaulYearFetching) {
         return <PageLoader />;
     }
 
-    // eslint-disable-next-line react/jsx-no-useless-fragment
-    return <>{isInited && <AppRouter />}</>;
+    return <AppRouter />;
 }
 
 export default App;

@@ -1,9 +1,8 @@
 import { Role } from '@/entities/User';
-import { CatalogOption } from '../../model';
 import { RequestsOption } from '../model/types';
 
 export const getRequestsOptionsForRoles = (roles: Role[]): RequestsOption[] => {
-    const optionsSet = new Set<CatalogOption>();
+    const optionsSet = new Set<RequestsOption>();
 
     roles.forEach((role) => {
         switch (role) {
@@ -13,7 +12,7 @@ export const getRequestsOptionsForRoles = (roles: Role[]): RequestsOption[] => {
                 optionsSet.add(RequestsOption.Outgoing);
                 optionsSet.add(RequestsOption.History);
                 break;
-            case Role.Clerk:
+            case Role.Secretary:
                 optionsSet.add(RequestsOption.Incoming);
                 optionsSet.add(RequestsOption.History);
                 break;

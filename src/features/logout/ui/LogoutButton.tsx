@@ -1,26 +1,27 @@
-import { RoutePath } from '@/app/providers/Router';
-import { userActions } from '@/entities/User';
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
-import { IconButton, Tooltip } from '@mui/material';
-import { memo, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { ListItemIcon, ListItemText, MenuItem } from '@mui/material';
+import { memo, useState } from 'react';
+import { LogoutModal } from './LogoutModal';
 
-export const LogoutButton = memo(() => {
-    const dispatch = useAppDispatch();
-    const navigate = useNavigate();
+export const LogoutMenuItem = memo(() => {
+    const [open, setOpen] = useState(false);
 
-    const handleLogout = useCallback(() => {
-        dispatch(userActions.logout());
-        navigate(RoutePath.Login, { replace: true });
-        window.location.reload();
-    }, [dispatch, navigate]);
+    const handleOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     return (
-        <Tooltip title="Выйти из аккаунта">
-            <IconButton onClick={handleLogout} sx={{ padding: 0 }}>
-                <LogoutRoundedIcon />
-            </IconButton>
-        </Tooltip>
+        <>
+            <MenuItem onClick={handleOpen}>
+                <ListItemIcon>
+                    <LogoutIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>Выйти</ListItemText>
+            </MenuItem>
+            <LogoutModal open={open} onClose={handleClose} />
+        </>
     );
 });

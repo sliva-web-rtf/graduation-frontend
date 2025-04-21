@@ -1,9 +1,8 @@
-import { Role } from '@/entities/User';
+import { StrictRecord } from '@/shared/lib/types/StrictRecord';
 
 export type PersonMainInfo = {
     id: string;
-    name: string;
-    role: Role;
+    fullName: string;
 
     about?: string;
     contacts?: string;
@@ -11,23 +10,33 @@ export type PersonMainInfo = {
 };
 
 export type Student = {
-    direction: string;
-    group: string;
+    academicProgram: string;
+    academicGroup: string;
     role: string;
 };
 
-export type Manager = {
-    post: string;
-    degree: string;
+export type Supervisor = {
     limit: number;
     fullness: number;
 };
 
-export type Person = PersonMainInfo & Partial<Student> & Partial<Manager>;
-
-type Entity = 'student' | 'professor';
+export type Person = PersonMainInfo & Partial<Student> & Partial<Supervisor>;
 
 export type PersonRequest = {
     id: string;
-    entity: Entity;
+    isStudent: boolean;
 };
+
+export enum StudentStatus {
+    Kicked = 'Kicked',
+    Academ = 'Academ',
+    Active = 'Active',
+}
+
+export const StudentStatusRus: StrictRecord<StudentStatus, string> = {
+    [StudentStatus.Kicked]: 'Отчислен',
+    [StudentStatus.Academ]: 'Академ',
+    [StudentStatus.Active]: 'Активен',
+
+    getUnknown: 'Неизвестно',
+} as const;

@@ -12,18 +12,22 @@ import {
 
 const topicApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
-        getScientificWork: build.query<Topic, ScientificWorksRequest>({
+        getTopic: build.query<Topic, ScientificWorksRequest>({
             query: ({ id }) => `topics/${id}`,
             transformResponse: (response: ScientificWorkDto) => mapScientificWorkDtoToModel(response),
         }),
-        getUsersScientificWorks: build.query<Omit<ICatalogCard, 'option'>[], UsersScientificWorksRequest>({
+        getUsersTopics: build.query<Omit<ICatalogCard, 'option'>[], UsersScientificWorksRequest>({
             query: ({ userId }) => ({
-                url: 'topics/topics-by-user-id',
-                params: { userId },
+                url: `topics/by-user/${userId}`,
+                params: {
+                    size: 1000,
+                    page: 0,
+                },
             }),
-            transformResponse: (response: TopicCardModel[]) => response?.map(transformDtoForCatalogCard),
+            transformResponse: (response: { topics: TopicCardModel[] }) =>
+                response?.topics?.map(transformDtoForCatalogCard),
         }),
     }),
 });
 
-export const { useGetScientificWorkQuery, useGetUsersScientificWorksQuery } = topicApi;
+export const { useGetTopicQuery, useGetUsersTopicsQuery } = topicApi;

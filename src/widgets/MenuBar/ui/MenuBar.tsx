@@ -1,17 +1,17 @@
-import { RoutePath } from '@/app/providers/Router/config/routeConfig';
 import { getUserData, ROLES } from '@/entities/User';
-import { LogoutButton } from '@/features/logout';
 import { getInitials } from '@/shared/lib/helpers/getInitials';
-import { BaseAppBar } from '@/shared/ui/AppBar/AppBar';
-import { AppBarProps, Box, Stack, Toolbar, Tooltip, Typography } from '@mui/material';
+import { Stack, Tooltip, Typography } from '@mui/material';
 import { memo } from 'react';
 import { useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { AppMenu } from './Menu';
 import classnames from './MenuBar.module.scss';
 
-interface MenuBarProps extends AppBarProps {}
+type MenuBarProps = {
+    expanded?: boolean;
+};
 
-export const MenuBar = memo(({ sx, ...props }: MenuBarProps) => {
+export const MenuBar = memo((props: MenuBarProps) => {
+    const { expanded } = props;
     const { user } = useSelector(getUserData);
 
     if (!user) {
@@ -23,28 +23,22 @@ export const MenuBar = memo(({ sx, ...props }: MenuBarProps) => {
     const userInitials = getInitials(firstName, lastName, patronymic);
 
     return (
-        <Box sx={sx}>
-            <BaseAppBar position="static" {...props}>
-                <Toolbar sx={{ gap: 1 }}>
-                    <Stack>
-                        <Tooltip title="Перейти в личный кабинет">
-                            <Typography
-                                variant="subtitle2"
-                                color="primary"
-                                component={NavLink}
-                                to={RoutePath.Profile}
-                                className={classnames.username}
-                            >
-                                {userInitials}
+        <Stack direction="row" spacing={1} justifyContent="space-between" px={1} minHeight={40} alignItems="center">
+            {expanded && (
+                <Stack>
+                    <Typography color="primary" fontWeight={600} className={classnames.username}>
+                        {userInitials}
+                    </Typography>
+                    {translatedRoles && (
+                        <Tooltip title={translatedRoles}>
+                            <Typography variant="bodyXS" color="secondary" className={classnames.username}>
+                                {translatedRoles}
                             </Typography>
                         </Tooltip>
-                        <Typography variant="bodyXS" color="secondary" className={classnames.username}>
-                            {translatedRoles || 'Нет роли'}
-                        </Typography>
-                    </Stack>
-                    <LogoutButton />
-                </Toolbar>
-            </BaseAppBar>
-        </Box>
+                    )}
+                </Stack>
+            )}
+            <AppMenu />
+        </Stack>
     );
 });

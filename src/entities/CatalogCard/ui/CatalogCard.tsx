@@ -2,7 +2,7 @@ import { PersonRequestButton } from '@/features/person/send-request';
 import { TopicRequestButton } from '@/features/topic/send-request';
 import { LimitInfo } from '@/shared/ui/LimitInfo/LimitInfo';
 import { CatalogOption } from '@/widgets/Catalog';
-import { Paper, Stack, Typography } from '@mui/material';
+import { Paper, Stack, Tooltip, Typography } from '@mui/material';
 import { memo, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { getParentLink } from '../lib';
@@ -15,28 +15,19 @@ export const CatalogCard = memo((props: ICatalogCard) => {
     const isTopics = option === CatalogOption.Topics;
 
     return (
-        <Paper
-            component={Link}
-            to={`/${parentLink}/${id}`}
-            className={styles.card}
-            sx={{ '&:hover': { textDecoration: 'none' } }}
-        >
+        <Paper className={styles.card}>
             <Stack spacing={3}>
                 <Stack spacing={1}>
                     <Typography variant="subtitle1" color="secondary">
                         {subtitle}
                     </Typography>
-                    <Typography variant="h3" className={styles.title}>
-                        {title}
-                    </Typography>
+                    <Tooltip title={title}>
+                        <Typography component={Link} to={`/${parentLink}/${id}`} variant="h3" className={styles.title}>
+                            {title}
+                        </Typography>
+                    </Tooltip>
                 </Stack>
-                <Typography
-                    variant="subtitle1"
-                    color="secondary"
-                    fontFamily="Manrope"
-                    fontWeight={500}
-                    className={styles.description}
-                >
+                <Typography variant="subtitle2" fontWeight={500} className={styles.description}>
                     {description || 'Описание отсутствует'}
                 </Typography>
             </Stack>

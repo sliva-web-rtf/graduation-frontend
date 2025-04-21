@@ -21,13 +21,11 @@ const Catalog = memo(() => {
         <Stack spacing={4} justifyContent="space-between" height="100%">
             <Stack spacing={4} height="100%">
                 <Search />
-                <Stack direction="row" justifyContent="space-between" alignItems="center">
-                    <ToggleList />
-                </Stack>
+                <ToggleList />
                 <CatalogList />
             </Stack>
             {pagesCountForOption > 0 && (
-                <BasePagination page={page + 1} count={pagesCount[option]} onChange={handlePageChange} />
+                <BasePagination page={page + 1} count={pagesCountForOption} onChange={handlePageChange} />
             )}
         </Stack>
     );

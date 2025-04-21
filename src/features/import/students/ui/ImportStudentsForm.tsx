@@ -20,6 +20,7 @@ export const ImportStudentsForm = memo(() => {
                 />
                 <Attach
                     placeholder="Прикрепите файл .xlsx, .xls"
+                    inputProps={{ accept: '.xlsx, .xls' }}
                     value={null}
                     helperText="Максимальный размер файла не должен превышать 20МБ"
                 />
