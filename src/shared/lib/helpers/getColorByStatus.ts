@@ -6,9 +6,9 @@ export const getColorByTopicStatus = (status?: TopicStatus) => {
     switch (status) {
         case TopicStatus.Approved:
             return 'success';
-        case TopicStatus.Сonsideration:
+        case TopicStatus.Consideration:
             return 'warning';
-        case TopicStatus.Canceled:
+        case TopicStatus.Cancelled:
             return 'error';
 
         default:
