@@ -9,7 +9,7 @@ interface LayoutProps {
 const Layout: FC<LayoutProps> = ({ children }) => (
     <Box className="page-wrapper">
         <Sidebar />
-        <Box component="main" py={4}>
+        <Box component="main" my={4}>
             {children}
         </Box>
     </Box>

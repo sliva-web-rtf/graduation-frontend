@@ -24,6 +24,7 @@ export const MenuBar = memo((props: MenuBarProps) => {
 
     return (
         <Stack direction="row" spacing={1} justifyContent="space-between" px={1} minHeight={40} alignItems="center">
+            <AppMenu />
             {expanded && (
                 <Stack>
                     <Typography color="primary" fontWeight={600} className={classnames.username}>
@@ -38,7 +39,6 @@ export const MenuBar = memo((props: MenuBarProps) => {
                     )}
                 </Stack>
             )}
-            <AppMenu />
         </Stack>
     );
 });

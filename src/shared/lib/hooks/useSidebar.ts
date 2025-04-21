@@ -1,5 +1,5 @@
 import { LocalStorageService } from '@/shared/lib/helpers/localStorage';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 const SIDEBAR_KEY = 'SIDEBAR_EXPANDED';
 
@@ -18,8 +18,7 @@ export const useSidebar = () => {
         setExpanded((prev) => !prev);
     }, []);
 
-    return {
-        expanded,
-        toggleSidebar,
-    };
+    const value = useMemo(() => ({ expanded, toggleSidebar }), [expanded, toggleSidebar]);
+
+    return value;
 };

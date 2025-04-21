@@ -1,7 +1,6 @@
 import { RoutePath } from '@/app/providers/Router';
 import { LogoutMenuItem } from '@/features/logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import MenuIcon from '@mui/icons-material/Menu';
 import { IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Tooltip } from '@mui/material';
 import { MouseEvent, memo, useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -27,7 +26,7 @@ export const AppMenu = memo(() => {
         <>
             <Tooltip title="Открыть меню" placement="right-end">
                 <IconButton onClick={handleOpen} sx={{ p: 0 }}>
-                    <MenuIcon />
+                    <AccountCircleIcon />
                 </IconButton>
             </Tooltip>
             {anchorEl && (
