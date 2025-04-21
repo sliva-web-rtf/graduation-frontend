@@ -110,9 +110,9 @@ export const MyStudentsTable = (props: StudentsTableProps) => {
         [stage, editSudentRow, showSnackbar],
     );
 
-    const handleRowUpdateError = useCallback((error: Error) => {
-        console.log(error);
-    }, []);
+    const handleRowUpdateError = useCallback(() => {
+        showSnackbar('error', 'Произошла ошибка при редактировании ячейки');
+    }, [showSnackbar]);
 
     return (
         <Box sx={{ flex: 1, position: 'relative' }}>

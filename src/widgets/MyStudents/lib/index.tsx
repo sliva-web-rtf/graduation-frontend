@@ -249,7 +249,7 @@ const defenceColumns: GridColDef[] = [
             ...row,
             data: {
                 ...row.data,
-                isCommand: value || null,
+                isCommand: value ?? false,
             },
         }),
         renderCell: rendeIsCommandCell,
