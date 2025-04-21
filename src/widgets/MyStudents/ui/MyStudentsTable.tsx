@@ -15,7 +15,7 @@ import {
     useGridApiContext,
     useGridSelector,
 } from '@mui/x-data-grid';
-import { useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { useEditStudentRowMutation } from '../api';
 import { mapStudentRowToDto } from '../lib';
 import { StudentRowModel } from '../model';
@@ -31,6 +31,7 @@ type StudentsTableProps = {
     setPaginationModel: (_: GridPaginationModel) => void;
     rowSelectionModel: GridRowSelectionModel;
     onRowSelectionModelChange: (_: GridRowSelectionModel) => void;
+    onContextMenu: (event: React.MouseEvent) => void;
 };
 
 function isKeyboardEvent(event: any): event is KeyboardEvent {
@@ -63,7 +64,7 @@ const CustomFooter = () => {
 
 export const MyStudentsTable = (props: StudentsTableProps) => {
     const { showSnackbar, Snackbar } = useSnackbar();
-    const [editSudentRow] = useEditStudentRowMutation();
+    const [editStudentRow] = useEditStudentRowMutation();
     const {
         stage,
         columns,
@@ -74,6 +75,7 @@ export const MyStudentsTable = (props: StudentsTableProps) => {
         setPaginationModel,
         rowSelectionModel,
         onRowSelectionModelChange,
+        onContextMenu,
     } = props;
 
     const handleCellEditStop = useCallback((params: GridCellEditStopParams, event: MuiEvent<MuiBaseEvent>) => {
@@ -94,7 +96,7 @@ export const MyStudentsTable = (props: StudentsTableProps) => {
 
             const mappedRow = mapStudentRowToDto(updatedRow as StudentRowModel, stage);
 
-            const row = await editSudentRow(mappedRow)
+            const row = await editStudentRow(mappedRow)
                 .unwrap()
                 .then(() => {
                     showSnackbar('success', 'Ячейка изменена');
@@ -107,7 +109,7 @@ export const MyStudentsTable = (props: StudentsTableProps) => {
 
             return row;
         },
-        [stage, editSudentRow, showSnackbar],
+        [stage, editStudentRow, showSnackbar],
     );
 
     const handleRowUpdateError = useCallback(() => {
@@ -116,7 +118,7 @@ export const MyStudentsTable = (props: StudentsTableProps) => {
 
     return (
         <Box sx={{ flex: 1, position: 'relative' }}>
-            <Box sx={{ position: 'absolute', inset: 0 }}>
+            <Box sx={{ position: 'absolute', inset: 0 }} onContextMenu={onContextMenu}>
                 <BaseTable
                     loading={loading}
                     rowCount={rowCount}
@@ -131,7 +133,7 @@ export const MyStudentsTable = (props: StudentsTableProps) => {
                     onCellEditStop={handleCellEditStop}
                     isCellEditable={(params) => {
                         const { field, value, colDef } = params;
-                        if (field === 'topic' && !value) {
+                        if (field === 'topic' && value === null && value === undefined) {
                             return false;
                         }
 

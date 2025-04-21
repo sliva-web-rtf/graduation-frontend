@@ -2,9 +2,11 @@ import { TopicCard, useGetTopicQuery } from '@/entities/Topic';
 import { ROLES } from '@/entities/User';
 import { TopicRequestButton } from '@/features/topic/send-request';
 import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+import { SITENAME } from '@/shared/lib/const';
 import { EmptyMessage } from '@/shared/ui';
 import { Grid, Stack } from '@mui/material';
 import { memo } from 'react';
+import { Helmet } from 'react-helmet';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getTopicInfo, topicInfoReducer } from '../model';
@@ -43,33 +45,44 @@ export const TopicInfo = memo((props: TopicInfoProps) => {
     const { description, result, name } = data;
 
     return (
-        <DynamicModuleLoader removeAfterUnmount reducers={initialReducers}>
-            <Grid container gap={3}>
-                <Grid item xs={5}>
-                    <Stack spacing={3}>
-                        <TopicCard {...data} />
-                        <Stack spacing={1} alignItems="center">
-                            {!extended && <TopicRequestButton id={id} name={name} />}
+        <>
+            {name && (
+                <Helmet>
+                    <title>
+                        {name} | {SITENAME}
+                    </title>
+                </Helmet>
+            )}
+            <DynamicModuleLoader removeAfterUnmount reducers={initialReducers}>
+                <Grid container gap={3}>
+                    <Grid item xs={5}>
+                        <Stack spacing={3}>
+                            <TopicCard {...data} />
+                            <Stack spacing={1} alignItems="center">
+                                {!extended && <TopicRequestButton id={id} name={name} />}
+                            </Stack>
                         </Stack>
-                    </Stack>
+                    </Grid>
+                    <Grid item xs>
+                        <Stack spacing={4} alignItems="flex-start">
+                            {extended && <ToggleTopicInfo />}
+                            {option === ToggleOptions.Info && (
+                                <TopicMainInfo description={description} result={result} />
+                            )}
+                            {option === ToggleOptions.Docs && <TopicDocs editable={editable} />}
+                            {option === ToggleOptions.Commission && (
+                                <TopicCommission
+                                    name="Комиссия 1"
+                                    members={[
+                                        { role: ROLES.Secretary, user: { id: '1', fullName: 'Иванов Иван Иванович' } },
+                                        { role: ROLES.Expert, user: { id: '2', fullName: 'Петрова Инна Викторовна' } },
+                                    ]}
+                                />
+                            )}
+                        </Stack>
+                    </Grid>
                 </Grid>
-                <Grid item xs>
-                    <Stack spacing={4} alignItems="flex-start">
-                        {extended && <ToggleTopicInfo />}
-                        {option === ToggleOptions.Info && <TopicMainInfo description={description} result={result} />}
-                        {option === ToggleOptions.Docs && <TopicDocs editable={editable} />}
-                        {option === ToggleOptions.Commission && (
-                            <TopicCommission
-                                name="Комиссия 1"
-                                members={[
-                                    { role: ROLES.Secretary, user: { id: '1', fullName: 'Иванов Иван Иванович' } },
-                                    { role: ROLES.Expert, user: { id: '2', fullName: 'Петрова Инна Викторовна' } },
-                                ]}
-                            />
-                        )}
-                    </Stack>
-                </Grid>
-            </Grid>
-        </DynamicModuleLoader>
+            </DynamicModuleLoader>
+        </>
     );
 });

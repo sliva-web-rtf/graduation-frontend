@@ -23,7 +23,14 @@ export const MenuBar = memo((props: MenuBarProps) => {
     const userInitials = getInitials(firstName, lastName, patronymic);
 
     return (
-        <Stack direction="row" spacing={1} justifyContent="space-between" px={1} minHeight={40} alignItems="center">
+        <Stack
+            direction="row"
+            spacing={1}
+            justifyContent={expanded ? 'flex-start' : 'center'}
+            px={1}
+            minHeight={40}
+            alignItems="center"
+        >
             <AppMenu />
             {expanded && (
                 <Stack>

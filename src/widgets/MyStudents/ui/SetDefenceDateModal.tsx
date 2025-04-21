@@ -54,7 +54,11 @@ export const SetDefenceDateModal = (props: SetDefenceDateModalProps) => {
                 open={open}
                 onClose={onClose}
                 title="Назначить дату предзащиты"
-                cancelButton={<BaseButton variant="text">Отменить</BaseButton>}
+                cancelButton={
+                    <BaseButton variant="text" onClick={onClose}>
+                        Отменить
+                    </BaseButton>
+                }
                 actionButton={
                     <BaseLoadingButton variant="contained" onClick={handleSubmit(onSubmit)} loading={isLoading}>
                         Назначить

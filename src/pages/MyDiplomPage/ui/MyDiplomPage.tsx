@@ -1,18 +1,18 @@
 import { SITENAME } from '@/shared/lib/const';
-import { MyDimplom } from '@/widgets/MyDimplom';
+import { MyDiplom } from '@/widgets/MyDiplom';
 import { Stack, Typography } from '@mui/material';
 import { Helmet } from 'react-helmet';
 
-const MyDimpomPage = () => (
+const MyDiplomPage = () => (
     <>
         <Helmet>
             <title>Мой диплом | {SITENAME}</title>
         </Helmet>
         <Stack spacing={4} height="100%">
             <Typography variant="h1">Мой диплом</Typography>
-            <MyDimplom />
+            <MyDiplom />
         </Stack>
     </>
 );
 
-export default MyDimpomPage;
+export default MyDiplomPage;

@@ -56,8 +56,8 @@ export const BaseSelect = (props: BaseSelectProps) => {
                 </MenuItem>
             )}
             {options.map((option) => (
-                <MenuItem key={option} value={option}>
-                    {option}
+                <MenuItem key={option?.value ?? option} value={option?.value ?? option}>
+                    {option?.label ?? option}
                 </MenuItem>
             ))}
         </StyledSelect>

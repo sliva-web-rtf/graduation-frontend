@@ -8,11 +8,11 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 import utc from 'dayjs/plugin/utc';
 import { DataType, DefenceData, FormattingReviewData } from '../model';
 import {
-    rendeIsCommandCell,
     renderCommentCell,
     renderDocCell,
     RenderEditTextareaCell,
     RenderEditTimeCell,
+    renderIsCommandCell,
     renderLinkCell,
     renderResultCell,
     RenderRoleEditCell,
@@ -90,8 +90,7 @@ const baseColumns: GridColDef[] = [
             },
         }),
         renderCell: renderLinkCell(RoutePath.Topics, 'name'),
-        renderEditCell: (params) =>
-            params.value ? <RenderEditTextareaCell {...params} value={params.value?.name ?? ''} /> : null,
+        renderEditCell: (params) => <RenderEditTextareaCell {...params} value={params.value?.name ?? ''} />,
         display: 'flex',
         width: 400,
         editable: true,
@@ -253,7 +252,7 @@ const defenceColumns: GridColDef[] = [
                 isCommand: value ?? false,
             },
         }),
-        renderCell: rendeIsCommandCell,
+        renderCell: renderIsCommandCell,
         width: 100,
         editable: true,
     },

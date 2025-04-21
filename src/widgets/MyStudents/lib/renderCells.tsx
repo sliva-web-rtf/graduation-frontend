@@ -33,7 +33,9 @@ const getLinkCell = (params: Entity, route: RoutePathType) => {
 
     return (
         <Tooltip title={text}>
-            <Link to={path}>{text || text}</Link>
+            <Link to={path} target="_blank">
+                {text || text}
+            </Link>
         </Tooltip>
     );
 };
@@ -69,7 +71,7 @@ export const renderResultCell = (params: GridRenderCellParams<GridValidRowModel,
     return <BaseChip label={(value && ResultStatusRus[value]) ?? ResultStatusRus.getUnknown} color={color} />;
 };
 
-export const rendeIsCommandCell = (params: GridRenderCellParams<GridValidRowModel, boolean>) => {
+export const renderIsCommandCell = (params: GridRenderCellParams<GridValidRowModel, boolean>) => {
     const { value } = params;
     const color = getColorByIsCommandStatus(value);
 

@@ -1,5 +1,6 @@
 import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { useContextMenu } from '@/shared/lib/hooks/useContextMenu';
 import { Stack } from '@mui/material';
 import { GridRowSelectionModel } from '@mui/x-data-grid';
 import { useCallback, useMemo, useState } from 'react';
@@ -8,6 +9,7 @@ import { useGetStudentsTableQuery } from '../api';
 import { generateColumns } from '../lib';
 import { myStudentsActions, myStudentsReducer } from '../model';
 import { getMyStudentsState } from '../model/selectors';
+import { ContextMenu } from './ContextMenu';
 import { MyStudentsFilter } from './MyStudentsFilter';
 import { MyStudentsTable } from './MyStudentsTable';
 
@@ -17,8 +19,8 @@ const initialReducers: ReducersList = {
 
 export const MyStudents = () => {
     const dispatch = useAppDispatch();
+    const { handleContextMenu, handleClose, menuProps } = useContextMenu();
     const { stage, query, commission, selectedStudents } = useSelector(getMyStudentsState);
-    // const [rowSelectionModel, setRowSelectionModel] = useState<GridRowSelectionModel>([]);
     const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 1 });
     const { data, isFetching } = useGetStudentsTableQuery({
         page: paginationModel.page,
@@ -46,6 +48,7 @@ export const MyStudents = () => {
             <Stack spacing={4} height="100%" width="100%">
                 <MyStudentsFilter />
                 <MyStudentsTable
+                    onContextMenu={handleContextMenu}
                     stage={stage}
                     columns={columns}
                     rows={data?.students ?? []}
@@ -56,6 +59,7 @@ export const MyStudents = () => {
                     rowSelectionModel={selectedStudents}
                     onRowSelectionModelChange={handleRowSelectionModelChange}
                 />
+                {Boolean(selectedStudents.length) && <ContextMenu handleClose={handleClose} menuProps={menuProps} />}
             </Stack>
         </DynamicModuleLoader>
     );

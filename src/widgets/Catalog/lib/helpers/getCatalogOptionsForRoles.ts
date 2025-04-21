@@ -14,12 +14,6 @@ export const getCatalogOptionsForRoles = (roles: Role[]): CatalogOption[] => {
                 optionsSet.add(CatalogOption.Students);
                 optionsSet.add(CatalogOption.Topics);
                 break;
-            case Role.Secretary:
-            case Role.HeadSecretary:
-                optionsSet.add(CatalogOption.Supervisors);
-                optionsSet.add(CatalogOption.Topics);
-                optionsSet.add(CatalogOption.Students);
-                break;
             default:
                 break;
         }
