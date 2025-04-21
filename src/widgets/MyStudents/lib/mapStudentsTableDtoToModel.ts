@@ -65,6 +65,10 @@ export const mapStudentRowToDto = (model: StudentRowModel, stage: string): EditS
         date: (model.data as DefenceData).date,
         time: (model.data as DefenceData).time,
         location: (model.data as DefenceData).location,
-        documents: (model.data as FormattingReviewData).documents,
+        // @ts-expect-error Гениальное название поля у бекенда для PUT запроса status изменился на documentStatus
+        documents: (model.data as FormattingReviewData).documents?.map((doc) => ({
+            name: doc.name,
+            documentStatus: doc.status,
+        })),
     };
 };

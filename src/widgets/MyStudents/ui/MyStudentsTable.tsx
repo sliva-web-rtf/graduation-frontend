@@ -110,6 +110,10 @@ export const MyStudentsTable = (props: StudentsTableProps) => {
         [stage, editSudentRow, showSnackbar],
     );
 
+    const handleRowUpdateError = useCallback((error: Error) => {
+        console.log(error);
+    }, []);
+
     return (
         <Box sx={{ flex: 1, position: 'relative' }}>
             <Box sx={{ position: 'absolute', inset: 0 }}>
@@ -123,6 +127,7 @@ export const MyStudentsTable = (props: StudentsTableProps) => {
                     rowSelectionModel={rowSelectionModel}
                     onRowSelectionModelChange={onRowSelectionModelChange}
                     processRowUpdate={handleRowUpdate}
+                    onProcessRowUpdateError={handleRowUpdateError}
                     onCellEditStop={handleCellEditStop}
                     slots={{
                         pagination: CustomPagination,

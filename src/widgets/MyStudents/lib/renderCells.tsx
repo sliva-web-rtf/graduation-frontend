@@ -94,12 +94,12 @@ export const renderCommentCell = (params: GridRenderCellParams<GridValidRowModel
 
 export const renderDocCell = (params: GridRenderCellParams<GridValidRowModel, DocumentData>) => {
     const { value } = params;
-    const { documentStatus } = value ?? {};
+    const { status } = value ?? {};
 
-    const backgroundColor = getColorByDocumentStatus(documentStatus);
+    const backgroundColor = getColorByDocumentStatus(status);
 
     return (
-        <Tooltip title={DocumentStatusRus[documentStatus ?? DocumentStatus.Empty]}>
+        <Tooltip title={DocumentStatusRus[status ?? DocumentStatus.Empty]}>
             <Stack alignItems="center" justifyContent="center" height="100%">
                 <Box sx={{ backgroundColor, width: 16, height: 16 }} />
             </Stack>

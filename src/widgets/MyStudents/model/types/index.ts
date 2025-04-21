@@ -30,7 +30,7 @@ export type DefenceData = {
     time?: string;
 };
 
-export type DocumentData = { name: string; documentStatus: DocumentStatus };
+export type DocumentData = { name: string; status: DocumentStatus };
 export type FormattingReviewData = {
     documents: DocumentData[];
 };

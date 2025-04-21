@@ -1,7 +1,7 @@
 import { RoutePath } from '@/app/providers/Router';
 import { StudentStatus, StudentStatusRus } from '@/entities/Person';
 import { TopicStatus, TopicStatusRus } from '@/entities/Topic';
-import { DocumentStatusRus, ResultStatus, ResultStatusRus } from '@/shared/lib/types/statuses';
+import { DocumentStatus, DocumentStatusRus, ResultStatus, ResultStatusRus } from '@/shared/lib/types/statuses';
 import { GridColDef, GridColTypeDef } from '@mui/x-data-grid';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
@@ -42,15 +42,27 @@ const formattingReviewColumns: GridColDef[] = DOCUMENTS.map((doc, index) => ({
     headerName: doc,
     field: `documents[${index}]`,
     type: 'singleSelect',
-    valueGetter: (_, row: RowData) => row.data?.documents[index],
+    valueGetter: (_, row: RowData) => {
+        const document = row.data?.documents[index];
+
+        return { name: doc, status: document?.status ?? DocumentStatus.Empty };
+    },
     valueOptions: Object.entries(DocumentStatusRus).map(([key, value]) => ({ value: key, label: value })),
-    valueSetter: (value, row) => ({
-        ...row,
-        data: {
-            ...row.data,
-            documents: [...row.data.documents.slice(0, index), value, ...row.data.documents.slice(index + 1)],
-        },
-    }),
+    valueSetter: (newStatus, row) => {
+        const documents = row.data?.documents;
+        const document = {
+            name: doc,
+            status: newStatus,
+        };
+
+        return {
+            ...row,
+            data: {
+                ...row.data,
+                documents: [...documents.slice(0, index), document, ...documents.slice(index + 1)],
+            },
+        };
+    },
     width: 100,
     renderCell: renderDocCell,
     editable: true,
@@ -229,8 +241,8 @@ const defenceColumns: GridColDef[] = [
         field: 'isCommand',
         type: 'singleSelect',
         valueOptions: [
-            { value: 'true', label: 'Да' },
-            { value: 'false', label: 'Нет' },
+            { value: true, label: 'Да' },
+            { value: false, label: 'Нет' },
         ],
         valueGetter: (_, row: RowData) => row.data?.isCommand,
         valueSetter: (value, row) => ({
