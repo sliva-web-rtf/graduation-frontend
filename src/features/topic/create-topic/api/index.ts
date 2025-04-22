@@ -14,7 +14,7 @@ const topicApi = baseApi.injectEndpoints({
             transformErrorResponse: () => {
                 toast.error('Ошибка при создании темы ВКР');
             },
-            invalidatesTags: [TagTypes.MyTopics],
+            invalidatesTags: (result) => (result ? [TagTypes.MyTopics] : []),
         }),
     }),
 });

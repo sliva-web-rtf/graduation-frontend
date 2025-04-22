@@ -11,7 +11,7 @@ export const commissionApi = baseApi.injectEndpoints({
             transformErrorResponse: () => {
                 return new Error('Произошла ошибка при создании комиссии');
             },
-            invalidatesTags: [TagTypes.Commissions],
+            invalidatesTags: (result) => (result ? [TagTypes.Commissions] : []),
         }),
     }),
 });

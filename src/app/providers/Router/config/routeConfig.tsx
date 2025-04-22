@@ -60,7 +60,7 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.Commissions]: '/commissions',
     [AppRoutes.CreateComission]: '/commissions/create',
     [AppRoutes.CreateTopic]: '/create-topic',
-    [AppRoutes.Catalog]: '/',
+    [AppRoutes.Catalog]: '/catalog',
     [AppRoutes.Forbidden]: '/forbidden',
     [AppRoutes.NotFound]: '*',
 };
@@ -149,22 +149,22 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         path: RoutePath.MyStudents,
         element: <MyStudentsPage />,
         ...withLayoutAndAuth,
-        roles: [Role.HeadSecretary, Role.Secretary],
+        roles: [Role.HeadSecretary, Role.Secretary, Role.Expert],
     },
     [AppRoutes.Administration]: {
         path: RoutePath.Administration,
         element: <AdminPage />,
         ...withLayoutAndAuth,
-        roles: [Role.HeadSecretary],
+        roles: [Role.Secretary, Role.HeadSecretary, Role.Admin],
     },
     [AppRoutes.Forbidden]: {
         path: RoutePath.Forbidden,
         element: <ForbiddenPage />,
-        ...withLayoutAndAuth,
+        hasLayout: true,
     },
     [AppRoutes.NotFound]: {
         path: RoutePath.NotFound,
         element: <NotFoundPage />,
-        ...withLayoutAndAuth,
+        hasLayout: true,
     },
 };

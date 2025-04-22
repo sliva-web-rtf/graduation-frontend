@@ -24,7 +24,12 @@ export const ImportSupervisorsForm = memo(() => {
                     value={null}
                     helperText="Максимальный размер файла не должен превышать 20МБ"
                 />
-                <BaseLoadingButton variant="contained" sx={{ alignSelf: 'flex-start' }} startIcon={<UploadIcon />}>
+                <BaseLoadingButton
+                    disabled
+                    variant="contained"
+                    sx={{ alignSelf: 'flex-start' }}
+                    startIcon={<UploadIcon />}
+                >
                     Загрузить
                 </BaseLoadingButton>
             </Stack>

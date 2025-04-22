@@ -1,6 +1,4 @@
-import { baseApi } from '@/shared/api';
-import { toast } from 'react-toastify';
-import { type Token } from '../../../shared/lib/types/token';
+import { baseApi, TagTypes } from '@/shared/api';
 
 export const yearApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
@@ -9,14 +7,15 @@ export const yearApi = baseApi.injectEndpoints({
                 url: '/years/current',
             }),
             transformResponse: (response: { year: string }) => response.year,
+            providesTags: [TagTypes.DefaultYear],
         }),
-        setDefaultYear: build.mutation<Token, { year: string }>({
+        setDefaultYear: build.mutation<void, { year: string }>({
             query: (body) => ({
                 url: '/years/current',
                 method: 'POST',
                 body,
             }),
-            transformErrorResponse: () => toast.error('Не удалось установить учебный год по умолчанию'),
+            invalidatesTags: (result) => (result ? [TagTypes.DefaultYear] : []),
         }),
         getYears: build.query<string[], void>({
             query: () => ({

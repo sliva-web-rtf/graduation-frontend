@@ -9,6 +9,7 @@ export enum TagTypes {
     Commission = 'Commission',
     MyTopics = 'MyTopics',
     MyStudents = 'MyStudents',
+    DefaultYear = 'DefaultYear',
 }
 
 export const baseApi = createApi({
