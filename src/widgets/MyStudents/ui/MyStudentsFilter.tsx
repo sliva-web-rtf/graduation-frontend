@@ -50,7 +50,7 @@ export const MyStudentsFilter = memo(() => {
             </Box>
             <Box width="30%">
                 <ComissionSelect
-                    value={commission}
+                    value={commission || null}
                     // @ts-expect-error Хак из-за максимальной универсальности селекта
                     onChange={onChangeComission}
                 />

@@ -34,8 +34,8 @@ export const PersonRequestModal = (props: PersonRequestModalProps) => {
     return (
         <BaseModal
             size="medium"
-            title="Оформления заявки"
-            subtitle="Выберете тему пользователя или предложите одну из ваших тем"
+            title="Оформление заявки"
+            subtitle="Выберите тему пользователя или предложите одну из ваших тем"
             actionButton={
                 <BaseLoadingButton variant="contained" onClick={onSubmit} loading={isLoading}>
                     Оформить заявку
@@ -62,7 +62,7 @@ export const PersonRequestModal = (props: PersonRequestModalProps) => {
                         <Stack spacing={4}>
                             <Stack spacing={2}>
                                 <Typography variant="h3">Темы пользователя</Typography>
-                                {isPersonTopicsFetching ? (
+                                {isPersonTopicsFetching || isUsersTopicsFetching ? (
                                     <TopicsRadioButtonsSkeleton />
                                 ) : (
                                     <TopicsRadioButtons items={personTopics} />
@@ -71,7 +71,7 @@ export const PersonRequestModal = (props: PersonRequestModalProps) => {
                             <Divider />
                             <Stack spacing={2}>
                                 <Typography variant="h3">Предложить из своих тем</Typography>
-                                {isPersonTopicsFetching ? (
+                                {isPersonTopicsFetching || isUsersTopicsFetching ? (
                                     <TopicsRadioButtonsSkeleton />
                                 ) : (
                                     <TopicsRadioButtons items={usersTopics} />

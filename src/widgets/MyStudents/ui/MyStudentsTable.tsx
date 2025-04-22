@@ -2,35 +2,26 @@ import { useSnackbar } from '@/shared/lib/hooks/useSnackbar';
 import { BaseTable, StyledPagination } from '@/shared/ui';
 import { Box, Stack } from '@mui/material';
 import {
+    DataGridProps,
     GridCellEditStopParams,
     GridCellEditStopReasons,
-    GridColDef,
     gridPageCountSelector,
     gridPageSelector,
-    GridPaginationModel,
-    GridRowSelectionModel,
     GridValidRowModel,
     MuiBaseEvent,
     MuiEvent,
     useGridApiContext,
     useGridSelector,
 } from '@mui/x-data-grid';
-import { useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { useEditStudentRowMutation } from '../api';
 import { mapStudentRowToDto } from '../lib';
 import { StudentRowModel } from '../model';
 import { SetDefenceDateButton } from './SetDefenceDateButton';
 
-type StudentsTableProps = {
+type StudentsTableProps = DataGridProps & {
     stage: string;
-    columns: GridColDef[];
-    rows: GridValidRowModel[];
-    rowCount: number;
-    loading: boolean;
-    paginationModel: GridPaginationModel;
-    setPaginationModel: (_: GridPaginationModel) => void;
-    rowSelectionModel: GridRowSelectionModel;
-    onRowSelectionModelChange: (_: GridRowSelectionModel) => void;
+    onContextMenu: (event: React.MouseEvent) => void;
 };
 
 function isKeyboardEvent(event: any): event is KeyboardEvent {
@@ -63,18 +54,8 @@ const CustomFooter = () => {
 
 export const MyStudentsTable = (props: StudentsTableProps) => {
     const { showSnackbar, Snackbar } = useSnackbar();
-    const [editSudentRow] = useEditStudentRowMutation();
-    const {
-        stage,
-        columns,
-        rows,
-        rowCount,
-        loading,
-        paginationModel,
-        setPaginationModel,
-        rowSelectionModel,
-        onRowSelectionModelChange,
-    } = props;
+    const [editStudentRow] = useEditStudentRowMutation();
+    const { stage, onContextMenu, ...dataGridProps } = props;
 
     const handleCellEditStop = useCallback((params: GridCellEditStopParams, event: MuiEvent<MuiBaseEvent>) => {
         if (params.reason !== GridCellEditStopReasons.enterKeyDown) {
@@ -94,41 +75,42 @@ export const MyStudentsTable = (props: StudentsTableProps) => {
 
             const mappedRow = mapStudentRowToDto(updatedRow as StudentRowModel, stage);
 
-            const row = await editSudentRow(mappedRow)
+            const row = await editStudentRow(mappedRow)
                 .unwrap()
                 .then(() => {
                     showSnackbar('success', 'Ячейка изменена');
                     return updatedRow;
                 })
                 .catch(() => {
-                    showSnackbar('error', 'Произошла ошибка при редактировании ячейки');
+                    showSnackbar('error', 'Произошла ошибка при изменении ячейки');
                     return originalRow;
                 });
 
             return row;
         },
-        [stage, editSudentRow, showSnackbar],
+        [stage, editStudentRow, showSnackbar],
     );
 
-    const handleRowUpdateError = useCallback((error: Error) => {
-        console.log(error);
-    }, []);
+    const handleRowUpdateError = useCallback(() => {
+        showSnackbar('error', 'Произошла ошибка при редактировании ячейки');
+    }, [showSnackbar]);
 
     return (
         <Box sx={{ flex: 1, position: 'relative' }}>
-            <Box sx={{ position: 'absolute', inset: 0 }}>
+            <Box sx={{ position: 'absolute', inset: 0 }} onContextMenu={onContextMenu}>
                 <BaseTable
-                    loading={loading}
-                    rowCount={rowCount}
-                    rows={rows}
-                    columns={columns}
-                    paginationModel={paginationModel}
-                    onPaginationModelChange={setPaginationModel}
-                    rowSelectionModel={rowSelectionModel}
-                    onRowSelectionModelChange={onRowSelectionModelChange}
+                    {...dataGridProps}
                     processRowUpdate={handleRowUpdate}
                     onProcessRowUpdateError={handleRowUpdateError}
                     onCellEditStop={handleCellEditStop}
+                    isCellEditable={(params) => {
+                        const { field, value, colDef } = params;
+                        if (field === 'topic' && (value === null || value === undefined)) {
+                            return false;
+                        }
+
+                        return Boolean(colDef.editable);
+                    }}
                     slots={{
                         pagination: CustomPagination,
                         footer: CustomFooter,

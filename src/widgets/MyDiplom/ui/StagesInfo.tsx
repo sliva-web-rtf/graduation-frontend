@@ -1,7 +1,6 @@
 /* eslint-disable max-len */
 import { StageAccordion, StageProgress } from '@/entities/Stage';
 import { useGetStagesQuery } from '@/entities/Stage/api';
-import { Role } from '@/entities/User';
 import { ResultStatus } from '@/shared/lib/types/statuses';
 import { ErrorPageMessage } from '@/shared/ui';
 import { Paper, Stack } from '@mui/material';
@@ -34,7 +33,6 @@ export const StagesInfo = () => {
                         end={new Date(`2025-0${index + 2}-01`)}
                         comments={[
                             {
-                                role: index % 2 === 0 ? Role.Secretary : Role.Expert,
                                 text: 'Где руководитель? Предлагаю Разработка системы генерации тестов в соответствии с содержанием учебных материалов',
                             },
                         ]}

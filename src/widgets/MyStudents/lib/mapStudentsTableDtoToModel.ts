@@ -18,10 +18,12 @@ const mapStudentRowDtoToModel = (dto: StudentRowDto, index: number, page: number
         },
         academicGroup: dto.academicGroup,
         role: dto.role,
-        topic: {
-            id: dto.qualificationWork?.id,
-            name: dto.qualificationWork?.topic,
-        },
+        topic: dto.qualificationWork
+            ? {
+                  id: dto.qualificationWork.id,
+                  name: dto.qualificationWork.topic,
+              }
+            : undefined,
         topicStatus: dto.qualificationWork?.status,
         companyName: dto.qualificationWork?.companyName,
         companySupervisorName: dto.qualificationWork?.companySupervisorName,

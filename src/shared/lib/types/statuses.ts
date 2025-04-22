@@ -25,3 +25,29 @@ export const DocumentStatusRus: StrictRecord<DocumentStatus, string> = {
     [DocumentStatus.Uploaded]: 'Загружен',
     [DocumentStatus.Checked]: 'Проверен',
 } as const;
+
+export enum FormattingReviewStatus {
+    Error = 'нет',
+    Success = 'да',
+}
+
+export const FormattingReviewStatusRus: StrictRecord<FormattingReviewStatus, string> = {
+    [FormattingReviewStatus.Error]: 'Не пройден',
+    [FormattingReviewStatus.Success]: 'Пройден',
+
+    getUnknown: 'Нет данных',
+} as const;
+
+export enum MovementStatus {
+    Ingoing = 'Ingoing',
+    Outgoing = 'Outgoing',
+    Default = 'Default',
+}
+
+export const MovementStatusRus: StrictRecord<MovementStatus, string> = {
+    [MovementStatus.Ingoing]: 'Добавлен',
+    [MovementStatus.Outgoing]: 'Исключен',
+    [MovementStatus.Default]: 'По умолчанию',
+
+    getUnknown: 'По умолчанию',
+} as const;

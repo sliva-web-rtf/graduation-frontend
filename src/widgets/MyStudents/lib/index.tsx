@@ -1,19 +1,29 @@
 import { RoutePath } from '@/app/providers/Router';
 import { StudentStatus, StudentStatusRus } from '@/entities/Person';
 import { TopicStatus, TopicStatusRus } from '@/entities/Topic';
-import { DocumentStatus, DocumentStatusRus, ResultStatus, ResultStatusRus } from '@/shared/lib/types/statuses';
+import {
+    DocumentStatus,
+    DocumentStatusRus,
+    FormattingReviewStatus,
+    FormattingReviewStatusRus,
+    MovementStatus,
+    ResultStatus,
+    ResultStatusRus,
+} from '@/shared/lib/types/statuses';
 import { GridColDef, GridColTypeDef } from '@mui/x-data-grid';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import utc from 'dayjs/plugin/utc';
 import { DataType, DefenceData, FormattingReviewData } from '../model';
 import {
-    rendeIsCommandCell,
     renderCommentCell,
     renderDocCell,
     RenderEditTextareaCell,
     RenderEditTimeCell,
+    renderFormatingReviewResultCell,
+    renderIsCommandCell,
     renderLinkCell,
+    renderMovementStatusCell,
     renderResultCell,
     RenderRoleEditCell,
     renderStudentStatusCell,
@@ -38,45 +48,86 @@ const DOCUMENTS = [
     'Справка о наличии заимствовании',
     'Акт о внедрении',
 ] as const;
-const formattingReviewColumns: GridColDef[] = DOCUMENTS.map((doc, index) => ({
+const documentsColumns: GridColDef[] = DOCUMENTS.map((doc) => ({
     headerName: doc,
-    field: `documents[${index}]`,
+    field: `documents[${doc}]`,
     type: 'singleSelect',
     valueGetter: (_, row: RowData) => {
-        const document = row.data?.documents[index];
+        const document = row.data?.documents.find((d) => d.name === doc);
 
         return { name: doc, status: document?.status ?? DocumentStatus.Empty };
     },
     valueOptions: Object.entries(DocumentStatusRus).map(([key, value]) => ({ value: key, label: value })),
-    valueSetter: (newStatus, row) => {
-        const documents = row.data?.documents;
-        const document = {
-            name: doc,
-            status: newStatus,
-        };
+    valueSetter: (newValue, row: RowData) => {
+        const documents = row.data?.documents ?? [];
+        const index = row.data?.documents.findIndex((d) => d.name === doc);
+        const newDoc = { name: doc, status: newValue.status ?? newValue };
 
         return {
             ...row,
             data: {
                 ...row.data,
-                documents: [...documents.slice(0, index), document, ...documents.slice(index + 1)],
+                documents: [...documents.slice(0, index), newDoc, ...documents.slice(index + 1)],
             },
         };
     },
+    display: 'flex',
+    align: 'center',
     width: 100,
     renderCell: renderDocCell,
     editable: true,
 }));
+const formattingReviewColumns: GridColDef[] = [
+    ...documentsColumns,
+    {
+        headerName: 'Результат нормоконтроля',
+        field: 'result',
+        type: 'singleSelect',
+        valueOptions: Object.values(FormattingReviewStatus).map((status) => ({
+            value: status,
+            label: FormattingReviewStatusRus[status],
+        })),
+        valueGetter: (_, row: RowData) => row.data?.result,
+        valueSetter: (value, row) => ({
+            ...row,
+            data: {
+                ...row.data,
+                result: value || null,
+            },
+        }),
+        renderCell: renderFormatingReviewResultCell,
+        width: 180,
+        editable: true,
+    },
+];
 
 const baseColumns: GridColDef[] = [
-    { field: 'number', headerName: '№', width: 50, align: 'center' },
+    {
+        field: 'movementStatus',
+        headerName: 'Статус перемещения',
+        display: 'flex',
+        width: 50,
+        align: 'center',
+        valueGetter: (_, row) =>
+            // eslint-disable-next-line no-nested-ternary
+            row.number % 3 === 1
+                ? MovementStatus.Ingoing
+                : row.number % 3 === 2
+                  ? MovementStatus.Default
+                  : MovementStatus.Outgoing,
+        renderCell: renderMovementStatusCell,
+        hideable: false,
+    },
+    { field: 'number', headerName: '№', width: 50, align: 'center', sortable: false, hideable: false },
     {
         field: 'student',
         headerName: 'ФИО',
         width: 300,
         renderCell: renderLinkCell(RoutePath.Students, 'fullName'),
         display: 'flex',
+        hideable: false,
     },
+
     { field: 'academicGroup', headerName: 'Группа', width: 110 },
     {
         field: 'topic',
@@ -116,7 +167,6 @@ const baseColumns: GridColDef[] = [
             role: value ?? row.role,
         }),
         width: 250,
-        sortable: false,
         editable: true,
     },
     {
@@ -142,7 +192,7 @@ const baseColumns: GridColDef[] = [
         width: 300,
         editable: true,
     },
-    { field: 'companyName', headerName: 'Предприятие', width: 300, sortable: false, editable: true },
+    { field: 'companyName', headerName: 'Предприятие', width: 300, editable: true },
     {
         field: 'companySupervisorName',
         headerName: 'Куратор от предприятия',
@@ -167,6 +217,7 @@ const baseColumns: GridColDef[] = [
         renderCell: renderCommentCell,
         width: 500,
         editable: true,
+        sortable: false,
         ...multilineColumn,
     },
 ];
@@ -249,10 +300,10 @@ const defenceColumns: GridColDef[] = [
             ...row,
             data: {
                 ...row.data,
-                isCommand: value || null,
+                isCommand: value ?? false,
             },
         }),
-        renderCell: rendeIsCommandCell,
+        renderCell: renderIsCommandCell,
         width: 100,
         editable: true,
     },

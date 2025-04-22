@@ -14,7 +14,7 @@ const topicRequestApi = baseApi.injectEndpoints({
                 toast.success('Заявка успешно отправлен');
             },
             transformErrorResponse: () => {
-                toast.error('Не удалось отправить заявку');
+                toast.info('Раздел находится в разработке, оформить заявку не получится');
             },
         }),
     }),

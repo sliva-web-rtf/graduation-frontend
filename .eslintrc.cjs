@@ -15,6 +15,7 @@ module.exports = {
     },
     plugins: ['react', '@typescript-eslint', 'react-hooks'],
     rules: {
+        'react/no-array-index-key': 'off',
         'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx', '.tsx'] }],
         'react/require-default-props': 'off',
         'react/react-in-jsx-scope': 'off',

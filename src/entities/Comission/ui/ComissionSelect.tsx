@@ -1,11 +1,11 @@
 import { BaseSelect, BaseSelectProps } from '@/shared/ui';
 import { memo } from 'react';
-import { useGetComissionsQuery } from '../api';
+import { useGetCommissionNamesQuery } from '../api';
 
 type ComissionSelectProps = Omit<BaseSelectProps, 'options'> & {};
 
 export const ComissionSelect = memo((props: ComissionSelectProps) => {
-    const { data, isFetching } = useGetComissionsQuery();
+    const { data, isFetching } = useGetCommissionNamesQuery();
 
     return (
         <BaseSelect

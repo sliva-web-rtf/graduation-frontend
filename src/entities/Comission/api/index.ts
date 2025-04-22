@@ -1,5 +1,12 @@
 import { baseApi, TagTypes } from '@/shared/api';
-import { CommissionRequest } from '../model';
+import { mapCommissionNamesDtoToModel, mapCommissionsDtoToModel } from '../lib/mapCommissionsDtoToModel';
+import {
+    CommissionNamesDto,
+    CommissionNamesModel,
+    CommissionRequest,
+    CommissionsDto,
+    CommissionsModel,
+} from '../model';
 
 export const comissionApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
@@ -9,12 +16,21 @@ export const comissionApi = baseApi.injectEndpoints({
             }),
             providesTags: (result, error, arg) => [{ type: TagTypes.Commission, id: arg.id }],
         }),
-        getComissions: build.query<string[], void>({
+        getCommissionNames: build.query<CommissionNamesModel, void>({
             query: () => ({
                 url: `/commissions`,
             }),
-            transformResponse: (response: { commissions: { name: string }[] }) =>
-                response.commissions.map((item) => item.name),
+            transformResponse: (response: CommissionNamesDto) => mapCommissionNamesDtoToModel(response),
+            transformErrorResponse: () => {
+                return new Error('Произошла ошибка при получении комиссий');
+            },
+            providesTags: [TagTypes.Commissions],
+        }),
+        getCommissions: build.query<CommissionsModel, void>({
+            query: () => ({
+                url: `/commissions`,
+            }),
+            transformResponse: (response: CommissionsDto) => mapCommissionsDtoToModel(response),
             transformErrorResponse: () => {
                 return new Error('Произошла ошибка при получении комиссий');
             },
@@ -23,4 +39,4 @@ export const comissionApi = baseApi.injectEndpoints({
     }),
 });
 
-export const { useGetComissionQuery, useGetComissionsQuery } = comissionApi;
+export const { useGetComissionQuery, useGetCommissionsQuery, useGetCommissionNamesQuery } = comissionApi;

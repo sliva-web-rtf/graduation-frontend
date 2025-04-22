@@ -41,7 +41,8 @@ export const studentsTableApi = baseApi.injectEndpoints({
                 method: 'PUT',
                 body,
             }),
-            invalidatesTags: (result, error, arg) => arg.studentIds.map((id) => ({ type: TagTypes.MyStudents, id })),
+            invalidatesTags: (result, error, arg) =>
+                result ? arg.studentIds.map((id) => ({ type: TagTypes.MyStudents, id })) : [],
         }),
     }),
 });

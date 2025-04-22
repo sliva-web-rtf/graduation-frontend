@@ -14,7 +14,7 @@ const personRequetsApi = baseApi.injectEndpoints({
                 toast.success('Запрос успешно отправлен');
             },
             transformErrorResponse: () => {
-                toast.error('Не удалось отправить запрос');
+                toast.info('Раздел находится в разработке, оформить заявку не получится');
             },
         }),
     }),

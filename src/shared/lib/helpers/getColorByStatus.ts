@@ -1,14 +1,14 @@
 import { StudentStatus } from '@/entities/Person';
 import { TopicStatus } from '@/entities/Topic';
-import { DocumentStatus, ResultStatus } from '../types/statuses';
+import { DocumentStatus, FormattingReviewStatus, MovementStatus, ResultStatus } from '../types/statuses';
 
 export const getColorByTopicStatus = (status?: TopicStatus) => {
     switch (status) {
         case TopicStatus.Approved:
             return 'success';
-        case TopicStatus.Сonsideration:
+        case TopicStatus.Consideration:
             return 'warning';
-        case TopicStatus.Canceled:
+        case TopicStatus.Cancelled:
             return 'error';
 
         default:
@@ -44,6 +44,32 @@ export const getColorByResultStatus = (status?: ResultStatus) => {
     }
 };
 
+export const getColorByFormatingReviewStatus = (status?: FormattingReviewStatus) => {
+    switch (status) {
+        case FormattingReviewStatus.Success:
+            return 'success';
+        case FormattingReviewStatus.Error:
+            return 'error';
+
+        default:
+            return 'secondary';
+    }
+};
+
+export const getColorByMovementStatus = (status?: MovementStatus) => {
+    switch (status) {
+        case MovementStatus.Ingoing:
+            return '#28C840';
+        case MovementStatus.Outgoing:
+            return '#FF5F57';
+        case MovementStatus.Default:
+            return '#DEDEDE';
+
+        default:
+            return '#DEDEDE';
+    }
+};
+
 export const getColorByIsCommandStatus = (status?: boolean) => {
     return status ? 'success' : 'secondary';
 };
@@ -51,10 +77,10 @@ export const getColorByIsCommandStatus = (status?: boolean) => {
 export const getColorByDocumentStatus = (status?: DocumentStatus) => {
     switch (status) {
         case DocumentStatus.Uploaded:
-            return 'primary.main';
+            return '#FEBC2E';
         case DocumentStatus.Checked:
-            return '#00B327';
+            return '#28C840';
         default:
-            return 'secondary.main';
+            return '#DEDEDE';
     }
 };

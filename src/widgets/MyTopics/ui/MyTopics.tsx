@@ -28,7 +28,7 @@ export const MyTopics = () => {
     }
 
     return (
-        <Stack spacing={2}>
+        <Stack spacing={4}>
             <CreateTopicButton />
             <BaseList className={styles.list} items={data} render={render} />
         </Stack>

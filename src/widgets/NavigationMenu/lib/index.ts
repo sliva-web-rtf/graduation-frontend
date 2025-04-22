@@ -1,5 +1,5 @@
 import { Role } from '@/entities/User';
-import { clerkTabs, expertTabs, headClerkTabs, studentTabs, supervisorTabs, Tab } from '../model';
+import { expertTabs, headClerkTabs, studentTabs, supervisorTabs, Tab } from '../model';
 
 export const getTabsForRoles = (roles: Role[]): Tab[] => {
     const tabsSet = new Set<Tab>();
@@ -10,7 +10,9 @@ export const getTabsForRoles = (roles: Role[]): Tab[] => {
                 expertTabs.forEach((tab) => tabsSet.add(tab));
                 break;
             case Role.Secretary:
-                clerkTabs.forEach((tab) => tabsSet.add(tab));
+                // TODO: после добавления роли HeadCleark раскоментировать
+                // clerkTabs.forEach((tab) => tabsSet.add(tab));
+                headClerkTabs.forEach((tab) => tabsSet.add(tab));
                 break;
             case Role.Supervisor:
                 supervisorTabs.forEach((tab) => tabsSet.add(tab));

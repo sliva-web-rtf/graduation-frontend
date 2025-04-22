@@ -7,7 +7,7 @@ import { CreateCommissionPage } from '@/pages/CreateCommissionPage';
 import { CreateTopicPage } from '@/pages/CreateTopicPage';
 import { ForbiddenPage } from '@/pages/ForbiddenPage';
 import { LoginPage } from '@/pages/LoginPage';
-import { MyDimpomPage } from '@/pages/MyDimpomPage';
+import { MyDiplomPage } from '@/pages/MyDiplomPage';
 import { MyStudentsPage } from '@/pages/MyStudentsPage';
 import { MyTopicsPage } from '@/pages/MyTopicsPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
@@ -60,7 +60,7 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.Commissions]: '/commissions',
     [AppRoutes.CreateComission]: '/commissions/create',
     [AppRoutes.CreateTopic]: '/create-topic',
-    [AppRoutes.Catalog]: '/',
+    [AppRoutes.Catalog]: '/catalog',
     [AppRoutes.Forbidden]: '/forbidden',
     [AppRoutes.NotFound]: '*',
 };
@@ -82,6 +82,7 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         path: RoutePath.Catalog,
         element: <CatalogPage />,
         ...withLayoutAndAuth,
+        roles: [Role.Supervisor, Role.Student],
     },
     [AppRoutes.Profile]: {
         path: RoutePath.Profile,
@@ -129,7 +130,7 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     },
     [AppRoutes.MyDiplom]: {
         path: RoutePath.MyDiplom,
-        element: <MyDimpomPage />,
+        element: <MyDiplomPage />,
         ...withLayoutAndAuth,
         roles: [Role.HeadSecretary, Role.Secretary, Role.Supervisor, Role.Student],
     },
@@ -148,22 +149,22 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         path: RoutePath.MyStudents,
         element: <MyStudentsPage />,
         ...withLayoutAndAuth,
-        roles: [Role.HeadSecretary, Role.Secretary],
+        roles: [Role.HeadSecretary, Role.Secretary, Role.Expert],
     },
     [AppRoutes.Administration]: {
         path: RoutePath.Administration,
         element: <AdminPage />,
         ...withLayoutAndAuth,
-        roles: [Role.HeadSecretary],
+        roles: [Role.Secretary, Role.HeadSecretary, Role.Admin],
     },
     [AppRoutes.Forbidden]: {
         path: RoutePath.Forbidden,
         element: <ForbiddenPage />,
-        ...withLayoutAndAuth,
+        hasLayout: true,
     },
     [AppRoutes.NotFound]: {
         path: RoutePath.NotFound,
         element: <NotFoundPage />,
-        ...withLayoutAndAuth,
+        hasLayout: true,
     },
 };

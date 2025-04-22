@@ -12,7 +12,7 @@ export const TopicStatusRus: StrictRecord<TopicStatus, string> = {
     [TopicStatus.Consideration]: 'На рассмотрении',
     [TopicStatus.Approved]: 'Утверждена',
 
-    getUnknown: 'Неизвестно',
+    getUnknown: 'Нет данных',
 };
 
 export interface Topic {

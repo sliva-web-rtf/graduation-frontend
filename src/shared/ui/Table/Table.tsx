@@ -5,12 +5,14 @@ import { DataGrid, DataGridProps } from '@mui/x-data-grid';
 
 const stickyHeaders = {
     check: '.MuiDataGrid-columnHeader[data-field="__check__"]',
+    movementStatus: '.MuiDataGrid-columnHeader[data-field="movementStatus"]',
     number: '.MuiDataGrid-columnHeader[data-field="number"]',
     student: '.MuiDataGrid-columnHeader[data-field="student"]',
 };
 
 const stickyCells = {
     check: '.MuiDataGrid-cell[data-field="__check__"]',
+    movementStatus: '.MuiDataGrid-cell[data-field="movementStatus"]',
     number: '.MuiDataGrid-cell[data-field="number"]',
     student: '.MuiDataGrid-cell[data-field="student"]',
 };
@@ -57,15 +59,21 @@ export const BaseTable = styled(DataGrid)<DataGridProps>(({ theme }) => ({
         zIndex: 100,
         backgroundColor: theme.palette.background.paper,
     },
-    [[stickyHeaders.number, stickyCells.number].join(',')]: {
+    [[stickyHeaders.movementStatus, stickyCells.movementStatus].join(',')]: {
         position: 'sticky',
         left: 50,
         zIndex: 100,
         backgroundColor: theme.palette.background.paper,
     },
-    [[stickyHeaders.student, stickyCells.student].join(',')]: {
+    [[stickyHeaders.number, stickyCells.number].join(',')]: {
         position: 'sticky',
         left: 100,
+        zIndex: 100,
+        backgroundColor: theme.palette.background.paper,
+    },
+    [[stickyHeaders.student, stickyCells.student].join(',')]: {
+        position: 'sticky',
+        left: 150,
         zIndex: 100,
         backgroundColor: theme.palette.background.paper,
     },

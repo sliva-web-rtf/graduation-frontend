@@ -1,10 +1,13 @@
-import { Box, Typography } from '@mui/material';
+import { ErrorPageMessage } from '@/shared/ui';
+import { BackButton } from '@/widgets/BackButton';
+import { Stack } from '@mui/material';
 import { memo } from 'react';
 
 const ForbiddenPage = memo(() => (
-    <Box display="flex" sx={{ alignItems: 'center', justifyContent: 'center', height: '100%' }}>
-        <Typography variant="h2">У вас нет прав</Typography>
-    </Box>
+    <Stack height="100%" spacing={4}>
+        <BackButton />
+        <ErrorPageMessage severity="warning" message="У вас недостаточно прав для просмотра этого раздела" />
+    </Stack>
 ));
 
 export default ForbiddenPage;

@@ -1,4 +1,5 @@
 import { BaseButton } from '@/shared/ui';
+import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
 import { useState } from 'react';
 import { TopicRequestModal } from './TopicRequestModal';
 
@@ -15,7 +16,7 @@ export const TopicRequestButton = (props: TopicRequestButtonProps) => {
 
     return (
         <>
-            <BaseButton variant="contained" onClick={toggleOpen}>
+            <BaseButton variant="contained" onClick={toggleOpen} startIcon={<MarkEmailReadIcon />}>
                 Оформить заявку
             </BaseButton>
             <TopicRequestModal open={open} onClose={toggleOpen} id={id} name={name} />

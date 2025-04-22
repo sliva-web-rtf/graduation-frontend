@@ -1,5 +1,6 @@
 export { useAuthMutation, userApi, useUserQuery } from './api/userApi';
 export { getUserData } from './model/selectors/getUserData/getUserData';
+export { isUserSecretary } from './model/selectors/isUserSecretary/isUserSecretary';
 export { isUserStudent } from './model/selectors/isUserStudent/isUserStudent';
 export { isUserSupervisor } from './model/selectors/isUserSupervisor/isUserSupervisor';
 export { userActions, userReducer } from './model/slice/userSlice';

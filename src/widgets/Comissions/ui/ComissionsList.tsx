@@ -1,44 +1,27 @@
-import { ComissionCard, useGetComissionsQuery } from '@/entities/Comission';
+import { ComissionCard, useGetCommissionsQuery } from '@/entities/Comission';
+import { EmptyMessage, ErrorPageMessage } from '@/shared/ui';
 import { Stack } from '@mui/material';
 import { ComissionsListSkeleton } from './ComissionsList.skeleton';
 
 export const ComissionsList = () => {
-    const { data, isFetching, error } = useGetComissionsQuery();
+    const { data, isFetching, error } = useGetCommissionsQuery();
 
     if (isFetching) {
         return <ComissionsListSkeleton count={8} />;
     }
 
-    // if (error) {
-    //     return <ErrorPageMessage />;
-    // }
-
-    // if (!data?.length) {
-    //     return <EmptyMessage />;
-    // }
+    if (error) {
+        return <ErrorPageMessage />;
+    }
 
     if (!data?.length) {
-        return (
-            <Stack spacing={2}>
-                <ComissionCard
-                    comissionId="1"
-                    comissionName="Комиссия 1"
-                    clerk={{ id: '1', fullName: 'Миронова Елена Михайловна' }}
-                />
-
-                <ComissionCard
-                    comissionId="2"
-                    comissionName="Комиссия 2"
-                    clerk={{ id: '2', fullName: 'Баринов Виктор Петрович' }}
-                />
-            </Stack>
-        );
+        return <EmptyMessage />;
     }
 
     return (
         <Stack spacing={2}>
-            {data.map((item: any) => (
-                <ComissionCard key={item} {...item} />
+            {data.map(({ id, number, name, secretary }) => (
+                <ComissionCard key={id} id={id} number={number} name={name} secretary={secretary} />
             ))}
         </Stack>
     );

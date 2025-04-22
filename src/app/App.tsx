@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { userActions, useUserQuery } from '@/entities/User';
 import { useGetDefaultYearQuery, yearActions } from '@/entities/Year';
 import { PageLoader } from '@/shared/ui';
-import { AppRouter } from './providers/Router';
+import { AppRouter, useHomePage } from './providers/Router';
 
 function App() {
     const dispatch = useAppDispatch();
@@ -20,6 +20,8 @@ function App() {
     useEffect(() => {
         dispatch(yearActions.setAcademicYear(defaultYear));
     }, [defaultYear, dispatch]);
+
+    useHomePage();
 
     if (isUserFetching || isDefaulYearFetching) {
         return <PageLoader />;

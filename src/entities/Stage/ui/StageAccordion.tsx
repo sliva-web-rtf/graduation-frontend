@@ -1,5 +1,4 @@
 import { CommentCard } from '@/entities/Comment';
-import { Role } from '@/entities/User';
 import { getColorByResultStatus } from '@/shared/lib/helpers/getColorByStatus';
 import { ResultStatus, ResultStatusRus } from '@/shared/lib/types/statuses';
 import { BaseChip } from '@/shared/ui';
@@ -8,7 +7,6 @@ import { Accordion, AccordionDetails, AccordionSummary, Stack, styled, Typograph
 import dayjs from 'dayjs';
 
 type Comment = {
-    role: Role.Expert | Role.Secretary;
     text: string;
 };
 
@@ -37,7 +35,7 @@ const StyledAccordion = styled(Accordion)(({ theme }) => ({
 export const StageAccordion = (props: StageAccordionProps) => {
     const { stage, result, mark, description, end, comments, ...otherProps } = props;
     const resultColor = getColorByResultStatus(result);
-    const resultLabel = [(result && ResultStatusRus[result]) ?? ResultStatusRus.getUnknown, mark && `${mark}/100`]
+    const resultLabel = [(result && ResultStatusRus[result]) ?? ResultStatusRus.getUnknown, mark && `${mark} баллов`]
         .filter(Boolean)
         .join(', ');
 
@@ -62,7 +60,7 @@ export const StageAccordion = (props: StageAccordionProps) => {
             <AccordionDetails>
                 <Stack spacing={2}>
                     <Stack spacing={1}>
-                        {comments?.map((comment) => <CommentCard key={comment.role} {...comment} />)}
+                        {comments?.map((comment, index) => <CommentCard key={`comment-${index}`} {...comment} />)}
                     </Stack>
                     <Typography>{description}</Typography>
                 </Stack>

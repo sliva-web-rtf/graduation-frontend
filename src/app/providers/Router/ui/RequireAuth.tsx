@@ -23,10 +23,7 @@ export const RequireAuth: FC<RequireAuthProps> = (props) => {
             return true;
         }
 
-        return roles.some((requiredRole) => {
-            const hasRole = userRoles?.includes(requiredRole);
-            return hasRole;
-        });
+        return roles.some((requiredRole) => userRoles?.includes(requiredRole));
     }, [roles, userRoles]);
 
     if (!user && isAuth) {
@@ -38,11 +35,8 @@ export const RequireAuth: FC<RequireAuthProps> = (props) => {
     }
 
     if (user && !isAuth) {
-        return <Navigate to={location.state?.from ?? RoutePath.Catalog} replace />;
+        return <Navigate to={location.state?.from ?? '/'} replace />;
     }
 
-    return (
-        // eslint-disable-next-line react/jsx-no-useless-fragment
-        <>{children}</>
-    );
+    return children;
 };
