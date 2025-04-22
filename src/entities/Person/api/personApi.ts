@@ -17,7 +17,10 @@ const personApi = baseApi.injectEndpoints({
                 },
             }),
             transformResponse: (response: { supervisors: Person[] }) =>
-                response.supervisors.map((item) => ({ label: item.fullName, value: item.id })),
+                response.supervisors
+                    .map((item) => ({ label: item.fullName, value: item.id }))
+                    // TODO: сортировка с сервера?
+                    .sort((a, b) => a.label.localeCompare(b.label)),
         }),
     }),
 });

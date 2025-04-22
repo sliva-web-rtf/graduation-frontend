@@ -2,13 +2,11 @@ import { useSnackbar } from '@/shared/lib/hooks/useSnackbar';
 import { BaseTable, StyledPagination } from '@/shared/ui';
 import { Box, Stack } from '@mui/material';
 import {
+    DataGridProps,
     GridCellEditStopParams,
     GridCellEditStopReasons,
-    GridColDef,
     gridPageCountSelector,
     gridPageSelector,
-    GridPaginationModel,
-    GridRowSelectionModel,
     GridValidRowModel,
     MuiBaseEvent,
     MuiEvent,
@@ -21,16 +19,8 @@ import { mapStudentRowToDto } from '../lib';
 import { StudentRowModel } from '../model';
 import { SetDefenceDateButton } from './SetDefenceDateButton';
 
-type StudentsTableProps = {
+type StudentsTableProps = DataGridProps & {
     stage: string;
-    columns: GridColDef[];
-    rows: GridValidRowModel[];
-    rowCount: number;
-    loading: boolean;
-    paginationModel: GridPaginationModel;
-    setPaginationModel: (_: GridPaginationModel) => void;
-    rowSelectionModel: GridRowSelectionModel;
-    onRowSelectionModelChange: (_: GridRowSelectionModel) => void;
     onContextMenu: (event: React.MouseEvent) => void;
 };
 
@@ -65,18 +55,7 @@ const CustomFooter = () => {
 export const MyStudentsTable = (props: StudentsTableProps) => {
     const { showSnackbar, Snackbar } = useSnackbar();
     const [editStudentRow] = useEditStudentRowMutation();
-    const {
-        stage,
-        columns,
-        rows,
-        rowCount,
-        loading,
-        paginationModel,
-        setPaginationModel,
-        rowSelectionModel,
-        onRowSelectionModelChange,
-        onContextMenu,
-    } = props;
+    const { stage, onContextMenu, ...dataGridProps } = props;
 
     const handleCellEditStop = useCallback((params: GridCellEditStopParams, event: MuiEvent<MuiBaseEvent>) => {
         if (params.reason !== GridCellEditStopReasons.enterKeyDown) {
@@ -103,7 +82,7 @@ export const MyStudentsTable = (props: StudentsTableProps) => {
                     return updatedRow;
                 })
                 .catch(() => {
-                    showSnackbar('error', 'Произошла ошибка при редактировании ячейки');
+                    showSnackbar('error', 'Произошла ошибка при изменении ячейки');
                     return originalRow;
                 });
 
@@ -120,20 +99,13 @@ export const MyStudentsTable = (props: StudentsTableProps) => {
         <Box sx={{ flex: 1, position: 'relative' }}>
             <Box sx={{ position: 'absolute', inset: 0 }} onContextMenu={onContextMenu}>
                 <BaseTable
-                    loading={loading}
-                    rowCount={rowCount}
-                    rows={rows}
-                    columns={columns}
-                    paginationModel={paginationModel}
-                    onPaginationModelChange={setPaginationModel}
-                    rowSelectionModel={rowSelectionModel}
-                    onRowSelectionModelChange={onRowSelectionModelChange}
+                    {...dataGridProps}
                     processRowUpdate={handleRowUpdate}
                     onProcessRowUpdateError={handleRowUpdateError}
                     onCellEditStop={handleCellEditStop}
                     isCellEditable={(params) => {
                         const { field, value, colDef } = params;
-                        if (field === 'topic' && value === null && value === undefined) {
+                        if (field === 'topic' && (value === null || value === undefined)) {
                             return false;
                         }
 

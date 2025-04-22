@@ -1,11 +1,11 @@
 import { RoutePath } from '@/app/providers/Router/config/routeConfig';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import GroupIcon from '@mui/icons-material/Group';
-import HubIcon from '@mui/icons-material/Hub';
 import InboxIcon from '@mui/icons-material/Inbox';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import ManageSearchOutlinedIcon from '@mui/icons-material/ManageSearchOutlined';
 import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
+import WorkspacesIcon from '@mui/icons-material/Workspaces';
 import { Tab } from './types';
 
 const myDiplom = { label: 'Мой диплом', path: RoutePath.MyDiplom, icon: <DescriptionOutlinedIcon /> };
@@ -22,7 +22,7 @@ export const headClerkTabs: Tab[] = [
     {
         label: 'Комиссии',
         path: RoutePath.Commissions,
-        icon: <HubIcon />,
+        icon: <WorkspacesIcon />,
     },
     ...clerkTabs,
     {

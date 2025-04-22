@@ -2,7 +2,7 @@ import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/Dynam
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useContextMenu } from '@/shared/lib/hooks/useContextMenu';
 import { Stack } from '@mui/material';
-import { GridRowSelectionModel } from '@mui/x-data-grid';
+import { GridRowSelectionModel, GridSortModel } from '@mui/x-data-grid';
 import { useCallback, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useGetStudentsTableQuery } from '../api';
@@ -22,6 +22,7 @@ export const MyStudents = () => {
     const { handleContextMenu, handleClose, menuProps } = useContextMenu();
     const { stage, query, commission, selectedStudents } = useSelector(getMyStudentsState);
     const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 1 });
+    const [sortModel, setSortModel] = useState<GridSortModel>([]);
     const { data, isFetching } = useGetStudentsTableQuery({
         page: paginationModel.page,
         size: paginationModel.pageSize,
@@ -43,21 +44,31 @@ export const MyStudents = () => {
         [dispatch],
     );
 
+    const handleSortModelChange = useCallback((newSortModel: GridSortModel) => {
+        setSortModel(newSortModel);
+    }, []);
+
     return (
         <DynamicModuleLoader removeAfterUnmount reducers={initialReducers}>
             <Stack spacing={4} height="100%" width="100%">
                 <MyStudentsFilter />
                 <MyStudentsTable
-                    onContextMenu={handleContextMenu}
+                    loading={isFetching}
                     stage={stage}
                     columns={columns}
                     rows={data?.students ?? []}
                     rowCount={rowCount}
-                    loading={isFetching}
+                    // Pagination
                     paginationModel={paginationModel}
-                    setPaginationModel={setPaginationModel}
+                    onPaginationModelChange={setPaginationModel}
+                    // Row selection
                     rowSelectionModel={selectedStudents}
                     onRowSelectionModelChange={handleRowSelectionModelChange}
+                    // Sorting
+                    sortModel={sortModel}
+                    onSortModelChange={handleSortModelChange}
+                    // Context menu
+                    onContextMenu={handleContextMenu}
                 />
                 {Boolean(selectedStudents.length) && <ContextMenu handleClose={handleClose} menuProps={menuProps} />}
             </Stack>

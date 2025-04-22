@@ -62,6 +62,7 @@ export const ChangePasswordForm = () => {
             </Stack>
             <BaseAlert severity="info"> Последнее изменение пароля: Не изменялся</BaseAlert>
             <BaseLoadingButton
+                disabled
                 loading={isLoading}
                 type="submit"
                 variant="contained"

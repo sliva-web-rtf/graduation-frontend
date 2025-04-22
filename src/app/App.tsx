@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 
 import { userActions, useUserQuery } from '@/entities/User';
 import { useGetDefaultYearQuery, yearActions } from '@/entities/Year';
+import { useRestoreLastPath } from '@/shared/lib/hooks/useRestoreLastPath';
 import { PageLoader } from '@/shared/ui';
 import { AppRouter } from './providers/Router';
 
@@ -10,6 +11,8 @@ function App() {
     const dispatch = useAppDispatch();
     const { isFetching: isUserFetching, data: user } = useUserQuery();
     const { isFetching: isDefaulYearFetching, data: defaultYear } = useGetDefaultYearQuery();
+
+    useRestoreLastPath();
 
     useEffect(() => {
         if (user) {

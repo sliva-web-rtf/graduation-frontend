@@ -1,13 +1,15 @@
+import { useUserQuery } from '@/entities/User';
+import { BaseField, BaseLoadingButton } from '@/shared/ui';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LinearProgress, Stack } from '@mui/material';
 import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
-import { BaseField, BaseLoadingButton } from '@/shared/ui';
-import { getProfileInfo, updateProfileInfoPD } from '../../api/personalDataApi';
+import { updateProfileInfoPD } from '../../api/personalDataApi';
 import { personalInfoFormSchema, PersonalInfoFormSchema } from '../../model/types/personalInfoFormSchema';
 
 export const PersonalInfoForm = () => {
-    const { data, isFetching: isInfoFetching } = getProfileInfo();
+    const { data, isFetching: isUserFetching } = useUserQuery();
+    // const { data, isFetching: isInfoFetching } = getProfileInfo();
     const [updatingProfileInfo, { isLoading }] = updateProfileInfoPD();
 
     const {
@@ -25,7 +27,7 @@ export const PersonalInfoForm = () => {
         [updatingProfileInfo],
     );
 
-    if (isInfoFetching || !data) {
+    if (isUserFetching) {
         return <LinearProgress />;
     }
 
@@ -53,8 +55,6 @@ export const PersonalInfoForm = () => {
                     error={Boolean(errors.patronymic)}
                     helperText={errors.patronymic?.message}
                 />
-                <BaseField label="Направление" defaultValue="Программная инженерия" />
-                <BaseField label="Группа" defaultValue="РИ-410940" />
                 <BaseField
                     label="Электронная почта"
                     {...register('email')}
@@ -62,6 +62,8 @@ export const PersonalInfoForm = () => {
                     error={Boolean(errors.email)}
                     helperText={errors.email?.message}
                 />
+                <BaseField label="Направление" />
+                <BaseField label="Группа" />
                 <BaseField
                     label="О себе"
                     {...register('phone')}
@@ -82,6 +84,7 @@ export const PersonalInfoForm = () => {
                 />
             </Stack>
             <BaseLoadingButton
+                disabled
                 loading={isLoading}
                 type="submit"
                 variant="contained"

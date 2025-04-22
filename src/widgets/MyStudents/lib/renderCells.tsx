@@ -5,18 +5,30 @@ import { useGetTopicRolesQuery } from '@/entities/Roles/api';
 import { TopicStatus, TopicStatusRus } from '@/entities/Topic';
 import {
     getColorByDocumentStatus,
+    getColorByFormatingReviewStatus,
     getColorByIsCommandStatus,
+    getColorByMovementStatus,
     getColorByResultStatus,
     getColorByStudentsStatus,
     getColorByTopicStatus,
 } from '@/shared/lib/helpers/getColorByStatus';
 import { getInfoPagePath } from '@/shared/lib/helpers/getInfoPagePath';
-import { DocumentStatus, DocumentStatusRus, ResultStatus, ResultStatusRus } from '@/shared/lib/types/statuses';
+import {
+    DocumentStatus,
+    DocumentStatusRus,
+    FormattingReviewStatus,
+    FormattingReviewStatusRus,
+    MovementStatus,
+    MovementStatusRus,
+    ResultStatus,
+    ResultStatusRus,
+} from '@/shared/lib/types/statuses';
 import { BaseChip, BaseTimeField } from '@/shared/ui';
 import { BaseAutocomplete } from '@/shared/ui/Autocomplete/Autocomplete';
-import { Box, InputBase, InputBaseProps, Paper, Popper, Stack, Tooltip, Typography } from '@mui/material';
+import { Circle } from '@mui/icons-material';
+import { InputBase, InputBaseProps, Paper, Popper, Stack, Tooltip, Typography } from '@mui/material';
 import { GridRenderCellParams, GridRenderEditCellParams, GridValidRowModel, useGridApiContext } from '@mui/x-data-grid';
-import { useCallback, useLayoutEffect, useState } from 'react';
+import React, { useCallback, useLayoutEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { DocumentData } from '../model';
 
@@ -25,16 +37,26 @@ type Entity = {
     text?: string;
 };
 
-const getLinkCell = (params: Entity, route: RoutePathType) => {
-    if (!params?.id || !params?.text) return null;
+const LinkCell = (props: { params: Entity; route: RoutePathType }) => {
+    const { params, route } = props;
+    const { id, text } = params || {};
 
-    const { id, text } = params;
+    const handleClick = (e: React.MouseEvent) => {
+        if (!e.metaKey) {
+            e.preventDefault();
+        }
+    };
+
+    if (!id) {
+        return null;
+    }
+
     const path = getInfoPagePath(route, id);
 
     return (
         <Tooltip title={text}>
-            <Link to={path} target="_blank">
-                {text || text}
+            <Link to={path} target="_blank" onClick={handleClick}>
+                {text}
             </Link>
         </Tooltip>
     );
@@ -42,13 +64,13 @@ const getLinkCell = (params: Entity, route: RoutePathType) => {
 
 export const renderLinkCell =
     (route: RoutePathType, textKey: keyof GridValidRowModel) => (params: GridRenderCellParams) =>
-        getLinkCell(
-            {
+        LinkCell({
+            params: {
                 id: params.value?.id,
                 text: params.value?.[textKey],
             },
             route,
-        );
+        });
 
 export const renderTopicStatusCell = (params: GridRenderCellParams<GridValidRowModel, TopicStatus>) => {
     const { value } = params;
@@ -69,6 +91,31 @@ export const renderResultCell = (params: GridRenderCellParams<GridValidRowModel,
     const color = getColorByResultStatus(value);
 
     return <BaseChip label={(value && ResultStatusRus[value]) ?? ResultStatusRus.getUnknown} color={color} />;
+};
+
+export const renderMovementStatusCell = (params: GridRenderCellParams<GridValidRowModel, MovementStatus>) => {
+    const { value } = params;
+    const color = getColorByMovementStatus(value);
+
+    return (
+        <Tooltip title={(value && MovementStatusRus[value]) ?? MovementStatusRus.getUnknown}>
+            <Circle sx={{ width: 16, height: 16, color }} />
+        </Tooltip>
+    );
+};
+
+export const renderFormatingReviewResultCell = (
+    params: GridRenderCellParams<GridValidRowModel, FormattingReviewStatus>,
+) => {
+    const { value } = params;
+    const color = getColorByFormatingReviewStatus(value);
+
+    return (
+        <BaseChip
+            label={(value && FormattingReviewStatusRus[value]) ?? FormattingReviewStatusRus.getUnknown}
+            color={color}
+        />
+    );
 };
 
 export const renderIsCommandCell = (params: GridRenderCellParams<GridValidRowModel, boolean>) => {
@@ -98,13 +145,11 @@ export const renderDocCell = (params: GridRenderCellParams<GridValidRowModel, Do
     const { value } = params;
     const { status } = value ?? {};
 
-    const backgroundColor = getColorByDocumentStatus(status);
+    const color = getColorByDocumentStatus(status);
 
     return (
         <Tooltip title={DocumentStatusRus[status ?? DocumentStatus.Empty]}>
-            <Stack alignItems="center" justifyContent="center" height="100%">
-                <Box sx={{ backgroundColor, width: 16, height: 16 }} />
-            </Stack>
+            <Circle sx={{ width: 16, height: 16, color }} />
         </Tooltip>
     );
 };
