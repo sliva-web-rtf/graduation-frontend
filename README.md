@@ -1,4 +1,4 @@
-![image](https://github.com/EgorRyazanov/sci-join/assets/89483642/b2241edc-7f31-47c2-a990-27b60f73c9cb)
-![image](https://github.com/EgorRyazanov/sci-join/assets/89483642/270ccf16-4f58-45b0-8a74-7b560c597ebb)
-![image](https://github.com/EgorRyazanov/sci-join/assets/89483642/5c4098aa-8cbd-4711-871d-bd3e7a4d8f4b)
-![image](https://github.com/EgorRyazanov/sci-join/assets/89483642/7b130ffb-adcc-4de9-92e7-797adeb7562d)
+<img width="2630" alt="Снимок экрана 2025-04-22 в 23 48 18" src="https://github.com/user-attachments/assets/9841e853-9ba6-48b9-ac53-336e75419c6d" />
+<img width="2630" alt="Снимок экрана 2025-04-22 в 23 47 58" src="https://github.com/user-attachments/assets/a0a1d976-cb65-45cc-a2f1-dffa89cbdeed" />
+<img width="2586" alt="Снимок экрана 2025-04-22 в 23 50 16" src="https://github.com/user-attachments/assets/2e0c880a-9095-499a-b303-bfab24534aa6" />
+<img width="2630" alt="Снимок экрана 2025-04-22 в 23 50 26" src="https://github.com/user-attachments/assets/e16f39dc-7d72-4eb6-ae6a-edf650cc05c7" />
