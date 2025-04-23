@@ -35,7 +35,7 @@ export const DefaultYearForm = memo(() => {
                 onChange={handleYearChange}
             />
             <BaseButton
-                // disabled={!year || year === currentDefaultYear}
+                disabled={!year || year === currentDefaultYear}
                 onClick={handleSetDefaultYear}
                 variant="contained"
                 sx={{ alignSelf: 'flex-start' }}
