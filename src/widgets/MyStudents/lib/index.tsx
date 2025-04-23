@@ -6,7 +6,6 @@ import {
     DocumentStatusRus,
     FormattingReviewStatus,
     FormattingReviewStatusRus,
-    MovementStatus,
     ResultStatus,
     ResultStatusRus,
 } from '@/shared/lib/types/statuses';
@@ -103,22 +102,14 @@ const formattingReviewColumns: GridColDef[] = [
 
 const baseColumns: GridColDef[] = [
     {
-        field: 'movementStatus',
-        headerName: 'Статус перемещения',
-        display: 'flex',
+        field: 'number',
+        headerName: '№',
         width: 50,
+        headerAlign: 'center',
         align: 'center',
-        valueGetter: (_, row) =>
-            // eslint-disable-next-line no-nested-ternary
-            row.number % 3 === 1
-                ? MovementStatus.Ingoing
-                : row.number % 3 === 2
-                  ? MovementStatus.Default
-                  : MovementStatus.Outgoing,
-        renderCell: renderMovementStatusCell,
+        sortable: false,
         hideable: false,
     },
-    { field: 'number', headerName: '№', width: 50, align: 'center', sortable: false, hideable: false },
     {
         field: 'student',
         headerName: 'ФИО',
@@ -127,8 +118,29 @@ const baseColumns: GridColDef[] = [
         display: 'flex',
         hideable: false,
     },
-
+    {
+        field: 'movementStatus',
+        headerName: 'Статус перемещения',
+        display: 'flex',
+        align: 'center',
+        width: 50,
+        valueGetter: (_, row) => row.commission,
+        renderCell: renderMovementStatusCell,
+        hideable: false,
+    },
     { field: 'academicGroup', headerName: 'Группа', width: 110 },
+    {
+        headerName: 'Статус студента',
+        field: 'status',
+        type: 'singleSelect',
+        valueOptions: Object.values(StudentStatus).map((status) => ({
+            value: status,
+            label: StudentStatusRus[status],
+        })),
+        width: 150,
+        renderCell: renderStudentStatusCell,
+        editable: true,
+    },
     {
         field: 'topic',
         type: 'string',
@@ -176,8 +188,8 @@ const baseColumns: GridColDef[] = [
             ...row,
             supervisor: value
                 ? {
-                      fullName: value.label ?? value.fullName,
                       id: value.value ?? value.id,
+                      fullName: value.label ?? value.fullName,
                   }
                 : null,
         }),
@@ -192,30 +204,19 @@ const baseColumns: GridColDef[] = [
         width: 300,
         editable: true,
     },
-    { field: 'companyName', headerName: 'Предприятие', width: 300, editable: true },
+    { field: 'companyName', headerName: 'Предприятие', width: 300, editable: true, sortable: false },
     {
         field: 'companySupervisorName',
         headerName: 'Куратор от предприятия',
         width: 300,
         editable: true,
-    },
-    {
-        headerName: 'Статус студента',
-        field: 'status',
-        type: 'singleSelect',
-        valueOptions: Object.values(StudentStatus).map((status) => ({
-            value: status,
-            label: StudentStatusRus[status],
-        })),
-        width: 150,
-        renderCell: renderStudentStatusCell,
-        editable: true,
+        sortable: false,
     },
     {
         headerName: 'Комментарий',
         field: 'comment',
         renderCell: renderCommentCell,
-        width: 500,
+        width: 300,
         editable: true,
         sortable: false,
         ...multilineColumn,
@@ -286,6 +287,7 @@ const defenceColumns: GridColDef[] = [
         }),
         width: 180,
         editable: true,
+        sortable: false,
     },
     {
         headerName: 'Командный проект',

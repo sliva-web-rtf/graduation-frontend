@@ -16,7 +16,7 @@ export const StyledSelect = styled(Select)<SelectProps>(({ theme }) => ({
 }));
 
 export type BaseSelectProps = SelectProps & {
-    options: Array<string | number>;
+    options: Array<string | number | { label: string; value: string }>;
 
     control?: any;
     name?: string;

@@ -21,7 +21,7 @@ const StyledAccordionSummary = styled(AccordionSummary)(({ theme }) => ({
 }));
 
 export const ComissionCard = (props: CommissionModel) => {
-    const { id, name, secretary } = props;
+    const { id, name, secretaryName } = props;
 
     return (
         <StyledAccordion>
@@ -32,7 +32,7 @@ export const ComissionCard = (props: CommissionModel) => {
                     </Typography>
                     <Stack direction="row" spacing={1}>
                         <Typography color="secondary">Ответственный секретарь:</Typography>
-                        <Typography>{secretary}</Typography>
+                        <Typography fontWeight={600}>{secretaryName}</Typography>
                     </Stack>
                 </Stack>
             </StyledAccordionSummary>

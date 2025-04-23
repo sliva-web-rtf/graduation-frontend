@@ -4,6 +4,7 @@ import { grey } from '@mui/material/colors';
 import { ruRU } from '@mui/x-data-grid/locales';
 import type {} from '@mui/x-data-grid/themeAugmentation';
 import type {} from '@mui/x-date-pickers/themeAugmentation';
+import { NoResultsOverlay } from '../ui/Table/NoResultsOverlay';
 
 export const components: Components<Omit<Theme, 'components'>> | undefined = {
     MuiButton: {
@@ -64,6 +65,7 @@ export const components: Components<Omit<Theme, 'components'>> | undefined = {
     },
     MuiDataGrid: {
         defaultProps: {
+            sortingMode: 'server',
             paginationMode: 'server',
             disableVirtualization: true,
             keepNonExistentRowsSelected: true,
@@ -73,6 +75,10 @@ export const components: Components<Omit<Theme, 'components'>> | undefined = {
             disableRowSelectionOnClick: true,
             autoPageSize: true,
             localeText: ruRU.components.MuiDataGrid.defaultProps.localeText,
+            slots: {
+                noResultsOverlay: NoResultsOverlay,
+                noRowsOverlay: NoResultsOverlay,
+            },
             slotProps: {
                 loadingOverlay: {
                     variant: 'skeleton',

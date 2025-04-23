@@ -12,8 +12,8 @@ const stickyHeaders = {
 
 const stickyCells = {
     check: '.MuiDataGrid-cell[data-field="__check__"]',
-    movementStatus: '.MuiDataGrid-cell[data-field="movementStatus"]',
     number: '.MuiDataGrid-cell[data-field="number"]',
+    movementStatus: '.MuiDataGrid-cell[data-field="movementStatus"]',
     student: '.MuiDataGrid-cell[data-field="student"]',
 };
 
@@ -59,21 +59,21 @@ export const BaseTable = styled(DataGrid)<DataGridProps>(({ theme }) => ({
         zIndex: 100,
         backgroundColor: theme.palette.background.paper,
     },
-    [[stickyHeaders.movementStatus, stickyCells.movementStatus].join(',')]: {
+    [[stickyHeaders.number, stickyCells.number].join(',')]: {
         position: 'sticky',
         left: 50,
         zIndex: 100,
         backgroundColor: theme.palette.background.paper,
     },
-    [[stickyHeaders.number, stickyCells.number].join(',')]: {
+    [[stickyHeaders.student, stickyCells.student].join(',')]: {
         position: 'sticky',
         left: 100,
         zIndex: 100,
         backgroundColor: theme.palette.background.paper,
     },
-    [[stickyHeaders.student, stickyCells.student].join(',')]: {
+    [[stickyHeaders.movementStatus, stickyCells.movementStatus].join(',')]: {
         position: 'sticky',
-        left: 150,
+        left: 400,
         zIndex: 100,
         backgroundColor: theme.palette.background.paper,
     },

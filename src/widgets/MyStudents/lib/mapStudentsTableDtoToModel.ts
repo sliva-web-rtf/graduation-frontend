@@ -17,6 +17,7 @@ const mapStudentRowDtoToModel = (dto: StudentRowDto, index: number, page: number
             fullName: dto.fullName,
         },
         academicGroup: dto.academicGroup,
+        commission: dto.commission,
         role: dto.role,
         topic: dto.qualificationWork
             ? {

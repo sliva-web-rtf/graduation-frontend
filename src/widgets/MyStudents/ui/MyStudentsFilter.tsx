@@ -12,7 +12,7 @@ import { getMyStudentsState } from '../model/selectors';
 
 export const MyStudentsFilter = memo(() => {
     const dispatch = useAppDispatch();
-    const { stage, query, commission } = useSelector(getMyStudentsState);
+    const { stage, query, commissions } = useSelector(getMyStudentsState);
     const [searchValue, setSearchValue] = useState(query);
 
     const handleSearchChange = useDebouncedCallback((value: string) => {
@@ -32,29 +32,30 @@ export const MyStudentsFilter = memo(() => {
     );
 
     const onChangeComission = useCallback(
-        (e: SelectChangeEvent<string>) => {
-            dispatch(myStudentsActions.setCommission(e.target.value));
+        (e: SelectChangeEvent<string[]>) => {
+            // @ts-expect-error Хак из-за максимальной универсальности селекта
+            dispatch(myStudentsActions.setCommissions(e.target.value));
         },
         [dispatch],
     );
 
     return (
         <Stack direction="row" spacing={3}>
-            <BaseSearch placeholder="Поиск по ФИО, группе или теме" value={searchValue} onChange={onChangeSearch} />
-            <Box width="30%">
+            <Box width="50%">
+                <BaseSearch placeholder="Поиск по ФИО, группе или теме" value={searchValue} onChange={onChangeSearch} />
+            </Box>
+            <Stack direction="row" spacing={3} width="100%">
                 <StageSelect
                     value={stage}
                     // @ts-expect-error Хак из-за максимальной универсальности селекта
                     onChange={onChangeStage}
                 />
-            </Box>
-            <Box width="30%">
                 <ComissionSelect
-                    value={commission || null}
+                    value={commissions}
                     // @ts-expect-error Хак из-за максимальной универсальности селекта
                     onChange={onChangeComission}
                 />
-            </Box>
+            </Stack>
         </Stack>
     );
 });

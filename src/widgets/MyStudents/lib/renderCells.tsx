@@ -18,6 +18,8 @@ import {
     DocumentStatusRus,
     FormattingReviewStatus,
     FormattingReviewStatusRus,
+    IsCommandStatus,
+    IsCommandStatusRus,
     MovementStatus,
     MovementStatusRus,
     ResultStatus,
@@ -30,7 +32,7 @@ import { InputBase, InputBaseProps, Paper, Popper, Stack, Tooltip, Typography } 
 import { GridRenderCellParams, GridRenderEditCellParams, GridValidRowModel, useGridApiContext } from '@mui/x-data-grid';
 import React, { useCallback, useLayoutEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { DocumentData } from '../model';
+import { DocumentData, StudentRowModel } from '../model';
 
 type Entity = {
     id?: string;
@@ -93,12 +95,20 @@ export const renderResultCell = (params: GridRenderCellParams<GridValidRowModel,
     return <BaseChip label={(value && ResultStatusRus[value]) ?? ResultStatusRus.getUnknown} color={color} />;
 };
 
-export const renderMovementStatusCell = (params: GridRenderCellParams<GridValidRowModel, MovementStatus>) => {
+export const renderMovementStatusCell = (
+    params: GridRenderCellParams<GridValidRowModel, StudentRowModel['commission']>,
+) => {
     const { value } = params;
-    const color = getColorByMovementStatus(value);
+    const { name, movementStatus = MovementStatus.Default } = value ?? {
+        name: 'Не назначена',
+        movementStatus: MovementStatus.Default,
+    };
+
+    const color = getColorByMovementStatus(movementStatus);
+    const title = [MovementStatusRus[movementStatus], name].filter(Boolean).join(', ');
 
     return (
-        <Tooltip title={(value && MovementStatusRus[value]) ?? MovementStatusRus.getUnknown}>
+        <Tooltip title={title}>
             <Circle sx={{ width: 16, height: 16, color }} />
         </Tooltip>
     );
@@ -118,11 +128,12 @@ export const renderFormatingReviewResultCell = (
     );
 };
 
-export const renderIsCommandCell = (params: GridRenderCellParams<GridValidRowModel, boolean>) => {
+export const renderIsCommandCell = (params: GridRenderCellParams<GridValidRowModel, IsCommandStatus>) => {
     const { value } = params;
     const color = getColorByIsCommandStatus(value);
+    const label = value ? IsCommandStatusRus[value] : IsCommandStatusRus.getUnknown;
 
-    return <BaseChip label={value ? 'Да' : 'Нет'} color={color} />;
+    return <BaseChip label={label} color={color} />;
 };
 
 export const renderCommentCell = (params: GridRenderCellParams<GridValidRowModel, string>) => {
@@ -243,7 +254,7 @@ export const RenderRoleEditCell = (props: GridRenderEditCellParams<any, string>)
     const handleChange = useCallback(
         (_: any, newValue: string) => {
             setValueState(newValue);
-            apiRef.current.setEditCellValue({ id, field, value: newValue, debounceMs: 300 });
+            apiRef.current.setEditCellValue({ id, field, value: newValue });
         },
         [apiRef, field, id],
     );

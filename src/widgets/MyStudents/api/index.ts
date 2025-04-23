@@ -1,5 +1,6 @@
 import { baseApi, TagTypes } from '@/shared/api';
 import { removeEmptyValues } from '@/shared/lib/helpers/removeEmptyValues';
+import queryString from 'query-string';
 import { mapStudentsTableDtoToModel } from '../lib';
 import {
     EditStudentRowDto,
@@ -12,9 +13,13 @@ import {
 export const studentsTableApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
         getStudentsTable: build.query<StudentsTableModel, StudentsTableRequest>({
-            query: (params) => ({
-                url: '/students/table',
-                params: removeEmptyValues(params),
+            query: ({ sort, ...params }) => ({
+                url: queryString.stringifyUrl({
+                    url: '/students/table',
+                    query: removeEmptyValues(params),
+                }),
+                method: 'POST',
+                body: sort,
             }),
             transformResponse: (response: StudentsTableDto, _: unknown, arg: StudentsTableRequest) => {
                 const { page, size } = arg;

@@ -1,6 +1,7 @@
 import { StudentStatus } from '@/entities/Person';
 import { TopicStatus } from '@/entities/Topic';
-import { DocumentStatus, ResultStatus } from '@/shared/lib/types/statuses';
+import { DocumentStatus, MovementStatus, ResultStatus } from '@/shared/lib/types/statuses';
+import { GridSortModel } from '@mui/x-data-grid';
 import dayjs from 'dayjs';
 import { z } from 'zod';
 
@@ -9,14 +10,15 @@ export type StudentsTableRequest = {
     page: number;
     size: number;
 
+    sort?: GridSortModel;
     query?: string;
-    commission?: string;
+    commissions?: string[];
 };
 
 export type MyStudentsSchema = {
     stage: string;
     query: string;
-    commission: string;
+    commissions: string[];
     selectedStudents: string[];
 };
 
@@ -39,6 +41,10 @@ export type StudentRowDto = {
     id: string;
     fullName: string;
     academicGroup: string;
+    commission?: {
+        name: string;
+        movementStatus: MovementStatus;
+    };
     qualificationWork?: {
         id: string;
         status: TopicStatus;
@@ -80,7 +86,10 @@ export type StudentRowModel = {
     };
     academicGroup: string;
     status: StudentStatus;
-
+    commission?: {
+        name: string;
+        movementStatus: MovementStatus;
+    };
     topic?: {
         id?: string;
         name?: string;

@@ -3,7 +3,7 @@ import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch
 import { useContextMenu } from '@/shared/lib/hooks/useContextMenu';
 import { Stack } from '@mui/material';
 import { GridRowSelectionModel, GridSortModel } from '@mui/x-data-grid';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useGetStudentsTableQuery } from '../api';
 import { generateColumns } from '../lib';
@@ -20,15 +20,17 @@ const initialReducers: ReducersList = {
 export const MyStudents = () => {
     const dispatch = useAppDispatch();
     const { handleContextMenu, handleClose, menuProps } = useContextMenu();
-    const { stage, query, commission, selectedStudents } = useSelector(getMyStudentsState);
+    const { stage, query, commissions, selectedStudents } = useSelector(getMyStudentsState);
     const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 1 });
-    const [sortModel, setSortModel] = useState<GridSortModel>([]);
+    const [sortModel, setSortModel] = useState<GridSortModel>([{ field: 'student', sort: 'asc' }]);
+
     const { data, isFetching } = useGetStudentsTableQuery({
         page: paginationModel.page,
         size: paginationModel.pageSize,
         stage,
         query,
-        commission,
+        commissions,
+        sort: sortModel,
     });
 
     const columns = useMemo(() => generateColumns(data?.dataType), [data]);
@@ -47,6 +49,10 @@ export const MyStudents = () => {
     const handleSortModelChange = useCallback((newSortModel: GridSortModel) => {
         setSortModel(newSortModel);
     }, []);
+
+    useEffect(() => {
+        setPaginationModel((prev) => ({ ...prev, page: 0 }));
+    }, [query, commissions]);
 
     return (
         <DynamicModuleLoader removeAfterUnmount reducers={initialReducers}>
