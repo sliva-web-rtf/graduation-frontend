@@ -25,13 +25,15 @@ export const studentsTableApi = baseApi.injectEndpoints({
                 const { page, size } = arg;
                 return mapStudentsTableDtoToModel(response, page, size);
             },
-            providesTags: (result, error, arg) => {
-                if (!result) {
-                    return [TagTypes.MyStudents];
+            transformErrorResponse: (error: any) => {
+                if (error?.data?.title) {
+                    return new Error(error?.title);
                 }
 
-                return [...result.students.map(({ id }) => ({ type: TagTypes.MyStudents, id })), TagTypes.MyStudents];
+                return new Error('Произошла ошибка при получении таблицы студентов');
             },
+            providesTags: (result) =>
+                result ? result.students.map(({ id }) => ({ type: TagTypes.MyStudents, id })) : [],
         }),
         editStudentRow: build.mutation<{ studentId: string }, EditStudentRowDto>({
             query: (body) => ({
@@ -39,6 +41,7 @@ export const studentsTableApi = baseApi.injectEndpoints({
                 method: 'PUT',
                 body,
             }),
+            invalidatesTags: (result) => (result ? [{ type: TagTypes.MyStudents, id: result.studentId }] : []),
         }),
         setDefence: build.mutation<void, SetDefenceRequest>({
             query: (body) => ({

@@ -1,6 +1,7 @@
 import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useContextMenu } from '@/shared/lib/hooks/useContextMenu';
+import { ErrorPageMessage } from '@/shared/ui';
 import { Stack } from '@mui/material';
 import { GridRowSelectionModel, GridSortModel } from '@mui/x-data-grid';
 import { useCallback, useEffect, useMemo, useState } from 'react';
@@ -24,7 +25,7 @@ export const MyStudents = () => {
     const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 1 });
     const [sortModel, setSortModel] = useState<GridSortModel>([{ field: 'student', sort: 'asc' }]);
 
-    const { data, isFetching } = useGetStudentsTableQuery({
+    const { data, isLoading, error } = useGetStudentsTableQuery({
         page: paginationModel.page,
         size: paginationModel.pageSize,
         stage,
@@ -58,24 +59,29 @@ export const MyStudents = () => {
         <DynamicModuleLoader removeAfterUnmount reducers={initialReducers}>
             <Stack spacing={4} height="100%" width="100%">
                 <MyStudentsFilter />
-                <MyStudentsTable
-                    loading={isFetching}
-                    stage={stage}
-                    columns={columns}
-                    rows={data?.students ?? []}
-                    rowCount={rowCount}
-                    // Pagination
-                    paginationModel={paginationModel}
-                    onPaginationModelChange={setPaginationModel}
-                    // Row selection
-                    rowSelectionModel={selectedStudents}
-                    onRowSelectionModelChange={handleRowSelectionModelChange}
-                    // Sorting
-                    sortModel={sortModel}
-                    onSortModelChange={handleSortModelChange}
-                    // Context menu
-                    onContextMenu={handleContextMenu}
-                />
+                {error ? (
+                    // @ts-expect-error
+                    <ErrorPageMessage message={error.message} />
+                ) : (
+                    <MyStudentsTable
+                        loading={isLoading}
+                        stage={stage}
+                        columns={columns}
+                        rows={data?.students ?? []}
+                        rowCount={rowCount}
+                        // Pagination
+                        paginationModel={paginationModel}
+                        onPaginationModelChange={setPaginationModel}
+                        // Row selection
+                        rowSelectionModel={selectedStudents}
+                        onRowSelectionModelChange={handleRowSelectionModelChange}
+                        // Sorting
+                        sortModel={sortModel}
+                        onSortModelChange={handleSortModelChange}
+                        // Context menu
+                        onContextMenu={handleContextMenu}
+                    />
+                )}
                 {Boolean(selectedStudents.length) && <ContextMenu handleClose={handleClose} menuProps={menuProps} />}
             </Stack>
         </DynamicModuleLoader>
