@@ -120,7 +120,7 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         path: RoutePath.Commissions,
         element: <CommissionsPage />,
         ...withLayoutAndAuth,
-        roles: [Role.HeadSecretary, Role.Secretary],
+        roles: [Role.HeadSecretary],
     },
     [AppRoutes.CreateTopic]: {
         path: RoutePath.CreateTopic,
@@ -155,7 +155,7 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         path: RoutePath.Administration,
         element: <AdminPage />,
         ...withLayoutAndAuth,
-        roles: [Role.Secretary, Role.HeadSecretary, Role.Admin],
+        roles: [Role.HeadSecretary, Role.Admin],
     },
     [AppRoutes.Forbidden]: {
         path: RoutePath.Forbidden,

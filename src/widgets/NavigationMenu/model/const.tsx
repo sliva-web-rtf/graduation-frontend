@@ -19,14 +19,14 @@ export const clerkTabs: Tab[] = [...expertTabs, requests];
 export const supervisorTabs: Tab[] = [myTopics, catalog, requests];
 export const studentTabs: Tab[] = [myDiplom, ...supervisorTabs];
 export const headClerkTabs: Tab[] = [
+    ...clerkTabs,
     {
         label: 'Комиссии',
         path: RoutePath.Commissions,
         icon: <WorkspacesIcon />,
     },
-    ...clerkTabs,
     {
-        label: 'Администриров...',
+        label: 'Администрир...',
         path: RoutePath.Administration,
         icon: <ManageAccountsIcon />,
     },

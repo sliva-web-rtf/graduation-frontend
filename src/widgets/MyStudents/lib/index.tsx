@@ -6,6 +6,7 @@ import {
     DocumentStatusRus,
     FormattingReviewStatus,
     FormattingReviewStatusRus,
+    MovementStatus,
     ResultStatus,
     ResultStatusRus,
 } from '@/shared/lib/types/statuses';
@@ -120,11 +121,17 @@ const baseColumns: GridColDef[] = [
     },
     {
         field: 'movementStatus',
-        headerName: 'Статус перемещения',
+        headerName: 'Комиссия',
         display: 'flex',
         align: 'center',
-        width: 50,
-        valueGetter: (_, row) => row.commission,
+        width: 100,
+        valueGetter: (_, row) => {
+            return (
+                row.commission ?? {
+                    movementStatus: MovementStatus.Default,
+                }
+            );
+        },
         renderCell: renderMovementStatusCell,
         hideable: false,
     },

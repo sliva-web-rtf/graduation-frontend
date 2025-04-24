@@ -35,8 +35,8 @@ export enum StudentStatus {
 
 export const StudentStatusRus: StrictRecord<StudentStatus, string> = {
     [StudentStatus.Kicked]: 'Отчислен',
-    [StudentStatus.Academ]: 'Академ',
+    [StudentStatus.Academ]: 'Отпуск академический',
     [StudentStatus.Active]: 'Активен',
 
-    getUnknown: 'Неизвестно',
+    getUnknown: 'Н/Д',
 } as const;

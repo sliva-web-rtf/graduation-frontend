@@ -46,7 +46,7 @@ export enum MovementStatus {
 
 export const MovementStatusRus: StrictRecord<MovementStatus, string> = {
     [MovementStatus.Ingoing]: 'Добавлен',
-    [MovementStatus.Outgoing]: 'Исключен',
+    [MovementStatus.Outgoing]: 'Переведен',
     [MovementStatus.Default]: '',
 
     getUnknown: '',

@@ -1,4 +1,14 @@
-import { FormControl, FormHelperText, InputLabel, MenuItem, Select, SelectProps, styled } from '@mui/material';
+import {
+    Checkbox,
+    FormControl,
+    FormHelperText,
+    InputLabel,
+    ListItemText,
+    MenuItem,
+    Select,
+    SelectProps,
+    styled,
+} from '@mui/material';
 import { Controller } from 'react-hook-form';
 
 export const StyledSelect = styled(Select)<SelectProps>(({ theme }) => ({
@@ -45,6 +55,8 @@ export const BaseSelect = (props: BaseSelectProps) => {
 
     const renderSelect = (fieldProps?: { value: any; onChange: (event: any) => void }) => (
         <StyledSelect
+            // @ts-expect-error
+            renderValue={(selected) => (otherProps.multiple ? selected.join(', ') : selected)}
             {...otherProps}
             label={label}
             value={fieldProps?.value ?? value ?? ''}
@@ -56,8 +68,21 @@ export const BaseSelect = (props: BaseSelectProps) => {
                 </MenuItem>
             )}
             {options.map((option) => (
+                // @ts-expect-error
                 <MenuItem key={option?.value ?? option} value={option?.value ?? option}>
-                    {option?.label ?? option}
+                    {otherProps.multiple && (
+                        <Checkbox
+                            sx={{ width: 32, height: 32 }}
+                            checked={
+                                // @ts-expect-error
+                                value?.includes(option?.value ?? option) ??
+                                // @ts-expect-error
+                                fieldProps?.value?.includes(option?.value ?? option)
+                            }
+                        />
+                    )}
+                    {/* @ts-expect-error */}
+                    <ListItemText primary={option?.label ?? option} />
                 </MenuItem>
             ))}
         </StyledSelect>

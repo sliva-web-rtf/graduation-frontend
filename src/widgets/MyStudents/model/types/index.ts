@@ -87,8 +87,10 @@ export type StudentRowModel = {
     academicGroup: string;
     status: StudentStatus;
     commission?: {
-        name: string;
         movementStatus: MovementStatus;
+
+        prev?: string;
+        current?: string;
     };
     topic?: {
         id?: string;

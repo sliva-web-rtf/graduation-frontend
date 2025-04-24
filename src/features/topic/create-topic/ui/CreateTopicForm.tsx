@@ -27,6 +27,9 @@ export const CreateTopicForm = memo(() => {
         watch,
     } = useForm<CreateTopicFormSchema>({
         resolver: zodResolver(createTopicFormSchema),
+        defaultValues: {
+            academicPrograms: [],
+        },
     });
     const [requiresСompany, requiresSupervisor] = watch(['requiresСompany', 'requiresSupervisor']);
 
@@ -69,7 +72,6 @@ export const CreateTopicForm = memo(() => {
                         name="academicPrograms"
                         control={control}
                         label="Направление подготовки"
-                        defaultValue={[]}
                         error={Boolean(errors.academicPrograms)}
                         helperText={errors.academicPrograms?.message}
                     />

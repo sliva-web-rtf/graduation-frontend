@@ -13,6 +13,7 @@ import {
     getColorByTopicStatus,
 } from '@/shared/lib/helpers/getColorByStatus';
 import { getInfoPagePath } from '@/shared/lib/helpers/getInfoPagePath';
+import { isOpenInNewTab } from '@/shared/lib/helpers/isOpenInNewTab';
 import {
     DocumentStatus,
     DocumentStatusRus,
@@ -20,8 +21,6 @@ import {
     FormattingReviewStatusRus,
     IsCommandStatus,
     IsCommandStatusRus,
-    MovementStatus,
-    MovementStatusRus,
     ResultStatus,
     ResultStatusRus,
 } from '@/shared/lib/types/statuses';
@@ -30,9 +29,10 @@ import { BaseAutocomplete } from '@/shared/ui/Autocomplete/Autocomplete';
 import { Circle } from '@mui/icons-material';
 import { InputBase, InputBaseProps, Paper, Popper, Stack, Tooltip, Typography } from '@mui/material';
 import { GridRenderCellParams, GridRenderEditCellParams, GridValidRowModel, useGridApiContext } from '@mui/x-data-grid';
-import React, { useCallback, useLayoutEffect, useState } from 'react';
+import { useCallback, useLayoutEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { DocumentData, StudentRowModel } from '../model';
+import { getTitleByMovementStatus } from './getTitleByMovementStatus';
 
 type Entity = {
     id?: string;
@@ -43,8 +43,8 @@ const LinkCell = (props: { params: Entity; route: RoutePathType }) => {
     const { params, route } = props;
     const { id, text } = params || {};
 
-    const handleClick = (e: React.MouseEvent) => {
-        if (!e.metaKey) {
+    const handleClick = (e: MouseEvent) => {
+        if (!isOpenInNewTab(e)) {
             e.preventDefault();
         }
     };
@@ -99,13 +99,9 @@ export const renderMovementStatusCell = (
     params: GridRenderCellParams<GridValidRowModel, StudentRowModel['commission']>,
 ) => {
     const { value } = params;
-    const { name, movementStatus = MovementStatus.Default } = value ?? {
-        name: 'Не назначена',
-        movementStatus: MovementStatus.Default,
-    };
 
-    const color = getColorByMovementStatus(movementStatus);
-    const title = [MovementStatusRus[movementStatus], name].filter(Boolean).join(', ');
+    const color = getColorByMovementStatus(value?.movementStatus);
+    const title = getTitleByMovementStatus(value);
 
     return (
         <Tooltip title={title}>
