@@ -62,7 +62,7 @@ export const MyStudentsTable = (props: StudentsTableProps) => {
             return;
         }
 
-        if (isKeyboardEvent(event) && !event.ctrlKey && !event.metaKey) {
+        if (isKeyboardEvent(event) && event.shiftKey) {
             event.defaultMuiPrevented = true;
         }
     }, []);

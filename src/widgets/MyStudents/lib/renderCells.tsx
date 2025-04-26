@@ -29,7 +29,7 @@ import { BaseAutocomplete } from '@/shared/ui/Autocomplete/Autocomplete';
 import { Circle } from '@mui/icons-material';
 import { InputBase, InputBaseProps, Paper, Popper, Stack, Tooltip, Typography } from '@mui/material';
 import { GridRenderCellParams, GridRenderEditCellParams, GridValidRowModel, useGridApiContext } from '@mui/x-data-grid';
-import { useCallback, useLayoutEffect, useState } from 'react';
+import React, { useCallback, useLayoutEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { DocumentData, StudentRowModel } from '../model';
 import { getTitleByMovementStatus } from './getTitleByMovementStatus';
@@ -43,7 +43,7 @@ const LinkCell = (props: { params: Entity; route: RoutePathType }) => {
     const { params, route } = props;
     const { id, text } = params || {};
 
-    const handleClick = (e: MouseEvent) => {
+    const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
         if (!isOpenInNewTab(e)) {
             e.preventDefault();
         }
@@ -187,6 +187,16 @@ export const RenderEditTextareaCell = (props: GridRenderEditCellParams<any, stri
         [apiRef, field, id],
     );
 
+    const handleKeyDown = useCallback(
+        (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                apiRef.current.stopCellEditMode({ id, field });
+            }
+        },
+        [apiRef, id, field],
+    );
+
     return (
         <div style={{ position: 'relative', alignSelf: 'flex-start' }}>
             <div
@@ -208,6 +218,7 @@ export const RenderEditTextareaCell = (props: GridRenderEditCellParams<any, stri
                             value={valueState}
                             sx={{ textarea: { resize: 'vertical' }, width: '100%' }}
                             onChange={handleChange}
+                            onKeyDown={handleKeyDown}
                             inputRef={(ref) => setInputRef(ref)}
                         />
                     </Paper>
