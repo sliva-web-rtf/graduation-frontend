@@ -135,13 +135,13 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         path: RoutePath.MyDiplom,
         element: <MyDiplomPage />,
         ...withLayoutAndAuth,
-        roles: [Role.HeadSecretary, Role.Secretary, Role.Supervisor, Role.Student],
+        roles: [Role.Student],
     },
     [AppRoutes.Diplom]: {
         path: RoutePath.Diplom,
         element: <DiplomPage />,
         ...withLayoutAndAuth,
-        roles: [Role.HeadSecretary, Role.Secretary, Role.Supervisor, Role.Student],
+        roles: [Role.HeadSecretary, Role.Secretary, Role.Supervisor, Role.Expert],
     },
     [AppRoutes.MyTopics]: {
         path: RoutePath.MyTopics,
