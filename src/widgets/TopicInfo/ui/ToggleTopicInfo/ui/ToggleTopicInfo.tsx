@@ -17,5 +17,7 @@ export const ToggleTopicInfo = memo(() => {
         [dispatch],
     );
 
-    return <ToggleButtons exclusive value={option} options={Object.values(options)} onChange={handleChange} />;
+    return (
+        <ToggleButtons exclusive size="small" value={option} options={Object.values(options)} onChange={handleChange} />
+    );
 });

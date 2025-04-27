@@ -1,30 +1,40 @@
-import { CommentCard } from '@/entities/Comment';
+import { StageProgress } from '@/entities/Stage';
+import { useGetStagesQuery } from '@/entities/Stage/api';
 import { getUserData } from '@/entities/User';
-import { TopicInfo } from '@/widgets/TopicInfo';
 import { Stack } from '@mui/material';
 import { useSelector } from 'react-redux';
+import { StageOptions, getDiplom } from '../model';
+import { DiplomInfo } from './DiplomInfo/ui/DiplomInfo';
 import { MyDiplomEmpty } from './MyDiplom.empty';
-import { StagesInfo } from './StagesInfo';
+import { ToggleStageInfo } from './ToggleStageInfo';
 
-type MyDiplomEmptyProps = {};
+type MyDiplomProps = {
+    editable?: boolean;
+    qualificationWorkId?: string;
+};
 
-export const MyDiplom = (props: MyDiplomEmptyProps) => {
-    const { user, topicId } = useSelector(getUserData);
+export const MyDiplom = (props: MyDiplomProps) => {
+    const { editable = true, qualificationWorkId } = props;
+    const { user } = useSelector(getUserData);
+    const { stage } = useSelector(getDiplom);
+    const { isFetching: isStagesFetching } = useGetStagesQuery();
+    const isStage = stage.name !== StageOptions.Main;
+    const isQualificationWorkId = user?.qualificationWorkId || qualificationWorkId;
 
-    if (!topicId) {
+    if (isStagesFetching || !isQualificationWorkId) {
         return <MyDiplomEmpty />;
     }
 
     return (
-        <Stack spacing={3}>
-            <CommentCard
-                severity="info"
-                label="эксперта"
-                // eslint-disable-next-line max-len
-                text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ante magna, accumsan vel pellentesque eget, lacinia ut ipsum. Maecenas cursus malesuada sapien, sit amet elementum nibh venenatis sit amet. Pellentesque diam diam, euismod at porttitor in, lacinia in nulla. Proin id ex facilisis, pellentesque diam non, pretium sem. Nulla auctor eros sapien, ut aliquet ipsum aliquet condimentum. Proin eget mollis metus, et mollis sem."
+        <Stack spacing={4}>
+            {editable && <StageProgress />}
+            <ToggleStageInfo />
+            <DiplomInfo
+                stage={stage}
+                isStage={isStage}
+                editable={editable}
+                qualificationWorkId={user?.qualificationWorkId || qualificationWorkId}
             />
-            <TopicInfo topicId={topicId} extended editable />
-            <StagesInfo />
         </Stack>
     );
 };

@@ -11,8 +11,8 @@ type DocumentAttachProps = {
     editable?: boolean;
 };
 
-const StyledPaper = styled(Paper)<PaperProps & { uploaded?: boolean }>(({ uploaded, theme }) => ({
-    borderColor: uploaded ? theme.palette.primary.main : theme.palette.secondary.main,
+const StyledPaper = styled(Paper)<PaperProps & { uploaded: string }>(({ uploaded, theme }) => ({
+    borderColor: uploaded === 'true' ? theme.palette.primary.main : theme.palette.secondary.main,
     borderStyle: 'dashed',
     padding: [theme.spacing(3), theme.spacing(2)].join(' '),
     borderRadius: theme.spacing(1),
@@ -24,7 +24,7 @@ export const DocumentAttach = (props: DocumentAttachProps) => {
     const color = isUploaded ? 'primary' : 'secondary';
 
     return (
-        <StyledPaper component={Stack} uploaded={isUploaded}>
+        <StyledPaper component={Stack} uploaded={isUploaded.toString()}>
             <Stack direction="row" spacing={2} justifyContent="space-between" alignItems="center">
                 <Stack direction="row" spacing={1} alignItems="center">
                     <DescriptionOutlinedIcon color={color} fontSize="large" />

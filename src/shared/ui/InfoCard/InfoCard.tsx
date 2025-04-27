@@ -17,6 +17,7 @@ export const InfoCard = memo((props: InfoCardProps) => {
             sx={(theme) => ({
                 padding: theme.spacing(3),
                 borderRadius: theme.spacing(2),
+                width: '100%',
             })}
         >
             <Stack spacing={2}>

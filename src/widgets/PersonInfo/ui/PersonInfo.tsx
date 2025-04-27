@@ -58,7 +58,9 @@ export const PersonInfo = (props: { isStudent?: boolean }) => {
                                 {(isStudentRole || isSupervisorRole) && (
                                     <PersonRequestButton id={id} name={data.fullName} />
                                 )}
-                                {isStudent && (isSecretaryRole || isSupervisorRole) && <NavigateToVkrButton id="" />}
+                                {isStudent && (isSecretaryRole || isSupervisorRole) && (
+                                    <NavigateToVkrButton id={data.qualificationWorkId} />
+                                )}
                             </Stack>
                         </Stack>
                     </Grid>

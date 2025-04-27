@@ -1,4 +1,5 @@
 import { PersonMainInfo } from '@/entities/Person/model/types';
+import { IsCommandStatus } from '@/shared/lib/types/statuses';
 import { StrictRecord } from '@/shared/lib/types/StrictRecord';
 
 export enum TopicStatus {
@@ -18,12 +19,17 @@ export const TopicStatusRus: StrictRecord<TopicStatus, string> = {
 export interface Topic {
     id: string;
     name: string;
-    description: string;
-    result: string;
-    requestedRole: string;
     supervisor: PersonMainInfo;
     student: PersonMainInfo;
     owner: PersonMainInfo;
+
+    companyName?: string;
+    companySupervisor?: string;
+    description?: string;
+    result?: string;
+    requestedRole?: string;
+    academicPrograms?: string[];
+    isCommand?: IsCommandStatus;
 }
 
 export type TopicCardModel = {

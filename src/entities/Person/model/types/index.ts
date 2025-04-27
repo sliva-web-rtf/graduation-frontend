@@ -13,6 +13,8 @@ export type Student = {
     academicProgram: string;
     academicGroup: string;
     role: string;
+
+    qualificationWorkId?: string;
 };
 
 export type Supervisor = {

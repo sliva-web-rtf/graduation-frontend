@@ -1,6 +1,7 @@
 import { useAuthMutation } from '@/entities/User';
 import { BaseAlert, BaseField, BaseLoadingButton, PasswordField } from '@/shared/ui';
 import { zodResolver } from '@hookform/resolvers/zod';
+import EastIcon from '@mui/icons-material/East';
 import { Stack } from '@mui/material';
 import { memo, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
@@ -9,7 +10,7 @@ import { LoginFormSchema, loginFormSchema } from '../../model/types/loginFormSch
 const LoginForm = memo(() => {
     const [auth, { isLoading, error }] = useAuthMutation();
     const {
-        formState: { errors },
+        formState: { errors, isValid },
         handleSubmit,
         register,
     } = useForm<LoginFormSchema>({
@@ -39,8 +40,9 @@ const LoginForm = memo(() => {
             <Stack spacing={2} width="100%">
                 <BaseField
                     autoFocus
-                    label="Логин"
                     fullWidth
+                    label="Логин"
+                    placeholder="ИвановИванИвановичРИ410940"
                     {...register('userName')}
                     error={Boolean(errors.userName)}
                     helperText={errors.userName?.message}
@@ -54,13 +56,16 @@ const LoginForm = memo(() => {
                 />
             </Stack>
             <BaseLoadingButton
-                fullWidth
                 type="submit"
                 variant="contained"
+                disabled={!isValid}
                 loading={isLoading}
-                sx={(theme) => ({ padding: theme.spacing(1.5) })}
+                sx={(theme) => ({
+                    alignSelf: 'flex-end',
+                    padding: theme.spacing(1.5),
+                })}
             >
-                Войти
+                <EastIcon />
             </BaseLoadingButton>
             {error && 'message' in error && <BaseAlert severity="error">{error.message}</BaseAlert>}
         </Stack>

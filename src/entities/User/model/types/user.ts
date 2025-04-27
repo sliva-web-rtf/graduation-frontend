@@ -7,10 +7,10 @@ export type User = {
     lastName: string;
     roles: Role[];
 
+    qualificationWorkId?: string;
     patronymic?: string;
 };
 
 export type UserSchema = {
     user?: User;
-    topicId?: string;
 };

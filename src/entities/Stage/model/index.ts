@@ -1,1 +1,1 @@
-export { StagesDto, StagesModel } from './types';
+export { CurrentStageModel, StagesDto, StagesModel } from './types';

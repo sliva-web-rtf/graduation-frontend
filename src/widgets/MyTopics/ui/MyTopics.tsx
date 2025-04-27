@@ -16,7 +16,7 @@ export const MyTopics = () => {
     const { isFetching, data } = useGetUsersTopicsQuery({ userId: user!.id });
 
     const render = useCallback((item: Omit<ICatalogCard, 'option'>) => {
-        return <CatalogCard key={item.id} option={CatalogOption.Topics} {...item} />;
+        return <CatalogCard key={item.id} option={CatalogOption.Topics} {...item} isMine />;
     }, []);
 
     if (isFetching) {

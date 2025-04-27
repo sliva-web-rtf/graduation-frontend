@@ -7,6 +7,7 @@ export interface UserDto {
     lastName: string;
     email: string;
 
+    qualificationWorkId?: string;
     patronymic?: string;
 }
 

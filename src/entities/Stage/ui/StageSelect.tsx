@@ -1,11 +1,11 @@
 import { BaseSelect, BaseSelectProps } from '@/shared/ui';
 import { memo } from 'react';
-import { useGetStagesQuery } from '../api';
+import { useGetStagesOptionsQuery } from '../api';
 
 type StageSelectProps = Omit<BaseSelectProps, 'options'> & {};
 
 export const StageSelect = memo((props: StageSelectProps) => {
-    const { data, isFetching } = useGetStagesQuery();
+    const { data, isFetching } = useGetStagesOptionsQuery();
 
     return (
         <BaseSelect

@@ -3,6 +3,7 @@ export type CommissionModel = {
     number: number;
     name: string;
     secretaryName: string;
+    expertsNames: string[];
 };
 
 export type CommissionRequest = {

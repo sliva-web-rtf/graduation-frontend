@@ -60,8 +60,11 @@ export const MyStudents = () => {
             <Stack spacing={4} height="100%" width="100%">
                 <MyStudentsFilter />
                 {error ? (
-                    // @ts-expect-error
-                    <ErrorPageMessage message={error.message} />
+                    <ErrorPageMessage
+                        severity={!stage ? 'info' : 'error'}
+                        // @ts-expect-error
+                        message={!stage ? 'Выберите этап в фильтре выше' : error.message}
+                    />
                 ) : (
                     <MyStudentsTable
                         loading={isLoading}

@@ -11,7 +11,7 @@ type NavigateToVkrButtonProps = {
 export const NavigateToVkrButton = (props: NavigateToVkrButtonProps) => {
     const { id } = props;
 
-    const path = getInfoPagePath(RoutePath.MyDiplom, id);
+    const path = getInfoPagePath(RoutePath.Diplom, id);
 
     return (
         // @ts-expect-error

@@ -151,7 +151,7 @@ const baseColumns: GridColDef[] = [
     {
         field: 'topic',
         type: 'string',
-        headerName: 'Тема',
+        headerName: 'Тема ВКР',
         valueSetter: (value, row) => ({
             ...row,
             topic: {
@@ -159,7 +159,7 @@ const baseColumns: GridColDef[] = [
                 name: value.name ?? value,
             },
         }),
-        renderCell: renderLinkCell(RoutePath.Topics, 'name'),
+        renderCell: renderLinkCell(RoutePath.Diplom, 'name'),
         renderEditCell: (params) => <RenderEditTextareaCell {...params} value={params.value?.name ?? ''} />,
         display: 'flex',
         width: 400,

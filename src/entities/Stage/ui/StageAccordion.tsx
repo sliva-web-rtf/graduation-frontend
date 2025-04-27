@@ -6,26 +6,22 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Accordion, AccordionDetails, AccordionSummary, Stack, styled, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 
-type Comment = {
-    text: string;
-};
-
 type StageAccordionProps = {
     stage: string;
-    end: Date;
-    description: string;
 
+    end?: string;
+    description?: string;
     result?: ResultStatus;
     mark?: number;
     defaultExpanded?: boolean;
-    comments?: Comment[];
+    comment?: string;
 };
 
 const StyledAccordion = styled(Accordion)(({ theme }) => ({
     backgroundColor: theme.palette.background.paper,
 
     '&.MuiAccordion-gutters': {
-        borderRadius: theme.spacing(1),
+        borderRadius: theme.spacing(1.5),
     },
     '&.MuiAccordion-gutters::before': {
         backgroundColor: 'transparent',
@@ -33,7 +29,8 @@ const StyledAccordion = styled(Accordion)(({ theme }) => ({
 }));
 
 export const StageAccordion = (props: StageAccordionProps) => {
-    const { stage, result, mark, description, end, comments, ...otherProps } = props;
+    const { stage, result, mark, description, end, comment, ...otherProps } = props;
+    const endDate = dayjs(end).locale('ru').format('DD MMMM YYYY');
     const resultColor = getColorByResultStatus(result);
     const resultLabel = [(result && ResultStatusRus[result]) ?? ResultStatusRus.getUnknown, mark && `${mark} баллов`]
         .filter(Boolean)
@@ -51,7 +48,7 @@ export const StageAccordion = (props: StageAccordionProps) => {
                     justifyContent="space-between"
                 >
                     <Stack direction="row" spacing={2}>
-                        <Typography color="secondary">до {dayjs(end).locale('ru').format('DD MMMM YYYY')}</Typography>
+                        <Typography color="secondary">до {endDate}</Typography>
                         <Typography fontWeight={700}>{stage}</Typography>
                     </Stack>
                     <BaseChip label={resultLabel} color={resultColor} />
@@ -59,9 +56,7 @@ export const StageAccordion = (props: StageAccordionProps) => {
             </AccordionSummary>
             <AccordionDetails>
                 <Stack spacing={2}>
-                    <Stack spacing={1}>
-                        {comments?.map((comment, index) => <CommentCard key={`comment-${index}`} {...comment} />)}
-                    </Stack>
+                    {comment && <CommentCard text={comment} />}
                     <Typography>{description}</Typography>
                 </Stack>
             </AccordionDetails>

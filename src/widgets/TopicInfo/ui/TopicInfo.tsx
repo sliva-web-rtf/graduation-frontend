@@ -1,5 +1,4 @@
 import { TopicCard, useGetTopicQuery } from '@/entities/Topic';
-import { ROLES } from '@/entities/User';
 import { TopicRequestButton } from '@/features/topic/send-request';
 import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { SITENAME } from '@/shared/lib/const';
@@ -10,16 +9,13 @@ import { Helmet } from 'react-helmet';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getTopicInfo, topicInfoReducer } from '../model';
-import { ToggleOptions } from '../model/types/toggleOptions';
-import { ToggleTopicInfo } from './ToggleTopicInfo';
-import { TopicCommission } from './TopicComission';
-import { TopicDocs } from './TopicDocs';
 import { TopicInfoSkeleton } from './TopicInfo.skeleton';
 import { TopicMainInfo } from './TopicMainInfo';
 
 type TopicInfoProps = {
     extended?: boolean;
     editable?: boolean;
+    isStage?: boolean;
     topicId?: string;
 };
 
@@ -28,7 +24,7 @@ const initialReducers: ReducersList = {
 };
 
 export const TopicInfo = memo((props: TopicInfoProps) => {
-    const { topicId, extended = false, editable = false } = props;
+    const { topicId, extended = false, editable = false, isStage = false } = props;
     const { id: paramsId } = useParams();
     const id = paramsId || topicId;
     const { option } = useSelector(getTopicInfo);
@@ -64,22 +60,7 @@ export const TopicInfo = memo((props: TopicInfoProps) => {
                         </Stack>
                     </Grid>
                     <Grid item xs>
-                        <Stack spacing={4} alignItems="flex-start">
-                            {extended && <ToggleTopicInfo />}
-                            {option === ToggleOptions.Info && (
-                                <TopicMainInfo description={description} result={result} />
-                            )}
-                            {option === ToggleOptions.Docs && <TopicDocs editable={editable} />}
-                            {option === ToggleOptions.Commission && (
-                                <TopicCommission
-                                    name="Комиссия 1"
-                                    members={[
-                                        { role: ROLES.Secretary, user: { id: '1', fullName: 'Иванов Иван Иванович' } },
-                                        { role: ROLES.Expert, user: { id: '2', fullName: 'Петрова Инна Викторовна' } },
-                                    ]}
-                                />
-                            )}
-                        </Stack>
+                        <TopicMainInfo description={description} result={result} />
                     </Grid>
                 </Grid>
             </DynamicModuleLoader>

@@ -1,6 +1,6 @@
 import { Divider, Paper, Skeleton, Stack } from '@mui/material';
 
-export const TopicCommissionSkeleton = (props: { count?: number }) => {
+export const ComissionInfoSkeleton = (props: { count?: number }) => {
     const { count = 8 } = props;
 
     const items = Array.from({ length: count }, (_, index) => index);

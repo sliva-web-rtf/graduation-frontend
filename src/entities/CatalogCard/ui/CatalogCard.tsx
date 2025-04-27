@@ -10,7 +10,7 @@ import { type ICatalogCard } from '../model/types/ICatalogCard';
 import styles from './CatalogCard.module.scss';
 
 export const CatalogCard = memo((props: ICatalogCard) => {
-    const { id, title, subtitle, description, option, limit, fullness } = props;
+    const { id, title, subtitle, description, option, limit, fullness, isMine = false } = props;
     const parentLink = useMemo(() => getParentLink(option), [option]);
     const isTopics = option === CatalogOption.Topics;
 
@@ -31,10 +31,16 @@ export const CatalogCard = memo((props: ICatalogCard) => {
                     {description || 'Описание отсутствует'}
                 </Typography>
             </Stack>
-            <Stack spacing={6} alignSelf="center" justifyContent="space-between">
-                <LimitInfo limit={limit} fullness={fullness} />
-                {isTopics ? <TopicRequestButton id={id} name={title} /> : <PersonRequestButton id={id} name={title} />}
-            </Stack>
+            {!isMine && (
+                <Stack spacing={6} alignSelf="center" justifyContent="space-between">
+                    <LimitInfo limit={limit} fullness={fullness} />
+                    {isTopics ? (
+                        <TopicRequestButton id={id} name={title} />
+                    ) : (
+                        <PersonRequestButton id={id} name={title} />
+                    )}
+                </Stack>
+            )}
         </Paper>
     );
 });

@@ -8,6 +8,7 @@ import { type CommissionFormSchema } from '@/features/comission/create-comission
 import { baseApi } from '@/shared/api';
 import { type AdministrationSchema } from '@/widgets/Administration';
 import { type CatalogSchema } from '@/widgets/Catalog';
+import { DiplomSchema } from '@/widgets/MyDiplom';
 import { type MyStudentsSchema } from '@/widgets/MyStudents';
 import { type PersonalDataSchema } from '@/widgets/PersonalData';
 import { type PersonInfoSchema } from '@/widgets/PersonInfo';
@@ -21,6 +22,7 @@ export interface StateSchema {
     year: YearSchema;
     catalog: CatalogSchema;
     requests: RequestsSchema;
+    diplom: DiplomSchema;
 
     personalData?: PersonalDataSchema;
     profile?: ProfileSchema;
