@@ -42,5 +42,5 @@ export const StudentStatusRus: StrictRecord<StudentStatus, string> = {
     [StudentStatus.Active]: 'Активен',
     [StudentStatus.Transferred]: 'Переведен',
 
-    getUnknown: 'Н/Д',
+    getUnknown: 'Нет данных',
 } as const;

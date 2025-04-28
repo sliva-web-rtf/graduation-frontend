@@ -12,7 +12,8 @@ export const ComissionInfo = (props: Props) => {
             <Stack spacing={2}>
                 <Typography variant="h2">{name}</Typography>
                 <Stack divider={<Divider />} spacing={1}>
-                    <ComissionInfoRow left="Ответсвенный секретарь" right={secretaryName} />
+                    <ComissionInfoRow left="Ответственный секретарь" right={secretaryName} />
+                    <ComissionInfoRow left="Председатель" right={secretaryName} />
                     {expertsNames?.map((expert, index) => (
                         <ComissionInfoRow key={expert} left={`Эксперт ${index + 1}`} right={expert} />
                     ))}

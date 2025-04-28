@@ -24,7 +24,7 @@ import {
     renderFormatingReviewResultCell,
     renderIsCommandCell,
     renderLinkCell,
-    renderMovementStatusCell,
+    RenderMovementStatusCell,
     renderResultCell,
     RenderRoleEditCell,
     renderStudentStatusCell,
@@ -137,7 +137,7 @@ const baseColumns: GridColDef[] = [
                 }
             );
         },
-        renderCell: renderMovementStatusCell,
+        renderCell: RenderMovementStatusCell,
         hideable: false,
         filterable: false,
     },

@@ -11,7 +11,7 @@ export const ResultStatusRus: StrictRecord<ResultStatus, string> = {
     [ResultStatus.Warning]: 'Не явился',
     [ResultStatus.Success]: 'Успешно',
 
-    getUnknown: 'Н/Д',
+    getUnknown: 'Нет данных',
 } as const;
 
 export enum DocumentStatus {
@@ -35,7 +35,7 @@ export const FormattingReviewStatusRus: StrictRecord<FormattingReviewStatus, str
     [FormattingReviewStatus.Error]: 'Не пройден',
     [FormattingReviewStatus.Success]: 'Пройден',
 
-    getUnknown: 'Н/Д',
+    getUnknown: 'Нет данных',
 } as const;
 
 export enum MovementStatus {
@@ -61,7 +61,7 @@ export enum IsCommandStatus {
 export const IsCommandStatusRus: StrictRecord<IsCommandStatus, string> = {
     [IsCommandStatus.Yes]: 'Да',
     [IsCommandStatus.No]: 'Нет',
-    [IsCommandStatus.NoData]: 'Н/Д',
+    [IsCommandStatus.NoData]: 'Нет данных',
 
-    getUnknown: 'Н/Д',
+    getUnknown: 'Нет данных',
 } as const;

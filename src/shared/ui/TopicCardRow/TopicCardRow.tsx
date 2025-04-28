@@ -20,7 +20,7 @@ export const TopicCardRow = (props: Props) => {
             </Typography>
             {isText ? (
                 <Typography variant="subtitle1" sx={{ whiteSpace: 'nowrap' }}>
-                    {right || 'Н/Д'}
+                    {right || 'Нет данных'}
                 </Typography>
             ) : (
                 right

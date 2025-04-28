@@ -95,11 +95,10 @@ export const renderResultCell = (params: GridRenderCellParams<GridValidRowModel,
     return <BaseChip label={(value && ResultStatusRus[value]) ?? ResultStatusRus.getUnknown} color={color} />;
 };
 
-export const renderMovementStatusCell = (
+export const RenderMovementStatusCell = (
     params: GridRenderCellParams<GridValidRowModel, StudentRowModel['commission']>,
 ) => {
     const { value } = params;
-
     const color = getColorByMovementStatus(value?.movementStatus);
     const title = getTitleByMovementStatus(value);
 

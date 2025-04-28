@@ -26,7 +26,7 @@ export const QualificationWorkCard = memo((props: QualificationWorkCardProps) =>
                 <Stack spacing={1} divider={<Divider />}>
                     <Stack spacing={1}>
                         <TopicCardRow left="Предприятие" right={companyName} isText />
-                        <TopicCardRow left="Куратор от предприятия" right={companySupervisor ?? 'Н/Д'} isText />
+                        <TopicCardRow left="Куратор от предприятия" right={companySupervisor ?? 'Нет данных'} isText />
                     </Stack>
                     <TopicCardRow left="Студент" right={<PersonSummary {...student} isLink isStudent />} />
                     <TopicCardRow left="Руководитель" right={<PersonSummary {...supervisor} isLink />} />

@@ -1,4 +1,3 @@
-import { CommentCard } from '@/entities/Comment';
 import { QualificationWorkCard, useGetQualificationWorkQuery } from '@/entities/QualificationWork';
 import { StageAccordion } from '@/entities/Stage';
 import { Grid, Stack } from '@mui/material';
@@ -30,8 +29,11 @@ export const DiplomInfo = memo((props: TopicInfoProps) => {
         return <DiplomInfoSkeleton />;
     }
 
-    const isExpertComment = data?.expertComment;
     const isFormattingReviewStage = stage.type === 'FormattingReview';
+    const comments =
+        stage.name === 'Первая предзащита'
+            ? [{ text: data.expertComment, label: 'эксперта' }, { text: data.comment }]
+            : [{ text: data.comment }];
 
     return (
         <>
@@ -39,7 +41,6 @@ export const DiplomInfo = memo((props: TopicInfoProps) => {
                 <title>{data?.topicName}</title>
             </Helmet>
             <Stack spacing={3}>
-                {!isStage && isExpertComment && <CommentCard text={data?.expertComment} label="эксперта" />}
                 {isStage && (
                     <StageAccordion
                         defaultExpanded
@@ -48,7 +49,7 @@ export const DiplomInfo = memo((props: TopicInfoProps) => {
                         stage={stage.name}
                         description={stage.description}
                         end={stage.endsAt}
-                        comment={data.comment}
+                        comments={comments}
                     />
                 )}
                 <Grid container gap={3}>

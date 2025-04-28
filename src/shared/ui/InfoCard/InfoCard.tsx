@@ -10,7 +10,7 @@ interface InfoCardProps {
 }
 
 export const InfoCard = memo((props: InfoCardProps) => {
-    const { title, text, formatted, emptyText = 'Информация отсутсвует' } = props;
+    const { title, text, formatted, emptyText = 'Информация отсутствует' } = props;
 
     return (
         <Paper

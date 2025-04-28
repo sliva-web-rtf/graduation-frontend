@@ -14,7 +14,8 @@ type StageAccordionProps = {
     result?: ResultStatus;
     mark?: number;
     defaultExpanded?: boolean;
-    comment?: string;
+
+    comments?: { text: string; label?: string }[];
 };
 
 const StyledAccordion = styled(Accordion)(({ theme }) => ({
@@ -29,7 +30,7 @@ const StyledAccordion = styled(Accordion)(({ theme }) => ({
 }));
 
 export const StageAccordion = (props: StageAccordionProps) => {
-    const { stage, result, mark, description, end, comment, ...otherProps } = props;
+    const { stage, result, mark, description, end, comments, ...otherProps } = props;
     const endDate = dayjs(end).locale('ru').format('DD MMMM YYYY');
     const resultColor = getColorByResultStatus(result);
     const resultLabel = [(result && ResultStatusRus[result]) ?? ResultStatusRus.getUnknown, mark && `${mark} баллов`]
@@ -49,15 +50,16 @@ export const StageAccordion = (props: StageAccordionProps) => {
                 >
                     <Stack direction="row" spacing={2}>
                         <Typography color="secondary">до {endDate}</Typography>
-                        <Typography fontWeight={700}>{stage}</Typography>
+                        <Typography fontWeight={700}>
+                            {stage}. {description}
+                        </Typography>
                     </Stack>
                     <BaseChip label={resultLabel} color={resultColor} />
                 </Stack>
             </AccordionSummary>
             <AccordionDetails>
                 <Stack spacing={2}>
-                    {comment && <CommentCard text={comment} />}
-                    <Typography>{description}</Typography>
+                    {comments?.map((comment) => <CommentCard text={comment.text} label={comment.label} />)}
                 </Stack>
             </AccordionDetails>
         </StyledAccordion>
