@@ -10,9 +10,10 @@ export type StudentsTableRequest = {
     page: number;
     size: number;
 
-    sort?: GridSortModel;
     query?: string;
     commissions?: string[];
+    sort?: GridSortModel;
+    studentStatuses?: string[];
 };
 
 export type MyStudentsSchema = {

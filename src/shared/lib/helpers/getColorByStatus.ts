@@ -30,6 +30,8 @@ export const getColorByStudentsStatus = (status?: StudentStatus) => {
             return 'warning';
         case StudentStatus.Kicked:
             return 'error';
+        case StudentStatus.Transferred:
+            return 'info';
 
         default:
             return 'secondary';

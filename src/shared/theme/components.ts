@@ -61,17 +61,21 @@ export const components: Components<Omit<Theme, 'components'>> | undefined = {
                 backgroundColor: '#E5E4E2', // Пастельный белый
                 color: '#21272A',
             },
+            colorInfo: {
+                backgroundColor: '#E6D6F3', // Пастельный фиолетовый
+                color: '#6C3483',
+            },
         },
     },
     MuiDataGrid: {
         defaultProps: {
             sortingMode: 'server',
             paginationMode: 'server',
+            filterMode: 'server',
             disableVirtualization: true,
             keepNonExistentRowsSelected: true,
             hideFooterSelectedRowCount: true,
             checkboxSelection: true,
-            disableColumnFilter: true,
             disableRowSelectionOnClick: true,
             autoPageSize: true,
             localeText: ruRU.components.MuiDataGrid.defaultProps.localeText,

@@ -3,11 +3,11 @@ import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch
 import { useContextMenu } from '@/shared/lib/hooks/useContextMenu';
 import { ErrorPageMessage } from '@/shared/ui';
 import { Stack } from '@mui/material';
-import { GridRowSelectionModel, GridSortModel } from '@mui/x-data-grid';
+import { GridFilterModel, GridRowSelectionModel, GridSortModel } from '@mui/x-data-grid';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useGetStudentsTableQuery } from '../api';
-import { generateColumns } from '../lib';
+import { buildFilterQuery, generateColumns } from '../lib';
 import { myStudentsActions, myStudentsReducer } from '../model';
 import { getMyStudentsState } from '../model/selectors';
 import { ContextMenu } from './ContextMenu';
@@ -24,6 +24,10 @@ export const MyStudents = () => {
     const { stage, query, commissions, selectedStudents } = useSelector(getMyStudentsState);
     const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 1 });
     const [sortModel, setSortModel] = useState<GridSortModel>([{ field: 'student', sort: 'asc' }]);
+    const [filterModel, setFilterModel] = useState<GridFilterModel>({
+        items: [],
+    });
+    const studentStatusFilter = buildFilterQuery(filterModel).status as string[];
 
     const { data, isLoading, error } = useGetStudentsTableQuery({
         page: paginationModel.page,
@@ -32,6 +36,7 @@ export const MyStudents = () => {
         query,
         commissions,
         sort: sortModel,
+        studentStatuses: studentStatusFilter,
     });
 
     const columns = useMemo(() => generateColumns(data?.dataType), [data]);
@@ -49,6 +54,10 @@ export const MyStudents = () => {
 
     const handleSortModelChange = useCallback((newSortModel: GridSortModel) => {
         setSortModel(newSortModel);
+    }, []);
+
+    const handleFilterModelChange = useCallback((newFilterModel: GridFilterModel) => {
+        setFilterModel(newFilterModel);
     }, []);
 
     useEffect(() => {
@@ -81,6 +90,9 @@ export const MyStudents = () => {
                         // Sorting
                         sortModel={sortModel}
                         onSortModelChange={handleSortModelChange}
+                        // Filtering
+                        filterModel={filterModel}
+                        onFilterModelChange={handleFilterModelChange}
                         // Context menu
                         onContextMenu={handleContextMenu}
                     />

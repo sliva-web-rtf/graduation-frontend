@@ -1,10 +1,11 @@
 import { useSnackbar } from '@/shared/lib/hooks/useSnackbar';
-import { BaseTable, StyledPagination } from '@/shared/ui';
+import { BaseChip, BaseTable, StyledPagination } from '@/shared/ui';
 import { Box, Stack } from '@mui/material';
 import {
     DataGridProps,
     GridCellEditStopParams,
     GridCellEditStopReasons,
+    gridFilterModelSelector,
     gridPageCountSelector,
     gridPageSelector,
     GridValidRowModel,
@@ -43,10 +44,23 @@ const CustomPagination = () => {
     );
 };
 
+const ActiveFiltersChip = ({ count }: { count: number }) => {
+    const label = `${count} активный${count === 1 ? '' : 'х'} фильтр${count === 1 ? '' : 'а'}`;
+
+    return <BaseChip label={label} color="warning" sx={{ height: 33 }} />;
+};
+
 const CustomFooter = () => {
+    const apiRef = useGridApiContext();
+    const filterModel = useGridSelector(apiRef, gridFilterModelSelector);
+    const activeFiltersCount = filterModel?.items.filter((item) => Boolean(item.value?.length)).length || 0;
+
     return (
         <Stack direction="row" justifyContent="space-between" alignItems="center" px={1} py={2} width="100%">
-            <SetDefenceDateButton />
+            <Stack direction="row" alignItems="center" spacing={2}>
+                <SetDefenceDateButton />
+                {Boolean(activeFiltersCount) && <ActiveFiltersChip count={activeFiltersCount} />}
+            </Stack>
             <CustomPagination />
         </Stack>
     );

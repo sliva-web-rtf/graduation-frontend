@@ -15,6 +15,7 @@ import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import utc from 'dayjs/plugin/utc';
 import { DataType, DefenceData, FormattingReviewData } from '../model';
+import { singleSelectOperators } from './filterOperators';
 import {
     renderCommentCell,
     renderDocCell,
@@ -76,6 +77,7 @@ const documentsColumns: GridColDef[] = DOCUMENTS.map((doc) => ({
     width: 100,
     renderCell: renderDocCell,
     editable: true,
+    filterable: false,
 }));
 const formattingReviewColumns: GridColDef[] = [
     ...documentsColumns,
@@ -98,6 +100,7 @@ const formattingReviewColumns: GridColDef[] = [
         renderCell: renderFormatingReviewResultCell,
         width: 180,
         editable: true,
+        filterable: false,
     },
 ];
 
@@ -110,6 +113,7 @@ const baseColumns: GridColDef[] = [
         align: 'center',
         sortable: false,
         hideable: false,
+        filterable: false,
     },
     {
         field: 'student',
@@ -118,6 +122,7 @@ const baseColumns: GridColDef[] = [
         renderCell: renderLinkCell(RoutePath.Students, 'fullName'),
         display: 'flex',
         hideable: false,
+        filterable: false,
     },
     {
         field: 'movementStatus',
@@ -134,8 +139,9 @@ const baseColumns: GridColDef[] = [
         },
         renderCell: renderMovementStatusCell,
         hideable: false,
+        filterable: false,
     },
-    { field: 'academicGroup', headerName: 'Группа', width: 110 },
+    { field: 'academicGroup', headerName: 'Группа', width: 110, filterable: false },
     {
         headerName: 'Статус студента',
         field: 'status',
@@ -144,6 +150,7 @@ const baseColumns: GridColDef[] = [
             value: status,
             label: StudentStatusRus[status],
         })),
+        filterOperators: singleSelectOperators,
         width: 150,
         renderCell: renderStudentStatusCell,
         editable: true,
@@ -164,6 +171,7 @@ const baseColumns: GridColDef[] = [
         display: 'flex',
         width: 400,
         editable: true,
+        filterable: false,
     },
     {
         headerName: 'Статус темы',
@@ -176,6 +184,7 @@ const baseColumns: GridColDef[] = [
         width: 180,
         renderCell: renderTopicStatusCell,
         editable: true,
+        filterable: false,
     },
     {
         field: 'role',
@@ -187,6 +196,7 @@ const baseColumns: GridColDef[] = [
         }),
         width: 250,
         editable: true,
+        filterable: false,
     },
     {
         field: 'supervisor',
@@ -210,14 +220,16 @@ const baseColumns: GridColDef[] = [
         display: 'flex',
         width: 300,
         editable: true,
+        filterable: false,
     },
-    { field: 'companyName', headerName: 'Предприятие', width: 300, editable: true, sortable: false },
+    { field: 'companyName', headerName: 'Предприятие', width: 300, editable: true, sortable: false, filterable: false },
     {
         field: 'companySupervisorName',
         headerName: 'Куратор от предприятия',
         width: 300,
         editable: true,
         sortable: false,
+        filterable: false,
     },
     {
         headerName: 'Комментарий',
@@ -226,6 +238,7 @@ const baseColumns: GridColDef[] = [
         width: 300,
         editable: true,
         sortable: false,
+        filterable: false,
         ...multilineColumn,
     },
 ];
@@ -252,14 +265,12 @@ const defenceColumns: GridColDef[] = [
         }),
         width: 120,
         editable: true,
+        filterable: false,
     },
     {
-        display: 'flex',
         headerName: 'Время предзащиты',
         field: 'time',
         type: 'dateTime',
-        width: 90,
-        editable: true,
         valueGetter: (_, row: RowData) => {
             const { time, date } = row.data;
             if (!time) return null;
@@ -280,6 +291,10 @@ const defenceColumns: GridColDef[] = [
             return value ? dayjs(value).format('HH:mm') : null;
         },
         renderEditCell: (params) => <RenderEditTimeCell {...params} />,
+        display: 'flex',
+        width: 90,
+        editable: true,
+        filterable: false,
     },
     {
         headerName: 'Место предзащиты',
@@ -295,6 +310,7 @@ const defenceColumns: GridColDef[] = [
         width: 180,
         editable: true,
         sortable: false,
+        filterable: false,
     },
     {
         headerName: 'Командный проект',
@@ -315,6 +331,7 @@ const defenceColumns: GridColDef[] = [
         renderCell: renderIsCommandCell,
         width: 100,
         editable: true,
+        filterable: false,
     },
     {
         headerName: 'Оценка',
@@ -337,6 +354,7 @@ const defenceColumns: GridColDef[] = [
         },
         width: 100,
         editable: true,
+        filterable: false,
     },
     {
         headerName: 'Результат',
@@ -354,6 +372,7 @@ const defenceColumns: GridColDef[] = [
         renderCell: renderResultCell,
         width: 180,
         editable: true,
+        filterable: false,
     },
     {
         headerName: 'Комментарий по предзащите',
@@ -370,6 +389,7 @@ const defenceColumns: GridColDef[] = [
         width: 500,
         sortable: false,
         editable: true,
+        filterable: false,
         ...multilineColumn,
     },
 ];
@@ -385,4 +405,5 @@ export const generateColumns = (dataType?: DataType): GridColDef[] => {
     }
 };
 
+export { buildFilterQuery } from './buildFIlterQuery';
 export { mapStudentRowToDto, mapStudentsTableDtoToModel } from './mapStudentsTableDtoToModel';
