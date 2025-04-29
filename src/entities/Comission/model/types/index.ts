@@ -1,9 +1,15 @@
+type Expert = {
+    name: string;
+    isInvited?: boolean;
+};
+
 export type CommissionModel = {
     id: string;
     number: number;
     name: string;
     secretaryName: string;
-    expertsNames: string[];
+    chairpersonName: string;
+    expertsNames: Expert[];
 };
 
 export type CommissionRequest = {

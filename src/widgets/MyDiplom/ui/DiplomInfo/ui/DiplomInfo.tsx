@@ -74,6 +74,7 @@ export const DiplomInfo = memo((props: TopicInfoProps) => {
                                     name={data?.commission.name}
                                     secretaryName={data?.commission.secretaryName}
                                     expertsNames={data?.commission.expertsNames}
+                                    chairpersonName={data?.commission.chairpersonName}
                                 />
                             )}
                             {isFormattingReviewStage && (

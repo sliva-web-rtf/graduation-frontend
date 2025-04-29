@@ -23,10 +23,10 @@ export interface StateSchema {
     catalog: CatalogSchema;
     requests: RequestsSchema;
     diplom: DiplomSchema;
+    commissionForm: CommissionFormSchema;
 
     personalData?: PersonalDataSchema;
     profile?: ProfileSchema;
-    commissionForm?: CommissionFormSchema;
     administration?: AdministrationSchema;
     myStudents?: MyStudentsSchema;
     'person-info'?: PersonInfoSchema;

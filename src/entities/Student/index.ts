@@ -1,2 +1,1 @@
-export { type Student } from './model/types/student';
-export { useGetStudentQuery } from './api/studentApi';
+export { useGetStudentsQuery } from './api/studentApi';

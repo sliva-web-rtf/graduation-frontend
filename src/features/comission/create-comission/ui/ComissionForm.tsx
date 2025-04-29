@@ -1,11 +1,11 @@
-import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+import { useGetStagesOptionsQuery } from '@/entities/Stage/api';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { PageLoader } from '@/shared/ui';
 import { Box, Stack } from '@mui/material';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useSearchParams } from 'react-router-dom';
 import { CommissionStorageService } from '../lib';
-import { commissionFormActions, commissionFormReducer, getCommissionForm } from '../model';
+import { commissionFormActions, getCommissionForm } from '../model';
 import { CommissionFormStep } from '../model/types';
 import { CreateComissionStepper } from './ComissionFormStepper';
 import {
@@ -16,42 +16,40 @@ import {
     SubmitCommissionForm,
 } from './Forms';
 
-type ComissionFormProps = {};
-
-const initialReducers: ReducersList = {
-    commissionForm: commissionFormReducer,
-};
-
-export const ComissionForm = (props: ComissionFormProps) => {
-    // const {} = props;
-    const [searchParams] = useSearchParams();
+export const ComissionForm = () => {
     const dispatch = useAppDispatch();
     const { step } = useSelector(getCommissionForm);
-
-    useEffect(() => {
-        dispatch(commissionFormActions.initStep(searchParams));
-    }, [dispatch, searchParams]);
+    const { data, isLoading } = useGetStagesOptionsQuery();
 
     useEffect(() => {
         const formData = CommissionStorageService.get();
-
         dispatch(commissionFormActions.setForms(formData));
     }, [dispatch]);
 
+    if (isLoading) {
+        return <PageLoader />;
+    }
+
     return (
-        <DynamicModuleLoader removeAfterUnmount reducers={initialReducers}>
-            <Stack direction="row" spacing={4}>
-                <Stack width={300} position="sticky" alignSelf="flex-start" top={32} spacing={4}>
-                    <CreateComissionStepper />
-                </Stack>
-                <Box width="100%">
-                    {step === CommissionFormStep.Info && <CommissionInfoForm />}
-                    {step === CommissionFormStep.Experts && <CommissionExpertsForm />}
-                    {step === CommissionFormStep.Groups && <CommissionGroupsForm />}
-                    {step === CommissionFormStep.Students && <CommissionStudentsForm />}
-                    {step === CommissionFormStep.Submit && <SubmitCommissionForm />}
-                </Box>
+        <Stack direction="row" spacing={4} height="100%">
+            <Stack
+                position="sticky"
+                width="30%"
+                minWidth={320}
+                maxWidth={400}
+                alignSelf="flex-start"
+                top={32}
+                spacing={4}
+            >
+                <CreateComissionStepper />
             </Stack>
-        </DynamicModuleLoader>
+            <Box width="100%">
+                {step === CommissionFormStep.Info && <CommissionInfoForm />}
+                {step === CommissionFormStep.Experts && <CommissionExpertsForm stages={data} />}
+                {step === CommissionFormStep.Groups && <CommissionGroupsForm />}
+                {step === CommissionFormStep.Students && <CommissionStudentsForm stages={data} />}
+                {step === CommissionFormStep.Submit && <SubmitCommissionForm />}
+            </Box>
+        </Stack>
     );
 };

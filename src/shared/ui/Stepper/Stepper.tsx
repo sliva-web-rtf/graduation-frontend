@@ -1,3 +1,5 @@
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import {
     Stack,
     Step,
@@ -11,6 +13,7 @@ import {
     Typography,
 } from '@mui/material';
 import { stepConnectorClasses } from '@mui/material/StepConnector';
+import { BaseAlert } from '../Alert/Alert';
 import { BaseButton } from '../Button/Button';
 
 interface BaseStepProps extends StepProps {
@@ -52,15 +55,15 @@ export const BaseStep = (props: BaseStepProps) => {
             </StepLabel>
             <BaseStepContent>
                 <Stack spacing={2}>
-                    <Typography fontSize={14}>{content}</Typography>
+                    <BaseAlert severity="info">{content}</BaseAlert>
                     <Stack direction="row" spacing={1}>
                         {!isLast && (
-                            <BaseButton size="small" onClick={onNextClick} variant="contained">
+                            <BaseButton variant="contained" onClick={onNextClick} startIcon={<ArrowDownwardIcon />}>
                                 Далее
                             </BaseButton>
                         )}
                         {!isFirst && (
-                            <BaseButton size="small" onClick={onBackClick}>
+                            <BaseButton onClick={onBackClick} startIcon={<ArrowUpwardIcon />}>
                                 Назад
                             </BaseButton>
                         )}

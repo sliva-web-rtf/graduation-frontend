@@ -22,10 +22,8 @@ export const SubmitCommissionForm = () => {
         if (isStepsValid) {
             createCommission()
                 .unwrap()
-                .then(() => {
-                    navigate(RoutePath.Commissions);
-                    dispatch(commissionFormActions.resetForm());
-                });
+                .then(() => navigate(RoutePath.Commissions))
+                .then(() => dispatch(commissionFormActions.resetForm()));
         }
     };
 
@@ -38,28 +36,19 @@ export const SubmitCommissionForm = () => {
                     {isStepsValid && <BaseAlert severity="success">Отлично, теперь можно создать комиссию!</BaseAlert>}
                 </>
             )}
-            <Stack spacing={2}>
-                <Stack>
-                    <Typography variant="subtitle1" color="secondary">
-                        Порядковый номер
-                    </Typography>
-                    <Typography>{info.data?.number}</Typography>
-                </Stack>
-                <Divider />
+            <Stack spacing={2} divider={<Divider />}>
                 <Stack>
                     <Typography variant="subtitle1" color="secondary">
                         Название комиссии
                     </Typography>
                     <Typography>{info.data?.name}</Typography>
                 </Stack>
-                <Divider />
                 <Stack>
                     <Typography variant="subtitle1" color="secondary">
                         Ответственный секретарь
                     </Typography>
                     <Typography>{info.data?.clerk}</Typography>
                 </Stack>
-                <Divider />
                 <Stack direction="row" spacing={3} justifyContent="space-between" width="100%">
                     <Stack>
                         <Typography variant="subtitle1" color="secondary">

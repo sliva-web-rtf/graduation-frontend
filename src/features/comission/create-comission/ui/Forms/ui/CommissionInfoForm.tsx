@@ -1,9 +1,11 @@
+import { ExpertSelect } from '@/entities/Expert';
+import { SecretarySelect } from '@/entities/Secretary';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { BaseField, BaseSelect } from '@/shared/ui';
+import { BaseField } from '@/shared/ui';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Stack } from '@mui/material';
 import { memo, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { commissionFormActions, getCommissionInfoForm, infoFormSchema, InfoFormSchema } from '../../../model';
 
@@ -41,15 +43,6 @@ export const CommissionInfoForm = memo(() => {
     return (
         <Stack spacing={2} component="form">
             <BaseField
-                type="number"
-                label="Порядковый номер"
-                {...register('number', {
-                    setValueAs: (value) => (!value ? undefined : Number(value)),
-                })}
-                error={Boolean(errors.number)}
-                helperText={errors.number?.message}
-            />
-            <BaseField
                 label="Название комиссии"
                 multiline
                 rows={3}
@@ -57,13 +50,30 @@ export const CommissionInfoForm = memo(() => {
                 error={Boolean(errors.name)}
                 helperText={errors.name?.message}
             />
-            <BaseSelect
-                name="clerk"
+            <Controller
+                name="secretary"
                 control={control}
-                options={['Иванов', 'Миронова']}
-                label="Ответственный секретарь"
-                error={Boolean(errors.clerk)}
-                helperText={errors.clerk?.message}
+                render={({ field, fieldState }) => (
+                    <SecretarySelect
+                        label="Ответственный секретарь"
+                        error={fieldState.invalid}
+                        helperText={fieldState.error?.message}
+                        {...field}
+                    />
+                )}
+            />
+
+            <Controller
+                name="chairperson"
+                control={control}
+                render={({ field, fieldState }) => (
+                    <ExpertSelect
+                        label="Председатель комиссии"
+                        error={fieldState.invalid}
+                        helperText={fieldState.error?.message}
+                        {...field}
+                    />
+                )}
             />
         </Stack>
     );

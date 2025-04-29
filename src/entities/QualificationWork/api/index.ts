@@ -5,8 +5,8 @@ import { QualificationWorkRequest } from '../model/types';
 export const qualificationWorkApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
         getQualificationWork: build.query<any, QualificationWorkRequest>({
-            query: (params) => ({
-                url: '/qualification-works',
+            query: ({ id, ...params }) => ({
+                url: `/qualification-works/${id}`,
                 params,
             }),
             transformResponse: (response: QualificationWorkDto) => {

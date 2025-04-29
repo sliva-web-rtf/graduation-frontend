@@ -9,19 +9,25 @@ export enum CommissionFormStep {
 }
 
 export const infoFormSchema = z.object({
-    number: z.number({ required_error: 'Введите порядковый номер комисии' }).min(1, 'Введите порядковый номер комисии'),
     name: z.string().min(3, 'Введите название комиссии'),
-    clerk: z.string({
-        required_error: 'Выберите ответственного секретаря',
-    }),
+    secretary: z.object({ id: z.string(), name: z.string() }, { required_error: 'Выберите ответственного секретаря' }),
+    chairperson: z.object({ id: z.string(), name: z.string() }, { required_error: 'Выберите председателя комиссии' }),
 });
 
-export const expertsFormSchema = z.object({
-    experts: z.array(z.string()).min(1),
-});
+export const expertsFormSchema = z.record(z.string(), z.array(z.string())).refine(
+    (obj) => {
+        const values = Object.values(obj);
+        // Проверяем, что первый этап (если есть) содержит хотя бы одного эксперта
+        if (values.length === 0) return false;
+        return Array.isArray(values[0]) && values[0].length > 0;
+    },
+    {
+        message: 'В первом этапе должен быть выбран хотя бы один эксперт',
+    },
+);
 
 export const groupsFormSchema = z.object({
-    groups: z.array(z.string()).min(1),
+    academicGroups: z.array(z.string()).min(1),
 });
 
 export const studentsFormSchema = z.object({

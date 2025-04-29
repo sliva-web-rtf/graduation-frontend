@@ -1,5 +1,6 @@
 import { userReducer } from '@/entities/User';
 import { yearReducer } from '@/entities/Year';
+import { commissionFormReducer } from '@/features/comission/create-comission';
 import { baseApi } from '@/shared/api';
 import { catalogReducer } from '@/widgets/Catalog';
 import { diplomReducer } from '@/widgets/MyDiplom';
@@ -18,6 +19,7 @@ export function createReduxStore(initialState?: StateSchema, asyncReducers?: Red
         catalog: catalogReducer,
         requests: requestsReducer,
         diplom: diplomReducer,
+        commissionForm: commissionFormReducer,
         [baseApi.reducerPath]: baseApi.reducer,
     };
 

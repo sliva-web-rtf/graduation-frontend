@@ -10,8 +10,8 @@ export const CommissionFormStepRus: Record<CommissionFormStep, string> = {
 
 export const CommissionFormStepDescription: Record<CommissionFormStep, string> = {
     [CommissionFormStep.Info]: 'Заполните основную информацию о комиссии',
-    [CommissionFormStep.Experts]: 'Добавьте экспертов',
+    [CommissionFormStep.Experts]: 'Выберите экспертов на каждый этап ВКР',
     [CommissionFormStep.Groups]: 'Добавьте академические группы',
-    [CommissionFormStep.Students]: 'Отредактируйте список студентов',
-    [CommissionFormStep.Submit]: '',
+    [CommissionFormStep.Students]: 'Выберите студентов на каждый этап ВКР',
+    [CommissionFormStep.Submit]: 'Проверьте введенные данные и создайте комиссию',
 };

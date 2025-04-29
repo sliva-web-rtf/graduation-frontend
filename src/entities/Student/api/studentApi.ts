@@ -1,18 +1,16 @@
 import { baseApi } from '@/shared/api';
-import { Student } from '@/entities/Student';
-import { StudentRequest } from '../model/types/studentRequest';
+import { removeEmptyValues } from '@/shared/lib/helpers/removeEmptyValues';
+import { StudentRequest, StudentsDto } from '../model';
 
 const studentApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
-        getStudent: build.query<Student, StudentRequest>({
-            query: ({ id }) => ({
-                url: 'api/student/student-profile-by-id',
-                params: {
-                    studentId: id,
-                },
+        getStudents: build.query<StudentsDto, StudentRequest>({
+            query: (params) => ({
+                url: '/commissions/students',
+                params: removeEmptyValues(params),
             }),
         }),
     }),
 });
 
-export const { useGetStudentQuery } = studentApi;
+export const { useGetStudentsQuery } = studentApi;
