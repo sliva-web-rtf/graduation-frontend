@@ -14,4 +14,7 @@ export const mapCommissionsDtoToModel = (dto: CommissionsDto): CommissionsModel 
         number: item.number,
         name: item.name,
         secretaryName: item.secretaryName,
+        chairpersonName: item.chairpersonName,
+        academicGroups: item.academicGroups,
+        expertsNames: item.expertsNames,
     }));

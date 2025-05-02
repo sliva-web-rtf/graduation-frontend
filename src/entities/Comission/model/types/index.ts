@@ -8,12 +8,13 @@ export type CommissionModel = {
     number: number;
     name: string;
     secretaryName: string;
-    chairpersonName: string;
     expertsNames: Expert[];
+    chairpersonName: string;
+    academicGroups: string[];
 };
 
 export type CommissionRequest = {
-    id: 'string';
+    id: string;
 };
 export type CommissionNamesDto = {
     commissions: Pick<CommissionModel, 'name' | 'secretaryName'>[];

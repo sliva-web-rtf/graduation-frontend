@@ -1,12 +1,12 @@
 import { useGetStagesOptionsQuery } from '@/entities/Stage/api';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { PageLoader } from '@/shared/ui';
 import { Box, Stack } from '@mui/material';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { CommissionStorageService } from '../lib';
 import { commissionFormActions, getCommissionForm } from '../model';
 import { CommissionFormStep } from '../model/types';
+import { ComissionFormSkeleton } from './ComissionForm.skeleton';
 import { CreateComissionStepper } from './ComissionFormStepper';
 import {
     CommissionExpertsForm,
@@ -27,20 +27,12 @@ export const ComissionForm = () => {
     }, [dispatch]);
 
     if (isLoading) {
-        return <PageLoader />;
+        return <ComissionFormSkeleton />;
     }
 
     return (
         <Stack direction="row" spacing={4} height="100%">
-            <Stack
-                position="sticky"
-                width="30%"
-                minWidth={320}
-                maxWidth={400}
-                alignSelf="flex-start"
-                top={32}
-                spacing={4}
-            >
+            <Stack position="sticky" width="30%" minWidth={320} maxWidth={400} alignSelf="flex-start" top={32}>
                 <CreateComissionStepper />
             </Stack>
             <Box width="100%">

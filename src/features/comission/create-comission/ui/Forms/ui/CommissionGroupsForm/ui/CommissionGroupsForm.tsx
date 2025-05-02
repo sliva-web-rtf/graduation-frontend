@@ -10,6 +10,7 @@ import {
     groupsFormSchema,
     GroupsFormSchema,
 } from '../../../../../model';
+import { getDefaultGroupsFormValues } from '../lib';
 import { CommissionGroupsList } from './CommissionGroupsList';
 import { CommissionGroupsSearch } from './CommissionGroupsSearch';
 
@@ -19,7 +20,7 @@ export const CommissionGroupsForm = memo(() => {
     const [query, setQuery] = useState('');
 
     const { control, getValues } = useForm<GroupsFormSchema>({
-        defaultValues: data || { academicGroups: [] },
+        defaultValues: getDefaultGroupsFormValues(data),
         resolver: zodResolver(groupsFormSchema),
     });
 

@@ -4,14 +4,26 @@ import { ChangeEvent } from 'react';
 import { CommissionFormSchema, CommissionFormStep } from '../model';
 
 export namespace CommissionStorageService {
-    type Key = 'COMISSION_INFO' | 'COMMISSION_EXPERTS' | 'COMMISSION_GROUPS' | 'COMMISSION_STUDENTS';
+    const COMMISSION_STORAGE_KEYS = [
+        'COMISSION_INFO',
+        'COMMISSION_EXPERTS',
+        'COMMISSION_GROUPS',
+        'COMMISSION_STUDENTS',
+        'CREATE_COMMISSION_STEP',
+    ] as const;
+
+    type Key = (typeof COMMISSION_STORAGE_KEYS)[number];
     type Schema = CommissionFormSchema['forms'];
 
-    export function save(key: Key, data: Schema['info' | 'groups' | 'students' | 'experts']) {
+    export function save(key: Key, data: Schema['info' | 'groups' | 'students' | 'experts'] | CommissionFormStep) {
         LocalStorageService.save(key, data);
     }
 
-    export function get(): Partial<Schema> {
+    export function get(key?: Key): Partial<Schema> {
+        if (key) {
+            return LocalStorageService.get(key) as any;
+        }
+
         const info = LocalStorageService.get<Schema['info']>('COMISSION_INFO');
         const experts = LocalStorageService.get<Schema['info']>('COMMISSION_EXPERTS');
         const groups = LocalStorageService.get<Schema['groups']>('COMMISSION_GROUPS');
@@ -21,10 +33,7 @@ export namespace CommissionStorageService {
     }
 
     export function clear() {
-        LocalStorageService.remove('COMISSION_INFO');
-        LocalStorageService.remove('COMMISSION_EXPERTS');
-        LocalStorageService.remove('COMMISSION_GROUPS');
-        LocalStorageService.remove('COMMISSION_STUDENTS');
+        COMMISSION_STORAGE_KEYS.forEach((key) => LocalStorageService.remove(key));
     }
 }
 

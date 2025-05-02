@@ -1,35 +1,45 @@
-import { BaseChip, BaseSelect, BaseSelectProps } from '@/shared/ui';
-import { Stack } from '@mui/material';
-import { memo } from 'react';
-import { useGetCommissionNamesQuery } from '../api';
+import { BaseSelect, BaseSelectProps, OptionType } from '@/shared/ui';
+import { memo, useEffect, useState } from 'react';
+import { useGetCommissionsQuery } from '../api';
+import { transformCommissionsToOptions } from '../lib/transformCommissionsToOptions';
 
 type ComissionSelectProps = Omit<BaseSelectProps, 'options'> & { limitTags?: number };
 
 export const ComissionSelect = memo((props: ComissionSelectProps) => {
-    const { data, isFetching } = useGetCommissionNamesQuery();
-    const limitTags = props.limitTags ?? 2;
+    const [open, setOpen] = useState(false);
+    const [cachedOptions, setCachedOptions] = useState<OptionType[]>([]);
+
+    const { data, isFetching } = useGetCommissionsQuery(undefined, {
+        selectFromResult: ({ data, isFetching }) => ({
+            data: transformCommissionsToOptions(data),
+            isFetching,
+        }),
+        skip: !open && Boolean(cachedOptions.length),
+    });
+
+    const handleOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    useEffect(() => {
+        if (data?.length) {
+            setCachedOptions(data);
+        }
+    }, [data]);
 
     return (
         <BaseSelect
-            multiple
+            loading={isFetching}
+            open={open}
+            onOpen={handleOpen}
+            onClose={handleClose}
             label="Комиссия"
             useController={false}
-            options={data || []}
-            disabled={isFetching}
-            renderValue={(selected: unknown) => (
-                <Stack direction="row" gap={0.5}>
-                    {(selected as string[]).slice(0, limitTags).map((value) => (
-                        <BaseChip size="small" color="secondary" key={value} label={value} />
-                    ))}
-                    {limitTags && (selected as string[]).length > limitTags && (
-                        <BaseChip
-                            size="small"
-                            color="secondary"
-                            label={`+${(selected as string[]).length - limitTags}`}
-                        />
-                    )}
-                </Stack>
-            )}
+            options={cachedOptions}
             {...props}
         />
     );

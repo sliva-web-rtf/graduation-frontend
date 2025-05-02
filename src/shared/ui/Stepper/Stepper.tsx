@@ -1,3 +1,4 @@
+import { CommissionFormStep } from '@/features/comission/create-comission/model';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import {
@@ -13,12 +14,13 @@ import {
     Typography,
 } from '@mui/material';
 import { stepConnectorClasses } from '@mui/material/StepConnector';
-import { BaseAlert } from '../Alert/Alert';
+import { memo } from 'react';
 import { BaseButton } from '../Button/Button';
 
 interface BaseStepProps extends StepProps {
     step: number;
     label: string;
+    onStepClick: (step: CommissionFormStep) => void;
     onNextClick: () => void;
     onBackClick: () => void;
     isLast: boolean;
@@ -44,18 +46,22 @@ export const BaseStepper = (props: StepperProps) => (
     <Stepper {...props} connector={<Connector />} orientation="vertical" />
 );
 
-export const BaseStep = (props: BaseStepProps) => {
-    const { step, label, content, onNextClick, onBackClick, isLast, error, ...rest } = props;
-    const isFirst = step === 1;
+export const BaseStep = memo((props: BaseStepProps) => {
+    const { step, label, content, onStepClick, onNextClick, onBackClick, isLast, error, ...rest } = props;
+    const isFirst = step === 0;
+
+    const handleLabelClick = () => {
+        onStepClick(step);
+    };
 
     return (
         <Step {...rest}>
-            <StepLabel error={error}>
+            <StepLabel error={error} onClick={handleLabelClick} sx={{ cursor: 'pointer !important' }}>
                 <Typography fontWeight={600}>{label}</Typography>
             </StepLabel>
             <BaseStepContent>
                 <Stack spacing={2}>
-                    <BaseAlert severity="info">{content}</BaseAlert>
+                    <Typography>{content}</Typography>
                     <Stack direction="row" spacing={1}>
                         {!isLast && (
                             <BaseButton variant="contained" onClick={onNextClick} startIcon={<ArrowDownwardIcon />}>
@@ -72,4 +78,4 @@ export const BaseStep = (props: BaseStepProps) => {
             </BaseStepContent>
         </Step>
     );
-};
+});

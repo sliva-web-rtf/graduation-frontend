@@ -1,1 +1,1 @@
-export { StudentRequest, StudentsDto } from './types';
+export { StudentsDto, StudentsRequest } from './types';

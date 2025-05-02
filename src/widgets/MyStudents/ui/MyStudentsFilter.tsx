@@ -1,4 +1,4 @@
-import { ComissionSelect } from '@/entities/Comission';
+import { ComissionNameSelect } from '@/entities/Comission';
 import { StageSelect } from '@/entities/Stage';
 import { isUserHeadSecretary } from '@/entities/User';
 import { DEBOUNCE_DELAY } from '@/shared/lib/const';
@@ -60,7 +60,7 @@ export const MyStudentsFilter = memo(() => {
                 </Box>
                 {isHeadSecretary && (
                     <Box flex={1}>
-                        <ComissionSelect
+                        <ComissionNameSelect
                             value={commissions}
                             // @ts-expect-error Хак из-за максимальной универсальности селекта
                             onChange={onChangeComission}

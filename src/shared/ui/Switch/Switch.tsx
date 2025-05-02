@@ -44,7 +44,12 @@ export const BaseSwitch = forwardRef((props: Props, ref: Ref<any>) => {
 
     return (
         <FormGroup>
-            <FormControlLabel ref={ref} label={label} control={<Android12Switch {...props} />} />
+            <FormControlLabel
+                ref={ref}
+                label={label}
+                sx={{ '.MuiFormControlLabel-label': { fontWeight: 600, fontSize: 14 } }}
+                control={<Android12Switch {...props} />}
+            />
         </FormGroup>
     );
 });

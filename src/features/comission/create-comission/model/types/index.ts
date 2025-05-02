@@ -14,27 +14,59 @@ export const infoFormSchema = z.object({
     chairperson: z.object({ id: z.string(), name: z.string() }, { required_error: 'Выберите председателя комиссии' }),
 });
 
-export const expertsFormSchema = z.record(z.string(), z.array(z.string())).refine(
-    (obj) => {
-        const values = Object.values(obj);
-        // Проверяем, что первый этап (если есть) содержит хотя бы одного эксперта
-        if (values.length === 0) return false;
-        return Array.isArray(values[0]) && values[0].length > 0;
-    },
-    {
-        message: 'В первом этапе должен быть выбран хотя бы один эксперт',
-    },
-);
+export const expertsFormSchema = z
+    .record(
+        z.string(),
+        z.array(
+            z.object({
+                id: z.string(),
+                isInvited: z.boolean(),
+            }),
+        ),
+    )
+    .refine(
+        (obj) => {
+            const values = Object.values(obj);
+            // Проверяем, что первый этап (если есть) содержит хотя бы одного эксперта
+            if (values.length === 0) return false;
+            return Array.isArray(values[0]) && values[0].length > 0;
+        },
+        {
+            message: 'В первом этапе должен быть выбран хотя бы один эксперт',
+        },
+    );
 
 export const groupsFormSchema = z.object({
-    academicGroups: z.array(z.string()).min(1),
+    academicGroups: z
+        .array(
+            z.object({
+                id: z.string(),
+                name: z.string(),
+            }),
+        )
+        .min(1),
 });
 
-export const studentsFormSchema = z.object({
-    students: z.array(z.string()).min(1),
-});
-
-export const fullFormSchema = infoFormSchema.merge(groupsFormSchema).merge(studentsFormSchema);
+export const studentsFormSchema = z
+    .record(
+        z.string(),
+        z.array(
+            z.object({
+                id: z.string(),
+                commissionId: z.string().nullable(),
+            }),
+        ),
+    )
+    .refine(
+        (obj) => {
+            const values = Object.values(obj);
+            if (values.length === 0) return false;
+            return Array.isArray(values[0]) && values[0].length > 0;
+        },
+        {
+            message: 'В первом этапе должен быть выбран хотя бы один студент',
+        },
+    );
 
 export type InfoFormSchema = z.infer<typeof infoFormSchema>;
 export type ExpertsFormSchema = z.infer<typeof expertsFormSchema>;

@@ -4,7 +4,7 @@ export const commissionApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
         createCommission: build.mutation<void, void>({
             query: (body) => ({
-                url: '/commissions/create',
+                url: '/commissions',
                 method: 'POST',
                 body,
             }),

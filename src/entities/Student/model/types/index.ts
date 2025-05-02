@@ -1,11 +1,13 @@
 import { AcademicGroup } from '@/entities/AcademicGroup';
 import { CommissionModel } from '@/entities/Comission';
 
-export type StudentRequest = {
-    query: string;
+export type StudentsRequest = {
     page: number;
     size: number;
     stage: string;
+
+    query?: string;
+    sortByAcademicGroups?: string[];
 };
 
 export type StudentDto = {

@@ -13,8 +13,10 @@ import {
     StudentsFormSchema,
 } from '../types';
 
+export const CREATE_COMMISSION_STEP = 'CREATE_COMMISSION_STEP';
+
 export const initialState: CommissionFormSchema = {
-    step: CommissionFormStep.Info,
+    step: (CommissionStorageService.get(CREATE_COMMISSION_STEP) as CommissionFormStep) ?? CommissionFormStep.Info,
     steps: [
         CommissionFormStep.Info,
         CommissionFormStep.Experts,

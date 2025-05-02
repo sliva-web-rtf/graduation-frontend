@@ -1,15 +1,16 @@
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { BaseStep, BaseStepper } from '@/shared/ui';
 import { Paper } from '@mui/material';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { getStepCompletedStatus, getStepErrorStatus } from '../lib';
+import { CommissionStorageService, getStepCompletedStatus, getStepErrorStatus } from '../lib';
 import {
     commissionFormActions,
     CommissionFormStepDescription,
     CommissionFormStepRus,
     getCommissionForm,
 } from '../model';
+import { CREATE_COMMISSION_STEP } from '../model/slice';
 import { CommissionFormStep } from '../model/types';
 
 export const CreateComissionStepper = () => {
@@ -17,8 +18,9 @@ export const CreateComissionStepper = () => {
     const { step, steps, forms } = useSelector(getCommissionForm);
 
     const handleChangeStep = useCallback(
-        (step: CommissionFormStep) => {
-            dispatch(commissionFormActions.setStep(step));
+        (newStep: CommissionFormStep) => {
+            dispatch(commissionFormActions.setStep(newStep));
+            CommissionStorageService.save(CREATE_COMMISSION_STEP, newStep);
         },
         [dispatch],
     );
@@ -31,6 +33,20 @@ export const CreateComissionStepper = () => {
         handleChangeStep(step + 1);
     }, [handleChangeStep, step]);
 
+    const handleStepClick = useCallback(
+        (step: CommissionFormStep) => {
+            handleChangeStep(step);
+        },
+        [handleChangeStep],
+    );
+
+    useEffect(() => {
+        const savedStep = CommissionStorageService.get(CREATE_COMMISSION_STEP);
+        if (savedStep !== null) {
+            dispatch(commissionFormActions.setStep(Number(savedStep)));
+        }
+    }, [dispatch]);
+
     return (
         <Paper sx={(theme) => ({ padding: 2, borderRadius: theme.spacing(2) })}>
             <BaseStepper activeStep={step}>
@@ -39,10 +55,11 @@ export const CreateComissionStepper = () => {
                         completed={getStepCompletedStatus(step, forms)}
                         error={getStepErrorStatus(step, forms)}
                         key={step}
-                        step={step + 1}
+                        step={step}
                         label={CommissionFormStepRus[step]}
                         content={CommissionFormStepDescription[step]}
                         isLast={step === CommissionFormStep.Submit}
+                        onStepClick={handleStepClick}
                         onBackClick={handleBackClick}
                         onNextClick={handleNextClick}
                     />

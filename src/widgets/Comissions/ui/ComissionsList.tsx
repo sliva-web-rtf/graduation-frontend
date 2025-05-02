@@ -20,8 +20,16 @@ export const ComissionsList = () => {
 
     return (
         <Stack spacing={2}>
-            {data.map(({ id, number, name, secretaryName }) => (
-                <ComissionCard key={id} id={id} number={number} name={name} secretaryName={secretaryName} />
+            {data.map(({ id, number, name, secretaryName, academicGroups, chairpersonName }) => (
+                <ComissionCard
+                    key={id}
+                    id={id}
+                    number={number}
+                    name={name}
+                    secretaryName={secretaryName}
+                    chairpersonName={chairpersonName}
+                    academicGroups={academicGroups}
+                />
             ))}
         </Stack>
     );

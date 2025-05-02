@@ -1,11 +1,12 @@
 import { useGetExpertsQuery } from '@/entities/Expert';
-import { BaseCheckbox, BasePagination, EmptyMessage } from '@/shared/ui';
+import { BasePagination, EmptyMessage } from '@/shared/ui';
 import { BaseCheckboxSkeletonList } from '@/shared/ui/Checkbox/Checkbox.skeleton';
 import { FormControl, Stack } from '@mui/material';
-import { ChangeEvent, memo, useCallback, useState } from 'react';
+import { ChangeEvent, memo, useCallback, useEffect, useState } from 'react';
 import { Control, Controller } from 'react-hook-form';
-import { getCheckboxChangeHandler } from '../../../../../lib';
 import { ExpertsFormSchema } from '../../../../../model';
+import { getExpertChangeHandler } from '../lib';
+import { ExpertCheckbox } from './ExpertCheckbox';
 
 type CommissionExpertsListProps = {
     name: string;
@@ -14,16 +15,21 @@ type CommissionExpertsListProps = {
 };
 
 const size = 10;
+const defaultPage = 0;
 
 export const CommissionExpertsList = memo((props: CommissionExpertsListProps) => {
     const { control, name, query } = props;
-    const [page, setPage] = useState(0);
+    const [page, setPage] = useState(defaultPage);
 
     const { data, isFetching } = useGetExpertsQuery({ query, size, page });
 
     const handleChangePage = useCallback((_: ChangeEvent<unknown>, value: number) => {
         setPage(value - 1);
     }, []);
+
+    useEffect(() => {
+        setPage(defaultPage);
+    }, [query]);
 
     if (isFetching) {
         return <BaseCheckboxSkeletonList count={size} />;
@@ -42,15 +48,22 @@ export const CommissionExpertsList = memo((props: CommissionExpertsListProps) =>
                     render={({ field }) => (
                         <Stack spacing={1}>
                             {data.experts.map((item) => {
-                                const handleChange = getCheckboxChangeHandler(field)(item.id);
+                                const handleChange = getExpertChangeHandler(field)(item.id);
+                                const handleSwitchChange = getExpertChangeHandler(field)(item.id, 'isInvited');
+                                const checked = field.value?.some((expert) => expert.id === item.id);
+                                const invited = field.value?.some(
+                                    (expert) => expert.id === item.id && expert.isInvited,
+                                );
 
                                 return (
-                                    <BaseCheckbox
+                                    <ExpertCheckbox
                                         key={item.id}
                                         label={item.name}
                                         value={item.id}
-                                        checked={field.value?.includes(item.id)}
+                                        checked={checked}
+                                        invited={invited}
                                         onChange={handleChange}
+                                        onSwitchChange={handleSwitchChange}
                                     />
                                 );
                             })}

@@ -1,10 +1,12 @@
-import { Checkbox, CheckboxProps, FormControlLabel, Paper, Stack, Typography } from '@mui/material';
+import { Checkbox, CheckboxProps, FormControlLabel, Stack, Typography } from '@mui/material';
 import { BaseChip } from '../Chip/Chip';
 
 type Props = {
-    value: string;
     label: string;
+
     description?: string | string[];
+    value?: string;
+    styled?: boolean;
 };
 
 const renderDescription = (description?: string | string[]) => {
@@ -29,17 +31,15 @@ export const BaseCheckbox = (props: Props & CheckboxProps) => {
     const { value, label, description, ...checkboxProps } = props;
 
     return (
-        <Paper sx={(theme) => ({ padding: [theme.spacing(0.3), theme.spacing(2)].join(' '), borderRadius: 3 })}>
-            <FormControlLabel
-                label={
-                    <Stack direction="row" spacing={2} alignItems="center">
-                        <Typography fontWeight={600}>{label}</Typography>
-                        {renderDescription(description)}
-                    </Stack>
-                }
-                value={value}
-                control={<Checkbox {...checkboxProps} />}
-            />
-        </Paper>
+        <FormControlLabel
+            label={
+                <Stack direction="row" spacing={2} alignItems="center">
+                    <Typography fontWeight={600}>{label}</Typography>
+                    {renderDescription(description)}
+                </Stack>
+            }
+            value={value}
+            control={<Checkbox {...checkboxProps} />}
+        />
     );
 };

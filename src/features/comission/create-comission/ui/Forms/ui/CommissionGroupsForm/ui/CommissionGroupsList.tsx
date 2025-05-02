@@ -1,11 +1,12 @@
 import { useGetAcademicGroupsQuery } from '@/entities/AcademicGroup';
-import { BaseCheckbox, BasePagination, EmptyMessage } from '@/shared/ui';
+import { BasePagination, EmptyMessage } from '@/shared/ui';
 import { BaseCheckboxSkeletonList } from '@/shared/ui/Checkbox/Checkbox.skeleton';
 import { FormControl, Stack } from '@mui/material';
-import { ChangeEvent, memo, useCallback, useState } from 'react';
+import { ChangeEvent, memo, useCallback, useEffect, useState } from 'react';
 import { Control, Controller } from 'react-hook-form';
-import { getCheckboxChangeHandler } from '../../../../../lib';
 import { GroupsFormSchema } from '../../../../../model';
+import { getGroupsChangeHandler } from '../lib';
+import { GroupCheckbox } from './GroupCheckbox';
 
 type CommissionGroupsListProps = {
     control: Control<GroupsFormSchema>;
@@ -13,16 +14,21 @@ type CommissionGroupsListProps = {
 };
 
 const size = 10;
+const defaultPage = 0;
 
 export const CommissionGroupsList = memo((props: CommissionGroupsListProps) => {
     const { control, query } = props;
-    const [page, setPage] = useState(0);
+    const [page, setPage] = useState(defaultPage);
 
     const { data, isFetching } = useGetAcademicGroupsQuery({ query, size, page });
 
     const handleChangePage = useCallback((_: ChangeEvent<unknown>, value: number) => {
         setPage(value - 1);
     }, []);
+
+    useEffect(() => {
+        setPage(defaultPage);
+    }, [query]);
 
     if (isFetching) {
         return <BaseCheckboxSkeletonList count={size} />;
@@ -41,19 +47,19 @@ export const CommissionGroupsList = memo((props: CommissionGroupsListProps) => {
                     render={({ field }) => (
                         <Stack spacing={1}>
                             {data.academicGroups.map((item) => {
-                                const handleChange = getCheckboxChangeHandler(field)(item.id);
+                                const checked = field.value?.some((group) => group.id === item.id);
+                                const handleChange = getGroupsChangeHandler(field)(item);
                                 const description = [
                                     item.academicProgram,
                                     item.blocked ? 'В другой комиссии' : '',
                                 ].filter(Boolean);
 
                                 return (
-                                    <BaseCheckbox
+                                    <GroupCheckbox
                                         key={item.id}
                                         label={item.name}
-                                        value={item.id}
                                         description={description}
-                                        checked={field.value?.includes(item.id)}
+                                        checked={checked}
                                         onChange={handleChange}
                                         disabled={item.blocked}
                                     />

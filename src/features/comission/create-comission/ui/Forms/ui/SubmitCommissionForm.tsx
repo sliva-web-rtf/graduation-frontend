@@ -1,14 +1,14 @@
-import { RoutePath } from '@/app/providers/Router';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { BaseAlert, BaseLoadingButton } from '@/shared/ui';
+import { BaseAlert, BaseChip, BaseLoadingButton } from '@/shared/ui';
 import SaveIcon from '@mui/icons-material/Save';
 import { Divider, Paper, Stack, Typography } from '@mui/material';
+import { memo } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useCreateCommissionMutation } from '../../../api';
 import { commissionFormActions, getCommissionForm } from '../../../model';
 
-export const SubmitCommissionForm = () => {
+export const SubmitCommissionForm = memo(() => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const { forms } = useSelector(getCommissionForm);
@@ -19,11 +19,13 @@ export const SubmitCommissionForm = () => {
     const handleClick = () => {
         dispatch(commissionFormActions.markStepsAsTouched());
 
+        console.log(info.data, experts.data, groups.data, students.data);
+
         if (isStepsValid) {
-            createCommission()
-                .unwrap()
-                .then(() => navigate(RoutePath.Commissions))
-                .then(() => dispatch(commissionFormActions.resetForm()));
+            // createCommission()
+            //     .unwrap()
+            //     .then(() => navigate(RoutePath.Commissions))
+            //     .then(() => dispatch(commissionFormActions.resetForm()));
         }
     };
 
@@ -37,36 +39,62 @@ export const SubmitCommissionForm = () => {
                 </>
             )}
             <Stack spacing={2} divider={<Divider />}>
-                <Stack>
+                <Stack spacing={1}>
                     <Typography variant="subtitle1" color="secondary">
                         Название комиссии
                     </Typography>
                     <Typography>{info.data?.name}</Typography>
                 </Stack>
-                <Stack>
+                <Stack spacing={1}>
                     <Typography variant="subtitle1" color="secondary">
                         Ответственный секретарь
                     </Typography>
-                    <Typography>{info.data?.clerk}</Typography>
+                    <Typography>{info.data?.secretary.name}</Typography>
                 </Stack>
-                <Stack direction="row" spacing={3} justifyContent="space-between" width="100%">
-                    <Stack>
-                        <Typography variant="subtitle1" color="secondary">
-                            Количество экспертов
-                        </Typography>
-                        <Typography>{experts.data?.experts.length}</Typography>
+                <Stack spacing={1}>
+                    <Typography variant="subtitle1" color="secondary">
+                        Председатель
+                    </Typography>
+                    <Typography>{info.data?.chairperson.name}</Typography>
+                </Stack>
+                <Stack spacing={2}>
+                    <Typography variant="subtitle1" color="secondary">
+                        Академические группы
+                    </Typography>
+                    <Stack direction="row" gap={1} flexWrap="wrap">
+                        {groups.data?.academicGroups.map((group) => (
+                            <BaseChip key={group.name} color="info" label={group.name} />
+                        ))}
                     </Stack>
-                    <Stack>
-                        <Typography variant="subtitle1" color="secondary">
-                            Количество групп
-                        </Typography>
-                        <Typography>{groups.data?.groups.length}</Typography>
+                </Stack>
+                <Stack spacing={2}>
+                    <Typography variant="subtitle1" color="secondary">
+                        Количество экспертов по этапам
+                    </Typography>
+                    <Stack direction="row" gap={1} flexWrap="wrap">
+                        {experts.data
+                            ? Object.entries(experts.data).map(([key, value]) => {
+                                  const color = value.length > 0 ? 'success' : 'warning';
+                                  const label = `${key}: ${value.length}`;
+
+                                  return <BaseChip key={`experts-${label}`} color={color} label={label} />;
+                              })
+                            : 'Нет данных'}
                     </Stack>
-                    <Stack>
-                        <Typography variant="subtitle1" color="secondary">
-                            Количество студентов
-                        </Typography>
-                        <Typography>{students.data?.students.length}</Typography>
+                </Stack>
+                <Stack spacing={2}>
+                    <Typography variant="subtitle1" color="secondary">
+                        Количество студентов по этапам
+                    </Typography>
+                    <Stack direction="row" gap={1} flexWrap="wrap">
+                        {students.data
+                            ? Object.entries(students.data).map(([key, value]) => {
+                                  const color = value.length > 0 ? 'success' : 'warning';
+                                  const label = `${key}: ${value.length}`;
+
+                                  return <BaseChip key={`students-${label}`} color={color} label={label} />;
+                              })
+                            : 'Нет данных'}
                     </Stack>
                 </Stack>
             </Stack>
@@ -82,4 +110,4 @@ export const SubmitCommissionForm = () => {
             </BaseLoadingButton>
         </Paper>
     );
-};
+});
