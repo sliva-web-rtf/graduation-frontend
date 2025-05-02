@@ -65,10 +65,11 @@ export const CommissionStudentsList = memo((props: CommissionStudentsListProps) 
                             <Stack spacing={1}>
                                 {data.students.map((item) => {
                                     const defaultChecked = fromSelectedGroup(item, academicGroups);
-                                    const checked =
-                                        field.value?.some((student) => student.id === item.id) || defaultChecked;
                                     const currentCommissionId =
                                         field.value?.find((student) => student.id === item.id)?.commissionId ?? null;
+                                    const checked =
+                                        !currentCommissionId &&
+                                        (field.value?.some((student) => student.id === item.id) || defaultChecked);
 
                                     return (
                                         <StudentCheckbox
