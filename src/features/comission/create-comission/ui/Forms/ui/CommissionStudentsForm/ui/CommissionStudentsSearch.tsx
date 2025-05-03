@@ -21,5 +21,12 @@ export const CommissionStudentsSearch = memo((props: CommissionStudentsSearchPro
         handleQueryChange(e.target.value);
     };
 
-    return <BaseSearch placeholder="Поиск по ФИО студента" value={queryValue} onChange={handleValueChange} />;
+    return (
+        <BaseSearch
+            label="Поиск по ФИО студента"
+            placeholder="Например: Иванов Иван Иванович"
+            value={queryValue}
+            onChange={handleValueChange}
+        />
+    );
 });

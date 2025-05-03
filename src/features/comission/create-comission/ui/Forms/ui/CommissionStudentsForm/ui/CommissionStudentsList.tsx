@@ -65,10 +65,14 @@ export const CommissionStudentsList = memo((props: CommissionStudentsListProps) 
                             <Stack spacing={1}>
                                 {data.students.map((item) => {
                                     const defaultChecked = fromSelectedGroup(item, academicGroups);
-                                    const currentCommissionId =
-                                        field.value?.find((student) => student.id === item.id)?.commissionId ?? null;
+                                    const { commissionId, commissionName } = field.value?.find(
+                                        (student) => student.id === item.id,
+                                    ) ?? {
+                                        commissionId: null,
+                                        commissionName: null,
+                                    };
                                     const checked =
-                                        !currentCommissionId &&
+                                        !commissionId &&
                                         (field.value?.some((student) => student.id === item.id) || defaultChecked);
 
                                     return (
@@ -79,7 +83,8 @@ export const CommissionStudentsList = memo((props: CommissionStudentsListProps) 
                                             isDefaultChecked={defaultChecked}
                                             onCheckChange={handleStudentChange(item.id)}
                                             onCommissionChange={handleCommissionChange(item.id)}
-                                            currentCommissionId={currentCommissionId}
+                                            currentCommissionId={commissionId}
+                                            currentCommissionName={commissionName}
                                         />
                                     );
                                 })}

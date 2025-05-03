@@ -21,5 +21,12 @@ export const CommissionExpertsSearch = memo((props: CommissionExpertsSearchProps
         handleQueryChange(e.target.value);
     };
 
-    return <BaseSearch placeholder="Поиск по ФИО эксперта" value={queryValue} onChange={handleValueChange} />;
+    return (
+        <BaseSearch
+            label="Поиск по ФИО эксперта"
+            placeholder="Например: Иванов Иван Иванович"
+            value={queryValue}
+            onChange={handleValueChange}
+        />
+    );
 });

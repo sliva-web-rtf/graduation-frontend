@@ -1,7 +1,7 @@
 import { handleCheckboxGroupChange } from '@/shared/lib/helpers/handleCheckboxGroupChange';
 import { LocalStorageService } from '@/shared/lib/helpers/localStorage';
 import { ChangeEvent } from 'react';
-import { CommissionFormSchema, CommissionFormStep } from '../model';
+import { CommissionFormSchema, CommissionFormStep, CreateCommissionRequest } from '../model';
 
 export namespace CommissionStorageService {
     const COMMISSION_STORAGE_KEYS = [
@@ -98,4 +98,21 @@ export const getStepCompletedStatus = (
 
 export const getCheckboxChangeHandler = (field: any) => (itemId: string) => (e: ChangeEvent<HTMLInputElement>) => {
     field.onChange(handleCheckboxGroupChange(e, field.value, itemId));
+};
+
+export const transformFormDataToRequest = (forms: CommissionFormSchema['forms']): CreateCommissionRequest => {
+    const { info, groups, students, experts } = forms;
+    const stages = Object.keys(experts.data ?? {});
+
+    return {
+        name: info.data?.name ?? '',
+        secretaryId: info.data?.secretary.id ?? '',
+        chairpersonId: info.data?.chairperson.id ?? '',
+        academicGroups: groups.data?.academicGroups.map((group) => group.id) ?? [],
+        stages: stages.map((stage) => ({
+            stage,
+            experts: experts.data?.[stage] ?? [],
+            movedStudents: students.data?.[stage] ?? [],
+        })),
+    };
 };

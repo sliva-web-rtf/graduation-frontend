@@ -1,5 +1,5 @@
 import { BaseAlert, BaseChip } from '@/shared/ui';
-import { Stack, Typography } from '@mui/material';
+import { Stack } from '@mui/material';
 import { memo } from 'react';
 
 type CommissionStudentsGroupsListProps = {
@@ -15,7 +15,7 @@ export const CommissionStudentsGroupsList = memo((props: CommissionStudentsGroup
 
     return (
         <Stack spacing={2} direction="row" flexWrap="wrap" alignItems="center">
-            <Typography color="secondary">Выбранные академ. группы:</Typography>
+            <BaseChip label="Выбранные академ. группы:" />
             <Stack spacing={0.5} direction="row" flexWrap="wrap" alignItems="center">
                 {academicGroups.map((group) => (
                     <BaseChip key={group} label={group} color="info" />

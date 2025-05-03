@@ -3,26 +3,24 @@ import { BaseAlert, BaseButton, BaseModal } from '@/shared/ui';
 import CancelIcon from '@mui/icons-material/Cancel';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import MoveDownIcon from '@mui/icons-material/MoveDown';
-import { SelectChangeEvent, Stack } from '@mui/material';
+import { SelectChangeEvent, Stack, Tooltip } from '@mui/material';
 import { useCallback, useState } from 'react';
+import { CommissionChangePayload } from '../lib';
 
 type StudentTransferModalProps = {
     studentName: string;
-    onCommissionChange: (commissionId: string) => void;
+    onCommissionChange: (payload: CommissionChangePayload) => void;
     currentCommissionId: string | null;
+    currentCommissionName: string | null;
 };
 
 const defaultComissionId = 'null';
 
 export const StudentTransferModal = (props: StudentTransferModalProps) => {
-    const { studentName, onCommissionChange, currentCommissionId } = props;
+    const { studentName, onCommissionChange, currentCommissionId, currentCommissionName } = props;
     const [open, setOpen] = useState(false);
-    const [comissionId, setComissionId] = useState<string | null>(currentCommissionId);
-
-    // const { data: comissionName, isFetching } = useGetComissionNameQuery(
-    //     { id: currentCommissionId! },
-    //     { skip: !currentCommissionId },
-    // );
+    const [commissionId, setCommissionId] = useState<string | null>(currentCommissionId);
+    const [commissionName, setCommissionName] = useState<string | null>(currentCommissionName);
 
     const handleOpen = () => {
         setOpen(true);
@@ -32,28 +30,30 @@ export const StudentTransferModal = (props: StudentTransferModalProps) => {
         setOpen(false);
     };
 
-    const handleChange = useCallback((event: SelectChangeEvent<unknown>) => {
-        setComissionId(event.target.value as string);
+    const handleChange = useCallback((event: SelectChangeEvent<unknown>, item: any) => {
+        setCommissionId(event.target.value as string);
+        setCommissionName(item.props.children);
     }, []);
 
     const handleSubmit = useCallback(() => {
-        if (comissionId === defaultComissionId) {
-            onCommissionChange(defaultComissionId);
-        }
-
-        onCommissionChange(comissionId as string);
+        onCommissionChange({ commissionId, commissionName });
         handleClose();
-    }, [comissionId, onCommissionChange]);
+    }, [commissionId, onCommissionChange, commissionName]);
 
     const buttonColor = currentCommissionId ? 'secondary' : 'primary';
-    const buttonText = currentCommissionId ? `Переведен ` : 'Перевести';
+    const buttonText = currentCommissionName || 'Перевести';
+    const tooltipTitle = currentCommissionName
+        ? `Переведен в "${currentCommissionName}"`
+        : 'Перевести в другую комиссию';
     const buttonIcon = currentCommissionId ? <HowToRegIcon /> : <MoveDownIcon />;
 
     return (
         <>
-            <BaseButton variant="text" color={buttonColor} startIcon={buttonIcon} onClick={handleOpen}>
-                {buttonText}
-            </BaseButton>
+            <Tooltip title={tooltipTitle}>
+                <BaseButton variant="text" color={buttonColor} startIcon={buttonIcon} onClick={handleOpen}>
+                    {buttonText}
+                </BaseButton>
+            </Tooltip>
             <BaseModal
                 size="small"
                 open={open}
@@ -76,7 +76,8 @@ export const StudentTransferModal = (props: StudentTransferModalProps) => {
                     </BaseAlert>
                     <ComissionSelect
                         onChange={handleChange}
-                        value={comissionId}
+                        value={commissionId}
+                        commissionName={commissionName}
                         clearText="Восстановить по умолчанию"
                         clearValue={defaultComissionId}
                     />

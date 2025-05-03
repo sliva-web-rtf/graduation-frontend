@@ -34,15 +34,27 @@ export type BaseSelectProps<T = string | number> = Omit<SelectProps, 'options'> 
 
 const StyledSelect = styled(Select)<SelectProps>(({ theme }) => ({
     '&': {
-        borderRadius: theme.spacing(2),
-        backgroundColor: theme.palette.background.paper,
-        fontWeight: 500,
+        borderRadius: theme.spacing(1),
     },
-    '&:hover .MuiOutlinedInput-notchedOutline': {
-        borderColor: '#1e88e5 !important',
-    },
-    '&:hover.Mui-error .MuiOutlinedInput-notchedOutline': {
-        borderColor: `${theme.palette.error.main} !important`,
+    '& .MuiInputBase-input': {
+        overflow: 'hidden',
+        border: '1px solid',
+        borderRadius: theme.spacing(1),
+        backgroundColor: `${theme.palette.background.paper} !important`,
+        borderColor: theme.palette.grey[300],
+        '&:hover': {
+            borderColor: '#1e88e5',
+            backgroundColor: theme.palette.background.paper,
+        },
+
+        '&.Mui-error': {
+            borderColor: theme.palette.error.main,
+        },
+
+        '&.Mui-focused': {
+            borderColor: '#1e88e5',
+            backgroundColor: `${theme.palette.background.paper} !important`,
+        },
     },
 }));
 
@@ -103,17 +115,17 @@ export function BaseSelect<T = string | number>(props: BaseSelectProps<T>) {
 
     const renderSelect = (fieldProps?: { value: any; onChange: (event: any) => void }) => (
         <StyledSelect
-            renderValue={(selected: unknown) => {
-                if (selected === clearValue) {
-                    return clearText;
-                }
+            // renderValue={(selected: unknown) => {
+            //     if (selected === clearValue) {
+            //         return clearText;
+            //     }
 
-                if (otherProps.multiple && Array.isArray(selected)) {
-                    return (selected as T[]).map(getLabelByValue).join(', ');
-                }
+            //     if (otherProps.multiple && Array.isArray(selected)) {
+            //         return (selected as T[]).map(getLabelByValue).join(', ');
+            //     }
 
-                return getLabelByValue(selected as T);
-            }}
+            //     return getLabelByValue(selected as T);
+            // }}
             {...otherProps}
             label={label}
             value={fieldProps?.value ?? value ?? (otherProps.multiple ? [] : '')}
@@ -130,15 +142,25 @@ export function BaseSelect<T = string | number>(props: BaseSelectProps<T>) {
             {options.map((option) => {
                 const opt = getOptionObject(option);
 
-                return (
-                    <MenuItem key={opt.value as string} value={opt.value as string} disabled={!!opt.disabled}>
-                        {otherProps.multiple && (
+                if (otherProps.multiple) {
+                    return (
+                        <MenuItem
+                            key={opt.value as string}
+                            value={opt.value as string}
+                            disabled={Boolean(opt.disabled)}
+                        >
                             <Checkbox
                                 sx={{ width: 32, height: 32 }}
                                 checked={(fieldProps?.value ?? value ?? []).includes(opt.value)}
                             />
-                        )}
-                        <ListItemText primary={opt.label} />
+                            <ListItemText primary={opt.label} />
+                        </MenuItem>
+                    );
+                }
+
+                return (
+                    <MenuItem key={opt.value as string} value={opt.value as string}>
+                        {opt.label}
                     </MenuItem>
                 );
             })}

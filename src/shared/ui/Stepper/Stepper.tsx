@@ -64,12 +64,17 @@ export const BaseStep = memo((props: BaseStepProps) => {
                     <Typography>{content}</Typography>
                     <Stack direction="row" spacing={1}>
                         {!isLast && (
-                            <BaseButton variant="contained" onClick={onNextClick} startIcon={<ArrowDownwardIcon />}>
+                            <BaseButton
+                                size="small"
+                                variant="contained"
+                                onClick={onNextClick}
+                                startIcon={<ArrowDownwardIcon />}
+                            >
                                 Далее
                             </BaseButton>
                         )}
                         {!isFirst && (
-                            <BaseButton onClick={onBackClick} startIcon={<ArrowUpwardIcon />}>
+                            <BaseButton size="small" onClick={onBackClick} startIcon={<ArrowUpwardIcon />}>
                                 Назад
                             </BaseButton>
                         )}

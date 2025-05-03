@@ -2,6 +2,7 @@ import { StudentDto } from '@/entities/Student';
 import { BaseCheckbox } from '@/shared/ui';
 import { Paper, Stack } from '@mui/material';
 import { ChangeEvent, memo, useCallback } from 'react';
+import { CommissionChangePayload } from '../lib';
 import { StudentTransferModal } from './StudentTransferModal';
 
 type CheckboxItemProps = {
@@ -9,14 +10,25 @@ type CheckboxItemProps = {
     value: string;
     checked: boolean;
     onChange: (_: ChangeEvent<HTMLInputElement>, checked: boolean) => void;
-    onCommissionChange: (commissionId: string) => void;
+    onCommissionChange: (payload: CommissionChangePayload) => void;
     description?: string[];
     disabled?: boolean;
     currentCommissionId: string | null;
+    currentCommissionName: string | null;
 };
 
 const CheckboxItem = (props: CheckboxItemProps) => {
-    const { label, value, checked, onChange, onCommissionChange, description, disabled, currentCommissionId } = props;
+    const {
+        label,
+        value,
+        checked,
+        onChange,
+        onCommissionChange,
+        description,
+        disabled,
+        currentCommissionId,
+        currentCommissionName,
+    } = props;
 
     return (
         <Paper
@@ -41,6 +53,7 @@ const CheckboxItem = (props: CheckboxItemProps) => {
                     studentName={label}
                     onCommissionChange={onCommissionChange}
                     currentCommissionId={currentCommissionId}
+                    currentCommissionName={currentCommissionName}
                 />
             )}
         </Paper>
@@ -52,16 +65,25 @@ type StudentCheckboxProps = {
     isChecked: boolean;
     isDefaultChecked: boolean;
     onCheckChange: (e: ChangeEvent<HTMLInputElement>) => void;
-    onCommissionChange: (commissionId: string) => void;
+    onCommissionChange: (payload: CommissionChangePayload) => void;
     currentCommissionId: string | null;
+    currentCommissionName: string | null;
 };
 
 export const StudentCheckbox = memo((props: StudentCheckboxProps) => {
-    const { student, isChecked, isDefaultChecked, onCheckChange, onCommissionChange, currentCommissionId } = props;
+    const {
+        student,
+        isChecked,
+        isDefaultChecked,
+        onCheckChange,
+        onCommissionChange,
+        currentCommissionId,
+        currentCommissionName,
+    } = props;
     const description = [student.academicGroup?.name, student.commission?.name].filter(Boolean);
 
     const handleCommissionChange = useCallback(
-        (commissionId: string) => onCommissionChange(commissionId),
+        (payload: CommissionChangePayload) => onCommissionChange(payload),
         [onCommissionChange],
     );
 
@@ -76,6 +98,7 @@ export const StudentCheckbox = memo((props: StudentCheckboxProps) => {
             checked={isChecked}
             disabled={isDefaultChecked}
             currentCommissionId={currentCommissionId}
+            currentCommissionName={currentCommissionName}
         />
     );
 });

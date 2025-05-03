@@ -9,6 +9,9 @@ export enum CommissionFormStep {
 }
 
 export const infoFormSchema = z.object({
+    number: z
+        .number({ required_error: 'Введите порядковый номер', invalid_type_error: 'Введите порядковый номер' })
+        .min(1, 'Введите порядковый номер'),
     name: z.string().min(3, 'Введите название комиссии'),
     secretary: z.object({ id: z.string(), name: z.string() }, { required_error: 'Выберите ответственного секретаря' }),
     chairperson: z.object({ id: z.string(), name: z.string() }, { required_error: 'Выберите председателя комиссии' }),
@@ -54,6 +57,7 @@ export const studentsFormSchema = z
             z.object({
                 id: z.string(),
                 commissionId: z.string().nullable(),
+                commissionName: z.string().nullable(),
             }),
         ),
     )
@@ -98,4 +102,16 @@ export type CommissionFormSchema = {
             isTouched: boolean;
         };
     };
+};
+
+export type CreateCommissionRequest = {
+    name: InfoFormSchema['name'];
+    secretaryId: InfoFormSchema['secretary']['id'];
+    chairpersonId: InfoFormSchema['chairperson']['id'];
+    academicGroups: GroupsFormSchema['academicGroups'][number]['id'][];
+    stages: {
+        stage: string;
+        experts: ExpertsFormSchema[string];
+        movedStudents: StudentsFormSchema[string];
+    }[];
 };

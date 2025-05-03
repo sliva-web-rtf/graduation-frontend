@@ -46,7 +46,7 @@ export const CommissionStudentsForm = memo((props: CommissionStudentsFormProps) 
     return (
         <Stack spacing={4} height="100%">
             <ToggleStage options={stages} value={stage} onChange={setStage} />
-            <Stack spacing={1}>
+            <Stack spacing={2}>
                 <CommissionStudentsGroupsList academicGroups={academicGroups} />
                 <CommissionStudentsSearch query={query} onQueryChange={setQuery} />
             </Stack>

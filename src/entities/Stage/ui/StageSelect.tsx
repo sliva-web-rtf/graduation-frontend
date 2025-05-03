@@ -22,8 +22,7 @@ export const StageSelect = memo((props: StageSelectProps) => {
             label="Этап"
             useController={false}
             clearable={false}
-            disabled={isFetching}
-            options={data ?? []}
+            options={data ?? [props.value]}
             {...props}
             open={open}
             onOpen={handleOpen}

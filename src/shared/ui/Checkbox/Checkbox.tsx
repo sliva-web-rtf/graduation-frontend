@@ -33,7 +33,7 @@ export const BaseCheckbox = (props: Props & CheckboxProps) => {
     return (
         <FormControlLabel
             label={
-                <Stack direction="row" spacing={2} alignItems="center">
+                <Stack direction="row" spacing={2} alignItems="center" justifyContent="space-between" width="100%">
                     <Typography fontWeight={600}>{label}</Typography>
                     {renderDescription(description)}
                 </Stack>

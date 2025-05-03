@@ -28,7 +28,11 @@ export const Search = memo(() => {
 
     return (
         <Stack direction="row" spacing={2}>
-            <BaseSearch value={searchValue} onChange={onChangeSearch} />
+            <BaseSearch
+                value={searchValue}
+                onChange={onChangeSearch}
+                placeholder="Например: Разработка системы распознавания лиц"
+            />
             <AcademicProgramsSelect
                 useController={false}
                 label="Направление подготовки"

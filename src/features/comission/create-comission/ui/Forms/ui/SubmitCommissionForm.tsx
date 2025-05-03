@@ -1,4 +1,5 @@
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { useSnackbar } from '@/shared/lib/hooks/useSnackbar';
 import { BaseAlert, BaseChip, BaseLoadingButton } from '@/shared/ui';
 import SaveIcon from '@mui/icons-material/Save';
 import { Divider, Paper, Stack, Typography } from '@mui/material';
@@ -6,20 +7,26 @@ import { memo } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useCreateCommissionMutation } from '../../../api';
+import { transformFormDataToRequest } from '../../../lib';
 import { commissionFormActions, getCommissionForm } from '../../../model';
 
 export const SubmitCommissionForm = memo(() => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const { showSnackbar, Snackbar } = useSnackbar();
     const { forms } = useSelector(getCommissionForm);
+
     const { info, experts, groups, students } = forms;
     const isStepsValid = Object.values(forms).every((form) => form.isValid);
-    const [createCommission, { isLoading, error }] = useCreateCommissionMutation();
+
+    const [createCommission, { isLoading, error, isSuccess }] = useCreateCommissionMutation();
 
     const handleClick = () => {
         dispatch(commissionFormActions.markStepsAsTouched());
 
-        console.log(info.data, experts.data, groups.data, students.data);
+        console.log(transformFormDataToRequest(forms));
+
+        showSnackbar('success', `${info.data?.name} успешно создана`);
 
         if (isStepsValid) {
             // createCommission()
@@ -39,28 +46,21 @@ export const SubmitCommissionForm = memo(() => {
                 </>
             )}
             <Stack spacing={2} divider={<Divider />}>
-                <Stack spacing={1}>
-                    <Typography variant="subtitle1" color="secondary">
-                        Название комиссии
-                    </Typography>
+                <Stack spacing={0.5}>
+                    <Typography fontSize={12}>Название комиссии</Typography>
                     <Typography>{info.data?.name}</Typography>
                 </Stack>
-                <Stack spacing={1}>
-                    <Typography variant="subtitle1" color="secondary">
-                        Ответственный секретарь
-                    </Typography>
+                <Stack spacing={0.5}>
+                    <Typography fontSize={12}>Ответственный секретарь</Typography>
                     <Typography>{info.data?.secretary.name}</Typography>
                 </Stack>
-                <Stack spacing={1}>
-                    <Typography variant="subtitle1" color="secondary">
-                        Председатель
-                    </Typography>
+
+                <Stack spacing={0.5}>
+                    <Typography fontSize={12}>Председатель комиссии</Typography>
                     <Typography>{info.data?.chairperson.name}</Typography>
                 </Stack>
                 <Stack spacing={2}>
-                    <Typography variant="subtitle1" color="secondary">
-                        Академические группы
-                    </Typography>
+                    <Typography fontSize={12}>Академические группы</Typography>
                     <Stack direction="row" gap={1} flexWrap="wrap">
                         {groups.data?.academicGroups.map((group) => (
                             <BaseChip key={group.name} color="info" label={group.name} />
@@ -68,9 +68,7 @@ export const SubmitCommissionForm = memo(() => {
                     </Stack>
                 </Stack>
                 <Stack spacing={2}>
-                    <Typography variant="subtitle1" color="secondary">
-                        Количество экспертов по этапам
-                    </Typography>
+                    <Typography fontSize={12}>Количество экспертов по этапам</Typography>
                     <Stack direction="row" gap={1} flexWrap="wrap">
                         {experts.data
                             ? Object.entries(experts.data).map(([key, value]) => {
@@ -83,9 +81,7 @@ export const SubmitCommissionForm = memo(() => {
                     </Stack>
                 </Stack>
                 <Stack spacing={2}>
-                    <Typography variant="subtitle1" color="secondary">
-                        Количество студентов по этапам
-                    </Typography>
+                    <Typography fontSize={12}>Количество студентов по этапам</Typography>
                     <Stack direction="row" gap={1} flexWrap="wrap">
                         {students.data
                             ? Object.entries(students.data).map(([key, value]) => {
@@ -108,6 +104,7 @@ export const SubmitCommissionForm = memo(() => {
             >
                 Создать комисиию
             </BaseLoadingButton>
+            {Snackbar}
         </Paper>
     );
 });

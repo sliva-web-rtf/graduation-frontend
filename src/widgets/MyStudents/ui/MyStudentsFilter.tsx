@@ -45,7 +45,8 @@ export const MyStudentsFilter = memo(() => {
         <Stack direction="row" spacing={3}>
             <Box flex={1}>
                 <BaseSearch
-                    placeholder="Поиск по ФИО, группе, теме или руководителю"
+                    label="Поиск по ФИО, группе, теме или руководителю"
+                    placeholder="Например: Иванов РИ-410940"
                     value={searchValue}
                     onChange={onChangeSearch}
                 />

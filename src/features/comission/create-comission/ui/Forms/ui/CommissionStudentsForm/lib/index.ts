@@ -2,6 +2,11 @@ import { StudentDto } from '@/entities/Student/model/types';
 import { StudentsFormSchema } from '@/features/comission/create-comission/model';
 import { ChangeEvent } from 'react';
 
+export type CommissionChangePayload = {
+    commissionId: string | null;
+    commissionName: string | null;
+};
+
 export const fromSelectedGroup = (student: StudentDto, selectedGroups?: string[]) => {
     return selectedGroups?.includes(student.academicGroup.name) ?? false;
 };
@@ -25,16 +30,17 @@ export const getStudentsChangeHandler = (field: any) => (studentId: string) => (
 };
 
 export const getStudentCommissionChangeHandler =
-    (field: any) => (studentId: string) => (newCommissionId: string | null) => {
+    (field: any) => (studentId: string) => (payload: CommissionChangePayload) => {
+        const { commissionId, commissionName } = payload;
         const current = field.value || [];
-        if (newCommissionId === 'null') {
+        if (commissionId === 'null') {
             field.onChange(current.filter((student: any) => student.id !== studentId));
         } else if (!current.some((student: any) => student.id === studentId)) {
-            field.onChange([...current, { id: studentId, commissionId: newCommissionId }]);
+            field.onChange([...current, { id: studentId, commissionId, commissionName }]);
         } else {
             field.onChange(
                 current.map((student: any) =>
-                    student.id === studentId ? { ...student, commissionId: newCommissionId } : student,
+                    student.id === studentId ? { ...student, commissionId, commissionName } : student,
                 ),
             );
         }

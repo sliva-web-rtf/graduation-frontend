@@ -21,5 +21,12 @@ export const CommissionGroupsSearch = memo((props: CommissionGroupsSearchProps) 
         handleQueryChange(e.target.value);
     };
 
-    return <BaseSearch placeholder="Поиск по академической группе" value={queryValue} onChange={handleValueChange} />;
+    return (
+        <BaseSearch
+            label="Поиск по академической группе"
+            placeholder="Например: РИ-410940"
+            value={queryValue}
+            onChange={handleValueChange}
+        />
+    );
 });

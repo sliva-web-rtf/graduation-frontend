@@ -6,7 +6,14 @@ export {
     getCommissionStudentsForm,
 } from './selectors';
 export { commissionFormActions, commissionFormReducer } from './slice';
-export { CommissionFormStep, expertsFormSchema, groupsFormSchema, infoFormSchema, studentsFormSchema } from './types';
+export {
+    CommissionFormStep,
+    expertsFormSchema,
+    groupsFormSchema,
+    infoFormSchema,
+    studentsFormSchema,
+    type CreateCommissionRequest,
+} from './types';
 export type {
     CommissionFormSchema,
     ExpertsFormSchema,

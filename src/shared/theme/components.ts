@@ -26,7 +26,14 @@ export const components: Components<Omit<Theme, 'components'>> | undefined = {
         ],
     },
     MuiTextField: {
-        defaultProps: { variant: 'outlined', autoComplete: 'off', fullWidth: true },
+        defaultProps: {
+            variant: 'filled',
+            autoComplete: 'off',
+            fullWidth: true,
+            InputProps: {
+                disableUnderline: true,
+            },
+        },
     },
     MuiModal: {
         styleOverrides: {
@@ -116,6 +123,14 @@ export const components: Components<Omit<Theme, 'components'>> | undefined = {
     MuiLinearProgress: {
         defaultProps: {
             sx: { borderRadius: 16, height: 8 },
+        },
+    },
+    MuiSelect: {
+        defaultProps: { variant: 'filled', disableUnderline: true },
+    },
+    MuiFormControl: {
+        defaultProps: {
+            variant: 'filled',
         },
     },
 };

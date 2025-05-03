@@ -1,20 +1,21 @@
-import { BaseSelect, BaseSelectProps, OptionType } from '@/shared/ui';
-import { memo, useEffect, useState } from 'react';
+import { CommissionChangePayload } from '@/features/comission/create-comission/ui/Forms/ui/CommissionStudentsForm/lib';
+import { BaseSelect, BaseSelectProps } from '@/shared/ui';
+import { memo, useState } from 'react';
 import { useGetCommissionsQuery } from '../api';
 import { transformCommissionsToOptions } from '../lib/transformCommissionsToOptions';
 
-type ComissionSelectProps = Omit<BaseSelectProps, 'options'> & { limitTags?: number };
+type ComissionSelectProps = Omit<BaseSelectProps, 'options'> & Pick<CommissionChangePayload, 'commissionName'>;
 
 export const ComissionSelect = memo((props: ComissionSelectProps) => {
+    const defaultOptions = [{ label: props.commissionName, value: props.value }].filter((i) => i.label && i.value);
     const [open, setOpen] = useState(false);
-    const [cachedOptions, setCachedOptions] = useState<OptionType[]>([]);
 
     const { data, isFetching } = useGetCommissionsQuery(undefined, {
         selectFromResult: ({ data, isFetching }) => ({
             data: transformCommissionsToOptions(data),
             isFetching,
         }),
-        skip: !open && Boolean(cachedOptions.length),
+        skip: !open,
     });
 
     const handleOpen = () => {
@@ -25,12 +26,6 @@ export const ComissionSelect = memo((props: ComissionSelectProps) => {
         setOpen(false);
     };
 
-    useEffect(() => {
-        if (data?.length) {
-            setCachedOptions(data);
-        }
-    }, [data]);
-
     return (
         <BaseSelect
             loading={isFetching}
@@ -39,7 +34,7 @@ export const ComissionSelect = memo((props: ComissionSelectProps) => {
             onClose={handleClose}
             label="Комиссия"
             useController={false}
-            options={cachedOptions}
+            options={data?.length ? data : defaultOptions}
             {...props}
         />
     );
