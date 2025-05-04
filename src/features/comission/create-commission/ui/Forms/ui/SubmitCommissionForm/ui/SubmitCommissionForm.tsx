@@ -1,5 +1,6 @@
 import { BaseChip } from '@/shared/ui';
 
+import { SubmitEditCommissionButton, useEditCommissionContext } from '@/features/comission/edit-commision';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { Divider, Paper, Stack, Typography } from '@mui/material';
 import { memo, useEffect } from 'react';
@@ -10,8 +11,11 @@ import { StageChipCount } from './StageChipCount';
 
 export const SubmitCommissionForm = memo(() => {
     const dispatch = useAppDispatch();
-    const { forms } = useSelector(getCommissionForm);
 
+    const editContext = useEditCommissionContext();
+    const isEdit = Boolean(editContext?.commissionId);
+
+    const { forms } = useSelector(getCommissionForm);
     const { info, experts, groups, students } = forms;
     const isStepsValid = Object.values(forms).every((form) => form.isValid);
 
@@ -46,7 +50,14 @@ export const SubmitCommissionForm = memo(() => {
                 <StageChipCount title="Количество экспертов по этапам" data={experts.data} keyPrefix="experts" />
                 <StageChipCount title="Количество студентов по этапам" data={students.data} keyPrefix="students" />
             </Stack>
-            <SubmitCommissionButton data={forms} disabled={!isStepsValid} />
+            {isEdit && (
+                <SubmitEditCommissionButton
+                    data={forms}
+                    disabled={!isStepsValid}
+                    commissionId={editContext!.commissionId!}
+                />
+            )}
+            {!isEdit && <SubmitCommissionButton data={forms} disabled={!isStepsValid} />}
         </Paper>
     );
 });

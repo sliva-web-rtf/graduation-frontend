@@ -20,18 +20,18 @@ import {
 export const ComissionForm = () => {
     const dispatch = useAppDispatch();
     const { step } = useSelector(getCommissionForm);
-    const editData = useEditCommissionContext();
+    const editContext = useEditCommissionContext();
     const { data, isFetching } = useGetStagesOptionsQuery();
 
     useEffect(() => {
-        if (editData) {
-            dispatch(commissionFormActions.setForms(editData));
+        if (editContext?.editData) {
+            dispatch(commissionFormActions.setForms(editContext.editData));
             return;
         }
 
         const formData = CommissionStorageService.get();
         dispatch(commissionFormActions.setForms(formData));
-    }, [dispatch, editData]);
+    }, [dispatch, editContext?.editData]);
 
     if (isFetching) {
         return <ComissionFormSkeleton />;

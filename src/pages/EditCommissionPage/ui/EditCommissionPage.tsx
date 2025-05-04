@@ -30,7 +30,7 @@ const EditCommissionPage = () => {
                         Редактирование комиссии <b>&ldquo;{commissionName}&rdquo;</b>
                     </Typography>
                 </Stack>
-                <EditCommissionContextProvider initialData={forms}>
+                <EditCommissionContextProvider initialData={forms} commissionId={id}>
                     <ComissionForm />
                 </EditCommissionContextProvider>
             </Stack>

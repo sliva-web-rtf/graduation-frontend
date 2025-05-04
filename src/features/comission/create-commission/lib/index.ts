@@ -1,4 +1,5 @@
 import { LocalStorageService } from '@/shared/lib/helpers/localStorage';
+import { EditCommissionRequest } from '../../edit-commision/model';
 import { CommissionFormSchema, CommissionFormStep, CreateCommissionRequest } from '../model';
 
 export namespace CommissionStorageService {
@@ -94,19 +95,38 @@ export const getStepCompletedStatus = (
     }
 };
 
-export const transformFormDataToRequest = (forms: CommissionFormSchema['forms']): CreateCommissionRequest => {
-    const { info, groups, students, experts } = forms;
-    const stages = Object.keys(experts.data ?? {});
+export namespace CommissionTransform {
+    export function transformFormDataToRequest(forms: CommissionFormSchema['forms']): CreateCommissionRequest;
+    export function transformFormDataToRequest(
+        forms: CommissionFormSchema['forms'],
+        commissionId: string,
+    ): EditCommissionRequest;
+    export function transformFormDataToRequest(
+        forms: CommissionFormSchema['forms'],
+        commissionId?: string,
+    ): CreateCommissionRequest | EditCommissionRequest {
+        const { info, groups, students, experts } = forms;
+        const stages = Object.keys(experts.data ?? {});
 
-    return {
-        name: info.data?.name ?? '',
-        secretaryId: info.data?.secretary.id ?? '',
-        chairpersonId: info.data?.chairperson.id ?? '',
-        academicGroups: groups.data?.academicGroups.map((group) => group.id) ?? [],
-        stages: stages.map((stage) => ({
-            stage,
-            experts: experts.data?.[stage] ?? [],
-            movedStudents: students.data?.[stage] ?? [],
-        })),
-    };
-};
+        const baseData = {
+            name: info.data?.name ?? '',
+            secretaryId: info.data?.secretary.id ?? '',
+            chairpersonId: info.data?.chairperson.id ?? '',
+            academicGroups: groups.data?.academicGroups.map((group) => group.id) ?? [],
+            stages: stages.map((stage) => ({
+                stage,
+                experts: experts.data?.[stage] ?? [],
+                movedStudents: students.data?.[stage] ?? [],
+            })),
+        };
+
+        if (commissionId) {
+            return {
+                ...baseData,
+                commissionId,
+            };
+        }
+
+        return baseData;
+    }
+}

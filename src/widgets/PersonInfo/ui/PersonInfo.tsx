@@ -28,7 +28,7 @@ export const PersonInfo = (props: { isStudent?: boolean }) => {
     const isStudentRole = useSelector(isUserStudent);
     const isSupervisorRole = useSelector(isUserSupervisor);
 
-    const { isFetching, data } = useGetPersonQuery({ id: id!, isStudent: Boolean(isStudent) });
+    const { isFetching, data } = useGetPersonQuery({ id: id!, isStudent: Boolean(isStudent) }, { skip: !id });
 
     if (isFetching) {
         return <PersonInfoSkeleton />;
@@ -42,6 +42,8 @@ export const PersonInfo = (props: { isStudent?: boolean }) => {
         );
     }
 
+    const isNavigateToVkrButtonVisible = isStudent && data.qualificationWorkId && (isSecretaryRole || isSupervisorRole);
+
     return (
         <>
             <Helmet>
@@ -54,13 +56,11 @@ export const PersonInfo = (props: { isStudent?: boolean }) => {
                     <Grid item xs={3.5}>
                         <Stack spacing={3}>
                             <PersonCard {...data} />
-                            <Stack direction="row" gap={2} justifyContent="center" width="100%" flexWrap="wrap">
+                            <Stack direction="row" gap={1} justifyContent="center" width="100%" flexWrap="wrap">
                                 {(isStudentRole || isSupervisorRole) && (
                                     <PersonRequestButton id={id} name={data.fullName} />
                                 )}
-                                {isStudent && (isSecretaryRole || isSupervisorRole) && (
-                                    <NavigateToVkrButton id={data.qualificationWorkId} />
-                                )}
+                                {isNavigateToVkrButtonVisible && <NavigateToVkrButton id={data.qualificationWorkId!} />}
                             </Stack>
                         </Stack>
                     </Grid>

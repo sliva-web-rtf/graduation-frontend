@@ -1,5 +1,6 @@
 import { styled, ToggleButton, ToggleButtonGroup, ToggleButtonGroupProps, ToggleButtonProps } from '@mui/material';
 import { grey } from '@mui/material/colors';
+import { truncateText } from './lib/truncateText';
 
 interface ToggleButtonsProps extends ToggleButtonGroupProps {
     options: any[];
@@ -27,12 +28,8 @@ const StyledToggleButton = styled(ToggleButton)<CustomToggleButtonProps>(({ them
         fontWeight: 600,
         border: 0,
         textTransform: 'unset',
-        padding: [theme.spacing(1.5), theme.spacing(3)].join(' '),
-        color: variant === 'underline' ? theme.palette.text.secondary : '#0000008A',
-        borderBottom: variant === 'underline' ? `2px solid ${theme.palette.grey[400]}` : theme.spacing(4),
+        padding: [theme.spacing(1), theme.spacing(2)].join(' '),
         alignSelf: 'auto',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
         whiteSpace: 'nowrap',
     },
     '&.Mui-selected': {
@@ -63,8 +60,8 @@ export const ToggleButtons = (props: ToggleButtonsProps) => {
     return (
         <StyledToggleButtonGroup color="primary" exclusive {...otherProps} variant={variant}>
             {options.map((option) => (
-                <StyledToggleButton key={option} value={option} variant={variant}>
-                    {option}
+                <StyledToggleButton key={option} value={option} variant={variant} title={option}>
+                    {truncateText(option, 20)}
                 </StyledToggleButton>
             ))}
         </StyledToggleButtonGroup>

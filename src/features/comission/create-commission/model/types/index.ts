@@ -47,27 +47,16 @@ export const groupsFormSchema = z.object({
         .min(1),
 });
 
-export const studentsFormSchema = z
-    .record(
-        z.string(),
-        z.array(
-            z.object({
-                id: z.string(),
-                commissionId: z.string().nullable(),
-                commissionName: z.string().nullable(),
-            }),
-        ),
-    )
-    .refine(
-        (obj) => {
-            const values = Object.values(obj);
-            if (values.length === 0) return false;
-            return Array.isArray(values[0]) && values[0].length > 0;
-        },
-        {
-            message: 'В первом этапе должен быть выбран хотя бы один студент',
-        },
-    );
+export const studentsFormSchema = z.record(
+    z.string(),
+    z.array(
+        z.object({
+            id: z.string(),
+            commissionId: z.string().nullable(),
+            commissionName: z.string().nullable(),
+        }),
+    ),
+);
 
 export type InfoFormSchema = z.infer<typeof infoFormSchema>;
 export type ExpertsFormSchema = z.infer<typeof expertsFormSchema>;

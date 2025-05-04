@@ -61,7 +61,7 @@ export const CommissionGroupsList = memo((props: CommissionGroupsListProps) => {
                                         description={description}
                                         checked={checked}
                                         onChange={handleChange}
-                                        disabled={item.blocked && !checked}
+                                        disabled={item.blocked}
                                     />
                                 );
                             })}

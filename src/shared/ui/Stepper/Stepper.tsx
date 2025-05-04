@@ -11,6 +11,7 @@ import {
     StepperProps,
     StepProps,
     styled,
+    Theme,
     Typography,
 } from '@mui/material';
 import { stepConnectorClasses } from '@mui/material/StepConnector';
@@ -38,7 +39,7 @@ const Connector = styled(StepConnector)(({ theme }) => ({
     },
 }));
 const BaseStepContent = styled(StepContent)(({ theme }) => ({
-    borderWidth: 3,
+    borderWidth: 2,
     color: theme.palette.secondary.main,
 }));
 
@@ -50,13 +51,17 @@ export const BaseStep = memo((props: BaseStepProps) => {
     const { step, label, content, onStepClick, onNextClick, onBackClick, isLast, error, ...rest } = props;
     const isFirst = step === 0;
 
+    const hoverStyles = (theme: Theme) => ({
+        '&:hover': { cursor: 'pointer', '.MuiTypography-root': { color: theme.palette.primary.main } },
+    });
+
     const handleLabelClick = () => {
         onStepClick(step);
     };
 
     return (
         <Step {...rest}>
-            <StepLabel error={error} onClick={handleLabelClick} sx={{ cursor: 'pointer !important' }}>
+            <StepLabel error={error} onClick={handleLabelClick} sx={hoverStyles}>
                 <Typography fontWeight={600}>{label}</Typography>
             </StepLabel>
             <BaseStepContent>

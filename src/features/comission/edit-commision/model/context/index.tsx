@@ -2,26 +2,30 @@ import { CommissionFormSchema } from '@/features/comission/create-commission/mod
 import { createContext, ReactNode, useContext, useMemo } from 'react';
 
 type EditCommissionContextType = {
-    data: CommissionFormSchema['forms'] | null;
+    editData: CommissionFormSchema['forms'] | null;
+    commissionId: string | null;
 };
 
 type EditCommissionContextProviderProps = {
     children: ReactNode;
     initialData?: CommissionFormSchema['forms'];
+    commissionId?: string | null;
 };
 
 export const EditCommissionContext = createContext<EditCommissionContextType>({
-    data: null,
+    editData: null,
+    commissionId: null,
 });
 
 export const EditCommissionContextProvider = (props: EditCommissionContextProviderProps) => {
-    const { children, initialData } = props;
+    const { children, initialData, commissionId } = props;
 
     const contextValue = useMemo(
         () => ({
-            data: initialData ?? null,
+            editData: initialData ?? null,
+            commissionId: commissionId ?? null,
         }),
-        [initialData],
+        [initialData, commissionId],
     );
 
     return <EditCommissionContext.Provider value={contextValue}>{children}</EditCommissionContext.Provider>;
@@ -34,5 +38,8 @@ export const useEditCommissionContext = () => {
         return null;
     }
 
-    return context.data;
+    return {
+        editData: context.data,
+        commissionId: context.commissionId,
+    };
 };

@@ -5,7 +5,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { Stack } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCreateCommissionMutation } from '../api';
-import { transformFormDataToRequest } from '../lib';
+import { CommissionTransform } from '../lib';
 import { commissionFormActions, CommissionFormSchema } from '../model';
 
 type SubmitCommissionButtonProps = {
@@ -43,7 +43,7 @@ export const SubmitCommissionButton = (props: SubmitCommissionButtonProps) => {
     const [createCommission, { isLoading, error }] = useCreateCommissionMutation();
 
     const handleClick = () => {
-        const requestData = transformFormDataToRequest(data);
+        const requestData = CommissionTransform.transformFormDataToRequest(data);
 
         createCommission(requestData)
             .unwrap()
@@ -60,7 +60,7 @@ export const SubmitCommissionButton = (props: SubmitCommissionButtonProps) => {
                 disabled={disabled}
                 loading={isLoading}
             >
-                Создать комисиию
+                Создать комиссию
             </BaseLoadingButton>
             {error && 'message' in error && (
                 <BaseAlert severity="error" fullWidth={false}>
