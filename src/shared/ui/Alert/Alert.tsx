@@ -1,8 +1,12 @@
 import { Alert, AlertProps, styled } from '@mui/material';
 
-export const BaseAlert = styled(Alert)<AlertProps>(({ theme }) => ({
+export interface BaseAlertProps extends AlertProps {
+    fullWidth?: boolean;
+}
+
+export const BaseAlert = styled(Alert)<BaseAlertProps>(({ theme, fullWidth = true }) => ({
     '&': {
-        width: '100%',
+        width: fullWidth ? '100%' : 'auto',
         borderRadius: theme.spacing(1),
         fontSize: '0.85rem',
         fontWeight: 600,

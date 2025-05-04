@@ -1,4 +1,4 @@
-import { CommissionChangePayload } from '@/features/comission/create-comission/ui/Forms/ui/CommissionStudentsForm/lib';
+import { CommissionChangePayload } from '@/features/comission/create-commission/ui/Forms/ui/CommissionStudentsForm/lib';
 import { BaseSelect, BaseSelectProps } from '@/shared/ui';
 import { memo, useState } from 'react';
 import { useGetCommissionsQuery } from '../api';

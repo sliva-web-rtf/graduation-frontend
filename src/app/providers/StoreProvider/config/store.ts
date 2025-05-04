@@ -1,6 +1,6 @@
 import { userReducer } from '@/entities/User';
 import { yearReducer } from '@/entities/Year';
-import { commissionFormReducer } from '@/features/comission/create-comission';
+import { commissionFormReducer } from '@/features/comission/create-commission';
 import { baseApi } from '@/shared/api';
 import { catalogReducer } from '@/widgets/Catalog';
 import { diplomReducer } from '@/widgets/MyDiplom';

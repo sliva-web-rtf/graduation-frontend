@@ -1,4 +1,5 @@
 export {
+    type CommissionDto,
     type CommissionModel,
     type CommissionNamesDto,
     type CommissionNamesModel,

@@ -1,1 +1,1 @@
-export { CreateCommissionPageAsync as CreateCommissionPage } from './ui/CommissionsPage.async';
+export { CreateCommissionPageAsync as CreateCommissionPage } from './ui/CreateCommissionPage.async';

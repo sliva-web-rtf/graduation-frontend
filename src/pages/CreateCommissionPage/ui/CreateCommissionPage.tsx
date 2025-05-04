@@ -1,5 +1,5 @@
 import { RoutePath } from '@/app/providers/Router';
-import { ComissionForm } from '@/features/comission/create-comission';
+import { ComissionForm } from '@/features/comission/create-commission';
 import { SITENAME } from '@/shared/lib/const';
 import { BackButton } from '@/widgets/BackButton';
 import { Stack, Typography } from '@mui/material';

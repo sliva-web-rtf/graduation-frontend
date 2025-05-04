@@ -1,4 +1,4 @@
-import { ComissionCard, useGetCommissionsQuery } from '@/entities/Comission';
+import { CommissionCard, useGetCommissionsQuery } from '@/entities/Comission';
 import { EmptyMessage, ErrorPageMessage } from '@/shared/ui';
 import { Stack } from '@mui/material';
 import { ComissionsListSkeleton } from './ComissionsList.skeleton';
@@ -21,7 +21,7 @@ export const ComissionsList = () => {
     return (
         <Stack spacing={2}>
             {data.map(({ id, number, name, secretaryName, academicGroups, chairpersonName }) => (
-                <ComissionCard
+                <CommissionCard
                     key={id}
                     id={id}
                     number={number}

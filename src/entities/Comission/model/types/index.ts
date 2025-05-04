@@ -25,3 +25,25 @@ export type CommissionsDto = {
     commissions: CommissionModel[];
 };
 export type CommissionsModel = CommissionsDto['commissions'];
+
+export type CommissionDto = {
+    name: string;
+    secretary: {
+        id: string;
+        name: string;
+    };
+    chairperson: {
+        id: string;
+        name: string;
+    };
+    academicGroups: { id: string; name: string; academicProgram?: string }[];
+    stages: {
+        stage: string;
+        experts: {
+            id: string;
+            name: string;
+            isInvited: boolean;
+        }[];
+        students: { id: string; name: string }[];
+    }[];
+};

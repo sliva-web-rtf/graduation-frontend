@@ -4,7 +4,7 @@ import { CombinedState } from 'redux';
 
 import { type UserSchema } from '@/entities/User';
 import { type YearSchema } from '@/entities/Year';
-import { type CommissionFormSchema } from '@/features/comission/create-comission';
+import { type CommissionFormSchema } from '@/features/comission/create-commission';
 import { baseApi } from '@/shared/api';
 import { type AdministrationSchema } from '@/widgets/Administration';
 import { type CatalogSchema } from '@/widgets/Catalog';

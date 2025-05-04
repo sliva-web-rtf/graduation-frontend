@@ -6,6 +6,7 @@ import { CommissionsPage } from '@/pages/CommissionsPage';
 import { CreateCommissionPage } from '@/pages/CreateCommissionPage';
 import { CreateTopicPage } from '@/pages/CreateTopicPage';
 import { DiplomPage } from '@/pages/DiplomPage';
+import { EditCommissionPage } from '@/pages/EditCommissionPage';
 import { ForbiddenPage } from '@/pages/ForbiddenPage';
 import { LoginPage } from '@/pages/LoginPage';
 import { MyDiplomPage } from '@/pages/MyDiplomPage';
@@ -43,6 +44,7 @@ export enum AppRoutes {
     MyStudents = 'MyStudents',
     Commissions = 'Commissions',
     CreateComission = 'CreateComission',
+    EditComission = 'EditComission',
     CreateTopic = 'CreateTopic',
     Administration = 'Administration',
 }
@@ -62,6 +64,7 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.MyStudents]: '/my-students',
     [AppRoutes.Commissions]: '/commissions',
     [AppRoutes.CreateComission]: '/commissions/create',
+    [AppRoutes.EditComission]: '/commissions/edit/:id',
     [AppRoutes.CreateTopic]: '/create-topic',
     [AppRoutes.Catalog]: '/catalog',
     [AppRoutes.Forbidden]: '/forbidden',
@@ -117,7 +120,13 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         path: RoutePath.CreateComission,
         element: <CreateCommissionPage />,
         ...withLayoutAndAuth,
-        roles: [Role.HeadSecretary, Role.Secretary],
+        roles: [Role.HeadSecretary, Role.Secretary, Role.Admin],
+    },
+    [AppRoutes.EditComission]: {
+        path: RoutePath.EditComission,
+        element: <EditCommissionPage />,
+        ...withLayoutAndAuth,
+        roles: [Role.HeadSecretary, Role.Secretary, Role.Admin],
     },
     [AppRoutes.Commissions]: {
         path: RoutePath.Commissions,

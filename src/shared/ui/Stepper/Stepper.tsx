@@ -1,4 +1,4 @@
-import { CommissionFormStep } from '@/features/comission/create-comission/model';
+import { CommissionFormStep } from '@/features/comission/create-commission/model';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import {
@@ -31,7 +31,7 @@ interface BaseStepProps extends StepProps {
 
 const Connector = styled(StepConnector)(({ theme }) => ({
     [`& .${stepConnectorClasses.line}`]: {
-        borderWidth: 3,
+        borderWidth: 2,
         ...theme.applyStyles('dark', {
             borderColor: theme.palette.grey[800],
         }),

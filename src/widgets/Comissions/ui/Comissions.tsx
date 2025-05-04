@@ -1,4 +1,4 @@
-import { CreateCommissionButton } from '@/features/comission/create-comission';
+import { CreateCommissionButton } from '@/features/comission/create-commission';
 import { Stack } from '@mui/material';
 import { ComissionsList } from './ComissionsList';
 
