@@ -15,8 +15,8 @@ const comissionApi = baseApi.injectEndpoints({
             providesTags: (result, error, arg) => [{ type: TagTypes.Commission, id: arg.id }],
         }),
         editCommission: build.mutation<void, EditCommissionRequest>({
-            query: ({ commissionId, ...body }) => ({
-                url: `/commissions/${commissionId}`,
+            query: (body) => ({
+                url: `/commissions`,
                 method: 'PUT',
                 body,
             }),
