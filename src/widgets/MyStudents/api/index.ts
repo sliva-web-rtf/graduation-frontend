@@ -1,5 +1,6 @@
-import { baseApi, TagTypes } from '@/shared/api';
+import { baseApi, isApiError, TagTypes } from '@/shared/api';
 import { removeEmptyValues } from '@/shared/lib/helpers/removeEmptyValues';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import queryString from 'query-string';
 import { mapStudentsTableDtoToModel } from '../lib';
 import {
@@ -41,6 +42,15 @@ export const studentsTableApi = baseApi.injectEndpoints({
                 method: 'PUT',
                 body,
             }),
+            transformErrorResponse: (error: FetchBaseQueryError) => {
+                const defaultMessage = 'Произошла ошибка при изменении ячейки';
+
+                if (isApiError(error)) {
+                    return new Error(error.data.title || defaultMessage);
+                }
+
+                return new Error(defaultMessage);
+            },
             invalidatesTags: (result) => (result ? [{ type: TagTypes.MyStudents, id: result.studentId }] : []),
         }),
         setDefence: build.mutation<void, SetDefenceRequest>({

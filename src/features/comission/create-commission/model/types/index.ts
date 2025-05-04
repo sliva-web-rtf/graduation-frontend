@@ -88,6 +88,7 @@ export type CommissionFormSchema = {
             isTouched: boolean;
         };
     };
+    isEditMode: boolean;
 };
 
 export type CreateCommissionRequest = {

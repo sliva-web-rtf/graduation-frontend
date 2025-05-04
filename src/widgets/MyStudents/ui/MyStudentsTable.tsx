@@ -95,8 +95,8 @@ export const MyStudentsTable = (props: StudentsTableProps) => {
                     showSnackbar('success', 'Ячейка изменена');
                     return updatedRow;
                 })
-                .catch(() => {
-                    showSnackbar('error', 'Произошла ошибка при изменении ячейки');
+                .catch((error) => {
+                    showSnackbar('error', error.message);
                     return originalRow;
                 });
 

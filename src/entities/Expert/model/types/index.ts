@@ -19,4 +19,6 @@ export type ExpertsRequest = {
     page?: number;
     size?: number;
     query?: string;
+    stage?: string;
+    sortByCommissionId?: string | null;
 };

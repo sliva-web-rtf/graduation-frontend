@@ -1,12 +1,11 @@
 import { RoutePath } from '@/app/providers/Router';
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { BaseAlert, BaseLoadingButton } from '@/shared/ui';
 import DrawIcon from '@mui/icons-material/Draw';
 import { ListItemIcon, ListItemText, MenuItem, Stack } from '@mui/material';
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CommissionTransform } from '../../create-commission/lib';
-import { commissionFormActions, CommissionFormSchema } from '../../create-commission/model';
+import { CommissionFormSchema } from '../../create-commission/model';
 import { useEditCommissionMutation } from '../api';
 import { getEditCommisionPagePath } from '../lib/getEditCommisionPagePath';
 
@@ -41,7 +40,6 @@ export const EditCommissionButton = (props: EditCommissionButtonProps) => {
 
 export const SubmitEditCommissionButton = (props: SubmitEditCommissionButtonProps) => {
     const { commissionId, data, disabled } = props;
-    const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     const [editCommission, { isLoading, error }] = useEditCommissionMutation();
@@ -51,8 +49,7 @@ export const SubmitEditCommissionButton = (props: SubmitEditCommissionButtonProp
 
         editCommission(requestData)
             .unwrap()
-            .then(() => navigate(RoutePath.Commissions))
-            .then(() => dispatch(commissionFormActions.resetForm()));
+            .then(() => navigate(RoutePath.Commissions));
     };
 
     return (

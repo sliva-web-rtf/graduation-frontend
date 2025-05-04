@@ -19,10 +19,16 @@ export const CommissionGroupsForm = memo(() => {
     const { data } = useSelector(getCommissionGroupsForm);
     const [query, setQuery] = useState('');
 
-    const { control, getValues } = useForm<GroupsFormSchema>({
+    const { control, getValues, reset } = useForm<GroupsFormSchema>({
         defaultValues: getDefaultGroupsFormValues(data),
         resolver: zodResolver(groupsFormSchema),
     });
+
+    useEffect(() => {
+        if (data) {
+            reset(getDefaultGroupsFormValues(data));
+        }
+    }, [data, reset]);
 
     useEffect(() => {
         return () => {

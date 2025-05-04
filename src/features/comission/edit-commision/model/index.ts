@@ -1,2 +1,2 @@
 export { EditCommissionContextProvider, useEditCommissionContext } from './context';
-export { type EditCommissionRequest } from './types';
+export { type EditCommissionErrorResponse, type EditCommissionRequest } from './types';

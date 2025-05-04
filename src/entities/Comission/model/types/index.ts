@@ -44,6 +44,6 @@ export type CommissionDto = {
             name: string;
             isInvited: boolean;
         }[];
-        students: { id: string; name: string }[];
+        movedStudents: { id: string; name: string; commissionId: string; commissionName: string }[];
     }[];
 };

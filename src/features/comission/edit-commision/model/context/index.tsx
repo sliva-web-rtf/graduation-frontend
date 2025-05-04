@@ -34,12 +34,16 @@ export const EditCommissionContextProvider = (props: EditCommissionContextProvid
 export const useEditCommissionContext = () => {
     const context = useContext(EditCommissionContext);
 
+    const value = useMemo(() => {
+        return {
+            editData: context.editData,
+            commissionId: context.commissionId,
+        };
+    }, [context]);
+
     if (!context) {
         return null;
     }
 
-    return {
-        editData: context.data,
-        commissionId: context.commissionId,
-    };
+    return value;
 };

@@ -7,7 +7,8 @@ import { Stack } from '@mui/material';
 import { memo, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
-import { commissionFormActions, getCommissionInfoForm, infoFormSchema, InfoFormSchema } from '../../../model';
+import { commissionFormActions, getCommissionInfoForm, infoFormSchema, InfoFormSchema } from '../../../../../model';
+import { getInfoFormDefaultValues } from '../lib';
 
 export const CommissionInfoForm = memo(() => {
     const dispatch = useAppDispatch();
@@ -18,11 +19,16 @@ export const CommissionInfoForm = memo(() => {
         formState: { errors },
         getValues,
         register,
+        reset,
         trigger,
     } = useForm<InfoFormSchema>({
-        defaultValues: data ?? {},
+        defaultValues: getInfoFormDefaultValues(data),
         resolver: zodResolver(infoFormSchema),
     });
+
+    useEffect(() => {
+        reset(getInfoFormDefaultValues(data));
+    }, [data, reset]);
 
     useEffect(() => {
         if (isTouched) {

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CommissionStorageService, getStepFromSearchParams } from '../../lib';
+import { CommissionStorageService } from '../../lib';
 import {
     CommissionFormSchema,
     CommissionFormStep,
@@ -16,7 +16,8 @@ import {
 export const CREATE_COMMISSION_STEP = 'CREATE_COMMISSION_STEP';
 
 export const initialState: CommissionFormSchema = {
-    step: (CommissionStorageService.get(CREATE_COMMISSION_STEP) as CommissionFormStep) ?? CommissionFormStep.Info,
+    isEditMode: false,
+    step: CommissionFormStep.Info,
     steps: [
         CommissionFormStep.Info,
         CommissionFormStep.Experts,
@@ -52,30 +53,41 @@ export const commissionFormSlice = createSlice({
     name: 'commissionForm',
     initialState,
     reducers: {
-        setForms: (state, action: PayloadAction<Partial<CommissionFormSchema['forms']>>) => {
-            const { info, experts, groups, students } = action.payload;
+        initEditMode: (state, action: PayloadAction<CommissionFormSchema['isEditMode']>) => {
+            state.isEditMode = action.payload;
+            state.step = CommissionFormStep.Info;
+        },
+        setForms: {
+            reducer: (state, action?: PayloadAction<Partial<CommissionFormSchema['forms']>>) => {
+                if (!action?.payload) {
+                    state.forms = initialState.forms;
+                    return;
+                }
 
-            if (info) {
-                state.forms.info = info;
-            }
+                const { info, experts, groups, students } = action.payload;
 
-            if (experts) {
-                state.forms.experts = experts;
-            }
+                if (info) {
+                    state.forms.info = info;
+                }
 
-            if (groups) {
-                state.forms.groups = groups;
-            }
+                if (experts) {
+                    state.forms.experts = experts;
+                }
 
-            if (students) {
-                state.forms.students = students;
-            }
+                if (groups) {
+                    state.forms.groups = groups;
+                }
+
+                if (students) {
+                    state.forms.students = students;
+                }
+            },
+            prepare: (payload?: Partial<CommissionFormSchema['forms']>) => {
+                return { payload: payload ?? initialState.forms };
+            },
         },
         setStep: (state, action: PayloadAction<CommissionFormSchema['step']>) => {
             state.step = action.payload;
-        },
-        initStep: (state, action: PayloadAction<URLSearchParams>) => {
-            state.step = getStepFromSearchParams(action.payload);
         },
         updateInfoForm: (state, action: PayloadAction<InfoFormSchema>) => {
             const data = action.payload;
@@ -84,7 +96,9 @@ export const commissionFormSlice = createSlice({
 
             state.forms.info = { data, isValid, isTouched };
 
-            CommissionStorageService.save('COMISSION_INFO', { data, isValid, isTouched });
+            if (!state.isEditMode) {
+                // CommissionStorageService.save('COMISSION_INFO', { data, isValid, isTouched });
+            }
         },
         updateExpertsForm: (state, action: PayloadAction<ExpertsFormSchema>) => {
             const data = action.payload;
@@ -93,7 +107,9 @@ export const commissionFormSlice = createSlice({
 
             state.forms.experts = { data, isValid, isTouched };
 
-            CommissionStorageService.save('COMMISSION_EXPERTS', { data, isValid, isTouched });
+            if (!state.isEditMode) {
+                // CommissionStorageService.save('COMMISSION_EXPERTS', { data, isValid, isTouched });
+            }
         },
         updateGroupsForm: (state, action: PayloadAction<GroupsFormSchema>) => {
             const data = action.payload;
@@ -102,7 +118,9 @@ export const commissionFormSlice = createSlice({
 
             state.forms.groups = { data, isValid, isTouched };
 
-            CommissionStorageService.save('COMMISSION_GROUPS', { data, isValid, isTouched });
+            if (!state.isEditMode) {
+                // CommissionStorageService.save('COMMISSION_GROUPS', { data, isValid, isTouched });
+            }
         },
         updateStudentsForm: (state, action: PayloadAction<StudentsFormSchema>) => {
             const data = action.payload;
@@ -111,12 +129,9 @@ export const commissionFormSlice = createSlice({
 
             state.forms.students = { data, isValid, isTouched };
 
-            CommissionStorageService.save('COMMISSION_STUDENTS', { data, isValid, isTouched });
-        },
-        markStepsAsTouched: (state) => {
-            Object.values(state.forms).forEach((form) => {
-                form.isTouched = true;
-            });
+            if (!state.isEditMode) {
+                // CommissionStorageService.save('COMMISSION_STUDENTS', { data, isValid, isTouched });
+            }
         },
         validateSteps: (state) => {
             const formSchemas = {
@@ -130,6 +145,9 @@ export const commissionFormSlice = createSlice({
                 form.isTouched = true;
                 form.isValid = formSchemas[key as keyof typeof formSchemas].safeParse(form.data).success;
             });
+        },
+        resetEditMode: () => {
+            return initialState;
         },
         resetForm: () => {
             CommissionStorageService.clear();

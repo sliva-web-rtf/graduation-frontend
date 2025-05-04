@@ -25,23 +25,29 @@ export const CommissionStudentsForm = memo((props: CommissionStudentsFormProps) 
     const { stages } = props;
     const dispatch = useAppDispatch();
 
-    const { data, isTouched } = useSelector(getCommissionStudentsForm);
+    const { data } = useSelector(getCommissionStudentsForm);
     const { data: groupsFormData } = useSelector(getCommissionGroupsForm);
     const academicGroups = groupsFormData?.academicGroups?.map((group) => group.name);
 
     const [stage, setStage] = useState(stages?.[0] || '');
     const [query, setQuery] = useState('');
 
-    const { control, getValues } = useForm<StudentsFormSchema>({
+    const { control, getValues, reset } = useForm<StudentsFormSchema>({
         defaultValues: getDefaultStudentsFormValues(stages, data),
         resolver: zodResolver(studentsFormSchema),
     });
 
     useEffect(() => {
+        if (data) {
+            reset(getDefaultStudentsFormValues(stages, data));
+        }
+    }, [data, reset, stages]);
+
+    useEffect(() => {
         return () => {
             dispatch(commissionFormActions.updateStudentsForm(getValues()));
         };
-    }, [dispatch, getValues, isTouched]);
+    }, [dispatch, getValues]);
 
     return (
         <Stack spacing={4} height="100%">

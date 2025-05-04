@@ -1,4 +1,5 @@
 import { useGetExpertsQuery } from '@/entities/Expert';
+import { useEditCommissionContext } from '@/features/comission/edit-commision';
 import { BasePagination, EmptyMessage } from '@/shared/ui';
 import { BaseCheckboxSkeletonList } from '@/shared/ui/Checkbox/Checkbox.skeleton';
 import { FormControl, Stack } from '@mui/material';
@@ -19,9 +20,16 @@ const defaultPage = 0;
 
 export const CommissionExpertsList = memo((props: CommissionExpertsListProps) => {
     const { control, name, query } = props;
+    const editContext = useEditCommissionContext();
     const [page, setPage] = useState(defaultPage);
 
-    const { data, isFetching } = useGetExpertsQuery({ query, size, page });
+    const { data, isFetching } = useGetExpertsQuery({
+        query,
+        size,
+        page,
+        stage: name,
+        sortByCommissionId: editContext?.commissionId,
+    });
 
     const handleChangePage = useCallback((_: ChangeEvent<unknown>, value: number) => {
         setPage(value - 1);

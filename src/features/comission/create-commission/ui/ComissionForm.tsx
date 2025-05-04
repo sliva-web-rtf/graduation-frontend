@@ -4,7 +4,6 @@ import { Box, Stack } from '@mui/material';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useEditCommissionContext } from '../../edit-commision';
-import { CommissionStorageService } from '../lib';
 import { commissionFormActions, getCommissionForm } from '../model';
 import { CommissionFormStep } from '../model/types';
 import { ComissionFormSkeleton } from './ComissionForm.skeleton';
@@ -17,11 +16,20 @@ import {
     SubmitCommissionForm,
 } from './Forms';
 
-export const ComissionForm = () => {
+type ComissionFormProps = {
+    editMode?: boolean;
+};
+
+export const ComissionForm = (props: ComissionFormProps) => {
+    const { editMode = false } = props;
     const dispatch = useAppDispatch();
     const { step } = useSelector(getCommissionForm);
     const editContext = useEditCommissionContext();
     const { data, isFetching } = useGetStagesOptionsQuery();
+
+    useEffect(() => {
+        dispatch(commissionFormActions.initEditMode(editMode));
+    }, [dispatch, editMode]);
 
     useEffect(() => {
         if (editContext?.editData) {
@@ -29,9 +37,14 @@ export const ComissionForm = () => {
             return;
         }
 
-        const formData = CommissionStorageService.get();
-        dispatch(commissionFormActions.setForms(formData));
-    }, [dispatch, editContext?.editData]);
+        dispatch(commissionFormActions.setForms());
+    }, [dispatch, editContext?.editData, editMode]);
+
+    useEffect(() => {
+        return () => {
+            dispatch(commissionFormActions.resetEditMode());
+        };
+    }, [dispatch]);
 
     if (isFetching) {
         return <ComissionFormSkeleton />;
@@ -39,15 +52,15 @@ export const ComissionForm = () => {
 
     return (
         <Stack direction="row" spacing={4} height="100%">
-            <Stack position="sticky" width="30%" minWidth={320} maxWidth={400} alignSelf="flex-start" top={32}>
+            <Box position="sticky" width="30%" minWidth={320} maxWidth={400} alignSelf="flex-start" top={32}>
                 <CreateComissionStepper />
-            </Stack>
+            </Box>
             <Box width="100%">
                 {step === CommissionFormStep.Info && <CommissionInfoForm />}
                 {step === CommissionFormStep.Experts && <CommissionExpertsForm stages={data} />}
                 {step === CommissionFormStep.Groups && <CommissionGroupsForm />}
                 {step === CommissionFormStep.Students && <CommissionStudentsForm stages={data} />}
-                {step === CommissionFormStep.Submit && <SubmitCommissionForm />}
+                {step === CommissionFormStep.Submit && <SubmitCommissionForm editMode={editMode} />}
             </Box>
         </Stack>
     );

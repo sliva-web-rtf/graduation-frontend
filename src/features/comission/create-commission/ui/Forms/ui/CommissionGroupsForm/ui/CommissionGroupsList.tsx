@@ -1,4 +1,5 @@
 import { useGetAcademicGroupsQuery } from '@/entities/AcademicGroup';
+import { useEditCommissionContext } from '@/features/comission/edit-commision';
 import { BasePagination, EmptyMessage } from '@/shared/ui';
 import { BaseCheckboxSkeletonList } from '@/shared/ui/Checkbox/Checkbox.skeleton';
 import { FormControl, Stack } from '@mui/material';
@@ -18,9 +19,16 @@ const defaultPage = 0;
 
 export const CommissionGroupsList = memo((props: CommissionGroupsListProps) => {
     const { control, query } = props;
+    const editContext = useEditCommissionContext();
     const [page, setPage] = useState(defaultPage);
 
-    const { data, isFetching } = useGetAcademicGroupsQuery({ query, size, page });
+    const commissionId = editContext?.commissionId ?? null;
+    const { data, isFetching } = useGetAcademicGroupsQuery({
+        query,
+        size,
+        page,
+        commissionId,
+    });
 
     const handleChangePage = useCallback((_: ChangeEvent<unknown>, value: number) => {
         setPage(value - 1);

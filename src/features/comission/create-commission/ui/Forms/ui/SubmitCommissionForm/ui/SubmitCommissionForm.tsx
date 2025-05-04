@@ -9,11 +9,15 @@ import { commissionFormActions, getCommissionForm } from '../../../../../model';
 import { SubmitCommissionButton } from '../../../../CreateCommissionButton';
 import { StageChipCount } from './StageChipCount';
 
-export const SubmitCommissionForm = memo(() => {
+type SubmitCommissionFormProps = {
+    editMode: boolean;
+};
+
+export const SubmitCommissionForm = memo((props: SubmitCommissionFormProps) => {
+    const { editMode } = props;
     const dispatch = useAppDispatch();
 
     const editContext = useEditCommissionContext();
-    const isEdit = Boolean(editContext?.commissionId);
 
     const { forms } = useSelector(getCommissionForm);
     const { info, experts, groups, students } = forms;
@@ -50,14 +54,14 @@ export const SubmitCommissionForm = memo(() => {
                 <StageChipCount title="Количество экспертов по этапам" data={experts.data} keyPrefix="experts" />
                 <StageChipCount title="Количество студентов по этапам" data={students.data} keyPrefix="students" />
             </Stack>
-            {isEdit && (
+            {editMode && (
                 <SubmitEditCommissionButton
                     data={forms}
                     disabled={!isStepsValid}
                     commissionId={editContext!.commissionId!}
                 />
             )}
-            {!isEdit && <SubmitCommissionButton data={forms} disabled={!isStepsValid} />}
+            {!editMode && <SubmitCommissionButton data={forms} disabled={!isStepsValid} />}
         </Paper>
     );
 });

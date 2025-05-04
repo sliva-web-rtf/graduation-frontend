@@ -1,16 +1,15 @@
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { BaseStep, BaseStepper } from '@/shared/ui';
 import { Paper } from '@mui/material';
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import { CommissionStorageService, getStepCompletedStatus, getStepErrorStatus } from '../lib';
+import { getStepCompletedStatus, getStepErrorStatus } from '../lib';
 import {
     commissionFormActions,
     CommissionFormStepDescription,
     CommissionFormStepRus,
     getCommissionForm,
 } from '../model';
-import { CREATE_COMMISSION_STEP } from '../model/slice';
 import { CommissionFormStep } from '../model/types';
 
 export const CreateComissionStepper = () => {
@@ -20,7 +19,6 @@ export const CreateComissionStepper = () => {
     const handleChangeStep = useCallback(
         (newStep: CommissionFormStep) => {
             dispatch(commissionFormActions.setStep(newStep));
-            CommissionStorageService.save(CREATE_COMMISSION_STEP, newStep);
         },
         [dispatch],
     );
@@ -39,13 +37,6 @@ export const CreateComissionStepper = () => {
         },
         [handleChangeStep],
     );
-
-    useEffect(() => {
-        const savedStep = CommissionStorageService.get(CREATE_COMMISSION_STEP);
-        if (savedStep !== null) {
-            dispatch(commissionFormActions.setStep(Number(savedStep)));
-        }
-    }, [dispatch]);
 
     return (
         <Paper sx={(theme) => ({ padding: 2, borderRadius: theme.spacing(2) })}>

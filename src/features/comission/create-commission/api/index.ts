@@ -1,4 +1,5 @@
-import { baseApi, TagTypes } from '@/shared/api';
+import { baseApi, isApiError, TagTypes } from '@/shared/api';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { CreateCommissionRequest, CreateCommissionResponse } from '../model';
 
 export const commissionApi = baseApi.injectEndpoints({
@@ -9,10 +10,20 @@ export const commissionApi = baseApi.injectEndpoints({
                 method: 'POST',
                 body,
             }),
-            transformErrorResponse: () => {
+            transformErrorResponse: (error: FetchBaseQueryError) => {
+                if (isApiError(error)) {
+                    return new Error(error.data.title);
+                }
+
                 return new Error('Произошла ошибка при создании комиссии');
             },
-            invalidatesTags: (result) => (result ? [TagTypes.Commissions] : []),
+            invalidatesTags: (result) => {
+                if (!result?.commissionId) {
+                    return [];
+                }
+
+                return [TagTypes.Commission];
+            },
         }),
     }),
 });

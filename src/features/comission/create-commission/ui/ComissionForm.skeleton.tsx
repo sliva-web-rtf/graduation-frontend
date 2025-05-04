@@ -21,7 +21,7 @@ export const ComissionFormSkeleton = () => {
             <Box width="100%">
                 <Skeleton
                     variant="rectangular"
-                    height="80vh"
+                    height="70vh"
                     sx={(theme) => ({ padding: theme.spacing(2), borderRadius: theme.spacing(2) })}
                 />
             </Box>

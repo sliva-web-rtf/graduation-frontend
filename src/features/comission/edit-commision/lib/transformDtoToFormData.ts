@@ -6,25 +6,25 @@ import {
     StudentsFormSchema,
 } from '../../create-commission/model';
 
-const buildExpertsRecord = (stages: CommissionDto['stages']) =>
-    stages.reduce((record, stage) => {
-        record[stage.stage] = stage.experts.map((expert) => ({
+const buildExpertsRecord = (stages?: CommissionDto['stages']) =>
+    stages?.reduce((record, stage) => {
+        record[stage.stage] = stage?.experts?.map((expert) => ({
             id: expert.id,
             isInvited: expert.isInvited || false,
         }));
         return record;
-    }, {} as ExpertsFormSchema);
+    }, {} as ExpertsFormSchema) ?? {};
 
-const buildStudentsRecord = (stages: CommissionDto['stages']) =>
-    stages.reduce((record, stage) => {
-        record[stage.stage] = stage.students.map((student) => ({
+const buildStudentsRecord = (stages?: CommissionDto['stages']) =>
+    stages?.reduce((record, stage) => {
+        record[stage.stage] = stage?.movedStudents?.map((student) => ({
             id: student.id,
             name: student.name,
-            commissionId: null,
-            commissionName: null,
+            commissionId: student.commissionId ?? null,
+            commissionName: student.commissionName ?? null,
         }));
         return record;
-    }, {} as StudentsFormSchema);
+    }, {} as StudentsFormSchema) ?? {};
 
 export const transformDtoToFormData = (dto: CommissionDto): CommissionFormSchema['forms'] => {
     const { secretary, chairperson } = dto;

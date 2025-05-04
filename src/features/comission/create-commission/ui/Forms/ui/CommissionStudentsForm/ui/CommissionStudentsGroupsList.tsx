@@ -14,13 +14,10 @@ export const CommissionStudentsGroupsList = memo((props: CommissionStudentsGroup
     }
 
     return (
-        <Stack spacing={2} direction="row" flexWrap="wrap" alignItems="center">
-            <BaseChip label="Выбранные академ. группы:" />
-            <Stack spacing={0.5} direction="row" flexWrap="wrap" alignItems="center">
-                {academicGroups.map((group) => (
-                    <BaseChip key={group} label={group} color="info" />
-                ))}
-            </Stack>
+        <Stack gap={1} direction="row" flexWrap="wrap" alignItems="center">
+            {academicGroups.map((group) => (
+                <BaseChip key={group} label={group} color="info" />
+            ))}
         </Stack>
     );
 });

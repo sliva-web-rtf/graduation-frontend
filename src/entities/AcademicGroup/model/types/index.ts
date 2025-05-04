@@ -14,4 +14,6 @@ export type AcademicGroupsRequest = {
     page: number;
     size: number;
     query: string;
+
+    commissionId?: string | null;
 };

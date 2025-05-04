@@ -1,4 +1,5 @@
 import { useGetStudentsQuery } from '@/entities/Student';
+import { useEditCommissionContext } from '@/features/comission/edit-commision';
 import { BasePagination, EmptyMessage } from '@/shared/ui';
 import { BaseCheckboxSkeletonList } from '@/shared/ui/Checkbox/Checkbox.skeleton';
 import { FormControl, Stack } from '@mui/material';
@@ -22,6 +23,8 @@ const defaultPage = 0;
 export const CommissionStudentsList = memo((props: CommissionStudentsListProps) => {
     const { stage, control, query, academicGroups } = props;
     const [page, setPage] = useState(defaultPage);
+    const editContext = useEditCommissionContext();
+    const editCommissionId = editContext?.commissionId ?? null;
 
     const { data, isFetching } = useGetStudentsQuery({
         query,
@@ -72,8 +75,9 @@ export const CommissionStudentsList = memo((props: CommissionStudentsListProps) 
                                         commissionName: null,
                                     };
                                     const checked =
-                                        !commissionId &&
-                                        (field.value?.some((student) => student.id === item.id) || defaultChecked);
+                                        (!commissionId && field.value?.some((student) => student.id === item.id)) ||
+                                        defaultChecked ||
+                                        (Boolean(commissionId) && commissionId === editCommissionId);
 
                                     return (
                                         <StudentCheckbox

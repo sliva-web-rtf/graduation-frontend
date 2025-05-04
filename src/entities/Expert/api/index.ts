@@ -1,4 +1,5 @@
 import { baseApi } from '@/shared/api';
+import { removeEmptyValues } from '@/shared/lib/helpers/removeEmptyValues';
 import { ExpertsDto, ExpertsModel, ExpertsRequest } from '../model';
 
 const baseParams: ExpertsRequest = {
@@ -13,7 +14,7 @@ export const expertApi = baseApi.injectEndpoints({
                 url: '/experts',
                 params: {
                     ...baseParams,
-                    ...params,
+                    ...removeEmptyValues(params),
                 },
             }),
         }),

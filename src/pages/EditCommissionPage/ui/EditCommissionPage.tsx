@@ -12,7 +12,7 @@ const EditCommissionPage = () => {
 
     const { data: forms, isFetching } = useGetCommissionQuery({ id: id! }, { skip: !id });
 
-    if (isFetching) {
+    if (isFetching || !forms) {
         return <PageLoader />;
     }
 
@@ -31,7 +31,7 @@ const EditCommissionPage = () => {
                     </Typography>
                 </Stack>
                 <EditCommissionContextProvider initialData={forms} commissionId={id}>
-                    <ComissionForm />
+                    <ComissionForm editMode />
                 </EditCommissionContextProvider>
             </Stack>
         </>

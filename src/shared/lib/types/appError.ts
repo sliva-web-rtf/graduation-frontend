@@ -19,3 +19,8 @@ export class AppError<TEntity extends Record<string, any> = never> extends Error
         this.validationData = validationData;
     }
 }
+
+export type ErrorResponse = {
+    title: string;
+    status: number;
+};

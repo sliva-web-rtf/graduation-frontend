@@ -23,7 +23,7 @@ export const CommissionExpertsForm = memo((props: CommissionExpertsFormProps) =>
     const [stage, setStage] = useState(stages?.[0] || '');
     const [query, setQuery] = useState('');
 
-    const { control, getValues } = useForm<ExpertsFormSchema>({
+    const { control, getValues, reset } = useForm<ExpertsFormSchema>({
         defaultValues: getDefaultExpertsFormValues(stages, data),
         resolver: zodResolver(expertsFormSchema),
     });
@@ -31,6 +31,12 @@ export const CommissionExpertsForm = memo((props: CommissionExpertsFormProps) =>
     const handleChangeStage = useCallback((stage: string) => {
         setStage(stage);
     }, []);
+
+    useEffect(() => {
+        if (data) {
+            reset(getDefaultExpertsFormValues(stages, data));
+        }
+    }, [data, reset, stages]);
 
     useEffect(() => {
         return () => {

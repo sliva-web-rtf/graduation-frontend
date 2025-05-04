@@ -1,4 +1,5 @@
-import { baseApi, TagTypes } from '@/shared/api';
+import { baseApi, isApiError, TagTypes } from '@/shared/api';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
 export const commissionApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
@@ -8,6 +9,13 @@ export const commissionApi = baseApi.injectEndpoints({
                 method: 'DELETE',
                 body,
             }),
+            transformErrorResponse: (error: FetchBaseQueryError) => {
+                if (isApiError(error)) {
+                    return new Error(error.data.title);
+                }
+
+                return new Error('Произошла ошибка при удалении комиссии');
+            },
             invalidatesTags: (result) => (result ? [TagTypes.Commissions] : []),
         }),
     }),
