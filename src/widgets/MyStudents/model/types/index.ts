@@ -91,7 +91,9 @@ export type StudentRowModel = {
         movementStatus: MovementStatus;
 
         prev?: string;
+        prevSecretary?: string;
         current?: string;
+        currentSecretary?: string;
     };
     topic?: {
         id?: string;

@@ -66,23 +66,12 @@ export const commissionFormSlice = createSlice({
 
                 const { info, experts, groups, students } = action.payload;
 
-                if (info) {
-                    state.forms.info = info;
-                }
-
-                if (experts) {
-                    state.forms.experts = experts;
-                }
-
-                if (groups) {
-                    state.forms.groups = groups;
-                }
-
-                if (students) {
-                    state.forms.students = students;
-                }
+                state.forms.info = info ?? initialState.forms.info;
+                state.forms.experts = experts ?? initialState.forms.experts;
+                state.forms.groups = groups ?? initialState.forms.groups;
+                state.forms.students = students ?? initialState.forms.students;
             },
-            prepare: (payload?: Partial<CommissionFormSchema['forms']>) => {
+            prepare: (payload?: Partial<CommissionFormSchema['forms']> | null) => {
                 return { payload: payload ?? initialState.forms };
             },
         },
@@ -92,46 +81,26 @@ export const commissionFormSlice = createSlice({
         updateInfoForm: (state, action: PayloadAction<InfoFormSchema>) => {
             const data = action.payload;
             const isValid = infoFormSchema.safeParse(action.payload).success;
-            const isTouched = true;
 
-            state.forms.info = { data, isValid, isTouched };
-
-            if (!state.isEditMode) {
-                // CommissionStorageService.save('COMISSION_INFO', { data, isValid, isTouched });
-            }
+            state.forms.info = { data, isValid, isTouched: true };
         },
         updateExpertsForm: (state, action: PayloadAction<ExpertsFormSchema>) => {
             const data = action.payload;
             const isValid = expertsFormSchema.safeParse(action.payload).success;
-            const isTouched = true;
 
-            state.forms.experts = { data, isValid, isTouched };
-
-            if (!state.isEditMode) {
-                // CommissionStorageService.save('COMMISSION_EXPERTS', { data, isValid, isTouched });
-            }
+            state.forms.experts = { data, isValid, isTouched: true };
         },
         updateGroupsForm: (state, action: PayloadAction<GroupsFormSchema>) => {
             const data = action.payload;
             const isValid = groupsFormSchema.safeParse(action.payload).success;
-            const isTouched = true;
 
-            state.forms.groups = { data, isValid, isTouched };
-
-            if (!state.isEditMode) {
-                // CommissionStorageService.save('COMMISSION_GROUPS', { data, isValid, isTouched });
-            }
+            state.forms.groups = { data, isValid, isTouched: true };
         },
         updateStudentsForm: (state, action: PayloadAction<StudentsFormSchema>) => {
             const data = action.payload;
             const isValid = studentsFormSchema.safeParse(action.payload).success;
-            const isTouched = true;
 
-            state.forms.students = { data, isValid, isTouched };
-
-            if (!state.isEditMode) {
-                // CommissionStorageService.save('COMMISSION_STUDENTS', { data, isValid, isTouched });
-            }
+            state.forms.students = { data, isValid, isTouched: true };
         },
         validateSteps: (state) => {
             const formSchemas = {
@@ -145,6 +114,14 @@ export const commissionFormSlice = createSlice({
                 form.isTouched = true;
                 form.isValid = formSchemas[key as keyof typeof formSchemas].safeParse(form.data).success;
             });
+        },
+        saveForms: (state) => {
+            if (!state.isEditMode) {
+                CommissionStorageService.save('COMISSION_INFO', state.forms.info);
+                CommissionStorageService.save('COMMISSION_EXPERTS', state.forms.experts);
+                CommissionStorageService.save('COMMISSION_GROUPS', state.forms.groups);
+                CommissionStorageService.save('COMMISSION_STUDENTS', state.forms.students);
+            }
         },
         resetEditMode: () => {
             return initialState;

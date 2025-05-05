@@ -24,9 +24,8 @@ type ComissionFormProps = {
 export const ComissionForm = (props: ComissionFormProps) => {
     const { editMode = false } = props;
     const dispatch = useAppDispatch();
-    const { step, forms } = useSelector(getCommissionForm);
-
     const editContext = useEditCommissionContext();
+    const { step, forms } = useSelector(getCommissionForm);
 
     const { data, isFetching } = useGetStagesOptionsQuery();
 
@@ -38,16 +37,17 @@ export const ComissionForm = (props: ComissionFormProps) => {
 
     useEffect(() => {
         dispatch(commissionFormActions.initEditMode(editMode));
+
+        // return () => {
+        //     if (!editMode) {
+        //         dispatch(commissionFormActions.saveForms());
+        //     }
+        // };
     }, [dispatch, editMode]);
 
     useEffect(() => {
-        if (editContext?.editData) {
-            dispatch(commissionFormActions.setForms(editContext.editData));
-            return;
-        }
-
-        dispatch(commissionFormActions.setForms());
-    }, [dispatch, editContext?.editData, editMode]);
+        dispatch(commissionFormActions.setForms(editContext?.editData));
+    }, [dispatch, editContext?.editData]);
 
     useEffect(() => {
         return () => {
