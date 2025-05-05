@@ -16,6 +16,7 @@ type CheckboxItemProps = {
     blocked: boolean;
     currentCommissionName?: string | null;
     currentCommissionId: string | null;
+    editCommissionId?: string | null;
 };
 
 const CheckboxItem = (props: CheckboxItemProps) => {
@@ -30,6 +31,7 @@ const CheckboxItem = (props: CheckboxItemProps) => {
         blocked,
         currentCommissionId,
         currentCommissionName,
+        editCommissionId,
     } = props;
 
     return (
@@ -58,6 +60,7 @@ const CheckboxItem = (props: CheckboxItemProps) => {
                     currentCommissionId={currentCommissionId}
                     currentCommissionName={currentCommissionName}
                     disabled={blocked}
+                    editCommissionId={editCommissionId}
                 />
             )}
         </Paper>
@@ -72,6 +75,7 @@ type StudentCheckboxProps = {
     onCommissionChange: (payload: CommissionChangePayload) => void;
     currentCommissionId: string | null;
     currentCommissionName?: string | null;
+    editCommissionId?: string | null;
     blocked?: boolean;
 };
 
@@ -84,6 +88,7 @@ export const StudentCheckbox = memo((props: StudentCheckboxProps) => {
         onCommissionChange,
         currentCommissionId,
         currentCommissionName,
+        editCommissionId,
         blocked = false,
     } = props;
     const description = [student.academicGroup?.name, student.prevCommission?.name].filter(Boolean) as string[];
@@ -106,6 +111,7 @@ export const StudentCheckbox = memo((props: StudentCheckboxProps) => {
             currentCommissionId={currentCommissionId}
             currentCommissionName={currentCommissionName}
             blocked={blocked}
+            editCommissionId={editCommissionId}
         />
     );
 });

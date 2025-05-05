@@ -11,7 +11,6 @@ import {
     Skeleton,
     styled,
 } from '@mui/material';
-import { useCallback } from 'react';
 import { Controller } from 'react-hook-form';
 
 export interface OptionType<T = string | number> {
@@ -97,35 +96,8 @@ export function BaseSelect<T = string | number>(props: BaseSelectProps<T>) {
         ...otherProps
     } = props;
 
-    const getLabelByValue = useCallback(
-        (val: T) => {
-            if (val === null || val === undefined) return '';
-
-            const valStr = String(val);
-
-            const found = options.find((opt) => {
-                const optValue = getOptionObject(opt).value;
-                return String(optValue) === valStr;
-            });
-
-            return found ? getOptionObject(found).label : '';
-        },
-        [options],
-    );
-
     const renderSelect = (fieldProps?: { value: any; onChange: (event: any) => void }) => (
         <StyledSelect
-            // renderValue={(selected: unknown) => {
-            //     if (selected === clearValue) {
-            //         return clearText;
-            //     }
-
-            //     if (otherProps.multiple && Array.isArray(selected)) {
-            //         return (selected as T[]).map(getLabelByValue).join(', ');
-            //     }
-
-            //     return getLabelByValue(selected as T);
-            // }}
             {...otherProps}
             label={label}
             value={fieldProps?.value ?? value ?? (otherProps.multiple ? [] : '')}
@@ -159,7 +131,7 @@ export function BaseSelect<T = string | number>(props: BaseSelectProps<T>) {
                 }
 
                 return (
-                    <MenuItem key={opt.value as string} value={opt.value as string}>
+                    <MenuItem key={opt.value as string} value={opt.value as string} disabled={Boolean(opt.disabled)}>
                         {opt.label}
                     </MenuItem>
                 );

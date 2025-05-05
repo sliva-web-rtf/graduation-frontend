@@ -31,7 +31,6 @@ export const CommissionStudentsList = memo((props: CommissionStudentsListProps) 
     const [page, setPage] = useState(defaultPage);
     const editContext = useEditCommissionContext();
     const editCommissionId = editContext?.commissionId ?? null;
-
     const { data, isFetching } = useGetStudentsQuery({
         query,
         size,
@@ -91,6 +90,7 @@ export const CommissionStudentsList = memo((props: CommissionStudentsListProps) 
                                             currentCommissionId={commissionId}
                                             currentCommissionName={commissionName}
                                             blocked={item.blocked}
+                                            editCommissionId={editCommissionId}
                                         />
                                     );
                                 })}

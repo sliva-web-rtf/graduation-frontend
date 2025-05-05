@@ -12,14 +12,17 @@ type StudentTransferModalProps = {
     onCommissionChange: (payload: CommissionChangePayload) => void;
     currentCommissionId: string | null;
     currentCommissionName?: string | null;
+    editCommissionId?: string | null;
 
     disabled?: boolean;
 };
 
 const defaultComissionId = 'null';
+const defaultComissionName = 'Восстановить по умолчанию';
 
 export const StudentTransferModal = (props: StudentTransferModalProps) => {
-    const { studentName, onCommissionChange, currentCommissionId, currentCommissionName, disabled } = props;
+    const { studentName, onCommissionChange, currentCommissionId, currentCommissionName, editCommissionId, disabled } =
+        props;
     const [open, setOpen] = useState(false);
     const [commissionId, setCommissionId] = useState<string | null>(currentCommissionId);
     const [commissionName, setCommissionName] = useState<string | null | undefined>(currentCommissionName);
@@ -32,10 +35,21 @@ export const StudentTransferModal = (props: StudentTransferModalProps) => {
         setOpen(false);
     };
 
-    const handleChange = useCallback((event: SelectChangeEvent<unknown>, item: any) => {
-        setCommissionId(event.target.value as string);
-        setCommissionName(item.props.children);
-    }, []);
+    const handleChange = useCallback(
+        (event: SelectChangeEvent<unknown>, item: any) => {
+            const newCommissionId = event.target.value as string;
+            if (editCommissionId && newCommissionId === editCommissionId) {
+                setCommissionId(defaultComissionId);
+                setCommissionName(defaultComissionName);
+
+                return;
+            }
+
+            setCommissionId(event.target.value as string);
+            setCommissionName(item.props.children);
+        },
+        [editCommissionId],
+    );
 
     const handleSubmit = useCallback(() => {
         onCommissionChange({ commissionId, commissionName });
@@ -89,8 +103,9 @@ export const StudentTransferModal = (props: StudentTransferModalProps) => {
                         onChange={handleChange}
                         value={commissionId}
                         commissionName={commissionName}
-                        clearText="Восстановить по умолчанию"
                         clearValue={defaultComissionId}
+                        clearText={defaultComissionName}
+                        excludedValue={editCommissionId}
                     />
                 </Stack>
             </BaseModal>
