@@ -10,31 +10,33 @@ export enum CommissionFormStep {
 
 export const infoFormSchema = z.object({
     name: z.string().min(3, 'Введите название комиссии'),
-    secretary: z.object({ id: z.string(), name: z.string() }, { required_error: 'Выберите ответственного секретаря' }),
-    chairperson: z.object({ id: z.string(), name: z.string() }, { required_error: 'Выберите председателя комиссии' }),
+    secretary: z
+        .object({
+            id: z.string(),
+            name: z.string(),
+        })
+        .refine((secretary) => secretary.id, {
+            message: 'Выберите ответственного секретаря',
+        }),
+    chairperson: z
+        .object({
+            id: z.string(),
+            name: z.string(),
+        })
+        .refine((chairperson) => chairperson.id, {
+            message: 'Выберите председателя комиссии',
+        }),
 });
 
-export const expertsFormSchema = z
-    .record(
-        z.string(),
-        z.array(
-            z.object({
-                id: z.string(),
-                isInvited: z.boolean(),
-            }),
-        ),
-    )
-    .refine(
-        (obj) => {
-            const values = Object.values(obj);
-            // Проверяем, что первый этап (если есть) содержит хотя бы одного эксперта
-            if (values.length === 0) return false;
-            return Array.isArray(values[0]) && values[0].length > 0;
-        },
-        {
-            message: 'В первом этапе должен быть выбран хотя бы один эксперт',
-        },
-    );
+export const expertsFormSchema = z.record(
+    z.string(),
+    z.array(
+        z.object({
+            id: z.string(),
+            isInvited: z.boolean(),
+        }),
+    ),
+);
 
 export const groupsFormSchema = z.object({
     academicGroups: z
@@ -53,7 +55,7 @@ export const studentsFormSchema = z.record(
         z.object({
             id: z.string(),
             commissionId: z.string().nullable(),
-            commissionName: z.string().nullable(),
+            commissionName: z.string().nullable().nullish(),
         }),
     ),
 );

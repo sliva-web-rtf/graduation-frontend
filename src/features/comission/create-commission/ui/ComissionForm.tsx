@@ -1,9 +1,10 @@
 import { useGetStagesOptionsQuery } from '@/entities/Stage/api';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { Box, Stack } from '@mui/material';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useEditCommissionContext } from '../../edit-commision';
+import { useUnsavedChangesWarning } from '../lib';
 import { commissionFormActions, getCommissionForm } from '../model';
 import { CommissionFormStep } from '../model/types';
 import { ComissionFormSkeleton } from './ComissionForm.skeleton';
@@ -23,9 +24,17 @@ type ComissionFormProps = {
 export const ComissionForm = (props: ComissionFormProps) => {
     const { editMode = false } = props;
     const dispatch = useAppDispatch();
-    const { step } = useSelector(getCommissionForm);
+    const { step, forms } = useSelector(getCommissionForm);
+
     const editContext = useEditCommissionContext();
+
     const { data, isFetching } = useGetStagesOptionsQuery();
+
+    const checkUnsavedChanges = useCallback(() => {
+        return Object.values(forms).some((form) => form.isTouched);
+    }, [forms]);
+
+    useUnsavedChangesWarning(checkUnsavedChanges);
 
     useEffect(() => {
         dispatch(commissionFormActions.initEditMode(editMode));

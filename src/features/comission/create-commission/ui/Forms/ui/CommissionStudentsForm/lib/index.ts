@@ -4,7 +4,7 @@ import { ChangeEvent } from 'react';
 
 export type CommissionChangePayload = {
     commissionId: string | null;
-    commissionName: string | null;
+    commissionName?: string | null;
 };
 
 export const fromSelectedGroup = (student: StudentDto, selectedGroups?: string[]) => {
@@ -21,6 +21,7 @@ export const getStudentsChangeHandler = (field: any) => (studentId: string) => (
                 {
                     id: studentId,
                     commissionId: null,
+                    commissionName: null,
                 },
             ]);
         }

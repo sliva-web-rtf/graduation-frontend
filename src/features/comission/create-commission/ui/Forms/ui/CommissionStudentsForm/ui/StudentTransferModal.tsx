@@ -11,7 +11,7 @@ type StudentTransferModalProps = {
     studentName: string;
     onCommissionChange: (payload: CommissionChangePayload) => void;
     currentCommissionId: string | null;
-    currentCommissionName: string | null;
+    currentCommissionName?: string | null;
 };
 
 const defaultComissionId = 'null';
@@ -20,7 +20,7 @@ export const StudentTransferModal = (props: StudentTransferModalProps) => {
     const { studentName, onCommissionChange, currentCommissionId, currentCommissionName } = props;
     const [open, setOpen] = useState(false);
     const [commissionId, setCommissionId] = useState<string | null>(currentCommissionId);
-    const [commissionName, setCommissionName] = useState<string | null>(currentCommissionName);
+    const [commissionName, setCommissionName] = useState<string | null | undefined>(currentCommissionName);
 
     const handleOpen = () => {
         setOpen(true);
@@ -58,10 +58,10 @@ export const StudentTransferModal = (props: StudentTransferModalProps) => {
                 size="small"
                 open={open}
                 onClose={handleClose}
-                title="Выберите комиссию для перемещения студента"
+                title="Выберите комиссию для перевода студента"
                 actionButton={
                     <BaseButton variant="text" startIcon={<MoveDownIcon />} onClick={handleSubmit}>
-                        Переместить
+                        Перевести
                     </BaseButton>
                 }
                 cancelButton={
@@ -72,7 +72,7 @@ export const StudentTransferModal = (props: StudentTransferModalProps) => {
             >
                 <Stack spacing={2}>
                     <BaseAlert severity="warning">
-                        Вы собираетесь переместить студента <b>{studentName}</b> в другую комиссию
+                        Вы собираетесь перевести студента <b>{studentName}</b> в другую комиссию
                     </BaseAlert>
                     <ComissionSelect
                         onChange={handleChange}

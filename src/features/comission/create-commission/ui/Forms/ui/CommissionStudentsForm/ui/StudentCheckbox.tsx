@@ -13,8 +13,8 @@ type CheckboxItemProps = {
     onCommissionChange: (payload: CommissionChangePayload) => void;
     description?: string[];
     disabled?: boolean;
+    currentCommissionName?: string | null;
     currentCommissionId: string | null;
-    currentCommissionName: string | null;
 };
 
 const CheckboxItem = (props: CheckboxItemProps) => {
@@ -67,7 +67,7 @@ type StudentCheckboxProps = {
     onCheckChange: (e: ChangeEvent<HTMLInputElement>) => void;
     onCommissionChange: (payload: CommissionChangePayload) => void;
     currentCommissionId: string | null;
-    currentCommissionName: string | null;
+    currentCommissionName?: string | null;
 };
 
 export const StudentCheckbox = memo((props: StudentCheckboxProps) => {
