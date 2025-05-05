@@ -23,9 +23,7 @@ export const infoFormSchema = z.object({
             id: z.string(),
             name: z.string(),
         })
-        .refine((chairperson) => chairperson.id, {
-            message: 'Выберите председателя комиссии',
-        }),
+        .nullable(),
 });
 
 export const expertsFormSchema = z.record(
@@ -95,8 +93,8 @@ export type CommissionFormSchema = {
 
 export type CreateCommissionRequest = {
     name: InfoFormSchema['name'];
-    secretaryId: InfoFormSchema['secretary']['id'];
-    chairpersonId: InfoFormSchema['chairperson']['id'];
+    secretaryId: string | null;
+    chairpersonId: string | null;
     academicGroups: GroupsFormSchema['academicGroups'][number]['id'][];
     stages: {
         stage: string;

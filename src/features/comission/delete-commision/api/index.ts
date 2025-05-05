@@ -4,10 +4,9 @@ import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 export const commissionApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
         deleteCommission: build.mutation<void, { id: string }>({
-            query: (body) => ({
-                url: `/commissions`,
+            query: ({ id }) => ({
+                url: `/commissions/${id}`,
                 method: 'DELETE',
-                body,
             }),
             transformErrorResponse: (error: FetchBaseQueryError) => {
                 if (isApiError(error)) {

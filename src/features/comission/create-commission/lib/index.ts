@@ -110,8 +110,8 @@ export namespace CommissionTransform {
 
         const baseData = {
             name: info.data?.name ?? '',
-            secretaryId: info.data?.secretary.id ?? '',
-            chairpersonId: info.data?.chairperson.id ?? '',
+            secretaryId: info.data?.secretary?.id ?? null,
+            chairpersonId: info.data?.chairperson?.id ?? null,
             academicGroups: groups.data?.academicGroups.map((group) => group.id) ?? [],
             stages: stages.map((stage) => ({
                 stage,

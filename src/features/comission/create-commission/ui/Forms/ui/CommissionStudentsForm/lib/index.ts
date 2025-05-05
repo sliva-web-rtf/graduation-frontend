@@ -64,3 +64,27 @@ export const getDefaultStudentsFormValues = (
         }, {} as StudentsFormSchema) ?? {}
     );
 };
+
+type FieldValue = StudentsFormSchema['string'];
+
+export const getStudentsCurrentCommission = (field: any, student: StudentDto) => {
+    const { id, commission } = student;
+    const find = (field.value as FieldValue)?.find((item) => item.id === id);
+
+    return {
+        commissionId: find?.commissionId || commission?.id || null,
+        commissionName: find?.commissionName || commission?.name || null,
+    };
+};
+
+export const getStudentIsChecked = (
+    field: any,
+    student: StudentDto,
+    commissionId?: string | null,
+    editCommissionId?: string | null,
+) => {
+    const isFromEditCommission = Boolean(commissionId) && commissionId === editCommissionId;
+    const isSelected = (field.value as FieldValue)?.some((item) => item.id === student.id);
+
+    return isSelected || isFromEditCommission;
+};

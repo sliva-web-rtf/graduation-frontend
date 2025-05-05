@@ -1,3 +1,4 @@
+import { AcademicGroup } from '@/entities/AcademicGroup';
 import { GroupsFormSchema } from '@/features/comission/create-commission/model';
 import { ChangeEvent } from 'react';
 
@@ -19,3 +20,11 @@ export const getGroupsChangeHandler =
             field.onChange(current.filter((group: any) => group.id !== item.id));
         }
     };
+
+export const getGroupsDescription = (item: AcademicGroup): string[] => {
+    const { academicProgram, blocked, commissionName, commissionId } = item;
+
+    const blockedDescription = !commissionName && (commissionId || blocked) ? 'В другой комиссии' : '';
+
+    return [academicProgram, commissionName, blockedDescription].filter(Boolean) as string[];
+};

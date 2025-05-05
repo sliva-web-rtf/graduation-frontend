@@ -31,15 +31,17 @@ export const BaseCheckbox = (props: Props & CheckboxProps) => {
     const { value, label, description, ...checkboxProps } = props;
 
     return (
-        <FormControlLabel
-            label={
-                <Stack direction="row" spacing={2} alignItems="center" justifyContent="space-between" width="100%">
-                    <Typography fontWeight={600}>{label}</Typography>
-                    {renderDescription(description)}
-                </Stack>
-            }
-            value={value}
-            control={<Checkbox {...checkboxProps} />}
-        />
+        <Stack direction="row" spacing={2} alignItems="center" flexWrap="nowrap">
+            <FormControlLabel
+                label={
+                    <Typography fontWeight={600} whiteSpace="nowrap">
+                        {label}
+                    </Typography>
+                }
+                value={value}
+                control={<Checkbox {...checkboxProps} />}
+            />
+            {renderDescription(description)}
+        </Stack>
     );
 };

@@ -10,6 +10,8 @@ export enum TagTypes {
     MyTopics = 'MyTopics',
     MyStudents = 'MyStudents',
     DefaultYear = 'DefaultYear',
+    AcademicGroup = 'AcademicGroup',
+    AcademicGroups = 'AcademicGroups',
 }
 
 export const baseApi = createApi({

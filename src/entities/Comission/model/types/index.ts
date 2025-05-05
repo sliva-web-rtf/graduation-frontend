@@ -19,7 +19,11 @@ export type CommissionRequest = {
 export type CommissionNamesDto = {
     commissions: Pick<CommissionModel, 'name' | 'secretaryName'>[];
 };
-export type CommissionNamesModel = { label: CommissionModel['name']; value: CommissionModel['name'] }[];
+export type CommissionNamesModel = {
+    id: CommissionModel['id'];
+    label: CommissionModel['name'];
+    value: CommissionModel['name'];
+}[];
 
 export type CommissionsDto = {
     commissions: CommissionModel[];

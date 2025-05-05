@@ -12,12 +12,14 @@ type StudentTransferModalProps = {
     onCommissionChange: (payload: CommissionChangePayload) => void;
     currentCommissionId: string | null;
     currentCommissionName?: string | null;
+
+    disabled?: boolean;
 };
 
 const defaultComissionId = 'null';
 
 export const StudentTransferModal = (props: StudentTransferModalProps) => {
-    const { studentName, onCommissionChange, currentCommissionId, currentCommissionName } = props;
+    const { studentName, onCommissionChange, currentCommissionId, currentCommissionName, disabled } = props;
     const [open, setOpen] = useState(false);
     const [commissionId, setCommissionId] = useState<string | null>(currentCommissionId);
     const [commissionName, setCommissionName] = useState<string | null | undefined>(currentCommissionName);
@@ -40,7 +42,6 @@ export const StudentTransferModal = (props: StudentTransferModalProps) => {
         handleClose();
     }, [commissionId, onCommissionChange, commissionName]);
 
-    const buttonColor = currentCommissionId ? 'secondary' : 'primary';
     const buttonText = currentCommissionName || 'Перевести';
     const tooltipTitle = currentCommissionName
         ? `Переведен в "${currentCommissionName}"`
@@ -50,9 +51,19 @@ export const StudentTransferModal = (props: StudentTransferModalProps) => {
     return (
         <>
             <Tooltip title={tooltipTitle}>
-                <BaseButton variant="text" color={buttonColor} startIcon={buttonIcon} onClick={handleOpen}>
-                    {buttonText}
-                </BaseButton>
+                <span>
+                    <BaseButton
+                        component="span"
+                        variant="text"
+                        color="primary"
+                        startIcon={buttonIcon}
+                        onClick={handleOpen}
+                        disabled={disabled}
+                        sx={{ padding: '0 16px 0 0 !important', whiteSpace: 'nowrap' }}
+                    >
+                        {buttonText}
+                    </BaseButton>
+                </span>
             </Tooltip>
             <BaseModal
                 size="small"

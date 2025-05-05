@@ -16,6 +16,9 @@ export type StudentDto = {
     fullName: string;
     academicGroup: Pick<AcademicGroup, 'id' | 'name'>;
     commission: Pick<CommissionModel, 'id' | 'name'>;
+
+    prevCommission?: Pick<CommissionModel, 'id' | 'name'>;
+    blocked?: boolean;
 };
 
 export type StudentsDto = {

@@ -6,7 +6,13 @@ import { FormControl, Stack } from '@mui/material';
 import { ChangeEvent, memo, useCallback, useEffect, useState } from 'react';
 import { Control, Controller } from 'react-hook-form';
 import { StudentsFormSchema } from '../../../../../model';
-import { fromSelectedGroup, getStudentCommissionChangeHandler, getStudentsChangeHandler } from '../lib';
+import {
+    fromSelectedGroup,
+    getStudentCommissionChangeHandler,
+    getStudentIsChecked,
+    getStudentsChangeHandler,
+    getStudentsCurrentCommission,
+} from '../lib';
 import { StudentCheckbox } from './StudentCheckbox';
 
 type CommissionStudentsListProps = {
@@ -69,16 +75,10 @@ export const CommissionStudentsList = memo((props: CommissionStudentsListProps) 
                             <Stack spacing={1}>
                                 {data.students.map((item) => {
                                     const defaultChecked = fromSelectedGroup(item, academicGroups);
-                                    const { commissionId, commissionName } = field.value?.find(
-                                        (student) => student.id === item.id,
-                                    ) ?? {
-                                        commissionId: null,
-                                        commissionName: null,
-                                    };
+                                    const { commissionId, commissionName } = getStudentsCurrentCommission(field, item);
                                     const checked =
-                                        (!commissionId && field.value?.some((student) => student.id === item.id)) ||
                                         defaultChecked ||
-                                        (Boolean(commissionId) && commissionId === editCommissionId);
+                                        getStudentIsChecked(field, item, commissionId, editCommissionId);
 
                                     return (
                                         <StudentCheckbox
@@ -90,6 +90,7 @@ export const CommissionStudentsList = memo((props: CommissionStudentsListProps) 
                                             onCommissionChange={handleCommissionChange(item.id)}
                                             currentCommissionId={commissionId}
                                             currentCommissionName={commissionName}
+                                            blocked={item.blocked}
                                         />
                                     );
                                 })}

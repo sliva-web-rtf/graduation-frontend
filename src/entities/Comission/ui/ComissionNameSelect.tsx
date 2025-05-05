@@ -9,7 +9,13 @@ export const ComissionNameSelect = memo((props: ComissionSelectProps) => {
     const [open, setOpen] = useState(false);
     const limitTags = props.limitTags ?? 2;
 
-    const { data, isFetching } = useGetCommissionNamesQuery(undefined, { skip: !open });
+    const { data, isFetching } = useGetCommissionNamesQuery(undefined, {
+        skip: !open,
+        selectFromResult: (result) => ({
+            data: result.data?.map(({ label, value }) => ({ label, value })),
+            isFetching: result.isFetching,
+        }),
+    });
 
     const handleOpen = () => {
         setOpen(true);

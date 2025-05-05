@@ -13,6 +13,7 @@ type CheckboxItemProps = {
     onCommissionChange: (payload: CommissionChangePayload) => void;
     description?: string[];
     disabled?: boolean;
+    blocked: boolean;
     currentCommissionName?: string | null;
     currentCommissionId: string | null;
 };
@@ -26,6 +27,7 @@ const CheckboxItem = (props: CheckboxItemProps) => {
         onCommissionChange,
         description,
         disabled,
+        blocked,
         currentCommissionId,
         currentCommissionName,
     } = props;
@@ -39,6 +41,7 @@ const CheckboxItem = (props: CheckboxItemProps) => {
             justifyContent="space-between"
             px={1}
             py={0.5}
+            flexWrap="nowrap"
         >
             <BaseCheckbox
                 label={label}
@@ -46,7 +49,7 @@ const CheckboxItem = (props: CheckboxItemProps) => {
                 checked={checked}
                 onChange={onChange}
                 description={description}
-                disabled={disabled}
+                disabled={disabled || blocked}
             />
             {disabled && (
                 <StudentTransferModal
@@ -54,6 +57,7 @@ const CheckboxItem = (props: CheckboxItemProps) => {
                     onCommissionChange={onCommissionChange}
                     currentCommissionId={currentCommissionId}
                     currentCommissionName={currentCommissionName}
+                    disabled={blocked}
                 />
             )}
         </Paper>
@@ -68,6 +72,7 @@ type StudentCheckboxProps = {
     onCommissionChange: (payload: CommissionChangePayload) => void;
     currentCommissionId: string | null;
     currentCommissionName?: string | null;
+    blocked?: boolean;
 };
 
 export const StudentCheckbox = memo((props: StudentCheckboxProps) => {
@@ -79,8 +84,9 @@ export const StudentCheckbox = memo((props: StudentCheckboxProps) => {
         onCommissionChange,
         currentCommissionId,
         currentCommissionName,
+        blocked = false,
     } = props;
-    const description = [student.academicGroup?.name, student.commission?.name].filter(Boolean);
+    const description = [student.academicGroup?.name, student.prevCommission?.name].filter(Boolean) as string[];
 
     const handleCommissionChange = useCallback(
         (payload: CommissionChangePayload) => onCommissionChange(payload),
@@ -99,6 +105,7 @@ export const StudentCheckbox = memo((props: StudentCheckboxProps) => {
             disabled={isDefaultChecked}
             currentCommissionId={currentCommissionId}
             currentCommissionName={currentCommissionName}
+            blocked={blocked}
         />
     );
 });

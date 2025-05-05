@@ -3,6 +3,12 @@ export type AcademicGroup = {
     name: string;
     academicProgram: string;
     blocked: boolean;
+
+    commissionId?: string | null;
+    commissionName?: string | null;
+
+    formattingReviewerId?: string | null;
+    formattingReviewerName?: string | null;
 };
 
 export type AcademicGroupsDto = {

@@ -6,7 +6,7 @@ import { FormControl, Stack } from '@mui/material';
 import { ChangeEvent, memo, useCallback, useEffect, useState } from 'react';
 import { Control, Controller } from 'react-hook-form';
 import { GroupsFormSchema } from '../../../../../model';
-import { getGroupsChangeHandler } from '../lib';
+import { getGroupsChangeHandler, getGroupsDescription } from '../lib';
 import { GroupCheckbox } from './GroupCheckbox';
 
 type CommissionGroupsListProps = {
@@ -57,19 +57,19 @@ export const CommissionGroupsList = memo((props: CommissionGroupsListProps) => {
                             {data.academicGroups.map((item) => {
                                 const checked = field.value?.some((group) => group.id === item.id);
                                 const handleChange = getGroupsChangeHandler(field)(item);
-                                const description = [
-                                    item.academicProgram,
-                                    item.blocked ? 'В другой комиссии' : '',
-                                ].filter(Boolean);
+                                const description = getGroupsDescription(item);
 
                                 return (
                                     <GroupCheckbox
                                         key={item.id}
+                                        value={item.id}
                                         label={item.name}
                                         description={description}
                                         checked={checked}
                                         onChange={handleChange}
                                         disabled={item.blocked}
+                                        formattingReviewerId={item.formattingReviewerId}
+                                        formattingReviewerName={item.formattingReviewerName}
                                     />
                                 );
                             })}
