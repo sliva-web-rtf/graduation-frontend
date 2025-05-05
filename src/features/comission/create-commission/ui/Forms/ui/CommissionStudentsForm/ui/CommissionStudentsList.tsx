@@ -32,6 +32,7 @@ export const CommissionStudentsList = memo((props: CommissionStudentsListProps) 
         page,
         stage,
         sortByAcademicGroups: academicGroups,
+        commissionId: editCommissionId,
     });
 
     const handleChangePage = useCallback((_: ChangeEvent<unknown>, value: number) => {

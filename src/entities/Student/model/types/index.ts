@@ -8,6 +8,7 @@ export type StudentsRequest = {
 
     query?: string;
     sortByAcademicGroups?: string[];
+    commissionId?: string | null;
 };
 
 export type StudentDto = {
