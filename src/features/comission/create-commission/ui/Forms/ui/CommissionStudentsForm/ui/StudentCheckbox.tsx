@@ -36,7 +36,7 @@ const CheckboxItem = (props: CheckboxItemProps) => {
         <Paper
             component={Stack}
             direction="row"
-            spacing={2}
+            spacing={4}
             alignItems="center"
             justifyContent="space-between"
             px={1}

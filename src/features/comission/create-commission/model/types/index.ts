@@ -37,14 +37,12 @@ export const expertsFormSchema = z.record(
 );
 
 export const groupsFormSchema = z.object({
-    academicGroups: z
-        .array(
-            z.object({
-                id: z.string(),
-                name: z.string(),
-            }),
-        )
-        .min(1),
+    academicGroups: z.array(
+        z.object({
+            id: z.string(),
+            name: z.string(),
+        }),
+    ),
 });
 
 export const studentsFormSchema = z.record(
