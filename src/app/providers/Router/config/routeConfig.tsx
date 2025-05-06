@@ -88,7 +88,7 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         path: RoutePath.Catalog,
         element: <CatalogPage />,
         ...withLayoutAndAuth,
-        roles: [Role.Supervisor, Role.Student],
+        roles: [Role.Admin, Role.Supervisor, Role.Student],
     },
     [AppRoutes.Profile]: {
         path: RoutePath.Profile,
@@ -109,7 +109,7 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         path: RoutePath.Students,
         element: <StudentPage />,
         ...withLayoutAndAuth,
-        roles: [Role.HeadSecretary, Role.Secretary, Role.Supervisor],
+        roles: [Role.Admin, Role.HeadSecretary, Role.Secretary, Role.Supervisor],
     },
     [AppRoutes.Requests]: {
         path: RoutePath.Requests,
@@ -120,19 +120,19 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         path: RoutePath.CreateComission,
         element: <CreateCommissionPage />,
         ...withLayoutAndAuth,
-        roles: [Role.HeadSecretary, Role.Secretary, Role.Admin],
+        roles: [Role.Admin, Role.HeadSecretary, Role.Secretary],
     },
     [AppRoutes.EditComission]: {
         path: RoutePath.EditComission,
         element: <EditCommissionPage />,
         ...withLayoutAndAuth,
-        roles: [Role.HeadSecretary, Role.Secretary, Role.Admin],
+        roles: [Role.Admin, Role.HeadSecretary, Role.Secretary],
     },
     [AppRoutes.Commissions]: {
         path: RoutePath.Commissions,
         element: <CommissionsPage />,
         ...withLayoutAndAuth,
-        roles: [Role.HeadSecretary],
+        roles: [Role.Admin, Role.HeadSecretary, Role.Secretary],
     },
     [AppRoutes.CreateTopic]: {
         path: RoutePath.CreateTopic,
@@ -167,13 +167,13 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         path: RoutePath.MyStudents,
         element: <MyStudentsPage />,
         ...withLayoutAndAuth,
-        roles: [Role.HeadSecretary, Role.Secretary, Role.Expert],
+        roles: [Role.Admin, Role.HeadSecretary, Role.Secretary, Role.Expert],
     },
     [AppRoutes.Administration]: {
         path: RoutePath.Administration,
         element: <AdminPage />,
         ...withLayoutAndAuth,
-        roles: [Role.HeadSecretary, Role.Admin],
+        roles: [Role.Admin, Role.HeadSecretary],
     },
     [AppRoutes.Forbidden]: {
         path: RoutePath.Forbidden,
