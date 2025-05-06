@@ -1,10 +1,10 @@
-import { CommissionCard, useGetCommissionsQuery } from '@/entities/Comission';
+import { CommissionCard, useGetCommissionsForEditingQuery } from '@/entities/Comission';
 import { EmptyMessage, ErrorPageMessage } from '@/shared/ui';
 import { Stack } from '@mui/material';
 import { ComissionsListSkeleton } from './ComissionsList.skeleton';
 
 export const ComissionsList = () => {
-    const { data, isFetching, error } = useGetCommissionsQuery();
+    const { data, isFetching, error } = useGetCommissionsForEditingQuery();
 
     if (isFetching) {
         return <ComissionsListSkeleton count={8} />;

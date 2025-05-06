@@ -4,7 +4,7 @@ import { ComissionsList } from './ComissionsList';
 
 export const Comissions = () => {
     return (
-        <Stack spacing={4} height="100%" justifyContent="space-between">
+        <Stack spacing={4} height="100%">
             <CreateCommissionButton />
             <ComissionsList />
         </Stack>

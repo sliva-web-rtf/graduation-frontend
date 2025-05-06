@@ -86,7 +86,7 @@ export const CommissionCard = (props: Props) => {
                         </Typography>
                         <Stack direction="row" spacing={2}>
                             <BaseChip label={`Секретарь: ${secretaryName}`} color="success" />
-                            <BaseChip label={`Председатель: ${chairpersonName}`} />
+                            {chairpersonName && <BaseChip label={`Председатель: ${chairpersonName}`} />}
                         </Stack>
                     </Stack>
                     <CommissionCardMenu commissionId={id} commissionName={name} />
