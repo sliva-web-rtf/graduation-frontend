@@ -77,14 +77,34 @@ export const getStudentsCurrentCommission = (field: any, student: StudentDto) =>
     };
 };
 
-export const getStudentIsChecked = (
-    field: any,
+export const getStudentIsDefaultChecked = (
     student: StudentDto,
     commissionId?: string | null,
     editCommissionId?: string | null,
+    academicGroups?: string[],
 ) => {
+    const isFromSelectedGroup = fromSelectedGroup(student, academicGroups);
     const isFromEditCommission = Boolean(commissionId) && commissionId === editCommissionId;
+
+    return isFromSelectedGroup || isFromEditCommission;
+};
+
+export const getStudentIsChecked = (field: any, student: StudentDto) => {
     const isSelected = (field.value as FieldValue)?.some((item) => item.id === student.id);
 
-    return isSelected || isFromEditCommission;
+    return isSelected;
+};
+
+const getIsStudentMoved = (student: StudentDto) => {
+    return Boolean(student.commission?.id);
+};
+
+export const getStudentDescription = (student: StudentDto) => {
+    const isStudentMoved = getIsStudentMoved(student);
+
+    if (!isStudentMoved) {
+        return [student.academicGroup?.name];
+    }
+
+    return [student.academicGroup?.name, student.prevCommission?.name].filter(Boolean) as string[];
 };

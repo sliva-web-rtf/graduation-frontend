@@ -2,7 +2,7 @@ import { StudentDto } from '@/entities/Student';
 import { BaseCheckbox } from '@/shared/ui';
 import { Paper, Stack } from '@mui/material';
 import { ChangeEvent, memo, useCallback } from 'react';
-import { CommissionChangePayload } from '../lib';
+import { CommissionChangePayload, getStudentDescription } from '../lib';
 import { StudentTransferModal } from './StudentTransferModal';
 
 type CheckboxItemProps = {
@@ -34,6 +34,9 @@ const CheckboxItem = (props: CheckboxItemProps) => {
         editCommissionId,
     } = props;
 
+    const isStudentMoved = Boolean(currentCommissionId) && Boolean(currentCommissionName);
+    const isStudentTransferModalVisible = disabled || (!disabled && isStudentMoved);
+
     return (
         <Paper
             component={Stack}
@@ -53,7 +56,7 @@ const CheckboxItem = (props: CheckboxItemProps) => {
                 description={description}
                 disabled={disabled || blocked}
             />
-            {disabled && (
+            {isStudentTransferModalVisible && (
                 <StudentTransferModal
                     studentName={label}
                     onCommissionChange={onCommissionChange}
@@ -91,7 +94,8 @@ export const StudentCheckbox = memo((props: StudentCheckboxProps) => {
         editCommissionId,
         blocked = false,
     } = props;
-    const description = [student.academicGroup?.name, student.prevCommission?.name].filter(Boolean) as string[];
+
+    const description = getStudentDescription(student);
 
     const handleCommissionChange = useCallback(
         (payload: CommissionChangePayload) => onCommissionChange(payload),

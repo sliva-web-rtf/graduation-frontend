@@ -1,4 +1,4 @@
-import { baseApi } from '@/shared/api';
+import { baseApi, TagTypes } from '@/shared/api';
 import { removeEmptyValues } from '@/shared/lib/helpers/removeEmptyValues';
 import { ExpertsDto, ExpertsModel, ExpertsRequest } from '../model';
 
@@ -17,6 +17,7 @@ export const expertApi = baseApi.injectEndpoints({
                     ...removeEmptyValues(params),
                 },
             }),
+            providesTags: [TagTypes.Experts],
         }),
         getExpertsOptions: build.query<ExpertsModel, ExpertsRequest>({
             query: (params) => ({
@@ -27,6 +28,7 @@ export const expertApi = baseApi.injectEndpoints({
                 },
             }),
             transformResponse: (response: ExpertsDto) => response.experts,
+            providesTags: [TagTypes.Experts],
         }),
     }),
 });

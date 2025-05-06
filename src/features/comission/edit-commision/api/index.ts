@@ -33,7 +33,13 @@ const comissionApi = baseApi.injectEndpoints({
                     return [];
                 }
 
-                return [{ type: TagTypes.Commission, id: result?.commissionId }];
+                return [
+                    { type: TagTypes.Commission, id: result?.commissionId },
+                    TagTypes.Experts,
+                    TagTypes.AcademicGroups,
+                    TagTypes.CommissionStudents,
+                    TagTypes.MyStudents,
+                ];
             },
         }),
     }),

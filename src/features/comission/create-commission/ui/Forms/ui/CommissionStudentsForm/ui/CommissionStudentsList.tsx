@@ -7,9 +7,9 @@ import { ChangeEvent, memo, useCallback, useEffect, useState } from 'react';
 import { Control, Controller } from 'react-hook-form';
 import { StudentsFormSchema } from '../../../../../model';
 import {
-    fromSelectedGroup,
     getStudentCommissionChangeHandler,
     getStudentIsChecked,
+    getStudentIsDefaultChecked,
     getStudentsChangeHandler,
     getStudentsCurrentCommission,
 } from '../lib';
@@ -31,6 +31,7 @@ export const CommissionStudentsList = memo((props: CommissionStudentsListProps) 
     const [page, setPage] = useState(defaultPage);
     const editContext = useEditCommissionContext();
     const editCommissionId = editContext?.commissionId ?? null;
+
     const { data, isFetching } = useGetStudentsQuery({
         query,
         size,
@@ -73,11 +74,14 @@ export const CommissionStudentsList = memo((props: CommissionStudentsListProps) 
                         return (
                             <Stack spacing={1}>
                                 {data.students.map((item) => {
-                                    const defaultChecked = fromSelectedGroup(item, academicGroups);
                                     const { commissionId, commissionName } = getStudentsCurrentCommission(field, item);
-                                    const checked =
-                                        defaultChecked ||
-                                        getStudentIsChecked(field, item, commissionId, editCommissionId);
+                                    const defaultChecked = getStudentIsDefaultChecked(
+                                        item,
+                                        commissionId,
+                                        editCommissionId,
+                                        academicGroups,
+                                    );
+                                    const checked = defaultChecked || getStudentIsChecked(field, item);
 
                                     return (
                                         <StudentCheckbox

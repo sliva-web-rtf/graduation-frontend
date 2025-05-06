@@ -1,4 +1,4 @@
-import { baseApi } from '@/shared/api';
+import { baseApi, TagTypes } from '@/shared/api';
 import { removeEmptyValues } from '@/shared/lib/helpers/removeEmptyValues';
 import queryString from 'query-string';
 import { StudentsDto, StudentsRequest } from '../model';
@@ -11,6 +11,7 @@ const studentApi = baseApi.injectEndpoints({
                     url: '/commissions/students',
                     query: removeEmptyValues(params),
                 }),
+            providesTags: [TagTypes.CommissionStudents],
         }),
     }),
 });

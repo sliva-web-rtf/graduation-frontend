@@ -22,7 +22,13 @@ export const commissionApi = baseApi.injectEndpoints({
                     return [];
                 }
 
-                return [TagTypes.Commission];
+                return [
+                    TagTypes.Commissions,
+                    TagTypes.CommissionStudents,
+                    TagTypes.Experts,
+                    TagTypes.AcademicGroups,
+                    TagTypes.MyStudents,
+                ];
             },
         }),
     }),
