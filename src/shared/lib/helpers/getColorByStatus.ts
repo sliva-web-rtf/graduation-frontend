@@ -56,6 +56,8 @@ export const getColorByFormatingReviewStatus = (status?: FormattingReviewStatus)
     switch (status) {
         case FormattingReviewStatus.Success:
             return 'success';
+        case FormattingReviewStatus.Warning:
+            return 'warning';
         case FormattingReviewStatus.Error:
             return 'error';
 

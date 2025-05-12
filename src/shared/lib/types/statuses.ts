@@ -28,11 +28,13 @@ export const DocumentStatusRus: StrictRecord<DocumentStatus, string> = {
 
 export enum FormattingReviewStatus {
     Error = 'нет',
+    Warning = 'рассматривается',
     Success = 'да',
 }
 
 export const FormattingReviewStatusRus: StrictRecord<FormattingReviewStatus, string> = {
     [FormattingReviewStatus.Error]: 'Не пройден',
+    [FormattingReviewStatus.Warning]: 'На рассмотрении',
     [FormattingReviewStatus.Success]: 'Пройден',
 
     getUnknown: 'Нет данных',
