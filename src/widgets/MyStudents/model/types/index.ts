@@ -2,7 +2,7 @@ import { StudentStatus } from '@/entities/Person';
 import { TopicStatus } from '@/entities/Topic';
 import { DocumentStatus, MovementStatus, ResultStatus } from '@/shared/lib/types/statuses';
 import { GridSortModel } from '@mui/x-data-grid';
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import { z } from 'zod';
 
 export type StudentsTableRequest = {
@@ -14,6 +14,8 @@ export type StudentsTableRequest = {
     commissions?: string[];
     sort?: GridSortModel;
     studentStatuses?: string[];
+    fromDate?: string;
+    toDate?: string;
 };
 
 export type MyStudentsSchema = {
@@ -21,6 +23,9 @@ export type MyStudentsSchema = {
     query: string;
     commissions: string[];
     selectedStudents: string[];
+
+    fromDate: Dayjs | null;
+    toDate: Dayjs | null;
 };
 
 export type DefenceData = {

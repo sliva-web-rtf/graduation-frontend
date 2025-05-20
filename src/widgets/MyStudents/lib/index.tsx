@@ -405,5 +405,6 @@ export const generateColumns = (dataType?: DataType): GridColDef[] => {
     }
 };
 
+export { buildDateRange } from './buildDateRange';
 export { buildFilterQuery } from './buildFIlterQuery';
 export { mapStudentRowToDto, mapStudentsTableDtoToModel } from './mapStudentsTableDtoToModel';

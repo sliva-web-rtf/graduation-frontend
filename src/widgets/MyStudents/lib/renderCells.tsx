@@ -14,6 +14,7 @@ import {
 } from '@/shared/lib/helpers/getColorByStatus';
 import { getInfoPagePath } from '@/shared/lib/helpers/getInfoPagePath';
 import { isOpenInNewTab } from '@/shared/lib/helpers/isOpenInNewTab';
+import { trimQuotes } from '@/shared/lib/helpers/trimQuotes';
 import {
     DocumentStatus,
     DocumentStatusRus,
@@ -181,7 +182,7 @@ export const RenderEditTextareaCell = (props: GridRenderEditCellParams<any, stri
         (event) => {
             const newValue = event.target.value;
             setValueState(newValue);
-            apiRef.current.setEditCellValue({ id, field, value: newValue, debounceMs: 300 }, event);
+            apiRef.current.setEditCellValue({ id, field, value: trimQuotes(newValue), debounceMs: 300 }, event);
         },
         [apiRef, field, id],
     );

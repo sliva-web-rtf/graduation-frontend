@@ -1,41 +1,41 @@
 import { StrictRecord } from './StrictRecord';
 
 export enum ResultStatus {
+    Success = 'да',
     Error = 'нет',
     Warning = 'нет, н/я',
-    Success = 'да',
 }
 
 export const ResultStatusRus: StrictRecord<ResultStatus, string> = {
+    [ResultStatus.Success]: 'Успешно',
     [ResultStatus.Error]: 'Не успешно',
     [ResultStatus.Warning]: 'Не явился',
-    [ResultStatus.Success]: 'Успешно',
 
     getUnknown: 'Нет данных',
 } as const;
 
 export enum DocumentStatus {
-    Empty = 'Empty',
-    Uploaded = 'Uploaded',
     Checked = 'Checked',
+    Uploaded = 'Uploaded',
+    Empty = 'Empty',
 }
 
 export const DocumentStatusRus: StrictRecord<DocumentStatus, string> = {
-    [DocumentStatus.Empty]: 'Не загружен',
-    [DocumentStatus.Uploaded]: 'Загружен',
     [DocumentStatus.Checked]: 'Проверен',
+    [DocumentStatus.Uploaded]: 'Загружен',
+    [DocumentStatus.Empty]: 'Не загружен',
 } as const;
 
 export enum FormattingReviewStatus {
-    Error = 'нет',
-    Warning = 'рассматривается',
     Success = 'да',
+    Warning = 'рассматривается',
+    Error = 'нет',
 }
 
 export const FormattingReviewStatusRus: StrictRecord<FormattingReviewStatus, string> = {
-    [FormattingReviewStatus.Error]: 'Не пройден',
-    [FormattingReviewStatus.Warning]: 'На рассмотрении',
     [FormattingReviewStatus.Success]: 'Пройден',
+    [FormattingReviewStatus.Warning]: 'На рассмотрении',
+    [FormattingReviewStatus.Error]: 'Не пройден',
 
     getUnknown: 'Нет данных',
 } as const;

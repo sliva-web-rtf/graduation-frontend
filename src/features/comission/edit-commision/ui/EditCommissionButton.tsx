@@ -61,7 +61,7 @@ export const SubmitEditCommissionButton = (props: SubmitEditCommissionButtonProp
                 disabled={disabled}
                 loading={isLoading}
             >
-                Редактировать комиссию
+                Сохранить
             </BaseLoadingButton>
             {error && 'message' in error && (
                 <BaseAlert severity="error" fullWidth={false}>

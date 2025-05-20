@@ -60,7 +60,7 @@ export const SubmitCommissionButton = (props: SubmitCommissionButtonProps) => {
                 disabled={disabled}
                 loading={isLoading}
             >
-                Создать комиссию
+                Создать
             </BaseLoadingButton>
             {error && 'message' in error && (
                 <BaseAlert severity="error" fullWidth={false}>

@@ -1,3 +1,4 @@
+import { useGetCurrentStageQuery } from '@/entities/Stage';
 import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useContextMenu } from '@/shared/lib/hooks/useContextMenu';
@@ -7,7 +8,7 @@ import { GridFilterModel, GridRowSelectionModel, GridSortModel } from '@mui/x-da
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useGetStudentsTableQuery } from '../api';
-import { buildFilterQuery, generateColumns } from '../lib';
+import { buildDateRange, buildFilterQuery, generateColumns } from '../lib';
 import { myStudentsActions, myStudentsReducer } from '../model';
 import { getMyStudentsState } from '../model/selectors';
 import { ContextMenu } from './ContextMenu';
@@ -21,23 +22,29 @@ const initialReducers: ReducersList = {
 export const MyStudents = () => {
     const dispatch = useAppDispatch();
     const { handleContextMenu, handleClose, menuProps } = useContextMenu();
-    const { stage, query, commissions, selectedStudents } = useSelector(getMyStudentsState);
+    const { stage, query, commissions, selectedStudents, fromDate, toDate } = useSelector(getMyStudentsState);
     const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 1 });
     const [sortModel, setSortModel] = useState<GridSortModel>([{ field: 'student', sort: 'asc' }]);
     const [filterModel, setFilterModel] = useState<GridFilterModel>({
         items: [],
     });
     const studentStatusFilter = buildFilterQuery(filterModel).status as string[];
+    const dateRange = buildDateRange(fromDate, toDate);
 
-    const { data, isLoading, error } = useGetStudentsTableQuery({
-        page: paginationModel.page,
-        size: paginationModel.pageSize,
-        stage,
-        query,
-        commissions,
-        sort: sortModel,
-        studentStatuses: studentStatusFilter,
-    });
+    const { isLoading: isCurrentStageLoading } = useGetCurrentStageQuery(undefined, { skip: Boolean(stage) });
+    const { data, isLoading, error } = useGetStudentsTableQuery(
+        {
+            page: paginationModel.page,
+            size: paginationModel.pageSize,
+            stage,
+            query,
+            commissions,
+            sort: sortModel,
+            studentStatuses: studentStatusFilter,
+            ...dateRange,
+        },
+        { skip: paginationModel.pageSize === 1 || !stage },
+    );
 
     const columns = useMemo(() => generateColumns(data?.dataType), [data]);
     const rowCount = useMemo(
@@ -76,7 +83,7 @@ export const MyStudents = () => {
                     />
                 ) : (
                     <MyStudentsTable
-                        loading={isLoading}
+                        loading={isLoading || isCurrentStageLoading}
                         stage={stage}
                         columns={columns}
                         rows={data?.students ?? []}

@@ -3,8 +3,9 @@ import { StageSelect } from '@/entities/Stage';
 import { isUserHeadSecretary } from '@/entities/User';
 import { DEBOUNCE_DELAY } from '@/shared/lib/const';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { BaseSearch } from '@/shared/ui';
+import { BaseDatePicker, BaseSearch } from '@/shared/ui';
 import { Box, SelectChangeEvent, Stack } from '@mui/material';
+import dayjs from 'dayjs';
 import { ChangeEvent, memo, useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDebouncedCallback } from 'use-debounce';
@@ -14,7 +15,7 @@ import { getMyStudentsState } from '../model/selectors';
 export const MyStudentsFilter = memo(() => {
     const dispatch = useAppDispatch();
     const isHeadSecretary = useSelector(isUserHeadSecretary);
-    const { stage, query, commissions } = useSelector(getMyStudentsState);
+    const { stage, query, commissions, fromDate, toDate } = useSelector(getMyStudentsState);
     const [searchValue, setSearchValue] = useState(query);
 
     const handleSearchChange = useDebouncedCallback((value: string) => {
@@ -41,17 +42,31 @@ export const MyStudentsFilter = memo(() => {
         [dispatch],
     );
 
+    const onChangeFromDate = useCallback(
+        (newValue: Date) => {
+            dispatch(myStudentsActions.setFromDate(dayjs(newValue)));
+        },
+        [dispatch],
+    );
+
+    const onChangeToDate = useCallback(
+        (newValue: Date) => {
+            dispatch(myStudentsActions.setToDate(dayjs(newValue)));
+        },
+        [dispatch],
+    );
+
     return (
-        <Stack direction="row" spacing={3}>
-            <Box flex={1}>
-                <BaseSearch
-                    label="Поиск по ФИО, группе, теме или руководителю"
-                    placeholder="Например: Иванов РИ-410940"
-                    value={searchValue}
-                    onChange={onChangeSearch}
-                />
-            </Box>
-            <Stack direction="row" spacing={3} flex={isHeadSecretary ? 2 : 1}>
+        <Stack spacing={2}>
+            <Stack direction="row" spacing={3}>
+                <Box flex={1}>
+                    <BaseSearch
+                        label="Поиск по ФИО, группе, теме или руководителю"
+                        placeholder="Например: Иванов РИ-410940"
+                        value={searchValue}
+                        onChange={onChangeSearch}
+                    />
+                </Box>
                 <Box flex={1}>
                     <StageSelect
                         value={stage}
@@ -68,6 +83,16 @@ export const MyStudentsFilter = memo(() => {
                         />
                     </Box>
                 )}
+            </Stack>
+
+            <Stack direction="row" spacing={3}>
+                <Box flex={1}>
+                    <BaseDatePicker label="Начальная дата" value={fromDate} onChange={onChangeFromDate} />
+                </Box>
+                <Box flex={1} />
+                <Box flex={1}>
+                    <BaseDatePicker label="Конечная дата" value={toDate} onChange={onChangeToDate} minDate={fromDate} />
+                </Box>
             </Stack>
         </Stack>
     );
