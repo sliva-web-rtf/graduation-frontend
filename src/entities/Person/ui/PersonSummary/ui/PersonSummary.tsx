@@ -6,7 +6,7 @@ import { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 
 interface PersonSummaryProps {
-    id: string;
+    id?: string;
     name?: any;
 
     isLink?: boolean;

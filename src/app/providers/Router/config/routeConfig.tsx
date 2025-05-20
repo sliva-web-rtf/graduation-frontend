@@ -5,6 +5,8 @@ import { CatalogPage } from '@/pages/CatalogPage';
 import { CommissionsPage } from '@/pages/CommissionsPage';
 import { CreateCommissionPage } from '@/pages/CreateCommissionPage';
 import { CreateTopicPage } from '@/pages/CreateTopicPage';
+import { DiplomPage } from '@/pages/DiplomPage';
+import { EditCommissionPage } from '@/pages/EditCommissionPage';
 import { ForbiddenPage } from '@/pages/ForbiddenPage';
 import { LoginPage } from '@/pages/LoginPage';
 import { MyDiplomPage } from '@/pages/MyDiplomPage';
@@ -35,12 +37,14 @@ export enum AppRoutes {
     Students = 'Students',
     Profile = 'Profile',
     Requests = 'Requests',
+    Diplom = 'Diplom',
     MyDiplom = 'MyDiplom',
     MyTopics = 'MyTopics',
     MyTopic = 'MyTopic',
     MyStudents = 'MyStudents',
     Commissions = 'Commissions',
     CreateComission = 'CreateComission',
+    EditComission = 'EditComission',
     CreateTopic = 'CreateTopic',
     Administration = 'Administration',
 }
@@ -53,12 +57,14 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.Students]: '/students/:id',
     [AppRoutes.Profile]: '/profile',
     [AppRoutes.Requests]: '/requests',
-    [AppRoutes.MyDiplom]: '/my-dimplom',
+    [AppRoutes.MyDiplom]: '/diploma',
+    [AppRoutes.Diplom]: '/diploma/:id',
     [AppRoutes.MyTopics]: '/my-topics',
     [AppRoutes.MyTopic]: '/my-topics/:id',
     [AppRoutes.MyStudents]: '/my-students',
     [AppRoutes.Commissions]: '/commissions',
     [AppRoutes.CreateComission]: '/commissions/create',
+    [AppRoutes.EditComission]: '/commissions/edit/:id',
     [AppRoutes.CreateTopic]: '/create-topic',
     [AppRoutes.Catalog]: '/catalog',
     [AppRoutes.Forbidden]: '/forbidden',
@@ -82,7 +88,7 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         path: RoutePath.Catalog,
         element: <CatalogPage />,
         ...withLayoutAndAuth,
-        roles: [Role.Supervisor, Role.Student],
+        roles: [Role.Admin, Role.Supervisor, Role.Student],
     },
     [AppRoutes.Profile]: {
         path: RoutePath.Profile,
@@ -103,7 +109,7 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         path: RoutePath.Students,
         element: <StudentPage />,
         ...withLayoutAndAuth,
-        roles: [Role.HeadSecretary, Role.Secretary, Role.Supervisor],
+        roles: [Role.Admin, Role.HeadSecretary, Role.Secretary, Role.Supervisor],
     },
     [AppRoutes.Requests]: {
         path: RoutePath.Requests,
@@ -114,13 +120,19 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         path: RoutePath.CreateComission,
         element: <CreateCommissionPage />,
         ...withLayoutAndAuth,
-        roles: [Role.HeadSecretary, Role.Secretary],
+        roles: [Role.Admin, Role.HeadSecretary, Role.Secretary],
+    },
+    [AppRoutes.EditComission]: {
+        path: RoutePath.EditComission,
+        element: <EditCommissionPage />,
+        ...withLayoutAndAuth,
+        roles: [Role.Admin, Role.HeadSecretary, Role.Secretary],
     },
     [AppRoutes.Commissions]: {
         path: RoutePath.Commissions,
         element: <CommissionsPage />,
         ...withLayoutAndAuth,
-        roles: [Role.HeadSecretary, Role.Secretary],
+        roles: [Role.Admin, Role.HeadSecretary, Role.Secretary],
     },
     [AppRoutes.CreateTopic]: {
         path: RoutePath.CreateTopic,
@@ -132,7 +144,13 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         path: RoutePath.MyDiplom,
         element: <MyDiplomPage />,
         ...withLayoutAndAuth,
-        roles: [Role.HeadSecretary, Role.Secretary, Role.Supervisor, Role.Student],
+        roles: [Role.Student],
+    },
+    [AppRoutes.Diplom]: {
+        path: RoutePath.Diplom,
+        element: <DiplomPage />,
+        ...withLayoutAndAuth,
+        roles: [Role.HeadSecretary, Role.Secretary, Role.Supervisor, Role.Expert],
     },
     [AppRoutes.MyTopics]: {
         path: RoutePath.MyTopics,
@@ -149,13 +167,13 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         path: RoutePath.MyStudents,
         element: <MyStudentsPage />,
         ...withLayoutAndAuth,
-        roles: [Role.HeadSecretary, Role.Secretary, Role.Expert],
+        roles: [Role.Admin, Role.HeadSecretary, Role.Secretary, Role.Expert],
     },
     [AppRoutes.Administration]: {
         path: RoutePath.Administration,
         element: <AdminPage />,
         ...withLayoutAndAuth,
-        roles: [Role.Secretary, Role.HeadSecretary, Role.Admin],
+        roles: [Role.Admin, Role.HeadSecretary],
     },
     [AppRoutes.Forbidden]: {
         path: RoutePath.Forbidden,

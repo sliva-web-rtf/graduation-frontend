@@ -1,12 +1,14 @@
+import { useGetCurrentStageQuery } from '@/entities/Stage';
 import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useContextMenu } from '@/shared/lib/hooks/useContextMenu';
+import { ErrorPageMessage } from '@/shared/ui';
 import { Stack } from '@mui/material';
-import { GridRowSelectionModel, GridSortModel } from '@mui/x-data-grid';
-import { useCallback, useMemo, useState } from 'react';
+import { GridFilterModel, GridRowSelectionModel, GridSortModel } from '@mui/x-data-grid';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useGetStudentsTableQuery } from '../api';
-import { generateColumns } from '../lib';
+import { buildDateRange, buildFilterQuery, generateColumns } from '../lib';
 import { myStudentsActions, myStudentsReducer } from '../model';
 import { getMyStudentsState } from '../model/selectors';
 import { ContextMenu } from './ContextMenu';
@@ -20,16 +22,29 @@ const initialReducers: ReducersList = {
 export const MyStudents = () => {
     const dispatch = useAppDispatch();
     const { handleContextMenu, handleClose, menuProps } = useContextMenu();
-    const { stage, query, commission, selectedStudents } = useSelector(getMyStudentsState);
+    const { stage, query, commissions, selectedStudents, fromDate, toDate } = useSelector(getMyStudentsState);
     const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 1 });
-    const [sortModel, setSortModel] = useState<GridSortModel>([]);
-    const { data, isFetching } = useGetStudentsTableQuery({
-        page: paginationModel.page,
-        size: paginationModel.pageSize,
-        stage,
-        query,
-        commission,
+    const [sortModel, setSortModel] = useState<GridSortModel>([{ field: 'student', sort: 'asc' }]);
+    const [filterModel, setFilterModel] = useState<GridFilterModel>({
+        items: [],
     });
+    const studentStatusFilter = buildFilterQuery(filterModel).status as string[];
+    const dateRange = buildDateRange(fromDate, toDate);
+
+    const { isLoading: isCurrentStageLoading } = useGetCurrentStageQuery(undefined, { skip: Boolean(stage) });
+    const { data, isLoading, error } = useGetStudentsTableQuery(
+        {
+            page: paginationModel.page,
+            size: paginationModel.pageSize,
+            stage,
+            query,
+            commissions,
+            sort: sortModel,
+            studentStatuses: studentStatusFilter,
+            ...dateRange,
+        },
+        { skip: paginationModel.pageSize === 1 || !stage },
+    );
 
     const columns = useMemo(() => generateColumns(data?.dataType), [data]);
     const rowCount = useMemo(
@@ -48,28 +63,47 @@ export const MyStudents = () => {
         setSortModel(newSortModel);
     }, []);
 
+    const handleFilterModelChange = useCallback((newFilterModel: GridFilterModel) => {
+        setFilterModel(newFilterModel);
+    }, []);
+
+    useEffect(() => {
+        setPaginationModel((prev) => ({ ...prev, page: 0 }));
+    }, [query, commissions]);
+
     return (
         <DynamicModuleLoader removeAfterUnmount reducers={initialReducers}>
             <Stack spacing={4} height="100%" width="100%">
                 <MyStudentsFilter />
-                <MyStudentsTable
-                    loading={isFetching}
-                    stage={stage}
-                    columns={columns}
-                    rows={data?.students ?? []}
-                    rowCount={rowCount}
-                    // Pagination
-                    paginationModel={paginationModel}
-                    onPaginationModelChange={setPaginationModel}
-                    // Row selection
-                    rowSelectionModel={selectedStudents}
-                    onRowSelectionModelChange={handleRowSelectionModelChange}
-                    // Sorting
-                    sortModel={sortModel}
-                    onSortModelChange={handleSortModelChange}
-                    // Context menu
-                    onContextMenu={handleContextMenu}
-                />
+                {error ? (
+                    <ErrorPageMessage
+                        severity={!stage ? 'info' : 'error'}
+                        // @ts-expect-error
+                        message={!stage ? 'Выберите этап в фильтре выше' : error.message}
+                    />
+                ) : (
+                    <MyStudentsTable
+                        loading={isLoading || isCurrentStageLoading}
+                        stage={stage}
+                        columns={columns}
+                        rows={data?.students ?? []}
+                        rowCount={rowCount}
+                        // Pagination
+                        paginationModel={paginationModel}
+                        onPaginationModelChange={setPaginationModel}
+                        // Row selection
+                        rowSelectionModel={selectedStudents}
+                        onRowSelectionModelChange={handleRowSelectionModelChange}
+                        // Sorting
+                        sortModel={sortModel}
+                        onSortModelChange={handleSortModelChange}
+                        // Filtering
+                        filterModel={filterModel}
+                        onFilterModelChange={handleFilterModelChange}
+                        // Context menu
+                        onContextMenu={handleContextMenu}
+                    />
+                )}
                 {Boolean(selectedStudents.length) && <ContextMenu handleClose={handleClose} menuProps={menuProps} />}
             </Stack>
         </DynamicModuleLoader>

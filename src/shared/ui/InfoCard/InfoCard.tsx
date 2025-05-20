@@ -10,13 +10,14 @@ interface InfoCardProps {
 }
 
 export const InfoCard = memo((props: InfoCardProps) => {
-    const { title, text, formatted, emptyText = 'Информация отсутсвует' } = props;
+    const { title, text, formatted, emptyText = 'Информация отсутствует' } = props;
 
     return (
         <Paper
             sx={(theme) => ({
                 padding: theme.spacing(3),
                 borderRadius: theme.spacing(2),
+                width: '100%',
             })}
         >
             <Stack spacing={2}>

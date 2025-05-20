@@ -1,7 +1,7 @@
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { IconButton, Tooltip } from '@mui/material';
-import { memo } from 'react';
+import { memo, MouseEvent } from 'react';
 
 type ToggleSidebarButtonProps = {
     expanded: boolean;
@@ -10,6 +10,11 @@ type ToggleSidebarButtonProps = {
 
 export const ToggleSidebarButton = memo((props: ToggleSidebarButtonProps) => {
     const { expanded, onClick } = props;
+
+    const handleToggle = (e: MouseEvent<HTMLButtonElement>) => {
+        onClick();
+        e.currentTarget.blur();
+    };
 
     return (
         <Tooltip title={expanded ? 'Свернуть меню' : 'Развернуть меню'} placement="right-end">
@@ -20,7 +25,7 @@ export const ToggleSidebarButton = memo((props: ToggleSidebarButtonProps) => {
                     backgroundColor: theme.palette.background.default,
                     borderRadius: theme.spacing(1),
                 })}
-                onClick={onClick}
+                onClick={handleToggle}
             >
                 {expanded ? <KeyboardArrowLeftIcon /> : <KeyboardArrowRightIcon />}
             </IconButton>

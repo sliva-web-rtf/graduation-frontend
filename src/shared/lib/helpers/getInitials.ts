@@ -15,7 +15,7 @@ export function getInitials(
     if (lastName) {
         // Обработка случая, когда переданы отдельные параметры
         if (!firstOrFullName || !lastName) {
-            return 'Неизвестно';
+            return 'Нет данных';
         }
         const initials = `${lastName} ${firstOrFullName[0]}.`;
         return patronymic ? `${initials} ${patronymic[0]}.` : initials;
@@ -23,7 +23,7 @@ export function getInitials(
 
     // Обработка строки fullname
     if (!firstOrFullName) {
-        return 'Неизвестно';
+        return 'Нет данных';
     }
 
     const parts = firstOrFullName.trim().split(/\s+/);

@@ -7,11 +7,11 @@ interface CommentProps {
     severity?: 'error' | 'warning' | 'info';
 }
 
-export const CommentCard = ({ label = 'комиссии', text, severity = 'warning' }: CommentProps) => {
+export const CommentCard = ({ label = 'комиссии', text, severity = 'info' }: CommentProps) => {
     return (
         <Stack spacing={1}>
             <BaseAlert severity={severity} sx={{ border: 0 }}>
-                <b>Комметарий {label}</b> <br /> {text}
+                <b>Комментарий {label}</b> <br /> {text}
             </BaseAlert>
         </Stack>
     );

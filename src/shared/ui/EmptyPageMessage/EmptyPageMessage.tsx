@@ -6,7 +6,7 @@ type EmptyMessageProps = {
 };
 
 export const EmptyMessage = (props: EmptyMessageProps) => {
-    const { message = 'Информация отсутсвует' } = props;
+    const { message = 'Информация отсутствует' } = props;
 
     return (
         <Stack alignItems="center" justifyContent="center" height="100%">

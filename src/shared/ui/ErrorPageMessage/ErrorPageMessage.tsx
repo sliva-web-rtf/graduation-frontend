@@ -2,7 +2,7 @@ import { Stack } from '@mui/material';
 import { BaseAlert } from '../Alert/Alert';
 
 type ErrorPageMessageProps = {
-    severity?: 'warning' | 'error';
+    severity?: 'warning' | 'error' | 'info';
     message?: string;
 };
 

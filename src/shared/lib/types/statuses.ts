@@ -1,39 +1,41 @@
 import { StrictRecord } from './StrictRecord';
 
 export enum ResultStatus {
+    Success = 'да',
     Error = 'нет',
     Warning = 'нет, н/я',
-    Success = 'да',
 }
 
 export const ResultStatusRus: StrictRecord<ResultStatus, string> = {
+    [ResultStatus.Success]: 'Успешно',
     [ResultStatus.Error]: 'Не успешно',
     [ResultStatus.Warning]: 'Не явился',
-    [ResultStatus.Success]: 'Успешно',
 
     getUnknown: 'Нет данных',
 } as const;
 
 export enum DocumentStatus {
-    Empty = 'Empty',
-    Uploaded = 'Uploaded',
     Checked = 'Checked',
+    Uploaded = 'Uploaded',
+    Empty = 'Empty',
 }
 
 export const DocumentStatusRus: StrictRecord<DocumentStatus, string> = {
-    [DocumentStatus.Empty]: 'Не загружен',
-    [DocumentStatus.Uploaded]: 'Загружен',
     [DocumentStatus.Checked]: 'Проверен',
+    [DocumentStatus.Uploaded]: 'Загружен',
+    [DocumentStatus.Empty]: 'Не загружен',
 } as const;
 
 export enum FormattingReviewStatus {
-    Error = 'нет',
     Success = 'да',
+    Warning = 'рассматривается',
+    Error = 'нет',
 }
 
 export const FormattingReviewStatusRus: StrictRecord<FormattingReviewStatus, string> = {
-    [FormattingReviewStatus.Error]: 'Не пройден',
     [FormattingReviewStatus.Success]: 'Пройден',
+    [FormattingReviewStatus.Warning]: 'На рассмотрении',
+    [FormattingReviewStatus.Error]: 'Не пройден',
 
     getUnknown: 'Нет данных',
 } as const;
@@ -46,8 +48,22 @@ export enum MovementStatus {
 
 export const MovementStatusRus: StrictRecord<MovementStatus, string> = {
     [MovementStatus.Ingoing]: 'Добавлен',
-    [MovementStatus.Outgoing]: 'Исключен',
-    [MovementStatus.Default]: 'По умолчанию',
+    [MovementStatus.Outgoing]: 'Переведен',
+    [MovementStatus.Default]: '',
 
-    getUnknown: 'По умолчанию',
+    getUnknown: '',
+} as const;
+
+export enum IsCommandStatus {
+    Yes = true,
+    No = false,
+    NoData = null,
+}
+
+export const IsCommandStatusRus: StrictRecord<IsCommandStatus, string> = {
+    [IsCommandStatus.Yes]: 'Да',
+    [IsCommandStatus.No]: 'Нет',
+    [IsCommandStatus.NoData]: 'Нет данных',
+
+    getUnknown: 'Нет данных',
 } as const;

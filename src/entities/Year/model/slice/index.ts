@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { yearApi } from '../../api';
 import { getCurrentAcademicYear } from '../../lib';
 import { YearSchema } from '../types';
 
@@ -10,9 +11,14 @@ export const yearSlice = createSlice({
     name: 'year',
     initialState,
     reducers: {
-        setAcademicYear: (state, action: PayloadAction<YearSchema['academicYear'] | null | undefined>) => {
-            state.academicYear = action.payload || getCurrentAcademicYear();
+        setAcademicYear: (state, action: PayloadAction<YearSchema['academicYear']>) => {
+            state.academicYear = action.payload;
         },
+    },
+    extraReducers: (builder) => {
+        builder.addMatcher(yearApi.endpoints.getDefaultYear.matchFulfilled, (state, { payload }) => {
+            state.academicYear = payload || getCurrentAcademicYear();
+        });
     },
 });
 

@@ -1,2 +1,2 @@
-export { type Student } from './model/types/student';
-export { useGetStudentQuery } from './api/studentApi';
+export { useGetStudentsQuery, useLazyGetStudentsQuery } from './api/studentApi';
+export type { StudentDto } from './model/types';

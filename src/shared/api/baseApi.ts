@@ -7,9 +7,13 @@ export enum TagTypes {
     Profile = 'Profile',
     Commissions = 'Commissions',
     Commission = 'Commission',
+    CommissionStudents = 'CommissionStudents',
+    Experts = 'Experts',
     MyTopics = 'MyTopics',
     MyStudents = 'MyStudents',
     DefaultYear = 'DefaultYear',
+    AcademicGroup = 'AcademicGroup',
+    AcademicGroups = 'AcademicGroups',
 }
 
 export const baseApi = createApi({

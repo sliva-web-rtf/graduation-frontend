@@ -8,4 +8,5 @@ export const mapUserDtoToModel = (dto: UserDto): User => ({
     lastName: dto.lastName,
     patronymic: dto.patronymic,
     email: dto.email,
+    qualificationWorkId: dto.qualificationWorkId,
 });

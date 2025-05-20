@@ -7,19 +7,31 @@ import 'dayjs/locale/ru';
 
 const russianLocale = ruRU.components.MuiLocalizationProvider.defaultProps.localeText;
 const StyledDatePicker = styled(DatePicker)(({ theme }) => ({
-    '& .MuiInputBase-root': {
-        borderRadius: theme.spacing(2),
+    '& .MuiInputBase-root::before, & .MuiInputBase-root::after': {
+        display: 'none',
+    },
+    '& .MuiFilledInput-root': {
+        overflow: 'hidden',
+        borderRadius: theme.spacing(1),
+        border: '1px solid',
         backgroundColor: theme.palette.background.paper,
-        fontWeight: 500,
-    },
-    '&:hover .MuiOutlinedInput-notchedOutline': {
-        borderColor: '#1e88e5 !important',
-    },
-    '&:hover .Mui-error .MuiOutlinedInput-notchedOutline': {
-        borderColor: `${theme.palette.error.main} !important`,
-    },
-    '&:hover .Mui-error.Mui-focused .MuiOutlinedInput-notchedOutline': {
-        borderColor: `${theme.palette.error.main} !important`,
+        borderColor: theme.palette.grey[300],
+        '&:hover': {
+            borderColor: '#1e88e5',
+            backgroundColor: theme.palette.background.paper,
+        },
+
+        '&.Mui-error': {
+            borderColor: theme.palette.error.main,
+        },
+
+        '&.Mui-focused': {
+            backgroundColor: theme.palette.background.paper,
+        },
+
+        '&.Mui-disabled': {
+            backgroundColor: theme.palette.secondary.light,
+        },
     },
 }));
 

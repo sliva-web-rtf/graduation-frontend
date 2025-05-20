@@ -1,5 +1,6 @@
-import { baseApi } from '@/shared/api';
+import { baseApi, isApiError } from '@/shared/api';
 import { UserSecretStorageService } from '@/shared/lib/helpers/userSecretStorage';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { type Token } from '../../../shared/lib/types/token';
 import { mapTokenDtoToModel } from '../lib/tokenMapper';
 import { mapUserDtoToModel } from '../lib/userMapper';
@@ -25,7 +26,13 @@ export const userApi = baseApi.injectEndpoints({
                 await UserSecretStorageService.save(response);
                 return mapTokenDtoToModel(response);
             },
-            transformErrorResponse: () => new Error('Неверный логин или пароль'),
+            transformErrorResponse: (error: FetchBaseQueryError) => {
+                if (isApiError(error)) {
+                    return new Error(error.data.title);
+                }
+
+                return new Error('Произошла ошибка при авторизации');
+            },
         }),
     }),
 });

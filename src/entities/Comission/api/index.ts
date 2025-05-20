@@ -1,21 +1,19 @@
 import { baseApi, TagTypes } from '@/shared/api';
+import { OptionType } from '@/shared/ui';
 import { mapCommissionNamesDtoToModel, mapCommissionsDtoToModel } from '../lib/mapCommissionsDtoToModel';
-import {
-    CommissionNamesDto,
-    CommissionNamesModel,
-    CommissionRequest,
-    CommissionsDto,
-    CommissionsModel,
-} from '../model';
+import { transformCommissionsToOptions } from '../lib/transformCommissionsToOptions';
+import { CommissionNamesDto, CommissionNamesModel, CommissionsDto, CommissionsModel } from '../model';
+
+const provideTags = (result?: CommissionNamesModel | CommissionsModel) => {
+    if (!result) {
+        return [];
+    }
+
+    return [...result.map((commission) => ({ type: TagTypes.Commission, id: commission.id })), TagTypes.Commissions];
+};
 
 export const comissionApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
-        getComission: build.query<void, CommissionRequest>({
-            query: ({ id }) => ({
-                url: `/commissions/${id}`,
-            }),
-            providesTags: (result, error, arg) => [{ type: TagTypes.Commission, id: arg.id }],
-        }),
         getCommissionNames: build.query<CommissionNamesModel, void>({
             query: () => ({
                 url: `/commissions`,
@@ -24,19 +22,39 @@ export const comissionApi = baseApi.injectEndpoints({
             transformErrorResponse: () => {
                 return new Error('Произошла ошибка при получении комиссий');
             },
-            providesTags: [TagTypes.Commissions],
+            providesTags: (result) => provideTags(result),
         }),
-        getCommissions: build.query<CommissionsModel, void>({
+        getCommissionsForEditing: build.query<CommissionsModel, void>({
             query: () => ({
-                url: `/commissions`,
+                url: `/commissions/for-editing`,
             }),
             transformResponse: (response: CommissionsDto) => mapCommissionsDtoToModel(response),
             transformErrorResponse: () => {
                 return new Error('Произошла ошибка при получении комиссий');
             },
-            providesTags: [TagTypes.Commissions],
+            providesTags: (result) => provideTags(result),
+        }),
+        getCommissionsOptions: build.query<OptionType[], void>({
+            query: () => ({
+                url: `/commissions`,
+            }),
+            transformResponse: (response: CommissionsDto) => transformCommissionsToOptions(response.commissions),
+            transformErrorResponse: () => {
+                return new Error('Произошла ошибка при получении комиссий');
+            },
+            providesTags: (result) => {
+                if (!result) {
+                    return [];
+                }
+
+                return [
+                    ...result.map((option) => ({ type: TagTypes.Commission, id: option.value })),
+                    TagTypes.Commissions,
+                ];
+            },
         }),
     }),
 });
 
-export const { useGetComissionQuery, useGetCommissionsQuery, useGetCommissionNamesQuery } = comissionApi;
+export const { useGetCommissionsOptionsQuery, useGetCommissionsForEditingQuery, useGetCommissionNamesQuery } =
+    comissionApi;

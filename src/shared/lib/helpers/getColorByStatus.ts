@@ -1,6 +1,12 @@
 import { StudentStatus } from '@/entities/Person';
 import { TopicStatus } from '@/entities/Topic';
-import { DocumentStatus, FormattingReviewStatus, MovementStatus, ResultStatus } from '../types/statuses';
+import {
+    DocumentStatus,
+    FormattingReviewStatus,
+    IsCommandStatus,
+    MovementStatus,
+    ResultStatus,
+} from '../types/statuses';
 
 export const getColorByTopicStatus = (status?: TopicStatus) => {
     switch (status) {
@@ -24,6 +30,8 @@ export const getColorByStudentsStatus = (status?: StudentStatus) => {
             return 'warning';
         case StudentStatus.Kicked:
             return 'error';
+        case StudentStatus.Transferred:
+            return 'info';
 
         default:
             return 'secondary';
@@ -48,6 +56,8 @@ export const getColorByFormatingReviewStatus = (status?: FormattingReviewStatus)
     switch (status) {
         case FormattingReviewStatus.Success:
             return 'success';
+        case FormattingReviewStatus.Warning:
+            return 'warning';
         case FormattingReviewStatus.Error:
             return 'error';
 
@@ -70,8 +80,13 @@ export const getColorByMovementStatus = (status?: MovementStatus) => {
     }
 };
 
-export const getColorByIsCommandStatus = (status?: boolean) => {
-    return status ? 'success' : 'secondary';
+export const getColorByIsCommandStatus = (status?: IsCommandStatus) => {
+    switch (status) {
+        case IsCommandStatus.Yes:
+            return 'success';
+        default:
+            return 'secondary';
+    }
 };
 
 export const getColorByDocumentStatus = (status?: DocumentStatus) => {

@@ -13,21 +13,11 @@ const myTopics = { label: 'Мои темы', path: RoutePath.MyTopics, icon: <Wo
 const myStudents = { label: 'Мои студенты', path: RoutePath.MyStudents, icon: <GroupIcon /> };
 const catalog = { label: 'Выбор темы', path: RoutePath.Catalog, icon: <ManageSearchOutlinedIcon /> };
 const requests = { label: 'Заявки', path: RoutePath.Requests, icon: <InboxIcon /> };
+const commissions = { label: 'Комиссии', path: RoutePath.Commissions, icon: <WorkspacesIcon /> };
+const administration = { label: 'Администрир...', path: RoutePath.Administration, icon: <ManageAccountsIcon /> };
 
 export const expertTabs: Tab[] = [myStudents];
-export const clerkTabs: Tab[] = [...expertTabs, requests];
+export const clerkTabs: Tab[] = [...expertTabs, requests, commissions];
 export const supervisorTabs: Tab[] = [myTopics, catalog, requests];
 export const studentTabs: Tab[] = [myDiplom, ...supervisorTabs];
-export const headClerkTabs: Tab[] = [
-    {
-        label: 'Комиссии',
-        path: RoutePath.Commissions,
-        icon: <WorkspacesIcon />,
-    },
-    ...clerkTabs,
-    {
-        label: 'Администриров...',
-        path: RoutePath.Administration,
-        icon: <ManageAccountsIcon />,
-    },
-];
+export const headClerkTabs: Tab[] = [...clerkTabs, administration];

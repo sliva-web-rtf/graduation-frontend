@@ -1,25 +1,11 @@
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { useEffect } from 'react';
-
-import { userActions, useUserQuery } from '@/entities/User';
-import { useGetDefaultYearQuery, yearActions } from '@/entities/Year';
+import { useUserQuery } from '@/entities/User';
+import { useGetDefaultYearQuery } from '@/entities/Year';
 import { PageLoader } from '@/shared/ui';
 import { AppRouter, useHomePage } from './providers/Router';
 
 function App() {
-    const dispatch = useAppDispatch();
-    const { isFetching: isUserFetching, data: user } = useUserQuery();
-    const { isFetching: isDefaulYearFetching, data: defaultYear } = useGetDefaultYearQuery();
-
-    useEffect(() => {
-        if (user) {
-            dispatch(userActions.setUser(user));
-        }
-    }, [user, dispatch]);
-
-    useEffect(() => {
-        dispatch(yearActions.setAcademicYear(defaultYear));
-    }, [defaultYear, dispatch]);
+    const { isFetching: isUserFetching } = useUserQuery();
+    const { isFetching: isDefaulYearFetching } = useGetDefaultYearQuery();
 
     useHomePage();
 

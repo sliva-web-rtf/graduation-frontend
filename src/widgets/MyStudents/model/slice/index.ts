@@ -8,8 +8,10 @@ const KEY = 'STAGE';
 export const initialState: MyStudentsSchema = {
     stage: LocalStorageService.get(KEY) || '',
     query: '',
-    commission: '',
+    commissions: [],
     selectedStudents: [],
+    fromDate: null,
+    toDate: null,
 };
 
 const myStudentsSlice = createSlice({
@@ -21,8 +23,8 @@ const myStudentsSlice = createSlice({
             state.stage = payload;
             LocalStorageService.save(KEY, payload);
         },
-        setCommission: (state, action: PayloadAction<MyStudentsSchema['commission']>) => {
-            state.commission = action.payload;
+        setCommissions: (state, action: PayloadAction<MyStudentsSchema['commissions']>) => {
+            state.commissions = action.payload;
         },
         setQuery: (state, action: PayloadAction<MyStudentsSchema['query']>) => {
             state.query = action.payload;
@@ -30,15 +32,22 @@ const myStudentsSlice = createSlice({
         setSelectedStudents: (state, action: PayloadAction<MyStudentsSchema['selectedStudents']>) => {
             state.selectedStudents = action.payload;
         },
+        setFromDate: (state, action: PayloadAction<MyStudentsSchema['fromDate']>) => {
+            state.fromDate = action.payload;
+        },
+        setToDate: (state, action: PayloadAction<MyStudentsSchema['toDate']>) => {
+            state.toDate = action.payload;
+        },
     },
     extraReducers: (builder) => {
-        builder.addMatcher(stageApi.endpoints.getStages.matchFulfilled, (state, { payload }) => {
+        builder.addMatcher(stageApi.endpoints.getCurrentStage.matchFulfilled, (state, { payload }) => {
             const currentStage = LocalStorageService.get(KEY);
 
-            if (!currentStage && payload[0]) {
-                // eslint-disable-next-line prefer-destructuring
-                state.stage = payload[0];
-                LocalStorageService.save(KEY, payload[0]);
+            if (!currentStage && payload) {
+                const { name } = payload;
+
+                state.stage = name;
+                LocalStorageService.save(KEY, name);
             }
         });
     },

@@ -1,10 +1,26 @@
-import { CheckExpertsButton } from '@/features/comission/check-experts';
-import { СheckGroupsButton } from '@/features/comission/check-groups';
-import { CheckStudentsButton } from '@/features/comission/check-students';
-import { BaseButton } from '@/shared/ui';
+import { DeleteCommissionButton } from '@/features/comission/delete-commision';
+import { EditCommissionButton } from '@/features/comission/edit-commision';
+import { BaseChip } from '@/shared/ui';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Accordion, AccordionDetails, AccordionSummary, Stack, styled, Typography } from '@mui/material';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import {
+    Accordion,
+    AccordionDetails,
+    AccordionSummary,
+    IconButton,
+    Menu,
+    Stack,
+    styled,
+    Typography,
+} from '@mui/material';
+import { MouseEvent, useCallback, useState } from 'react';
 import { CommissionModel } from '../model';
+
+type Props = Omit<CommissionModel, 'expertsNames'>;
+type CommissionCardMenuProps = {
+    commissionId: string;
+    commissionName: string;
+};
 
 const StyledAccordion = styled(Accordion)(({ theme }) => ({
     '&.MuiAccordion-gutters': {
@@ -17,33 +33,73 @@ const StyledAccordion = styled(Accordion)(({ theme }) => ({
 
 const StyledAccordionSummary = styled(AccordionSummary)(({ theme }) => ({
     borderRadius: theme.spacing(2),
-    height: theme.spacing(10),
+    height: theme.spacing(12),
 }));
 
-export const ComissionCard = (props: CommissionModel) => {
-    const { id, name, secretary } = props;
+const CommissionCardMenu = (props: CommissionCardMenuProps) => {
+    const { commissionId, commissionName } = props;
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+
+    const handleOpen = (event: MouseEvent<HTMLButtonElement>) => {
+        event.stopPropagation();
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = useCallback((event: MouseEvent<HTMLButtonElement>) => {
+        event.stopPropagation();
+        setAnchorEl(null);
+    }, []);
+
+    return (
+        <>
+            <IconButton onClick={handleOpen}>
+                <MoreVertIcon />
+            </IconButton>
+            <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+                <EditCommissionButton commissionId={commissionId} />
+                <DeleteCommissionButton
+                    commissionId={commissionId}
+                    commissionName={commissionName}
+                    handleCloseMenu={handleClose}
+                />
+            </Menu>
+        </>
+    );
+};
+export const CommissionCard = (props: Props) => {
+    const { id, name, secretaryName, chairpersonName = 'Нет данных', academicGroups } = props;
 
     return (
         <StyledAccordion>
             <StyledAccordionSummary expandIcon={<ExpandMoreIcon />}>
-                <Stack>
-                    <Typography variant="body2" fontWeight={600}>
-                        {name}
-                    </Typography>
-                    <Stack direction="row" spacing={1}>
-                        <Typography color="secondary">Ответственный секретарь:</Typography>
-                        <Typography>{secretary}</Typography>
+                <Stack
+                    direction="row"
+                    justifyContent="space-between"
+                    alignItems="center"
+                    width="100%"
+                    spacing={4}
+                    pr={2}
+                >
+                    <Stack spacing={1}>
+                        <Typography variant="body2" fontWeight={600}>
+                            {name}
+                        </Typography>
+                        <Stack direction="row" spacing={2}>
+                            <BaseChip label={`Секретарь: ${secretaryName}`} color="success" />
+                            {chairpersonName && <BaseChip label={`Председатель: ${chairpersonName}`} />}
+                        </Stack>
                     </Stack>
+                    <CommissionCardMenu commissionId={id} commissionName={name} />
                 </Stack>
             </StyledAccordionSummary>
             <AccordionDetails>
                 <Stack direction="row" spacing={2} justifyContent="space-between">
-                    <Stack direction="row" spacing={2}>
-                        <CheckExpertsButton comissionId={id} comissionName={name} />
+                    <Stack direction="row" spacing={1}>
+                        {academicGroups?.map((group) => <BaseChip key={group} label={group} color="info" />)}
+                        {/* <CheckExpertsButton comissionId={id} comissionName={name} />
                         <CheckStudentsButton comissionId={id} comissionName={name} />
-                        <СheckGroupsButton comissionId={id} comissionName={name} />
+                        <СheckGroupsButton comissionId={id} comissionName={name} /> */}
                     </Stack>
-                    <BaseButton variant="contained">Редактировать</BaseButton>
                 </Stack>
             </AccordionDetails>
         </StyledAccordion>

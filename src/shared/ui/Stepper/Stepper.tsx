@@ -1,3 +1,6 @@
+import { CommissionFormStep } from '@/features/comission/create-commission/model';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import {
     Stack,
     Step,
@@ -8,14 +11,17 @@ import {
     StepperProps,
     StepProps,
     styled,
+    Theme,
     Typography,
 } from '@mui/material';
 import { stepConnectorClasses } from '@mui/material/StepConnector';
+import { memo } from 'react';
 import { BaseButton } from '../Button/Button';
 
 interface BaseStepProps extends StepProps {
     step: number;
     label: string;
+    onStepClick: (step: CommissionFormStep) => void;
     onNextClick: () => void;
     onBackClick: () => void;
     isLast: boolean;
@@ -26,14 +32,14 @@ interface BaseStepProps extends StepProps {
 
 const Connector = styled(StepConnector)(({ theme }) => ({
     [`& .${stepConnectorClasses.line}`]: {
-        borderWidth: 3,
+        borderWidth: 2,
         ...theme.applyStyles('dark', {
             borderColor: theme.palette.grey[800],
         }),
     },
 }));
 const BaseStepContent = styled(StepContent)(({ theme }) => ({
-    borderWidth: 3,
+    borderWidth: 2,
     color: theme.palette.secondary.main,
 }));
 
@@ -41,26 +47,39 @@ export const BaseStepper = (props: StepperProps) => (
     <Stepper {...props} connector={<Connector />} orientation="vertical" />
 );
 
-export const BaseStep = (props: BaseStepProps) => {
-    const { step, label, content, onNextClick, onBackClick, isLast, error, ...rest } = props;
-    const isFirst = step === 1;
+export const BaseStep = memo((props: BaseStepProps) => {
+    const { step, label, content, onStepClick, onNextClick, onBackClick, isLast, error, ...rest } = props;
+    const isFirst = step === 0;
+
+    const hoverStyles = (theme: Theme) => ({
+        '&:hover': { cursor: 'pointer', '.MuiTypography-root': { color: theme.palette.primary.main } },
+    });
+
+    const handleLabelClick = () => {
+        onStepClick(step);
+    };
 
     return (
         <Step {...rest}>
-            <StepLabel error={error}>
+            <StepLabel error={error} onClick={handleLabelClick} sx={hoverStyles}>
                 <Typography fontWeight={600}>{label}</Typography>
             </StepLabel>
             <BaseStepContent>
                 <Stack spacing={2}>
-                    <Typography fontSize={14}>{content}</Typography>
+                    <Typography>{content}</Typography>
                     <Stack direction="row" spacing={1}>
                         {!isLast && (
-                            <BaseButton size="small" onClick={onNextClick} variant="contained">
+                            <BaseButton
+                                size="small"
+                                variant="contained"
+                                onClick={onNextClick}
+                                startIcon={<ArrowDownwardIcon />}
+                            >
                                 Далее
                             </BaseButton>
                         )}
                         {!isFirst && (
-                            <BaseButton size="small" onClick={onBackClick}>
+                            <BaseButton size="small" onClick={onBackClick} startIcon={<ArrowUpwardIcon />}>
                                 Назад
                             </BaseButton>
                         )}
@@ -69,4 +88,4 @@ export const BaseStep = (props: BaseStepProps) => {
             </BaseStepContent>
         </Step>
     );
-};
+});

@@ -9,4 +9,5 @@ export interface ICatalogCard {
 
     limit?: number;
     fullness?: number;
+    isMine?: boolean;
 }

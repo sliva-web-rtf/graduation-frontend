@@ -1,10 +1,9 @@
 import { UserSecretStorageService } from '@/shared/lib/helpers/userSecretStorage';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { userApi } from '../../api/userApi';
 import { UserSchema } from '../types/user';
 
-export const initialState: UserSchema = {
-    topicId: '370a764c-be35-4cf8-adb0-cbef75389b70',
-};
+export const initialState: UserSchema = {};
 
 export const userSlice = createSlice({
     name: 'user',
@@ -17,6 +16,11 @@ export const userSlice = createSlice({
         setUser: (state, action: PayloadAction<UserSchema['user']>) => {
             state.user = action.payload;
         },
+    },
+    extraReducers: (builder) => {
+        builder.addMatcher(userApi.endpoints.user.matchFulfilled, (state, { payload }) => {
+            state.user = payload;
+        });
     },
 });
 

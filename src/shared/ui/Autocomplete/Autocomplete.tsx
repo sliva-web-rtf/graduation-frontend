@@ -1,3 +1,5 @@
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { Autocomplete, AutocompleteProps, CircularProgress, TextFieldProps } from '@mui/material';
 import { forwardRef, memo } from 'react';
 import { BaseField } from '../Field/Field';
@@ -19,6 +21,8 @@ export const BaseAutocomplete = memo(
                 fullWidth
                 noOptionsText="Ничего не найдено"
                 loadingText="Загрузка..."
+                popupIcon={<KeyboardArrowDownIcon />}
+                clearIcon={<HighlightOffIcon />}
                 {...autocompleteProps}
                 renderInput={(params) => (
                     <BaseField
@@ -29,6 +33,7 @@ export const BaseAutocomplete = memo(
                         error={error}
                         helperText={helperText}
                         InputProps={{
+                            disableUnderline: true,
                             ...params.InputProps,
                             endAdornment: (
                                 <>

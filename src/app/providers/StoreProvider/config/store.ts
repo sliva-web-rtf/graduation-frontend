@@ -1,7 +1,9 @@
 import { userReducer } from '@/entities/User';
 import { yearReducer } from '@/entities/Year';
+import { commissionFormReducer } from '@/features/comission/create-commission';
 import { baseApi } from '@/shared/api';
 import { catalogReducer } from '@/widgets/Catalog';
+import { diplomReducer } from '@/widgets/MyDiplom';
 import { requestsReducer } from '@/widgets/Requests/model';
 import { configureStore, ReducersMapObject } from '@reduxjs/toolkit';
 import { CombinedState, Reducer } from 'redux';
@@ -16,6 +18,8 @@ export function createReduxStore(initialState?: StateSchema, asyncReducers?: Red
         year: yearReducer,
         catalog: catalogReducer,
         requests: requestsReducer,
+        diplom: diplomReducer,
+        commissionForm: commissionFormReducer,
         [baseApi.reducerPath]: baseApi.reducer,
     };
 

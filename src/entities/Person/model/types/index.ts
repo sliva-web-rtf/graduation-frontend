@@ -13,6 +13,8 @@ export type Student = {
     academicProgram: string;
     academicGroup: string;
     role: string;
+
+    qualificationWorkId?: string;
 };
 
 export type Supervisor = {
@@ -31,12 +33,14 @@ export enum StudentStatus {
     Kicked = 'Kicked',
     Academ = 'Academ',
     Active = 'Active',
+    Transferred = 'Transferred',
 }
 
 export const StudentStatusRus: StrictRecord<StudentStatus, string> = {
     [StudentStatus.Kicked]: 'Отчислен',
-    [StudentStatus.Academ]: 'Академ',
+    [StudentStatus.Academ]: 'Отпуск академический',
     [StudentStatus.Active]: 'Активен',
+    [StudentStatus.Transferred]: 'Переведен',
 
-    getUnknown: 'Неизвестно',
+    getUnknown: 'Нет данных',
 } as const;

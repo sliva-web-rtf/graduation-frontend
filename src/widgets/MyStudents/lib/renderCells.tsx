@@ -13,13 +13,15 @@ import {
     getColorByTopicStatus,
 } from '@/shared/lib/helpers/getColorByStatus';
 import { getInfoPagePath } from '@/shared/lib/helpers/getInfoPagePath';
+import { isOpenInNewTab } from '@/shared/lib/helpers/isOpenInNewTab';
+import { trimQuotes } from '@/shared/lib/helpers/trimQuotes';
 import {
     DocumentStatus,
     DocumentStatusRus,
     FormattingReviewStatus,
     FormattingReviewStatusRus,
-    MovementStatus,
-    MovementStatusRus,
+    IsCommandStatus,
+    IsCommandStatusRus,
     ResultStatus,
     ResultStatusRus,
 } from '@/shared/lib/types/statuses';
@@ -30,7 +32,8 @@ import { InputBase, InputBaseProps, Paper, Popper, Stack, Tooltip, Typography } 
 import { GridRenderCellParams, GridRenderEditCellParams, GridValidRowModel, useGridApiContext } from '@mui/x-data-grid';
 import React, { useCallback, useLayoutEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { DocumentData } from '../model';
+import { DocumentData, StudentRowModel } from '../model';
+import { getTitleByMovementStatus } from './getTitleByMovementStatus';
 
 type Entity = {
     id?: string;
@@ -41,8 +44,8 @@ const LinkCell = (props: { params: Entity; route: RoutePathType }) => {
     const { params, route } = props;
     const { id, text } = params || {};
 
-    const handleClick = (e: React.MouseEvent) => {
-        if (!e.metaKey) {
+    const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        if (!isOpenInNewTab(e)) {
             e.preventDefault();
         }
     };
@@ -93,12 +96,15 @@ export const renderResultCell = (params: GridRenderCellParams<GridValidRowModel,
     return <BaseChip label={(value && ResultStatusRus[value]) ?? ResultStatusRus.getUnknown} color={color} />;
 };
 
-export const renderMovementStatusCell = (params: GridRenderCellParams<GridValidRowModel, MovementStatus>) => {
+export const RenderMovementStatusCell = (
+    params: GridRenderCellParams<GridValidRowModel, StudentRowModel['commission']>,
+) => {
     const { value } = params;
-    const color = getColorByMovementStatus(value);
+    const color = getColorByMovementStatus(value?.movementStatus);
+    const title = getTitleByMovementStatus(value);
 
     return (
-        <Tooltip title={(value && MovementStatusRus[value]) ?? MovementStatusRus.getUnknown}>
+        <Tooltip title={title}>
             <Circle sx={{ width: 16, height: 16, color }} />
         </Tooltip>
     );
@@ -118,11 +124,12 @@ export const renderFormatingReviewResultCell = (
     );
 };
 
-export const renderIsCommandCell = (params: GridRenderCellParams<GridValidRowModel, boolean>) => {
+export const renderIsCommandCell = (params: GridRenderCellParams<GridValidRowModel, IsCommandStatus>) => {
     const { value } = params;
     const color = getColorByIsCommandStatus(value);
+    const label = value ? IsCommandStatusRus[value] : IsCommandStatusRus.getUnknown;
 
-    return <BaseChip label={value ? 'Да' : 'Нет'} color={color} />;
+    return <BaseChip label={label} color={color} />;
 };
 
 export const renderCommentCell = (params: GridRenderCellParams<GridValidRowModel, string>) => {
@@ -175,9 +182,19 @@ export const RenderEditTextareaCell = (props: GridRenderEditCellParams<any, stri
         (event) => {
             const newValue = event.target.value;
             setValueState(newValue);
-            apiRef.current.setEditCellValue({ id, field, value: newValue, debounceMs: 300 }, event);
+            apiRef.current.setEditCellValue({ id, field, value: trimQuotes(newValue), debounceMs: 300 }, event);
         },
         [apiRef, field, id],
+    );
+
+    const handleKeyDown = useCallback(
+        (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                apiRef.current.stopCellEditMode({ id, field });
+            }
+        },
+        [apiRef, id, field],
     );
 
     return (
@@ -201,6 +218,7 @@ export const RenderEditTextareaCell = (props: GridRenderEditCellParams<any, stri
                             value={valueState}
                             sx={{ textarea: { resize: 'vertical' }, width: '100%' }}
                             onChange={handleChange}
+                            onKeyDown={handleKeyDown}
                             inputRef={(ref) => setInputRef(ref)}
                         />
                     </Paper>
@@ -243,7 +261,7 @@ export const RenderRoleEditCell = (props: GridRenderEditCellParams<any, string>)
     const handleChange = useCallback(
         (_: any, newValue: string) => {
             setValueState(newValue);
-            apiRef.current.setEditCellValue({ id, field, value: newValue, debounceMs: 300 });
+            apiRef.current.setEditCellValue({ id, field, value: newValue });
         },
         [apiRef, field, id],
     );

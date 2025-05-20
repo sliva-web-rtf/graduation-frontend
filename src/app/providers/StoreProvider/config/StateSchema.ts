@@ -4,10 +4,11 @@ import { CombinedState } from 'redux';
 
 import { type UserSchema } from '@/entities/User';
 import { type YearSchema } from '@/entities/Year';
-import { type CommissionFormSchema } from '@/features/comission/create-comission';
+import { type CommissionFormSchema } from '@/features/comission/create-commission';
 import { baseApi } from '@/shared/api';
 import { type AdministrationSchema } from '@/widgets/Administration';
 import { type CatalogSchema } from '@/widgets/Catalog';
+import { DiplomSchema } from '@/widgets/MyDiplom';
 import { type MyStudentsSchema } from '@/widgets/MyStudents';
 import { type PersonalDataSchema } from '@/widgets/PersonalData';
 import { type PersonInfoSchema } from '@/widgets/PersonInfo';
@@ -21,10 +22,11 @@ export interface StateSchema {
     year: YearSchema;
     catalog: CatalogSchema;
     requests: RequestsSchema;
+    diplom: DiplomSchema;
+    commissionForm: CommissionFormSchema;
 
     personalData?: PersonalDataSchema;
     profile?: ProfileSchema;
-    commissionForm?: CommissionFormSchema;
     administration?: AdministrationSchema;
     myStudents?: MyStudentsSchema;
     'person-info'?: PersonInfoSchema;

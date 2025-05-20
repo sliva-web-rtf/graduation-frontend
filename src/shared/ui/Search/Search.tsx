@@ -16,9 +16,10 @@ export const BaseSearch = (props: TextFieldProps) => {
     return (
         <BaseField
             fullWidth
-            placeholder="Поиск"
+            label="Поиск"
             {...props}
             InputProps={{
+                disableUnderline: true,
                 startAdornment: (
                     <InputAdornment position="start">
                         <SearchIcon />

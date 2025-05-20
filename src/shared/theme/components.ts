@@ -4,6 +4,7 @@ import { grey } from '@mui/material/colors';
 import { ruRU } from '@mui/x-data-grid/locales';
 import type {} from '@mui/x-data-grid/themeAugmentation';
 import type {} from '@mui/x-date-pickers/themeAugmentation';
+import { NoResultsOverlay } from '../ui/Table/NoResultsOverlay';
 
 export const components: Components<Omit<Theme, 'components'>> | undefined = {
     MuiButton: {
@@ -25,7 +26,14 @@ export const components: Components<Omit<Theme, 'components'>> | undefined = {
         ],
     },
     MuiTextField: {
-        defaultProps: { variant: 'outlined', autoComplete: 'off', fullWidth: true },
+        defaultProps: {
+            variant: 'filled',
+            autoComplete: 'off',
+            fullWidth: true,
+            InputProps: {
+                disableUnderline: true,
+            },
+        },
     },
     MuiModal: {
         styleOverrides: {
@@ -60,19 +68,28 @@ export const components: Components<Omit<Theme, 'components'>> | undefined = {
                 backgroundColor: '#E5E4E2', // Пастельный белый
                 color: '#21272A',
             },
+            colorInfo: {
+                backgroundColor: '#E6D6F3', // Пастельный фиолетовый
+                color: '#6C3483',
+            },
         },
     },
     MuiDataGrid: {
         defaultProps: {
+            sortingMode: 'server',
             paginationMode: 'server',
+            filterMode: 'server',
             disableVirtualization: true,
             keepNonExistentRowsSelected: true,
             hideFooterSelectedRowCount: true,
             checkboxSelection: true,
-            disableColumnFilter: true,
             disableRowSelectionOnClick: true,
             autoPageSize: true,
             localeText: ruRU.components.MuiDataGrid.defaultProps.localeText,
+            slots: {
+                noResultsOverlay: NoResultsOverlay,
+                noRowsOverlay: NoResultsOverlay,
+            },
             slotProps: {
                 loadingOverlay: {
                     variant: 'skeleton',
@@ -106,6 +123,14 @@ export const components: Components<Omit<Theme, 'components'>> | undefined = {
     MuiLinearProgress: {
         defaultProps: {
             sx: { borderRadius: 16, height: 8 },
+        },
+    },
+    MuiSelect: {
+        defaultProps: { variant: 'filled', disableUnderline: true },
+    },
+    MuiFormControl: {
+        defaultProps: {
+            variant: 'filled',
         },
     },
 };
