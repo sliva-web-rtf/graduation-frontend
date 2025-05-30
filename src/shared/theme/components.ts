@@ -35,15 +35,6 @@ export const components: Components<Omit<Theme, 'components'>> | undefined = {
             },
         },
     },
-    MuiModal: {
-        styleOverrides: {
-            root: {
-                '.MuiBackdrop-root': {
-                    backgroundColor: 'rgba(197, 218, 244, 0.75)',
-                },
-            },
-        },
-    },
     MuiPaper: {
         defaultProps: { variant: 'outlined', sx: { borderRadius: 3 } },
     },

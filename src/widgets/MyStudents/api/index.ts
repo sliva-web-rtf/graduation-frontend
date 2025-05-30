@@ -22,6 +22,13 @@ export const studentsTableApi = baseApi.injectEndpoints({
                 method: 'POST',
                 body: sort,
             }),
+            providesTags: (result) =>
+                result
+                    ? result.students.map(({ id }) => ({
+                          type: TagTypes.MyStudents,
+                          id,
+                      }))
+                    : [],
             transformResponse: (response: StudentsTableDto, _: unknown, arg: StudentsTableRequest) => {
                 const { page, size } = arg;
                 return mapStudentsTableDtoToModel(response, page, size);
@@ -33,8 +40,6 @@ export const studentsTableApi = baseApi.injectEndpoints({
 
                 return new Error('Произошла ошибка при получении таблицы студентов');
             },
-            providesTags: (result) =>
-                result ? result.students.map(({ id }) => ({ type: TagTypes.MyStudents, id })) : [],
         }),
         editStudentRow: build.mutation<{ studentId: string }, EditStudentRowDto>({
             query: (body) => ({
@@ -42,6 +47,7 @@ export const studentsTableApi = baseApi.injectEndpoints({
                 method: 'PUT',
                 body,
             }),
+            invalidatesTags: (result) => (result ? [{ type: TagTypes.MyStudents, id: result.studentId }] : []),
             transformErrorResponse: (error: FetchBaseQueryError) => {
                 const defaultMessage = 'Произошла ошибка при изменении ячейки';
 
@@ -51,7 +57,6 @@ export const studentsTableApi = baseApi.injectEndpoints({
 
                 return new Error(defaultMessage);
             },
-            invalidatesTags: (result) => (result ? [{ type: TagTypes.MyStudents, id: result.studentId }] : []),
         }),
         setDefence: build.mutation<void, SetDefenceRequest>({
             query: (body) => ({

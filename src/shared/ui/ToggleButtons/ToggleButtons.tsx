@@ -1,6 +1,6 @@
+import { truncateText } from '@/shared/lib/helpers/truncateText';
 import { styled, ToggleButton, ToggleButtonGroup, ToggleButtonGroupProps, ToggleButtonProps } from '@mui/material';
 import { grey } from '@mui/material/colors';
-import { truncateText } from './lib/truncateText';
 
 interface ToggleButtonsProps extends ToggleButtonGroupProps {
     options: any[];

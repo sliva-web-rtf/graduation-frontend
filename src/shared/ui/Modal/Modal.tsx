@@ -46,7 +46,16 @@ export const BaseModal = (props: BaseModalProps) => {
     const width = size === undefined ? '100%' : size === 'small' ? 450 : size === 'large' ? 900 : 650;
 
     return (
-        <Modal open={open} onClose={onClose} {...otherProps}>
+        <Modal
+            open={open}
+            onClose={onClose}
+            sx={{
+                '.MuiBackdrop-root': {
+                    backgroundColor: 'rgba(197, 218, 244, 0.75)',
+                },
+            }}
+            {...otherProps}
+        >
             <Stack direction="row" spacing={2} alignItems="flex-start" className={classNames.modal}>
                 <CloseButton onClick={onClose} />
                 <Stack spacing={4} className={classNames.content} width={width}>

@@ -21,6 +21,7 @@ import {
     renderDocCell,
     RenderEditTextareaCell,
     RenderEditTimeCell,
+    renderExternalLinkCell,
     renderFormatingReviewResultCell,
     renderIsCommandCell,
     renderLinkCell,
@@ -46,6 +47,7 @@ const DOCUMENTS = [
     'Заявление',
     'Задание',
     'Пояснительная записка',
+    'Публичная оферта',
     'Справка о наличии заимствовании',
     'Акт о внедрении',
 ] as const;
@@ -307,6 +309,7 @@ const defenceColumns: GridColDef[] = [
                 location: value || null,
             },
         }),
+        renderCell: renderExternalLinkCell,
         width: 180,
         editable: true,
         sortable: false,
@@ -393,6 +396,7 @@ const defenceColumns: GridColDef[] = [
         ...multilineColumn,
     },
 ];
+
 export const generateColumns = (dataType?: DataType): GridColDef[] => {
     switch (dataType) {
         case DataType.PreDefence:
