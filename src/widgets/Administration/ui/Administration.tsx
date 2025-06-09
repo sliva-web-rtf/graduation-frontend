@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { administrationReducer, getAdministrationData } from '../model';
 import { AdministrationOption } from '../model/types';
 import { AdministrationGlobal } from './AdministrationGlobal';
+import { AdministrationLogs } from './AdministrationLogs/ui/AdministrationLogs';
 import { AdministrationUsers } from './AdministrationUsers';
 import { ToggleAdministration } from './ToggleAdministration';
 
@@ -16,10 +17,11 @@ export const Administration = () => {
 
     return (
         <DynamicModuleLoader removeAfterUnmount reducers={initialReducers}>
-            <Stack spacing={4}>
+            <Stack spacing={4} height="100%">
                 <ToggleAdministration />
                 {option === AdministrationOption.Global && <AdministrationGlobal />}
                 {option === AdministrationOption.Users && <AdministrationUsers />}
+                {option === AdministrationOption.Logs && <AdministrationLogs />}
             </Stack>
         </DynamicModuleLoader>
     );
