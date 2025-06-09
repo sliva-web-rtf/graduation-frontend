@@ -13,6 +13,7 @@ import {
     getColorByTopicStatus,
 } from '@/shared/lib/helpers/getColorByStatus';
 import { getInfoPagePath } from '@/shared/lib/helpers/getInfoPagePath';
+import { isExternalUrl } from '@/shared/lib/helpers/isExternalUrl';
 import { isOpenInNewTab } from '@/shared/lib/helpers/isOpenInNewTab';
 import { trimQuotes } from '@/shared/lib/helpers/trimQuotes';
 import {
@@ -65,6 +66,30 @@ const LinkCell = (props: { params: Entity; route: RoutePathType }) => {
     );
 };
 
+const ExternalLinkCell = ({ url }: { url?: string }) => {
+    if (!url) {
+        return null;
+    }
+
+    const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        if (!isOpenInNewTab(e)) {
+            e.preventDefault();
+        }
+    };
+
+    if (!isExternalUrl(url)) {
+        return url;
+    }
+
+    return (
+        <Tooltip title={url}>
+            <a href={url} target="_blank" rel="noopener noreferrer" onClick={handleClick}>
+                {url}
+            </a>
+        </Tooltip>
+    );
+};
+
 export const renderLinkCell =
     (route: RoutePathType, textKey: keyof GridValidRowModel) => (params: GridRenderCellParams) =>
         LinkCell({
@@ -74,6 +99,12 @@ export const renderLinkCell =
             },
             route,
         });
+
+export const renderExternalLinkCell = (params: GridRenderCellParams<GridValidRowModel, string>) => {
+    const { value } = params;
+
+    return <ExternalLinkCell url={value} />;
+};
 
 export const renderTopicStatusCell = (params: GridRenderCellParams<GridValidRowModel, TopicStatus>) => {
     const { value } = params;

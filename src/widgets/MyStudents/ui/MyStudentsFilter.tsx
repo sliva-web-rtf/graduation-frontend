@@ -5,7 +5,7 @@ import { DEBOUNCE_DELAY } from '@/shared/lib/const';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { BaseDatePicker, BaseSearch } from '@/shared/ui';
 import { Box, SelectChangeEvent, Stack } from '@mui/material';
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import { ChangeEvent, memo, useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDebouncedCallback } from 'use-debounce';
@@ -42,23 +42,35 @@ export const MyStudentsFilter = memo(() => {
         [dispatch],
     );
 
+    const handleDateChange = useCallback((newValue: Date | null, action: (date: Dayjs | null) => void) => {
+        if (!newValue) {
+            action(null);
+            return;
+        }
+
+        const date = dayjs(newValue);
+        if (date.isValid()) {
+            action(date);
+        }
+    }, []);
+
     const onChangeFromDate = useCallback(
-        (newValue: Date) => {
-            dispatch(myStudentsActions.setFromDate(dayjs(newValue)));
+        (newValue: Date | null) => {
+            handleDateChange(newValue, (date) => dispatch(myStudentsActions.setFromDate(date)));
         },
-        [dispatch],
+        [dispatch, handleDateChange],
     );
 
     const onChangeToDate = useCallback(
-        (newValue: Date) => {
-            dispatch(myStudentsActions.setToDate(dayjs(newValue)));
+        (newValue: Date | null) => {
+            handleDateChange(newValue, (date) => dispatch(myStudentsActions.setToDate(date)));
         },
-        [dispatch],
+        [dispatch, handleDateChange],
     );
 
     return (
-        <Stack spacing={2}>
-            <Stack direction="row" spacing={3}>
+        <Stack spacing={1}>
+            <Stack direction="row" spacing={2}>
                 <Box flex={1}>
                     <BaseSearch
                         label="Поиск по ФИО, группе, теме или руководителю"
@@ -84,15 +96,24 @@ export const MyStudentsFilter = memo(() => {
                     </Box>
                 )}
             </Stack>
-
-            <Stack direction="row" spacing={3}>
-                <Box flex={1}>
-                    <BaseDatePicker label="Начальная дата" value={fromDate} onChange={onChangeFromDate} />
-                </Box>
+            <Stack direction="row" spacing={2}>
+                <Stack flex={1} direction="row" spacing={1} minWidth={420}>
+                    <BaseDatePicker
+                        label="Дата защиты"
+                        startAdornment="с"
+                        value={fromDate}
+                        onChange={onChangeFromDate}
+                    />
+                    <BaseDatePicker
+                        label="Дата защиты"
+                        startAdornment="до"
+                        minDate={fromDate}
+                        value={toDate}
+                        onChange={onChangeToDate}
+                    />
+                </Stack>
                 <Box flex={1} />
-                <Box flex={1}>
-                    <BaseDatePicker label="Конечная дата" value={toDate} onChange={onChangeToDate} minDate={fromDate} />
-                </Box>
+                <Box flex={1} />
             </Stack>
         </Stack>
     );

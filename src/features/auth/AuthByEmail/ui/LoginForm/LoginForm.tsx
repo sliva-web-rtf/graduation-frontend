@@ -6,6 +6,7 @@ import { Stack } from '@mui/material';
 import { memo, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { LoginFormSchema, loginFormSchema } from '../../model/types/loginFormSchema';
+import { Agreement } from './Agreement';
 
 const LoginForm = memo(() => {
     const [auth, { isLoading, error }] = useAuthMutation();
@@ -55,6 +56,7 @@ const LoginForm = memo(() => {
                     helperText={errors.password?.message}
                 />
             </Stack>
+
             <BaseLoadingButton
                 type="submit"
                 variant="contained"
@@ -68,6 +70,7 @@ const LoginForm = memo(() => {
                 <EastIcon />
             </BaseLoadingButton>
             {error && 'message' in error && <BaseAlert severity="error">{error.message}</BaseAlert>}
+            <Agreement />
         </Stack>
     );
 });
