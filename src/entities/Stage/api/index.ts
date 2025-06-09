@@ -1,5 +1,6 @@
-import { baseApi } from '@/shared/api';
-import { CurrentStageModel, StagesDto, StagesModel } from '../model';
+import { baseApi, isApiError } from '@/shared/api';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { CopyStageRequest, CurrentStageModel, StagesDto, StagesModel } from '../model';
 
 export const stageApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
@@ -35,7 +36,23 @@ export const stageApi = baseApi.injectEndpoints({
                 };
             },
         }),
+
+        copyStage: build.mutation<void, CopyStageRequest>({
+            query: (body) => ({
+                url: '/auth',
+                method: 'POST',
+                body,
+            }),
+
+            transformErrorResponse: (error: FetchBaseQueryError) => {
+                if (isApiError(error)) {
+                    return new Error(error.data.title);
+                }
+
+                return new Error('Произошла ошибка при копировании этапа');
+            },
+        }),
     }),
 });
 
-export const { useGetStagesQuery, useGetStagesOptionsQuery, useGetCurrentStageQuery } = stageApi;
+export const { useGetStagesQuery, useGetStagesOptionsQuery, useGetCurrentStageQuery, useCopyStageMutation } = stageApi;

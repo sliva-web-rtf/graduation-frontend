@@ -24,3 +24,8 @@ export type CurrentStageModel = {
     number: number;
     amount: number;
 };
+
+export type CopyStageRequest = {
+    fromStage: string;
+    toStage: string;
+};

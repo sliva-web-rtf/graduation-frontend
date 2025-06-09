@@ -1,4 +1,4 @@
-export { stageApi, useGetCurrentStageQuery } from './api';
+export { stageApi, useCopyStageMutation, useGetCurrentStageQuery } from './api';
 export { StageAccordion } from './ui/StageAccordion';
 export { StageAccordionSkeleton } from './ui/StageAccordion.skeleton';
 export { StageProgress } from './ui/StageProgress/ui/StageProgress';

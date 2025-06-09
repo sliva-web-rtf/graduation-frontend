@@ -3,6 +3,7 @@ import { Stack } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { administrationReducer, getAdministrationData } from '../model';
 import { AdministrationOption } from '../model/types';
+import { AdministrationCopy } from './AdministrationCopy';
 import { AdministrationGlobal } from './AdministrationGlobal';
 import { AdministrationImport } from './AdministrationImport';
 import { ToggleAdministration } from './ToggleAdministration';
@@ -20,6 +21,7 @@ export const Administration = () => {
                 <ToggleAdministration />
                 {option === AdministrationOption.Global && <AdministrationGlobal />}
                 {option === AdministrationOption.Import && <AdministrationImport />}
+                {option === AdministrationOption.Copy && <AdministrationCopy />}
             </Stack>
         </DynamicModuleLoader>
     );

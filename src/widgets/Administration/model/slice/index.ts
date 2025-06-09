@@ -3,7 +3,7 @@ import { AdministrationOption, AdministrationSchema } from '../types';
 
 export const initialState: AdministrationSchema = {
     option: AdministrationOption.Global,
-    options: [AdministrationOption.Global, AdministrationOption.Import],
+    options: Object.values(AdministrationOption),
 };
 
 export const administrationSlice = createSlice({
