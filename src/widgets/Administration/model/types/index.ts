@@ -1,7 +1,6 @@
 export enum AdministrationOption {
     Global = 'Общие настройки',
-    Import = 'Импорт',
-    Copy = 'Копирование этапа',
+    Users = 'Пользователи',
 }
 
 export type AdministrationSchema = {

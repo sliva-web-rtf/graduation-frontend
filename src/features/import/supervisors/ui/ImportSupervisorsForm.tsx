@@ -9,7 +9,7 @@ export const ImportSupervisorsForm = memo(() => {
     return (
         <Stack spacing={4} width="100%">
             <Typography variant="h2">Импорт руководителей</Typography>
-            <Stack spacing={2} width="100%">
+            <Stack spacing={2}>
                 <BaseAlert severity="info">
                     Снизу указывается год для которого будет выполнен импорт руководителей
                 </BaseAlert>

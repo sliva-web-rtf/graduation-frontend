@@ -1,3 +1,4 @@
+import { Role } from '@/entities/User';
 import { StrictRecord } from '@/shared/lib/types/StrictRecord';
 
 export type PersonMainInfo = {
@@ -44,3 +45,10 @@ export const StudentStatusRus: StrictRecord<StudentStatus, string> = {
 
     getUnknown: 'Нет данных',
 } as const;
+
+export type CreatePersonRequest = {
+    fullName: string;
+    role: Role[];
+
+    academicGroup?: string;
+};

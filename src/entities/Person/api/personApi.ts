@@ -1,5 +1,7 @@
-import { baseApi } from '@/shared/api';
-import { Person, PersonRequest } from '../model/types';
+import { Role } from '@/entities/User';
+import { baseApi, isApiError } from '@/shared/api';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { CreatePersonRequest, Person, PersonRequest } from '../model/types';
 
 const personApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
@@ -22,7 +24,21 @@ const personApi = baseApi.injectEndpoints({
                     // TODO: сортировка с сервера?
                     .sort((a, b) => a.label.localeCompare(b.label)),
         }),
+        createPerson: build.mutation<void, CreatePersonRequest>({
+            query: (body) => ({
+                url: body.role.includes(Role.Student) ? `/students` : `/supervisors`,
+                method: 'POST',
+                body,
+            }),
+            transformErrorResponse: (error: FetchBaseQueryError) => {
+                if (isApiError(error)) {
+                    return new Error(error.data.title);
+                }
+
+                return new Error('Произошла ошибка при создании пользователя');
+            },
+        }),
     }),
 });
 
-export const { useGetPersonQuery, useGetSupervisorsQuery } = personApi;
+export const { useGetPersonQuery, useGetSupervisorsQuery, useCreatePersonMutation } = personApi;

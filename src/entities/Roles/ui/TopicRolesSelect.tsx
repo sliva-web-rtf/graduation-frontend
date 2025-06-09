@@ -1,5 +1,5 @@
 import { BaseSelect, BaseSelectProps } from '@/shared/ui';
-import { useGetTopicRolesQuery } from '../../api';
+import { useGetTopicRolesQuery } from '../api';
 
 type Props = Omit<BaseSelectProps, 'options'>;
 
