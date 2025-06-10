@@ -5,10 +5,12 @@ import { Logo } from '@/shared/ui';
 import { MenuBar } from '@/widgets/MenuBar';
 import { NavigationMenu } from '@/widgets/NavigationMenu';
 
+import { RoutePath } from '@/app/providers/Router';
 import { ToggleSidebarButton } from '@/features/sidebar/collapse-sidebar';
-import { Divider, Stack } from '@mui/material';
+import { Divider, Stack, Typography } from '@mui/material';
 import { memo } from 'react';
 import { useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import styles from './Sidebar.module.scss';
 
 export const Sidebar = memo(() => {
@@ -32,7 +34,19 @@ export const Sidebar = memo(() => {
                 <MenuBar expanded={expanded} />
                 <NavigationMenu expanded={expanded.toString()} />
             </Stack>
-            {isYearVisible && <LocalYearForm />}
+            <Stack spacing={2}>
+                {isYearVisible && <LocalYearForm />}
+                <Typography
+                    component={NavLink}
+                    to={RoutePath.PrivacyPolicy}
+                    color="secondary"
+                    fontWeight={600}
+                    fontSize={12}
+                    sx={{ textDecoration: 'underline' }}
+                >
+                    Политика конфиденциальности
+                </Typography>
+            </Stack>
         </Stack>
     );
 });

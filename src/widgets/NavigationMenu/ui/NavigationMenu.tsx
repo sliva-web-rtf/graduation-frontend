@@ -1,6 +1,6 @@
 import { getUserData } from '@/entities/User';
 import { BaseTab, BaseTabs, TabLabel } from '@/shared/ui';
-import { TabsProps } from '@mui/material';
+import { Stack, TabsProps } from '@mui/material';
 import { memo } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
@@ -25,7 +25,7 @@ export const NavigationMenu = memo((props: NavigationMenuProps) => {
             : `/${location.pathname.split('/')[1]}`;
 
     return (
-        <BaseTabs orientation="vertical" value={value} {...props}>
+        <BaseTabs orientation="vertical" value={value} component={Stack} {...props}>
             {tabs.map((item) => (
                 <BaseTab
                     key={item.path}

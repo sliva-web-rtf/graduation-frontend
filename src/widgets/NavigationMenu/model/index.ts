@@ -1,2 +1,2 @@
-export { clerkTabs, expertTabs, headClerkTabs, studentTabs, supervisorTabs } from './const';
+export { clerkTabs, expertTabs, headClerkTabs, sharedTabs, studentTabs, supervisorTabs } from './const';
 export { type Tab } from './types';

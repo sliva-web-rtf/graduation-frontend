@@ -13,6 +13,7 @@ import { MyDiplomPage } from '@/pages/MyDiplomPage';
 import { MyStudentsPage } from '@/pages/MyStudentsPage';
 import { MyTopicsPage } from '@/pages/MyTopicsPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
+import { PrivacyPolicyPage } from '@/pages/PrivacyPolicyPage';
 import { ProfilePage } from '@/pages/ProfilePage';
 import { RequestsPage } from '@/pages/RequestsPage';
 import { StudentPage } from '@/pages/StudentPage';
@@ -47,6 +48,7 @@ export enum AppRoutes {
     EditComission = 'EditComission',
     CreateTopic = 'CreateTopic',
     Administration = 'Administration',
+    PrivacyPolicy = 'PrivacyPolicy',
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
@@ -67,6 +69,7 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.EditComission]: '/commissions/edit/:id',
     [AppRoutes.CreateTopic]: '/create-topic',
     [AppRoutes.Catalog]: '/catalog',
+    [AppRoutes.PrivacyPolicy]: '/privacy',
     [AppRoutes.Forbidden]: '/forbidden',
     [AppRoutes.NotFound]: '*',
 };
@@ -174,6 +177,11 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         element: <AdminPage />,
         ...withLayoutAndAuth,
         roles: [Role.Admin, Role.HeadSecretary],
+    },
+    [AppRoutes.PrivacyPolicy]: {
+        path: RoutePath.PrivacyPolicy,
+        element: <PrivacyPolicyPage />,
+        hasLayout: true,
     },
     [AppRoutes.Forbidden]: {
         path: RoutePath.Forbidden,
