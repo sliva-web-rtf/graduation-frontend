@@ -1,6 +1,7 @@
 import { RoutePath } from '@/app/providers/Router';
 import { StudentStatus, StudentStatusRus } from '@/entities/Person';
 import { TopicStatus, TopicStatusRus } from '@/entities/Topic';
+import { DOCUMENTS } from '@/shared/lib/const';
 import {
     DocumentStatus,
     DocumentStatusRus,
@@ -43,14 +44,6 @@ const multilineColumn: GridColTypeDef = {
     renderEditCell: (params) => <RenderEditTextareaCell {...params} />,
 };
 
-const DOCUMENTS = [
-    'Заявление',
-    'Задание',
-    'Пояснительная записка',
-    'Публичная оферта',
-    'Справка о наличии заимствовании',
-    'Акт о внедрении',
-] as const;
 const documentsColumns: GridColDef[] = DOCUMENTS.map((doc) => ({
     headerName: doc,
     field: `documents[${doc}]`,

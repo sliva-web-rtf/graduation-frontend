@@ -30,14 +30,7 @@ const LoginForm = memo(() => {
     );
 
     return (
-        <Stack
-            spacing={3}
-            justifyContent="center"
-            alignItems="center"
-            width="100%"
-            component="form"
-            onSubmit={handleSubmit(onSubmitHandler)}
-        >
+        <Stack spacing={3} justifyContent="center" alignItems="center" width="100%">
             <Stack spacing={2} width="100%">
                 <BaseField
                     autoFocus
@@ -58,8 +51,8 @@ const LoginForm = memo(() => {
             </Stack>
 
             <BaseLoadingButton
-                type="submit"
                 variant="contained"
+                onClick={handleSubmit(onSubmitHandler)}
                 disabled={!isValid}
                 loading={isLoading}
                 sx={(theme) => ({

@@ -23,6 +23,8 @@ import { SetDefenceDateButton } from './SetDefenceDateButton';
 type StudentsTableProps = DataGridProps & {
     stage: string;
     onContextMenu: (event: React.MouseEvent) => void;
+
+    editable?: boolean;
 };
 
 function isKeyboardEvent(event: any): event is KeyboardEvent {
@@ -67,9 +69,9 @@ const CustomFooter = () => {
 };
 
 export const MyStudentsTable = (props: StudentsTableProps) => {
+    const { stage, onContextMenu, editable = false, ...dataGridProps } = props;
     const { showSnackbar, Snackbar } = useSnackbar();
     const [editStudentRow] = useEditStudentRowMutation();
-    const { stage, onContextMenu, ...dataGridProps } = props;
 
     const handleCellEditStop = useCallback((params: GridCellEditStopParams, event: MuiEvent<MuiBaseEvent>) => {
         if (params.reason !== GridCellEditStopReasons.enterKeyDown) {
@@ -118,6 +120,10 @@ export const MyStudentsTable = (props: StudentsTableProps) => {
                     onProcessRowUpdateError={handleRowUpdateError}
                     onCellEditStop={handleCellEditStop}
                     isCellEditable={(params) => {
+                        if (!editable) {
+                            return false;
+                        }
+
                         const { field, value, colDef } = params;
                         if (field === 'topic' && (value === null || value === undefined)) {
                             return false;

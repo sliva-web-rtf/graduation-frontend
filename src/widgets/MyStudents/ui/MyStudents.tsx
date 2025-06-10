@@ -15,11 +15,16 @@ import { ContextMenu } from './ContextMenu';
 import { MyStudentsFilter } from './MyStudentsFilter';
 import { MyStudentsTable } from './MyStudentsTable';
 
+type MyStudentsProps = {
+    editable?: boolean;
+};
+
 const initialReducers: ReducersList = {
     myStudents: myStudentsReducer,
 };
 
-export const MyStudents = () => {
+export const MyStudents = (props: MyStudentsProps) => {
+    const { editable } = props;
     const dispatch = useAppDispatch();
     const { handleContextMenu, handleClose, menuProps } = useContextMenu();
     const { stage, query, commissions, selectedStudents, fromDate, toDate } = useSelector(getMyStudentsState);
@@ -83,6 +88,7 @@ export const MyStudents = () => {
                     />
                 ) : (
                     <MyStudentsTable
+                        editable={editable}
                         loading={isLoading || isCurrentStageLoading}
                         stage={stage}
                         columns={columns}

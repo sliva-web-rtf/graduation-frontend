@@ -59,7 +59,9 @@ export const StageAccordion = (props: StageAccordionProps) => {
             </AccordionSummary>
             <AccordionDetails>
                 <Stack spacing={2}>
-                    {comments?.map((comment) => <CommentCard text={comment.text} label={comment.label} />)}
+                    {comments?.map((comment, index) => (
+                        <CommentCard key={`${stage}-comment-${index}`} text={comment.text} label={comment.label} />
+                    ))}
                 </Stack>
             </AccordionDetails>
         </StyledAccordion>

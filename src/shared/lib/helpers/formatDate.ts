@@ -1,11 +1,7 @@
-export const formatDate = (date?: Date, withTime = true) =>
-    date
-        ? new Intl.DateTimeFormat('ru-RU', {
-              day: 'numeric',
-              month: 'long',
-              year: 'numeric',
-              ...(withTime && { hour: '2-digit', minute: '2-digit' }),
-          })
-              .format(date)
-              .replace(/\sг\.,?/, '')
-        : null;
+import dayjs from 'dayjs';
+
+export const formatDate = (date?: Date, withTime = true) => {
+    const format = withTime ? 'DD MMM YYYY HH:mm' : 'DD MMM YYYY';
+
+    return date ? dayjs(date).locale('ru').format(format) : null;
+};

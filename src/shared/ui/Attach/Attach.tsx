@@ -11,24 +11,16 @@ export const StyledAttach = styled(MuiFileInput)<MuiFileInputProps>(({ theme }) 
         color: theme.palette.primary.main,
         padding: `${theme.spacing(3)} ${theme.spacing(2)}`,
         cursor: 'pointer',
+        borderColor: theme.palette.primary.main,
+        borderStyle: 'dashed',
+
+        '&::before, &::after': {
+            display: 'none',
+        },
     },
     span: {
         cursor: 'pointer',
         fontWeight: 500,
-    },
-    '.MuiOutlinedInput-notchedOutline': {
-        borderColor: theme.palette.primary.main,
-        borderStyle: 'dashed',
-    },
-    '&:hover .MuiOutlinedInput-notchedOutline': {
-        borderColor: '#1e88e5 !important',
-    },
-
-    '&:hover .Mui-error .MuiOutlinedInput-notchedOutline': {
-        borderColor: `${theme.palette.error.main} !important`,
-    },
-    '&:hover .Mui-error.Mui-focused .MuiOutlinedInput-notchedOutline': {
-        borderColor: `${theme.palette.error.main} !important`,
     },
 }));
 

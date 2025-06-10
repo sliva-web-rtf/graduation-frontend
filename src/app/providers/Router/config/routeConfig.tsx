@@ -16,6 +16,7 @@ import { NotFoundPage } from '@/pages/NotFoundPage';
 import { PrivacyPolicyPage } from '@/pages/PrivacyPolicyPage';
 import { ProfilePage } from '@/pages/ProfilePage';
 import { RequestsPage } from '@/pages/RequestsPage';
+import { StagesPage } from '@/pages/StagesPage';
 import { StudentPage } from '@/pages/StudentPage';
 import { SupervisorPage } from '@/pages/SupervisorPage';
 import { TopicPage } from '@/pages/TopicPage';
@@ -43,6 +44,7 @@ export enum AppRoutes {
     MyTopics = 'MyTopics',
     MyTopic = 'MyTopic',
     MyStudents = 'MyStudents',
+    Stages = 'Stages',
     Commissions = 'Commissions',
     CreateComission = 'CreateComission',
     EditComission = 'EditComission',
@@ -64,6 +66,7 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.MyTopics]: '/my-topics',
     [AppRoutes.MyTopic]: '/my-topics/:id',
     [AppRoutes.MyStudents]: '/my-students',
+    [AppRoutes.Stages]: '/stages',
     [AppRoutes.Commissions]: '/commissions',
     [AppRoutes.CreateComission]: '/commissions/create',
     [AppRoutes.EditComission]: '/commissions/edit/:id',
@@ -170,7 +173,13 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         path: RoutePath.MyStudents,
         element: <MyStudentsPage />,
         ...withLayoutAndAuth,
-        roles: [Role.Admin, Role.HeadSecretary, Role.Secretary, Role.Expert],
+        roles: [Role.Supervisor],
+    },
+    [AppRoutes.Stages]: {
+        path: RoutePath.Stages,
+        element: <StagesPage />,
+        ...withLayoutAndAuth,
+        roles: [Role.Expert, Role.HeadSecretary, Role.Secretary, Role.Expert],
     },
     [AppRoutes.Administration]: {
         path: RoutePath.Administration,
@@ -181,7 +190,6 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     [AppRoutes.PrivacyPolicy]: {
         path: RoutePath.PrivacyPolicy,
         element: <PrivacyPolicyPage />,
-        hasLayout: true,
     },
     [AppRoutes.Forbidden]: {
         path: RoutePath.Forbidden,

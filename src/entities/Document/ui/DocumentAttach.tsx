@@ -28,8 +28,8 @@ export const DocumentAttach = (props: DocumentAttachProps) => {
             <Stack direction="row" spacing={2} justifyContent="space-between" alignItems="center">
                 <Stack direction="row" spacing={1} alignItems="center">
                     <DescriptionOutlinedIcon color={color} fontSize="large" />
-                    <Stack>
-                        <Typography>{name}</Typography>
+                    <Stack spacing={0.5}>
+                        <Typography lineHeight={1.1}>{name}</Typography>
                         <Typography color="secondary" variant="subtitle2">
                             {formatDate(uploadDate) || 'Не загружено'}
                         </Typography>

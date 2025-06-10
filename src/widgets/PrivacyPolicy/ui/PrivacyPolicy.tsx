@@ -1,6 +1,11 @@
 import { Stack, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from '@mui/material';
+import { useEffect } from 'react';
 
 export const PrivacyPolicy = () => {
+    useEffect(() => {
+        window.scroll(0, 0);
+    }, []);
+
     return (
         <Stack spacing={8}>
             <Stack spacing={2}>

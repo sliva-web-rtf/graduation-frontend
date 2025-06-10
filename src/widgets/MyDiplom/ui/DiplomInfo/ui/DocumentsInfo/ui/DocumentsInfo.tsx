@@ -1,4 +1,5 @@
 import { DocumentAttach } from '@/entities/Document';
+import { DOCUMENTS } from '@/shared/lib/const';
 import { BaseAlert, InfoCard } from '@/shared/ui';
 import { Paper, Stack } from '@mui/material';
 
@@ -7,6 +8,7 @@ type TopicDocsProps = {
     editable?: boolean;
 };
 
+const documents = ['Справка о соответствии содержания ВКР требованиям по безопасности информации', ...DOCUMENTS];
 export const DocumentsInfo = (props: TopicDocsProps) => {
     const { formattingReviewerName, editable = false } = props;
 
@@ -17,10 +19,9 @@ export const DocumentsInfo = (props: TopicDocsProps) => {
                 <BaseAlert severity="warning">
                     Раздел &quot;Документы&quot; в разработке, загрузить/скачать не получится
                 </BaseAlert>
-                <DocumentAttach name="Пояснительная записка" uploadDate={new Date(Date.now())} editable={editable} />
-                <DocumentAttach name="Авторский договор" editable={editable} />
-                <DocumentAttach name="Отзыв руководителя" uploadDate={new Date(Date.now())} editable={editable} />
-                <DocumentAttach name="NDA" editable={editable} />
+                {documents.map((doc) => (
+                    <DocumentAttach key={doc} name={doc} editable={editable} uploadDate={new Date(Date.now())} />
+                ))}
             </Stack>
         </Stack>
     );
