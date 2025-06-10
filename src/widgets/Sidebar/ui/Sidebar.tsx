@@ -36,16 +36,18 @@ export const Sidebar = memo(() => {
             </Stack>
             <Stack spacing={2}>
                 {isYearVisible && <LocalYearForm />}
-                <Typography
-                    component={NavLink}
-                    to={RoutePath.PrivacyPolicy}
-                    color="secondary"
-                    fontWeight={600}
-                    fontSize={12}
-                    sx={{ textDecoration: 'underline' }}
-                >
-                    Политика конфиденциальности
-                </Typography>
+                {expanded && (
+                    <Typography
+                        component={NavLink}
+                        to={RoutePath.PrivacyPolicy}
+                        color="secondary"
+                        fontWeight={600}
+                        fontSize={12}
+                        sx={{ textDecoration: 'underline' }}
+                    >
+                        Политика конфиденциальности
+                    </Typography>
+                )}
             </Stack>
         </Stack>
     );
