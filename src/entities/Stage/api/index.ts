@@ -39,9 +39,9 @@ export const stageApi = baseApi.injectEndpoints({
 
         copyStage: build.mutation<void, CopyStageRequest>({
             query: (body) => ({
-                url: '/auth',
+                url: '/qualification-works/copy-stage-data',
                 method: 'POST',
-                body,
+                params: body,
             }),
 
             transformErrorResponse: (error: FetchBaseQueryError) => {

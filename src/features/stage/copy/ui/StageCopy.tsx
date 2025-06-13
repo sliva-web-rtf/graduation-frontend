@@ -8,10 +8,10 @@ import { StageCopyModal } from './StageCopyModal';
 
 export const StageCopy = memo(() => {
     const [open, setOpen] = useState(false);
-    const [fromStage, setFromStage] = useState<string | null>(null);
-    const [toStage, setToStage] = useState<string | null>(null);
+    const [stageFrom, setFromStage] = useState<string | null>(null);
+    const [stageTo, setToStage] = useState<string | null>(null);
 
-    const isCopyDisabled = !fromStage || !toStage || fromStage === toStage;
+    const isCopyDisabled = !stageFrom || !stageTo || stageFrom === stageTo;
 
     const handleChangeFromStage = (e: SelectChangeEvent<any>) => {
         setFromStage(e.target.value);
@@ -36,14 +36,14 @@ export const StageCopy = memo(() => {
                     <StageSelect
                         label="Исходный этап"
                         helperText="Из какого этапа копировать"
-                        value={fromStage}
+                        value={stageFrom}
                         onChange={handleChangeFromStage}
                     />
                     <ArrowCircleRightOutlinedIcon color="primary" sx={{ position: 'relative', top: '-10px' }} />
                     <StageSelect
                         label="Целевой этап"
                         helperText="В какой этап копировать"
-                        value={toStage}
+                        value={stageTo}
                         onChange={handleChangeToStage}
                     />
                 </Stack>
@@ -59,8 +59,8 @@ export const StageCopy = memo(() => {
             <StageCopyModal
                 open={open}
                 onClose={handleCloseModal}
-                fromStage={fromStage}
-                toStage={toStage}
+                stageFrom={stageFrom}
+                stageTo={stageTo}
                 disabled={isCopyDisabled}
             />
         </>

@@ -8,7 +8,7 @@ export const getHomePageByRole = (role: Role): RoutePathType => {
         case Role.HeadSecretary:
         case Role.Secretary:
         case Role.Expert:
-            return RoutePath.MyStudents;
+            return RoutePath.Stages;
         case Role.Supervisor:
             return RoutePath.MyTopics;
         case Role.Student:

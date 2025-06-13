@@ -47,8 +47,13 @@ export const StudentStatusRus: StrictRecord<StudentStatus, string> = {
 } as const;
 
 export type CreatePersonRequest = {
-    fullName: string;
-    role: Role[];
+    firstName: string;
+    lastName: string;
+    roles: Role[];
+    password: string;
+    year: string;
 
-    academicGroup?: string;
+    supervisorLimits?: number;
+    patronymic?: string;
+    academicGroupId?: string;
 };

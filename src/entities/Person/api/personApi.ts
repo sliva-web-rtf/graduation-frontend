@@ -1,4 +1,3 @@
-import { Role } from '@/entities/User';
 import { baseApi, isApiError } from '@/shared/api';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { CreatePersonRequest, Person, PersonRequest } from '../model/types';
@@ -26,7 +25,7 @@ const personApi = baseApi.injectEndpoints({
         }),
         createPerson: build.mutation<void, CreatePersonRequest>({
             query: (body) => ({
-                url: body.role.includes(Role.Student) ? `/students` : `/supervisors`,
+                url: '/users',
                 method: 'POST',
                 body,
             }),

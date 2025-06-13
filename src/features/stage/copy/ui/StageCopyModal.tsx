@@ -8,22 +8,22 @@ import { Stack, Typography } from '@mui/material';
 type StageCopyModalProps = {
     open: boolean;
     onClose: () => void;
-    fromStage: string | null;
-    toStage: string | null;
+    stageFrom: string | null;
+    stageTo: string | null;
     disabled: boolean;
 };
 
 export const StageCopyModal = (props: StageCopyModalProps) => {
-    const { open, onClose, fromStage, toStage, disabled } = props;
+    const { open, onClose, stageFrom, stageTo, disabled } = props;
 
     const [copyStage, { isLoading }] = useCopyStageMutation();
     const { showSnackbar, Snackbar } = useSnackbar();
 
-    const fromText = ` ${fromStage || 'не выбран'} `;
-    const toText = ` ${toStage || 'не выбран'} `;
+    const fromText = ` ${stageFrom || 'не выбран'} `;
+    const toText = ` ${stageTo || 'не выбран'} `;
 
     const handleCopy = () => {
-        copyStage({ fromStage: fromStage!, toStage: toStage! })
+        copyStage({ stageFrom: stageFrom!, stageTo: stageTo! })
             .unwrap()
             .then(() => {
                 showSnackbar('success', 'Данные успешно скопированы');

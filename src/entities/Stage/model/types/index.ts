@@ -26,6 +26,6 @@ export type CurrentStageModel = {
 };
 
 export type CopyStageRequest = {
-    fromStage: string;
-    toStage: string;
+    stageFrom: string;
+    stageTo: string;
 };
